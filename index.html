@@ -13,7 +13,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nu - Consulta Bet</title>
+    <title>Nu - Consulta Bet & IPs</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
     <style>
@@ -35,6 +35,28 @@
             backdrop-filter: blur(10px);
             border: 1px solid rgba(188, 19, 254, 0.2);
         }
+        .tab-btn {
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid transparent;
+        }
+        .tab-active {
+            background: rgba(188, 19, 254, 0.2);
+            border-color: #bc13fe;
+            color: #ffffff;
+            box-shadow: 0 0 12px rgba(188, 19, 254, 0.4);
+        }
+        .tab-inactive {
+            color: #8e8e93;
+            background: rgba(255, 255, 255, 0.03);
+        }
+        .tab-inactive:hover {
+            color: #d1a5ff;
+        }
         #slackModal, #historicoModal {
             display: none;
             position: fixed;
@@ -49,13 +71,23 @@
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col items-center p-6 pt-12">
+<body class="min-h-screen flex flex-col items-center p-6 pt-10">
 
-    <!-- Header Enxuto e Limpo -->
-    <header class="text-center mb-8">
+    <!-- Header Enxuto -->
+    <header class="text-center mb-6">
         <h1 class="text-6xl font-bold neon-purple uppercase italic tracking-tighter">Nu - Consulta Bet</h1>
-        <p class="text-gray-400 mt-2 text-lg">Verifique se uma plataforma de apostas está autorizada pelo Governo Federal.</p>
+        <p class="text-gray-400 mt-2 text-lg">Consulta Unificada de Casas de Apostas e Instituições de Pagamento.</p>
     </header>
+
+    <!-- Seletor de Abas (Tabs) -->
+    <div class="flex gap-4 mb-6">
+        <button id="tabBetsBtn" onclick="trocarAba('bets')" class="tab-btn tab-active">
+            🎰 Casas de Apostas (SPA/MF)
+        </button>
+        <button id="tabIpsBtn" onclick="trocarAba('ips')" class="tab-btn tab-inactive">
+            🏦 Instituições de Pagamento (BCB)
+        </button>
+    </div>
 
     <!-- Campo de Busca Principal -->
     <div class="w-full max-w-2xl">
@@ -75,20 +107,18 @@
     <!-- Área do Resultado da Pesquisa -->
     <div id="resultArea" class="w-full max-w-2xl mt-8"></div>
 
-    <!-- Seção de Informações da Base e Histórico (No rodapé) -->
+    <!-- Seção de Informações da Base e Histórico -->
     <div class="text-center my-10 max-w-2xl">
-        <!-- Cápsula Neon Arredondada -->
-        <div style="display: inline-block; padding: 6px 18px; border: 1px solid #8a3ee5; border-radius: 50px; background-color: rgba(138, 62, 229, 0.1); color: #d1a5ff; font-size: 0.8rem; font-weight: 500; letter-spacing: 0.5px; box-shadow: 0 0 12px rgba(138, 62, 229, 0.3); text-transform: uppercase;">
+        <div id="pillInfo" style="display: inline-block; padding: 6px 18px; border: 1px solid #8a3ee5; border-radius: 50px; background-color: rgba(138, 62, 229, 0.1); color: #d1a5ff; font-size: 0.8rem; font-weight: 500; letter-spacing: 0.5px; box-shadow: 0 0 12px rgba(138, 62, 229, 0.3); text-transform: uppercase;">
             Lista publicada em 20/07/2026, com atualização no site oficial em 14/08/2026
         </div>
 
-        <!-- Fonte Oficial e Botão de Comparação -->
         <div class="flex items-center justify-center gap-4 mt-3 text-xs">
             <span class="text-gray-500">
-                Fonte: <a href="https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas" target="_blank" rel="noopener noreferrer" style="color: #a855f7; text-decoration: underline;">Governo Federal</a>
+                Fonte: <a id="linkFonte" href="https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas" target="_blank" rel="noopener noreferrer" style="color: #a855f7; text-decoration: underline;">Governo Federal (SPA/MF)</a>
             </span>
-            <span class="text-gray-700">•</span>
-            <button onclick="abrirModalHistorico()" style="color: #bc13fe; font-weight: bold; cursor: pointer; background: none; border: none; text-shadow: 0 0 8px rgba(188, 19, 254, 0.4);" class="hover:underline">
+            <span id="divisorFonte" class="text-gray-700">•</span>
+            <button id="btnHistorico" onclick="abrirModalHistorico()" style="color: #bc13fe; font-weight: bold; cursor: pointer; background: none; border: none; text-shadow: 0 0 8px rgba(188, 19, 254, 0.4);" class="hover:underline">
                 🔄 Ver o que mudou na última atualização
             </button>
         </div>
@@ -112,16 +142,12 @@
         </div>
     </div>
 
-    <!-- Modal do Histórico de Mudanças (Changelog) -->
+    <!-- Modal do Histórico de Mudanças -->
     <div id="historicoModal" onclick="fecharModalHistorico()">
         <div class="glass-card p-8 rounded-3xl max-w-lg w-full text-left neon-border-input" onclick="event.stopPropagation()">
-            <h3 class="text-2xl font-bold mb-1 text-purple-400">📊 Relatório de Alterações</h3>
+            <h3 class="text-2xl font-bold mb-1 text-purple-400">📊 Relatório de Alterações (Bets)</h3>
             <p id="dataRelatorio" class="text-xs text-gray-400 mb-6 uppercase tracking-wider"></p>
-
-            <div id="conteudoHistorico" class="space-y-4 max-h-80 overflow-y-auto pr-2">
-                <!-- Conteúdo dinâmico via JS -->
-            </div>
-
+            <div id="conteudoHistorico" class="space-y-4 max-h-80 overflow-y-auto pr-2"></div>
             <div class="mt-8 text-right">
                 <button onclick="fecharModalHistorico()" class="bg-purple-600 hover:bg-purple-500 text-white px-6 py-2 rounded-lg font-bold transition-all">Fechar</button>
             </div>
@@ -129,29 +155,65 @@
     </div>
 
     <script>
-        let baseDados = [];
+        let abaAtiva = 'bets';
+        let baseBets = [];
+        let baseIps = [];
 
-        // Foco automático no input ao carregar a página
         window.addEventListener('DOMContentLoaded', () => {
             const inputElement = document.getElementById('searchInput');
-            if (inputElement) {
-                inputElement.focus();
-            }
+            if (inputElement) inputElement.focus();
         });
 
-        // Carregar JSON de forma Híbrida (Suporta Array Tradicional e JSONL)
+        // Carregar Base de Bets
         fetch('dados.json?t=' + new Date().getTime())
             .then(res => res.text())
             .then(text => {
                 try {
-                    // Tenta ler como um JSON tradicional []
-                    baseDados = JSON.parse(text);
+                    baseBets = JSON.parse(text);
                 } catch (e) {
-                    // Se falhar, lê como JSONL (linhas separadas)
-                    baseDados = text.trim().split('\n').filter(line => line.strip !== "").map(line => JSON.parse(line));
+                    baseBets = text.trim().split('\n').filter(l => l.trim() !== "").map(line => JSON.parse(line));
                 }
-            })
-            .catch(err => console.error("Erro ao carregar dados.json:", err));
+            });
+
+        // Carregar Base de IPs (Banco Central)
+        fetch('ips.json?t=' + new Date().getTime())
+            .then(res => res.json())
+            .then(data => baseIps = data)
+            .catch(err => console.error("Aviso: ips.json ainda não gerado.", err));
+
+        function trocarAba(aba) {
+            abaAtiva = aba;
+            document.getElementById('resultArea').innerHTML = "";
+            document.getElementById('searchInput').value = "";
+            document.getElementById('searchInput').focus();
+
+            const btnBets = document.getElementById('tabBetsBtn');
+            const btnIps = document.getElementById('tabIpsBtn');
+            const pillInfo = document.getElementById('pillInfo');
+            const linkFonte = document.getElementById('linkFonte');
+            const btnHistorico = document.getElementById('btnHistorico');
+            const divisor = document.getElementById('divisorFonte');
+
+            if (aba === 'bets') {
+                btnBets.className = "tab-btn tab-active";
+                btnIps.className = "tab-btn tab-inactive";
+                document.getElementById('searchInput').placeholder = "Digite a marca (ex: Bet365) ou CNPJ...";
+                pillInfo.innerText = "LISTA PUBLICADA EM 20/07/2026, COM ATUALIZAÇÃO NO SITE OFICIAL EM 14/08/2026";
+                linkFonte.innerText = "Governo Federal (SPA/MF)";
+                linkFonte.href = "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas";
+                btnHistorico.style.display = "inline-block";
+                divisor.style.display = "inline-block";
+            } else {
+                btnIps.className = "tab-btn tab-active";
+                btnBets.className = "tab-btn tab-inactive";
+                document.getElementById('searchInput').placeholder = "Digite a Razão Social ou CNPJ da IP...";
+                pillInfo.innerText = "AUTORIZADAS A FUNCIONAR PELO BANCO CENTRAL (BCB) • RESOLUÇÃO BCB Nº 494";
+                linkFonte.innerText = "Banco Central do Brasil (Olinda BCB)";
+                linkFonte.href = "https://www.bcb.gov.br/";
+                btnHistorico.style.display = "none";
+                divisor.style.display = "none";
+            }
+        }
 
         function normalize(txt) {
             return txt ? txt.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^\w]/g, '') : '';
@@ -167,40 +229,61 @@
                 return;
             }
 
-            const resultado = baseDados.find(item => {
-                const marcasLimpas = normalize(item.marcas || '');
-                const cnpjLimpo = normalize(item.cnpj || '');
-                const razaoLimpa = normalize(item.razao_social || '');
+            if (abaAtiva === 'bets') {
+                const resultado = baseBets.find(item => {
+                    const marcasLimpas = normalize(item.marcas || '');
+                    const cnpjLimpo = normalize(item.cnpj || '');
+                    const razaoLimpa = normalize(item.razao_social || '');
+                    return marcasLimpas.includes(queryLimpa) || cnpjLimpo.includes(queryLimpa) || razaoLimpa.includes(queryLimpa);
+                });
 
-                return marcasLimpas.includes(queryLimpa) || 
-                       cnpjLimpo.includes(queryLimpa) || 
-                       razaoLimpa.includes(queryLimpa);
-            });
-
-            if (resultado) {
-                container.innerHTML = `
-                    <div class="glass-card p-8 rounded-3xl border-l-8 border-green-500 animate-in fade-in duration-500">
-                        <span class="bg-green-500 text-black px-3 py-1 rounded-md text-xs font-bold uppercase">Regulamentada</span>
-                        <h2 class="text-4xl font-bold mt-4 text-white uppercase">${resultado.razao_social}</h2>
-                        <p class="text-gray-500 text-xl mb-6">CNPJ: ${resultado.cnpj}</p>
-                        
-                        <div class="border-t border-gray-800 pt-6">
-                            <p class="text-purple-400 font-bold uppercase text-sm tracking-widest mb-1">Portaria de Autorização:</p>
-                            <p class="text-white text-2xl font-bold">${resultado.portaria}</p>
-                        </div>
-                        
-                        <div class="mt-6">
-                            <p class="text-gray-600 text-sm italic">Marcas: ${resultado.marcas || 'N/A'}</p>
-                        </div>
-                    </div>
-                `;
+                if (resultado) {
+                    container.innerHTML = `
+                        <div class="glass-card p-8 rounded-3xl border-l-8 border-green-500 animate-in fade-in duration-500">
+                            <span class="bg-green-500 text-black px-3 py-1 rounded-md text-xs font-bold uppercase">Regulamentada (Bet)</span>
+                            <h2 class="text-4xl font-bold mt-4 text-white uppercase">${resultado.razao_social}</h2>
+                            <p class="text-gray-500 text-xl mb-6">CNPJ: ${resultado.cnpj}</p>
+                            <div class="border-t border-gray-800 pt-6">
+                                <p class="text-purple-400 font-bold uppercase text-sm tracking-widest mb-1">Portaria de Autorização:</p>
+                                <p class="text-white text-2xl font-bold">${resultado.portaria}</p>
+                            </div>
+                            <div class="mt-6">
+                                <p class="text-gray-600 text-sm italic">Marcas: ${resultado.marcas || 'N/A'}</p>
+                            </div>
+                        </div>`;
+                } else {
+                    container.innerHTML = `
+                        <div class="glass-card p-8 rounded-3xl border-l-8 border-red-600 text-center">
+                            <h2 class="text-2xl font-bold text-red-500 mb-2">NÃO LOCALIZADA</h2>
+                            <p class="text-gray-400 italic">Essa plataforma não consta na lista de autorizadas pela SPA/MF.</p>
+                        </div>`;
+                }
             } else {
-                container.innerHTML = `
-                    <div class="glass-card p-8 rounded-3xl border-l-8 border-red-600 text-center">
-                        <h2 class="text-2xl font-bold text-red-500 mb-2">NÃO LOCALIZADA</h2>
-                        <p class="text-gray-400 italic">Essa plataforma não consta como regulamentada para a data de referência.</p>
-                    </div>
-                `;
+                // Busca em IPs (Banco Central)
+                const resultado = baseIps.find(item => {
+                    const nomeLimpo = normalize(item.nome || '');
+                    const cnpjLimpo = normalize(item.cnpj || '');
+                    return nomeLimpo.includes(queryLimpa) || cnpjLimpo.includes(queryLimpa);
+                });
+
+                if (resultado) {
+                    container.innerHTML = `
+                        <div class="glass-card p-8 rounded-3xl border-l-8 border-green-500 animate-in fade-in duration-500">
+                            <span class="bg-green-500 text-black px-3 py-1 rounded-md text-xs font-bold uppercase">IP Autorizada pelo BCB</span>
+                            <h2 class="text-3xl font-bold mt-4 text-white uppercase">${resultado.nome}</h2>
+                            <p class="text-gray-400 text-xl mb-4">CNPJ: ${resultado.cnpj}</p>
+                            <div class="border-t border-gray-800 pt-4 mt-4">
+                                <p class="text-purple-400 font-bold uppercase text-xs tracking-widest mb-1">Município / Sede:</p>
+                                <p class="text-white text-lg font-bold">${resultado.municipio || 'N/A'}</p>
+                            </div>
+                        </div>`;
+                } else {
+                    container.innerHTML = `
+                        <div class="glass-card p-8 rounded-3xl border-l-8 border-red-600 text-center">
+                            <h2 class="text-2xl font-bold text-red-500 mb-2">NÃO LOCALIZADA NO BANCO CENTRAL</h2>
+                            <p class="text-gray-400 italic">Esta Instituição de Pagamento não consta na base de autorizadas do BCB (Resolução BCB nº 494).</p>
+                        </div>`;
+                }
             }
         }
 
@@ -216,54 +299,27 @@
             dataElement.innerText = "CONSULTANDO HISTÓRICO...";
 
             fetch('historico.json?t=' + new Date().getTime())
-                .then(res => {
-                    if (!res.ok) throw new Error("Erro ao carregar");
-                    return res.json();
-                })
+                .then(res => res.json())
                 .then(data => {
                     dataElement.innerText = `ÚLTIMA VERIFICAÇÃO: ${data.data || '14/08/2026'}`;
-                    
                     let html = '';
                     const adicionadas = data.adicionadas || [];
                     const removidas = data.removidas || [];
 
                     if (adicionadas.length > 0) {
-                        html += `
-                            <div class="p-4 rounded-xl bg-green-950/40 border border-green-500/40 mb-3">
-                                <p class="text-green-400 font-bold text-sm mb-2">🟢 +${adicionadas.length} Empresa(s) Adicionada(s):</p>
-                                <ul class="text-xs text-gray-200 list-disc list-inside space-y-1">
-                                    ${adicionadas.map(item => `<li>${item}</li>`).join('')}
-                                </ul>
-                            </div>`;
+                        html += `<div class="p-4 rounded-xl bg-green-950/40 border border-green-500/40 mb-3"><p class="text-green-400 font-bold text-sm mb-2">🟢 +${adicionadas.length} Empresa(s) Adicionada(s):</p><ul class="text-xs text-gray-200 list-disc list-inside space-y-1">${adicionadas.map(i => `<li>${i}</li>`).join('')}</ul></div>`;
                     }
-
                     if (removidas.length > 0) {
-                        html += `
-                            <div class="p-4 rounded-xl bg-red-950/40 border border-red-500/40 mb-3">
-                                <p class="text-red-400 font-bold text-sm mb-2">🔴 -${removidas.length} Empresa(s) Removida(s):</p>
-                                <ul class="text-xs text-gray-200 list-disc list-inside space-y-1">
-                                    ${removidas.map(item => `<li>${item}</li>`).join('')}
-                                </ul>
-                            </div>`;
+                        html += `<div class="p-4 rounded-xl bg-red-950/40 border border-red-500/40 mb-3"><p class="text-red-400 font-bold text-sm mb-2">🔴 -${removidas.length} Empresa(s) Removida(s):</p><ul class="text-xs text-gray-200 list-disc list-inside space-y-1">${removidas.map(i => `<li>${i}</li>`).join('')}</ul></div>`;
                     }
-
                     if (adicionadas.length === 0 && removidas.length === 0) {
-                        html = `
-                            <div class="p-4 rounded-xl bg-purple-950/30 border border-purple-500/30 text-center py-6">
-                                <p class="text-purple-300 font-bold text-sm">✅ Nenhuma alteração identificada</p>
-                                <p class="text-xs text-gray-400 mt-1">A lista oficial do Governo permanece idêntica à verificação anterior.</p>
-                            </div>`;
+                        html = `<div class="p-4 rounded-xl bg-purple-950/30 border border-purple-500/30 text-center py-6"><p class="text-purple-300 font-bold text-sm">✅ Nenhuma alteração identificada</p><p class="text-xs text-gray-400 mt-1">A lista oficial do Governo permanece idêntica à verificação anterior.</p></div>`;
                     }
-
                     container.innerHTML = html;
                 })
                 .catch(() => {
                     dataElement.innerText = "ÚLTIMA VERIFICAÇÃO: 14/08/2026";
-                    container.innerHTML = `
-                        <div class="p-4 rounded-xl bg-purple-950/30 border border-purple-500/30 text-center py-6">
-                            <p class="text-purple-300 font-bold text-sm">✅ Nenhuma alteração identificada</p>
-                            <p class="text-xs text-gray-400 mt-1">A lista oficial do Governo permanece idêntica à verificação anterior.</p>
-                        </div>`;
+                    container.innerHTML = `<div class="p-4 rounded-xl bg-purple-950/30 border border-purple-500/30 text-center py-6"><p class="text-purple-300 font-bold text-sm">✅ Nenhuma alteração identificada</p><p class="text-xs text-gray-400 mt-1">A lista oficial do Governo permanece idêntica à verificação anterior.</p></div>`;
                 });
         }
 
