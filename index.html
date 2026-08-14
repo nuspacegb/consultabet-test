@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+    <!-- Google Analytics (GA4) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-96MQMSSSWN"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -53,23 +54,26 @@
     <header class="text-center mb-10">
         <h1 class="text-6xl font-bold neon-purple uppercase italic tracking-tighter">Nu - Consulta Bet</h1>
         <p class="text-gray-400 mt-2 text-lg">Verifique se uma plataforma de apostas está autorizada pelo Governo Federal.</p>
-<!-- Cápsula Neon Arredondada com Efeito Glow -->
-<div style="display: inline-block; padding: 8px 22px; border: 1px solid #8a3ee5; border-radius: 50px; background-color: rgba(138, 62, 229, 0.12); color: #d1a5ff; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.5px; box-shadow: 0 0 15px rgba(138, 62, 229, 0.4); margin: 15px auto 8px auto; text-transform: uppercase;">
-    Lista publicada em 20/07/2026, com atualização no site oficial em 14/08/2026
-</div>
+        
+        <!-- Cápsula Neon Arredondada com Efeito Glow -->
+        <div style="display: inline-block; padding: 8px 22px; border: 1px solid #8a3ee5; border-radius: 50px; background-color: rgba(138, 62, 229, 0.12); color: #d1a5ff; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.5px; box-shadow: 0 0 15px rgba(138, 62, 229, 0.4); margin: 15px auto 8px auto; text-transform: uppercase;">
+            Lista publicada em 20/07/2026, com atualização no site oficial em 14/08/2026
+        </div>
 
-<!-- Fonte oficial clicável -->
-<div style="font-size: 0.8rem; color: #8e8e93; margin-top: 6px;">
-    Fonte: <a href="https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas" target="_blank" rel="noopener noreferrer" style="color: #a855f7; text-decoration: underline;">Governo Federal</a>
-</div>
+        <!-- Fonte oficial clicável -->
+        <div style="font-size: 0.8rem; color: #8e8e93; margin-top: 6px;">
+            Fonte: <a href="https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas" target="_blank" rel="noopener noreferrer" style="color: #a855f7; text-decoration: underline;">Governo Federal</a>
+        </div>
     </header>
 
     <div class="w-full max-w-2xl">
         <div class="glass-card p-2 rounded-2xl flex items-center neon-border-input">
+            <!-- Atributo autofocus adicionado -->
             <input type="text" id="searchInput" 
                    placeholder="Digite a marca (ex: Bet365) ou CNPJ..." 
                    class="w-full bg-transparent p-5 outline-none text-white text-xl placeholder-gray-700"
-                   onkeypress="if(event.key === 'Enter') buscar()">
+                   onkeypress="if(event.key === 'Enter') buscar()"
+                   autofocus>
             <button onclick="buscar()" 
                     class="bg-purple-600 hover:bg-purple-500 text-white px-8 py-5 rounded-xl font-bold transition-all uppercase">
                 PESQUISAR
@@ -97,6 +101,14 @@
 
     <script>
         let baseDados = [];
+
+        // Foco automático ao carregar a página
+        window.addEventListener('DOMContentLoaded', () => {
+            const inputElement = document.getElementById('searchInput');
+            if (inputElement) {
+                inputElement.focus();
+            }
+        });
 
         // Carregar JSON
         fetch('dados.json')
