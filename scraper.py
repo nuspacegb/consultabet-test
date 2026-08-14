@@ -5,14 +5,19 @@ import requests
 import os
 from datetime import datetime
 
-# --- PARTE 1: RASPAR CASAS DE APOSTAS (SPA/MF) ---
+# ==========================================
+# PARTE 1: SCRAPER CASAS DE APOSTAS (SPA/MF)
+# ==========================================
+print("--- Iniciando raspagem de Bets (SPA/MF) ---")
+
 urls_bets = [
     "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas/empresas-autorizadas-1/empresas-autorizadas",
     "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas/empresas-autorizadas-1/processos-administrativos"
 ]
 
-headers = {'User-Agent': 'Mozilla/5.0'}
+headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'}
 
+# Carrega histórico antigo para comparação (Diff)
 dados_antigos = []
 if os.path.exists('dados.json'):
     try:
@@ -23,43 +28,51 @@ if os.path.exists('dados.json'):
     except Exception as e:
         print(f"Aviso ao ler dados.json antigo: {e}")
 
-cnpjs_antigos = {e['cnpj']: e['razao_social'] for e in dados_antigos if 'cnpj' in e}
+cnpjs_antigos = {e['cnpj']: e.get('razao_social', '') for e in dados_antigos if 'cnpj' in e}
 
-empresas_novas = []
+empresas_extraidas = {}
+
 for url in urls_bets:
     try:
+        print(f"Acessando: {url}")
         tabelas = pd.read_html(url)
         for df in tabelas:
             df.columns = [str(col).upper().strip() for col in df.columns]
+            
             for _, row in df.iterrows():
-                cnpj = str(row.get('CNPJ', '')).strip()
-                razao = str(row.get('DENOMINAÇÃO SOCIAL DA EMPRESA', row.get('RAZÃO SOCIAL', ''))).strip()
-                marcas = str(row.get('MARCAS', '')).strip()
-                portaria = str(row.get('PORTARIA', row.get('INFORMAÇÕES JUDICIAIS', 'SPA/MF'))).strip()
+                # Tenta localizar colunas equivalentes
+                cnpj_raw = str(row.get('CNPJ', '')).strip()
+                razao_raw = str(row.get('DENOMINAÇÃO SOCIAL DA EMPRESA', row.get('RAZÃO SOCIAL', ''))).strip()
+                marcas_raw = str(row.get('MARCAS', '')).strip()
+                portaria_raw = str(row.get('PORTARIA', row.get('INFORMAÇÕES JUDICIAIS', 'SPA/MF'))).strip()
                 
-                cnpj_limpo = re.sub(r'\D', '', cnpj)
+                cnpj_limpo = re.sub(r'\D', '', cnpj_raw)
+                
                 if cnpj_limpo and len(cnpj_limpo) == 14:
-                    empresa = {
-                        "cnpj": cnpj,
-                        "razao_social": razao if razao.lower() != 'nan' else '',
-                        "marcas": marcas if marcas.lower() != 'nan' else '',
-                        "portaria": portaria if portaria.lower() != 'nan' else 'SPA/MF'
+                    razao = '' if razao_raw.lower() in ['nan', 'none', ''] else razao_raw
+                    marcas = '' if marcas_raw.lower() in ['nan', 'none', ''] else marcas_raw
+                    portaria = 'SPA/MF' if portaria_raw.lower() in ['nan', 'none', ''] else portaria_raw
+                    
+                    # Formata CNPJ xx.xxx.xxx/xxxx-xx
+                    cnpj_formatado = f"{cnpj_limpo[:2]}.{cnpj_limpo[2:5]}.{cnpj_limpo[5:8]}/{cnpj_limpo[8:12]}-{cnpj_limpo[12:]}"
+                    
+                    empresas_extraidas[cnpj_formatado] = {
+                        "cnpj": cnpj_formatado,
+                        "razao_social": razao,
+                        "marcas": marcas,
+                        "portaria": portaria
                     }
-                    empresas_novas.append(empresa)
     except Exception as e:
-        print(f"Erro ao acessar {url}: {e}")
+        print(f"Erro ao raspar {url}: {e}")
 
-if empresas_novas:
-    empresas_novas_dict = {e['cnpj']: e for e in empresas_novas}
-    cnpjs_novos = {e['cnpj']: e['razao_social'] for e in empresas_novas_dict.values()}
-    
-    adicionadas = [f"{razao} ({cnpj})" for cnpj, razao in cnpjs_novos.items() if cnpj not in cnpjs_antigos]
-    removidas = [f"{razao} ({cnpj})" for cnpj, razao in cnpjs_antigos.items() if cnpj not in cnpjs_novos]
-    
-    data_hoje = datetime.now().strftime("%d/%m/%Y")
+if empresas_extraidas:
+    # Registra alterações para o historico.json
+    cnpjs_novos = {e['cnpj']: e['razao_social'] for e in empresas_extraidas.values()}
+    adicionadas = [f"{razao if razao else 'Empresa'} ({cnpj})" for cnpj, razao in cnpjs_novos.items() if cnpj not in cnpjs_antigos]
+    removidas = [f"{razao if razao else 'Empresa'} ({cnpj})" for cnpj, razao in cnpjs_antigos.items() if cnpj not in cnpjs_novos]
     
     registro_historico = {
-        "data": data_hoje,
+        "data": datetime.now().strftime("%d/%m/%Y"),
         "adicionadas": adicionadas,
         "removidas": removidas,
         "total_adicionadas": len(adicionadas),
@@ -70,41 +83,56 @@ if empresas_novas:
         json.dump(registro_historico, f, ensure_ascii=False, indent=2)
         
     with open('dados.json', 'w', encoding='utf-8') as f:
-        for item in empresas_novas_dict.values():
+        for item in empresas_extraidas.values():
             f.write(json.dumps(item, ensure_ascii=False) + '\n')
             
-    print(f"✅ Bets Atualizadas! +{len(adicionadas)} adicionadas, -{len(removidas)} removidas.")
+    print(f"✅ {len(empresas_extraidas)} Bets salvas em dados.json!")
+else:
+    print("⚠️ Nenhuma empresa de aposta encontrada. MANTENDO BASE ANTERIOR.")
 
 
-# --- PARTE 2: BUSCAR INSTITUIÇÕES DE PAGAMENTO (BCB / OLINDA) ---
-print("Buscando Instituições de Pagamento no Banco Central...")
-url_bcb = "https://olinda.bcb.gov.br/olinda/servico/BcBase_v2/versao/v1/odata/EntidadesBancariasEnquadramento(database=@database)?@database='2026-08-05'&$format=json"
+# ==========================================
+# PARTE 2: INSTITUIÇÕES DE PAGAMENTO (BCB)
+# ==========================================
+print("\n--- Buscando Instituições de Pagamento no Banco Central ---")
+
+url_bcb = "https://olinda.bcb.gov.br/olinda/servico/BcBase_v2/versao/v1/odata/EntidadesBancariasEnquadramento?$top=2000&$format=json"
 
 try:
-    response = requests.get(url_bcb, headers=headers, timeout=30)
-    if response.status_code == 200:
-        raw_bcb = response.json().get('value', [])
+    resp = requests.get(url_bcb, headers=headers, timeout=30)
+    if resp.status_code == 200:
+        dados_bcb = resp.json().get('value', [])
         ips_list = []
         
-        for item in raw_bcb:
-            cnpj = str(item.get('codigoCNPJ14', '')).strip()
+        for item in dados_bcb:
+            cnpj_raw = str(item.get('codigoCNPJ14', item.get('codigoCNPJ8', ''))).strip()
             nome = str(item.get('nomeEntidadeInteresse', '')).strip()
             municipio = str(item.get('nomeDoMunicipio', '')).strip()
             uf = str(item.get('nomeDaUnidadeDaFederacao', '')).strip()
             
-            if cnpj and nome:
+            cnpj_limpo = re.sub(r'\D', '', cnpj_raw)
+            
+            if nome and cnpj_limpo:
+                if len(cnpj_limpo) == 14:
+                    cnpj_fmt = f"{cnpj_limpo[:2]}.{cnpj_limpo[2:5]}.{cnpj_limpo[5:8]}/{cnpj_limpo[8:12]}-{cnpj_limpo[12:]}"
+                else:
+                    cnpj_fmt = cnpj_limpo
+                    
                 ips_list.append({
-                    "cnpj": cnpj,
+                    "cnpj": cnpj_fmt,
                     "nome": nome,
-                    "municipio": f"{municipio}/{uf}" if municipio else UF,
+                    "municipio": f"{municipio}/{uf}" if municipio and uf else municipio,
                     "status": "Autorizada a Funcionar pelo Banco Central (BCB)"
                 })
         
+        # Deduplica IPs pelo CNPJ
+        ips_unicas = list({e['cnpj']: e for e in ips_list}.values())
+        
         with open('ips.json', 'w', encoding='utf-8') as f:
-            json.dump(ips_list, f, ensure_ascii=False, indent=2)
+            json.dump(ips_unicas, f, ensure_ascii=False, indent=2)
             
-        print(f"✅ IPs Atualizadas! {len(ips_list)} Instituições de Pagamento salvas em ips.json.")
+        print(f"✅ {len(ips_unicas)} IPs do Banco Central salvas em ips.json!")
     else:
-        print(f"⚠️ Erro ao consultar API do BCB: Status {response.status_code}")
+        print(f"⚠️ API BCB retornou status {resp.status_code}")
 except Exception as e:
-    print(f"⚠️ Erro no processamento do BCB: {e}")
+    print(f"⚠️ Erro ao consultar API do Banco Central: {e}")
