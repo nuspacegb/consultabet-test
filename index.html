@@ -35,7 +35,7 @@
             backdrop-filter: blur(10px);
             border: 1px solid rgba(188, 19, 254, 0.2);
         }
-        #slackModal {
+        #slackModal, #historicoModal {
             display: none;
             position: fixed;
             z-index: 100;
@@ -43,7 +43,7 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.8);
+            background-color: rgba(0,0,0,0.85);
             align-items: center;
             justify-content: center;
         }
@@ -56,41 +56,25 @@
         <p class="text-gray-400 mt-2 text-lg">Verifique se uma plataforma de apostas está autorizada pelo Governo Federal.</p>
         
         <!-- Cápsula Neon Arredondada com Efeito Glow -->
-        <div style="display: inline-block; padding: 8px 22px; border: 1px solid #8a3ee5; border-radius: 50px; background-color: rgba(138, 62, 229, 0.12); color: #d1a5ff; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.5px; box-shadow: 0 0 15px rgba(138, 62, 229, 0.4); margin: 15px auto 8px auto; text-transform: uppercase;">
+        <div style="display: inline-block; padding: 8px 22px; border: 1px solid #8a3ee5; border-radius: 50px; background-color: rgba(138, 62, 229, 0.12); color: #d1a5ff; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.5px; box-shadow: 0 0 15px rgba(138, 62, 229, 0.4); margin: 15px auto 4px auto; text-transform: uppercase;">
             Lista publicada em 20/07/2026, com atualização no site oficial em 14/08/2026
         </div>
 
         <!-- Fonte oficial clicável -->
-        <div style="font-size: 0.8rem; color: #8e8e93; margin-top: 6px;">
+        <div style="font-size: 0.8rem; color: #8e8e93; margin-top: 4px;">
             Fonte: <a href="https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas" target="_blank" rel="noopener noreferrer" style="color: #a855f7; text-decoration: underline;">Governo Federal</a>
         </div>
+
         <!-- Botão Neon Comparativo de Mudanças -->
-<div style="margin-top: 12px;">
-    <button onclick="abrirModalHistorico()" style="display: inline-flex; items-center: center; gap: 6px; padding: 6px 16px; border: 1px solid #bc13fe; border-radius: 20px; background: rgba(188, 19, 254, 0.15); color: #e9d5ff; font-size: 0.8rem; font-weight: bold; cursor: pointer; transition: all 0.3s; box-shadow: 0 0 10px rgba(188, 19, 254, 0.3);" onmouseover="this.style.boxShadow='0 0 18px rgba(188, 19, 254, 0.7)'" onmouseout="this.style.boxShadow='0 0 10px rgba(188, 19, 254, 0.3)'">
-        🔄 VER O QUE MUDOU NA ÚLTIMA ATUALIZAÇÃO
-    </button>
-</div>
-
-<!-- Modal do Histórico de Mudanças -->
-<div id="historicoModal" style="display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); align-items: center; justify-content: center;" onclick="fecharModalHistorico()">
-    <div class="glass-card p-8 rounded-3xl max-w-lg w-full text-left neon-border-input" onclick="event.stopPropagation()">
-        <h3 class="text-2xl font-bold mb-2 text-purple-400">📊 Relatório de Alterações</h3>
-        <p id="dataRelatorio" class="text-xs text-gray-400 mb-6 uppercase tracking-wider">Carregando...</p>
-
-        <div id="conteudoHistorico" class="space-y-4 max-h-80 overflow-y-auto pr-2">
-            <!-- Dados inseridos via JS -->
+        <div style="margin-top: 14px;">
+            <button onclick="abrirModalHistorico()" style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 18px; border: 1px solid #bc13fe; border-radius: 20px; background: rgba(188, 19, 254, 0.15); color: #e9d5ff; font-size: 0.8rem; font-weight: bold; cursor: pointer; transition: all 0.3s; box-shadow: 0 0 10px rgba(188, 19, 254, 0.3);" onmouseover="this.style.boxShadow='0 0 18px rgba(188, 19, 254, 0.7)'" onmouseout="this.style.boxShadow='0 0 10px rgba(188, 19, 254, 0.3)'">
+                🔄 VER O QUE MUDOU NA ÚLTIMA ATUALIZAÇÃO
+            </button>
         </div>
-
-        <div class="mt-8 text-right">
-            <button onclick="fecharModalHistorico()" class="bg-purple-600 hover:bg-purple-500 text-white px-6 py-2 rounded-xl font-bold transition-all">Fechar</button>
-        </div>
-    </div>
-</div>
     </header>
 
     <div class="w-full max-w-2xl">
         <div class="glass-card p-2 rounded-2xl flex items-center neon-border-input">
-            <!-- Atributo autofocus adicionado -->
             <input type="text" id="searchInput" 
                    placeholder="Digite a marca (ex: Bet365) ou CNPJ..." 
                    class="w-full bg-transparent p-5 outline-none text-white text-xl placeholder-gray-700"
@@ -109,10 +93,12 @@
         Elaborado por Alexandre Gabbia
     </footer>
 
+    <!-- Botão de Dúvidas / Ajuda -->
     <button onclick="abrirModal()" class="fixed bottom-6 right-6 bg-purple-600 hover:bg-purple-500 text-white w-14 h-14 rounded-full shadow-lg flex items-center justify-center text-2xl transition-all hover:scale-110">
         ?
     </button>
 
+    <!-- Modal do Slack -->
     <div id="slackModal" onclick="fecharModal()">
         <div class="glass-card p-8 rounded-3xl max-w-sm w-full text-center neon-border-input" onclick="event.stopPropagation()">
             <h3 class="text-2xl font-bold mb-4 text-purple-400">Dúvidas?</h3>
@@ -121,10 +107,26 @@
         </div>
     </div>
 
+    <!-- Modal do Histórico de Mudanças (Changelog/Diff) -->
+    <div id="historicoModal" onclick="fecharModalHistorico()">
+        <div class="glass-card p-8 rounded-3xl max-w-lg w-full text-left neon-border-input" onclick="event.stopPropagation()">
+            <h3 class="text-2xl font-bold mb-1 text-purple-400">📊 Relatório de Alterações</h3>
+            <p id="dataRelatorio" class="text-xs text-gray-400 mb-6 uppercase tracking-wider">Carregando dados...</p>
+
+            <div id="conteudoHistorico" class="space-y-4 max-h-80 overflow-y-auto pr-2">
+                <!-- Conteúdo dinâmico via JS -->
+            </div>
+
+            <div class="mt-8 text-right">
+                <button onclick="fecharModalHistorico()" class="bg-purple-600 hover:bg-purple-500 text-white px-6 py-2 rounded-xl font-bold transition-all">Fechar</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         let baseDados = [];
 
-        // Foco automático ao carregar a página
+        // Foco automático no input ao carregar a página
         window.addEventListener('DOMContentLoaded', () => {
             const inputElement = document.getElementById('searchInput');
             if (inputElement) {
@@ -132,7 +134,7 @@
             }
         });
 
-        // Carregar JSON
+        // Carregar JSON da base
         fetch('dados.json')
             .then(res => res.json())
             .then(data => baseDados = data);
@@ -188,8 +190,56 @@
             }
         }
 
+        // Funções Modais
         function abrirModal() { document.getElementById('slackModal').style.display = 'flex'; }
         function fecharModal() { document.getElementById('slackModal').style.display = 'none'; }
+
+        function abrirModalHistorico() {
+            document.getElementById('historicoModal').style.display = 'flex';
+            
+            fetch('historico.json')
+                .then(res => res.json())
+                .then(data => {
+                    document.getElementById('dataRelatorio').innerText = `Última verificação: ${data.data}`;
+                    const container = document.getElementById('conteudoHistorico');
+                    
+                    let html = '';
+                    
+                    if (data.total_adicionadas > 0) {
+                        html += `<div class="p-4 rounded-xl bg-green-950/40 border border-green-500/40">
+                            <p class="text-green-400 font-bold text-sm mb-2">🟢 +${data.total_adicionadas} Empresa(s) Adicionada(s):</p>
+                            <ul class="text-xs text-gray-300 list-disc list-inside space-y-1">
+                                ${data.adicionadas.map(item => `<li>${item}</li>`).join('')}
+                            </ul>
+                        </div>`;
+                    }
+
+                    if (data.total_removidas > 0) {
+                        html += `<div class="p-4 rounded-xl bg-red-950/40 border border-red-500/40">
+                            <p class="text-red-400 font-bold text-sm mb-2">🔴 -${data.total_removidas} Empresa(s) Removida(s):</p>
+                            <ul class="text-xs text-gray-300 list-disc list-inside space-y-1">
+                                ${data.removidas.map(item => `<li>${item}</li>`).join('')}
+                            </ul>
+                        </div>`;
+                    }
+
+                    if (data.total_adicionadas === 0 && data.total_removidas === 0) {
+                        html = `<div class="p-4 rounded-xl bg-purple-950/30 border border-purple-500/30 text-center py-6">
+                            <p class="text-purple-300 font-bold text-sm">✅ Sem alterações de escopo</p>
+                            <p class="text-xs text-gray-400 mt-1">A lista oficial do Governo permanece idêntica à verificação anterior.</p>
+                        </div>`;
+                    }
+
+                    container.innerHTML = html;
+                })
+                .catch(() => {
+                    document.getElementById('conteudoHistorico').innerHTML = `<div class="p-4 rounded-xl bg-purple-950/30 border border-purple-500/30 text-center py-6"><p class="text-gray-300 text-sm font-bold">Relatório Inicial em Processamento</p><p class="text-xs text-gray-400 mt-1">O histórico detalhado estará disponível logo após a execução da automação semanal.</p></div>`;
+                });
+        }
+
+        function fecharModalHistorico() {
+            document.getElementById('historicoModal').style.display = 'none';
+        }
     </script>
 </body>
 </html>
