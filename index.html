@@ -139,12 +139,19 @@
             }
         });
 
-        // Carregar JSON da base
+        // Carregar JSON de forma Híbrida (Suporta Array Tradicional e JSONL)
         fetch('dados.json?t=' + new Date().getTime())
             .then(res => res.text())
             .then(text => {
-                baseDados = text.trim().split('\n').map(line => JSON.parse(line));
-            });
+                try {
+                    // Tenta ler como um JSON tradicional []
+                    baseDados = JSON.parse(text);
+                } catch (e) {
+                    // Se falhar, lê como JSONL (linhas separadas)
+                    baseDados = text.trim().split('\n').filter(line => line.strip !== "").map(line => JSON.parse(line));
+                }
+            })
+            .catch(err => console.error("Erro ao carregar dados.json:", err));
 
         function normalize(txt) {
             return txt ? txt.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^\w]/g, '') : '';
@@ -161,12 +168,12 @@
             }
 
             const resultado = baseDados.find(item => {
-                const marcasArray = item.marcas ? item.marcas.split(',').map(m => normalize(m.trim())) : [];
-                const cnpjLimpo = normalize(item.cnpj);
-                const razaoLimpa = normalize(item.razao_social);
+                const marcasLimpas = normalize(item.marcas || '');
+                const cnpjLimpo = normalize(item.cnpj || '');
+                const razaoLimpa = normalize(item.razao_social || '');
 
-                return marcasArray.includes(queryLimpa) || 
-                       cnpjLimpo === queryLimpa || 
+                return marcasLimpas.includes(queryLimpa) || 
+                       cnpjLimpo.includes(queryLimpa) || 
                        razaoLimpa.includes(queryLimpa);
             });
 
