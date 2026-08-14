@@ -1,0 +1,35 @@
+name: Atualizar Base de Dados Autorizadas (SPA/MF)
+
+on:
+  schedule:
+    # Roda automaticamente toda segunda-feira às 08:00 AM (UTC)
+    - cron: '0 8 * * 1'
+  workflow_dispatch: # Permite que você rode manualmente com 1 clique para testar!
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Baixar o repositório
+      uses: actions/checkout@v3
+
+    - name: Configurar o Python
+      uses: actions/python-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Instalar dependências
+      run: |
+        python -m pip install --upgrade pip
+        pip install pandas lxml html5lib requests
+
+    - name: Executar o Scraper
+      run: python scraper.py
+
+    - name: Salvar alterações no dados.json
+      run: |
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+        git add dados.json
+        git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-update: Atualização de empresas autorizadas via SPA/MF" && git push)
