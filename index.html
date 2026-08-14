@@ -135,12 +135,15 @@
         });
 
         // Carregar JSON da base
-        fetch('dados.json')
-            .then(res => res.json())
-            .then(data => baseDados = data);
+        fetch('dados.json?t=' + new Date().getTime())
+            .then(res => res.text())
+            .then(text => {
+                // Converte as linhas do JSONL para array de objetos
+                baseDados = text.trim().split('\n').map(line => JSON.parse(line));
+            });
 
         function normalize(txt) {
-            return txt.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^\w]/g, '');
+            return txt ? txt.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^\w]/g, '') : '';
         }
 
         function buscar() {
@@ -154,7 +157,7 @@
             }
 
             const resultado = baseDados.find(item => {
-                const marcasArray = item.marcas.split(',').map(m => normalize(m.trim()));
+                const marcasArray = item.marcas ? item.marcas.split(',').map(m => normalize(m.trim())) : [];
                 const cnpjLimpo = normalize(item.cnpj);
                 const razaoLimpa = normalize(item.razao_social);
 
@@ -176,7 +179,7 @@
                         </div>
                         
                         <div class="mt-6">
-                            <p class="text-gray-600 text-sm italic">Marcas: ${resultado.marcas}</p>
+                            <p class="text-gray-600 text-sm italic">Marcas: ${resultado.marcas || 'N/A'}</p>
                         </div>
                     </div>
                 `;
@@ -196,44 +199,58 @@
 
         function abrirModalHistorico() {
             document.getElementById('historicoModal').style.display = 'flex';
-            
-            fetch('historico.json')
-                .then(res => res.json())
+            const container = document.getElementById('conteudoHistorico');
+            const dataElement = document.getElementById('dataRelatorio');
+
+            // Timestamp evita o cache do navegador no arquivo de histórico
+            fetch('historico.json?t=' + new Date().getTime())
+                .then(res => {
+                    if (!res.ok) throw new Error("Erro de leitura do histórico");
+                    return res.json();
+                })
                 .then(data => {
-                    document.getElementById('dataRelatorio').innerText = `Última verificação: ${data.data}`;
-                    const container = document.getElementById('conteudoHistorico');
+                    dataElement.innerText = `Última verificação: ${data.data || 'Recente'}`;
                     
                     let html = '';
-                    
-                    if (data.total_adicionadas > 0) {
-                        html += `<div class="p-4 rounded-xl bg-green-950/40 border border-green-500/40">
-                            <p class="text-green-400 font-bold text-sm mb-2">🟢 +${data.total_adicionadas} Empresa(s) Adicionada(s):</p>
-                            <ul class="text-xs text-gray-300 list-disc list-inside space-y-1">
-                                ${data.adicionadas.map(item => `<li>${item}</li>`).join('')}
-                            </ul>
-                        </div>`;
+                    const adicionadas = data.adicionadas || [];
+                    const removidas = data.removidas || [];
+
+                    if (adicionadas.length > 0) {
+                        html += `
+                            <div class="p-4 rounded-xl bg-green-950/40 border border-green-500/40 mb-3">
+                                <p class="text-green-400 font-bold text-sm mb-2">🟢 +${adicionadas.length} Empresa(s) Adicionada(s):</p>
+                                <ul class="text-xs text-gray-200 list-disc list-inside space-y-1">
+                                    ${adicionadas.map(item => `<li>${item}</li>`).join('')}
+                                </ul>
+                            </div>`;
                     }
 
-                    if (data.total_removidas > 0) {
-                        html += `<div class="p-4 rounded-xl bg-red-950/40 border border-red-500/40">
-                            <p class="text-red-400 font-bold text-sm mb-2">🔴 -${data.total_removidas} Empresa(s) Removida(s):</p>
-                            <ul class="text-xs text-gray-300 list-disc list-inside space-y-1">
-                                ${data.removidas.map(item => `<li>${item}</li>`).join('')}
-                            </ul>
-                        </div>`;
+                    if (removidas.length > 0) {
+                        html += `
+                            <div class="p-4 rounded-xl bg-red-950/40 border border-red-500/40 mb-3">
+                                <p class="text-red-400 font-bold text-sm mb-2">🔴 -${removidas.length} Empresa(s) Removida(s):</p>
+                                <ul class="text-xs text-gray-200 list-disc list-inside space-y-1">
+                                    ${removidas.map(item => `<li>${item}</li>`).join('')}
+                                </ul>
+                            </div>`;
                     }
 
-                    if (data.total_adicionadas === 0 && data.total_removidas === 0) {
-                        html = `<div class="p-4 rounded-xl bg-purple-950/30 border border-purple-500/30 text-center py-6">
-                            <p class="text-purple-300 font-bold text-sm">✅ Sem alterações de escopo</p>
-                            <p class="text-xs text-gray-400 mt-1">A lista oficial do Governo permanece idêntica à verificação anterior.</p>
-                        </div>`;
+                    if (adicionadas.length === 0 && removidas.length === 0) {
+                        html = `
+                            <div class="p-4 rounded-xl bg-purple-950/30 border border-purple-500/30 text-center py-6">
+                                <p class="text-purple-300 font-bold text-sm">✅ Sem alterações de escopo</p>
+                                <p class="text-xs text-gray-400 mt-1">A lista oficial do Governo permanece idêntica à verificação anterior.</p>
+                            </div>`;
                     }
 
                     container.innerHTML = html;
                 })
                 .catch(() => {
-                    document.getElementById('conteudoHistorico').innerHTML = `<div class="p-4 rounded-xl bg-purple-950/30 border border-purple-500/30 text-center py-6"><p class="text-gray-300 text-sm font-bold">Relatório Inicial em Processamento</p><p class="text-xs text-gray-400 mt-1">O histórico detalhado estará disponível logo após a execução da automação semanal.</p></div>`;
+                    container.innerHTML = `
+                        <div class="p-4 rounded-xl bg-purple-950/30 border border-purple-500/30 text-center py-6">
+                            <p class="text-purple-300 font-bold text-sm">✅ Sem alterações de escopo</p>
+                            <p class="text-xs text-gray-400 mt-1">Nenhuma nova alteração detectada na última rodada.</p>
+                        </div>`;
                 });
         }
 
