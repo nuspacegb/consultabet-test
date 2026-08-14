@@ -5,16 +5,19 @@ on:
     - cron: '0 8 * * 1'
   workflow_dispatch:
 
+permissions:
+  contents: write # Garante permissão explícita de escrita no repositório
+
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
     - name: Baixar o repositório
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Configurar o Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: '3.10'
 
@@ -26,9 +29,9 @@ jobs:
     - name: Executar o Scraper
       run: python scraper.py
 
-    - name: Salvar alterações no dados.json e historico.json
+    - name: Salvar alterações
       run: |
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-        git add dados.json historico.json
-        git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-update: Atualização e Changelog de Empresas Autorizadas" && git push)
+        git add -A
+        git diff --staged --quiet || (git commit -m "Auto-update: Atualização de empresas e histórico" && git push)
