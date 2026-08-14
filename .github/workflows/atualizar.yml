@@ -1,10 +1,10 @@
-name: Atualizar Base de Dados Autorizadas (SPA/MF)
+name: Automação Base de Apostas (SPA/MF)
 
 on:
   schedule:
-    # Roda automaticamente toda segunda-feira às 08:00 AM (UTC)
+    # Executa automaticamente toda segunda-feira às 08:00 UTC
     - cron: '0 8 * * 1'
-  workflow_dispatch: # Permite que você rode manualmente com 1 clique para testar!
+  workflow_dispatch: # Permite execução manual com 1 clique no painel Actions
 
 jobs:
   build:
