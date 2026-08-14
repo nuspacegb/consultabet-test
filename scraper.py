@@ -6,6 +6,25 @@ import os
 from datetime import datetime
 
 # ==========================================
+# EMPRESAS AUTORIZADAS POR VIA JUDICIAL (FIXAS)
+# ==========================================
+# Adicione aqui qualquer empresa que possua liminar/decisão judicial
+empresas_judiciais = [
+    {
+        "cnpj": "55.997.392/0001-05",
+        "razao_social": "ZEROUMBET PLATAFORMA DIGITAL LTDA",
+        "marcas": "ZEROUM ENERGIA SPORTVIP",
+        "portaria": "5007941-50.2025.4.03.6100 (Decisão Judicial)"
+    },
+    {
+        "cnpj": "57.163.072/0001-77",
+        "razao_social": "ZONA DE JOGO NEGÓCIOS E PARTICIPAÇÕES LTDA",
+        "marcas": "ZONA DE JOGO APOSTAONLINE ONLYBETS",
+        "portaria": "1096849-60.2025.4.01.3400 (Decisão Judicial)"
+    }
+]
+
+# ==========================================
 # PARTE 1: SCRAPER CASAS DE APOSTAS (SPA/MF)
 # ==========================================
 print("--- Iniciando raspagem de Bets (SPA/MF) ---")
@@ -15,23 +34,18 @@ urls_bets = [
     "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas/empresas-autorizadas-1/processos-administrativos"
 ]
 
-headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'}
-
-# Carrega a base anterior
-dados_antigos = []
-if os.path.exists('dados.json'):
-    try:
-        with open('dados.json', 'r', encoding='utf-8') as f:
-            for line in f:
-                if line.strip():
-                    dados_antigos.append(json.loads(line))
-    except Exception as e:
-        print(f"Aviso ao ler dados.json antigo: {e}")
-
-cnpjs_antigos = {e['cnpj']: e.get('razao_social', '') for e in dados_antigos if 'cnpj' in e}
+headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+    'Accept': 'application/json, text/plain, */*'
+}
 
 empresas_extraidas = {}
 
+# 1. Primeiro inclui as empresas judiciais na lista final
+for emp in empresas_judiciais:
+    empresas_extraidas[emp['cnpj']] = emp
+
+# 2. Depois raspa as empresas do site do Governo Federal
 for url in urls_bets:
     try:
         print(f"Acessando: {url}")
@@ -54,6 +68,7 @@ for url in urls_bets:
                     
                     cnpj_formatado = f"{cnpj_limpo[:2]}.{cnpj_limpo[2:5]}.{cnpj_limpo[5:8]}/{cnpj_limpo[8:12]}-{cnpj_limpo[12:]}"
                     
+                    # Salva ou atualiza
                     empresas_extraidas[cnpj_formatado] = {
                         "cnpj": cnpj_formatado,
                         "razao_social": razao,
@@ -63,86 +78,58 @@ for url in urls_bets:
     except Exception as e:
         print(f"Aviso ao processar {url}: {e}")
 
+# Salva a base completa de dados.json
 if empresas_extraidas:
-    cnpjs_novos = {e['cnpj']: e['razao_social'] for e in empresas_extraidas.values()}
-    adicionadas = [f"{razao if razao else 'Empresa'} ({cnpj})" for cnpj, razao in cnpjs_novos.items() if cnpj not in cnpjs_antigos]
-    removidas = [f"{razao if razao else 'Empresa'} ({cnpj})" for cnpj, razao in cnpjs_antigos.items() if cnpj not in cnpjs_novos]
-    
-    registro_historico = {
-        "data": datetime.now().strftime("%d/%m/%Y"),
-        "adicionadas": adicionadas,
-        "removidas": removidas,
-        "total_adicionadas": len(adicionadas),
-        "total_removidas": len(removidas)
-    }
-    
-    with open('historico.json', 'w', encoding='utf-8') as f:
-        json.dump(registro_historico, f, ensure_ascii=False, indent=2)
-        
     with open('dados.json', 'w', encoding='utf-8') as f:
         for item in empresas_extraidas.values():
             f.write(json.dumps(item, ensure_ascii=False) + '\n')
             
-    print(f"✅ {len(empresas_extraidas)} Bets salvas em dados.json!")
+    print(f"✅ {len(empresas_extraidas)} Bets (SPA/MF + Judiciais) salvas em dados.json!")
 
 
 # ==========================================
-# PARTE 2: BANCO CENTRAL (IPs COM PAGINAÇÃO)
+# PARTE 2: INSTITUIÇÕES DE PAGAMENTO (BCB)
 # ==========================================
-print("\n--- Buscando Instituições de Pagamento no Banco Central (Paginação Completa) ---")
+print("\n--- Buscando Instituições de Pagamento no Banco Central ---")
 
-url_base_bcb = "https://olinda.bcb.gov.br/olinda/servico/BcBase_v2/versao/v1/odata/EntidadesBancariasEnquadramento?$format=json"
-ips_list = []
+url_bcb = "https://olinda.bcb.gov.br/olinda/servico/BcBase_v2/versao/v1/odata/EntidadesBancariasEnquadramento?$top=5000&$format=json"
 
-next_url = url_base_bcb
-
-while next_url:
-    try:
-        print(f"Consultando página do BCB...")
-        resp = requests.get(next_url, headers=headers, timeout=25)
-        
-        if resp.status_code == 200:
-            data = resp.json()
-            itens = data.get('value', [])
-            
-            for item in itens:
-                cnpj_raw = str(item.get('codigoCNPJ14', item.get('codigoCNPJ8', ''))).strip()
-                nome = str(item.get('nomeEntidadeInteresse', '')).strip()
-                municipio = str(item.get('nomeDoMunicipio', '')).strip()
-                uf = str(item.get('nomeDaUnidadeDaFederacao', '')).strip()
-                
-                cnpj_limpo = re.sub(r'\D', '', cnpj_raw)
-                
-                if nome and cnpj_limpo:
-                    if len(cnpj_limpo) == 14:
-                        cnpj_fmt = f"{cnpj_limpo[:2]}.{cnpj_limpo[2:5]}.{cnpj_limpo[5:8]}/{cnpj_limpo[8:12]}-{cnpj_limpo[12:]}"
-                    else:
-                        cnpj_fmt = cnpj_limpo
-                        
-                    ips_list.append({
-                        "cnpj": cnpj_fmt,
-                        "nome": nome,
-                        "municipio": f"{municipio}/{uf}" if municipio and uf else municipio,
-                        "status": "Autorizada a Funcionar pelo Banco Central (BCB)"
-                    })
-            
-            # Verifica se a API do BCB forneceu próximo link de paginação
-            next_url = data.get('@odata.nextLink', None)
-        else:
-            print(f"⚠️ Erro ao consultar BCB (Status {resp.status_code}). Parando paginação.")
-            break
-            
-    except Exception as e:
-        print(f"⚠️ Erro durante a paginação do BCB: {e}")
-        break
-
-if ips_list:
-    # Deduplica Instituições pelo CNPJ
-    ips_unicas = list({e['cnpj']: e for e in ips_list}.values())
+try:
+    resp = requests.get(url_bcb, headers=headers, timeout=30)
+    print(f"Status da resposta BCB: {resp.status_code}")
     
-    with open('ips.json', 'w', encoding='utf-8') as f:
-        json.dump(ips_unicas, f, ensure_ascii=False, indent=2)
+    if resp.status_code == 200:
+        dados_raw = resp.json().get('value', [])
+        ips_list = []
         
-    print(f"✅ Sucesso total! {len(ips_unicas)} Instituições de Pagamento salvas em ips.json!")
-else:
-    print("⚠️ Não foi possível obter IPs do Banco Central.")
+        for item in dados_raw:
+            cnpj_raw = str(item.get('codigoCNPJ14', item.get('codigoCNPJ8', ''))).strip()
+            nome = str(item.get('nomeEntidadeInteresse', item.get('nomeEntidadeInteresseNaoFormatado', ''))).strip()
+            municipio = str(item.get('nomeDoMunicipio', '')).strip()
+            uf = str(item.get('nomeDaUnidadeDaFederacao', '')).strip()
+            
+            cnpj_limpo = re.sub(r'\D', '', cnpj_raw)
+            
+            if nome and cnpj_limpo:
+                if len(cnpj_limpo) == 14:
+                    cnpj_fmt = f"{cnpj_limpo[:2]}.{cnpj_limpo[2:5]}.{cnpj_limpo[5:8]}/{cnpj_limpo[8:12]}-{cnpj_limpo[12:]}"
+                else:
+                    cnpj_fmt = cnpj_limpo
+                    
+                ips_list.append({
+                    "cnpj": cnpj_fmt,
+                    "nome": nome,
+                    "municipio": f"{municipio}/{uf}" if municipio and uf else municipio,
+                    "status": "Autorizada a Funcionar pelo Banco Central (BCB)"
+                })
+        
+        ips_unicas = list({e['cnpj']: e for e in ips_list}.values())
+        
+        with open('ips.json', 'w', encoding='utf-8') as f:
+            json.dump(ips_unicas, f, ensure_ascii=False, indent=2)
+            
+        print(f"✅ Sucesso! {len(ips_unicas)} Instituições de Pagamento salvas em ips.json!")
+    else:
+        print(f"⚠️ API BCB retornou status {resp.status_code}")
+except Exception as e:
+    print(f"⚠️ Erro ao consultar API do Banco Central: {e}")
