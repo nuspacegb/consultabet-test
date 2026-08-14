@@ -51,28 +51,13 @@
 </head>
 <body class="min-h-screen flex flex-col items-center p-6 pt-12">
 
-    <header class="text-center mb-10">
+    <!-- Header Enxuto e Limpo -->
+    <header class="text-center mb-8">
         <h1 class="text-6xl font-bold neon-purple uppercase italic tracking-tighter">Nu - Consulta Bet</h1>
         <p class="text-gray-400 mt-2 text-lg">Verifique se uma plataforma de apostas está autorizada pelo Governo Federal.</p>
-        
-        <!-- Cápsula Neon Arredondada com Efeito Glow -->
-        <div style="display: inline-block; padding: 8px 22px; border: 1px solid #8a3ee5; border-radius: 50px; background-color: rgba(138, 62, 229, 0.12); color: #d1a5ff; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.5px; box-shadow: 0 0 15px rgba(138, 62, 229, 0.4); margin: 15px auto 4px auto; text-transform: uppercase;">
-            Lista publicada em 20/07/2026, com atualização no site oficial em 14/08/2026
-        </div>
-
-        <!-- Fonte oficial clicável -->
-        <div style="font-size: 0.8rem; color: #8e8e93; margin-top: 4px;">
-            Fonte: <a href="https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas" target="_blank" rel="noopener noreferrer" style="color: #a855f7; text-decoration: underline;">Governo Federal</a>
-        </div>
-
-        <!-- Botão Neon Comparativo de Mudanças -->
-        <div style="margin-top: 14px;">
-            <button onclick="abrirModalHistorico()" style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 18px; border: 1px solid #bc13fe; border-radius: 20px; background: rgba(188, 19, 254, 0.15); color: #e9d5ff; font-size: 0.8rem; font-weight: bold; cursor: pointer; transition: all 0.3s; box-shadow: 0 0 10px rgba(188, 19, 254, 0.3);" onmouseover="this.style.boxShadow='0 0 18px rgba(188, 19, 254, 0.7)'" onmouseout="this.style.boxShadow='0 0 10px rgba(188, 19, 254, 0.3)'">
-                🔄 VER O QUE MUDOU NA ÚLTIMA ATUALIZAÇÃO
-            </button>
-        </div>
     </header>
 
+    <!-- Campo de Busca Principais -->
     <div class="w-full max-w-2xl">
         <div class="glass-card p-2 rounded-2xl flex items-center neon-border-input">
             <input type="text" id="searchInput" 
@@ -87,9 +72,29 @@
         </div>
     </div>
 
-    <div id="resultArea" class="w-full max-w-2xl mt-10"></div>
+    <!-- Area do Resultado da Pesquisa -->
+    <div id="resultArea" class="w-full max-w-2xl mt-8"></div>
 
-    <footer class="mt-auto py-10 text-gray-600 text-sm italic text-center">
+    <!-- Seção de Informações da Base e Histórico (Reposicionado para Baixo) -->
+    <div class="text-center my-10 max-w-2xl">
+        <!-- Cápsula Neon Arredondada -->
+        <div style="display: inline-block; padding: 6px 18px; border: 1px solid #8a3ee5; border-radius: 50px; background-color: rgba(138, 62, 229, 0.1); color: #d1a5ff; font-size: 0.8rem; font-weight: 500; letter-spacing: 0.5px; box-shadow: 0 0 12px rgba(138, 62, 229, 0.3); text-transform: uppercase;">
+            Lista publicada em 20/07/2026, com atualização no site oficial em 14/08/2026
+        </div>
+
+        <!-- Fonte Oficial e Botão de Comparação -->
+        <div class="flex items-center justify-center gap-4 mt-3 text-xs">
+            <span class="text-gray-500">
+                Fonte: <a href="https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas" target="_blank" rel="noopener noreferrer" style="color: #a855f7; text-decoration: underline;">Governo Federal</a>
+            </span>
+            <span class="text-gray-700">•</span>
+            <button onclick="abrirModalHistorico()" style="color: #bc13fe; font-weight: bold; cursor: pointer; background: none; border: none; text-shadow: 0 0 8px rgba(188, 19, 254, 0.4);" class="hover:underline">
+                🔄 Ver o que mudou na última atualização
+            </button>
+        </div>
+    </div>
+
+    <footer class="mt-auto py-6 text-gray-600 text-sm italic text-center">
         Elaborado por Alexandre Gabbia
     </footer>
 
@@ -107,7 +112,7 @@
         </div>
     </div>
 
-    <!-- Modal do Histórico de Mudanças (Changelog/Diff) -->
+    <!-- Modal do Histórico de Mudanças (Changelog) -->
     <div id="historicoModal" onclick="fecharModalHistorico()">
         <div class="glass-card p-8 rounded-3xl max-w-lg w-full text-left neon-border-input" onclick="event.stopPropagation()">
             <h3 class="text-2xl font-bold mb-1 text-purple-400">📊 Relatório de Alterações</h3>
@@ -118,7 +123,7 @@
             </div>
 
             <div class="mt-8 text-right">
-                <button onclick="fecharModalHistorico()" class="bg-purple-600 hover:bg-purple-500 text-white px-6 py-2 rounded-xl font-bold transition-all">Fechar</button>
+                <button onclick="fecharModalHistorico()" class="bg-purple-600 hover:bg-purple-500 text-white px-6 py-2 rounded-lg font-bold transition-all">Fechar</button>
             </div>
         </div>
     </div>
@@ -138,7 +143,6 @@
         fetch('dados.json?t=' + new Date().getTime())
             .then(res => res.text())
             .then(text => {
-                // Converte as linhas do JSONL para array de objetos
                 baseDados = text.trim().split('\n').map(line => JSON.parse(line));
             });
 
@@ -193,7 +197,7 @@
             }
         }
 
-        // Funções Modais
+        // Modais
         function abrirModal() { document.getElementById('slackModal').style.display = 'flex'; }
         function fecharModal() { document.getElementById('slackModal').style.display = 'none'; }
 
@@ -202,10 +206,9 @@
             const container = document.getElementById('conteudoHistorico');
             const dataElement = document.getElementById('dataRelatorio');
 
-            // Timestamp evita o cache do navegador no arquivo de histórico
             fetch('historico.json?t=' + new Date().getTime())
                 .then(res => {
-                    if (!res.ok) throw new Error("Erro de leitura do histórico");
+                    if (!res.ok) throw new Error("Erro ao carregar");
                     return res.json();
                 })
                 .then(data => {
@@ -238,7 +241,7 @@
                     if (adicionadas.length === 0 && removidas.length === 0) {
                         html = `
                             <div class="p-4 rounded-xl bg-purple-950/30 border border-purple-500/30 text-center py-6">
-                                <p class="text-purple-300 font-bold text-sm">✅ Sem alterações de escopo</p>
+                                <p class="text-purple-300 font-bold text-sm">✅ Nenhuma alteração identificada</p>
                                 <p class="text-xs text-gray-400 mt-1">A lista oficial do Governo permanece idêntica à verificação anterior.</p>
                             </div>`;
                     }
@@ -248,8 +251,8 @@
                 .catch(() => {
                     container.innerHTML = `
                         <div class="p-4 rounded-xl bg-purple-950/30 border border-purple-500/30 text-center py-6">
-                            <p class="text-purple-300 font-bold text-sm">✅ Sem alterações de escopo</p>
-                            <p class="text-xs text-gray-400 mt-1">Nenhuma nova alteração detectada na última rodada.</p>
+                            <p class="text-purple-300 font-bold text-sm">✅ Nenhuma alteração identificada</p>
+                            <p class="text-xs text-gray-400 mt-1">A lista oficial do Governo permanece idêntica à verificação anterior.</p>
                         </div>`;
                 });
         }
