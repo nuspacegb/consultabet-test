@@ -1,4 +1,4 @@
-name: Automação Base de Apostas e IPs (SPA/MF & BCB)
+name: Automação Base de Apostas (SPA/MF)
 
 on:
   schedule:
@@ -34,4 +34,4 @@ jobs:
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
         git add -A
-        git diff --staged --quiet || (git commit -m "Auto-update: Atualização de Bets e IPs (BCB)" && git push)
+        git diff --staged --quiet || (git commit -m "Auto-update: Atualização de Bets" && git push)
