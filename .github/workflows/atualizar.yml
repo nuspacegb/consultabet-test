@@ -2,9 +2,8 @@ name: Automação Base de Apostas (SPA/MF)
 
 on:
   schedule:
-    # Executa automaticamente toda segunda-feira às 08:00 UTC
     - cron: '0 8 * * 1'
-  workflow_dispatch: # Permite execução manual com 1 clique no painel Actions
+  workflow_dispatch:
 
 jobs:
   build:
@@ -27,9 +26,9 @@ jobs:
     - name: Executar o Scraper
       run: python scraper.py
 
-    - name: Salvar alterações no dados.json
+    - name: Salvar alterações no dados.json e historico.json
       run: |
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-        git add dados.json
-        git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-update: Atualização de empresas autorizadas via SPA/MF" && git push)
+        git add dados.json historico.json
+        git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-update: Atualização e Changelog de Empresas Autorizadas" && git push)
