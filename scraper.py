@@ -3,12 +3,12 @@ import json
 import re
 import requests
 import os
+from io import StringIO
 from datetime import datetime
 
-# ==========================================
-# EMPRESAS AUTORIZADAS POR VIA JUDICIAL (FIXAS)
-# ==========================================
-# Adicione aqui qualquer empresa que possua liminar/decisão judicial
+print("--- [1/2] Iniciando Raspagem de Bets (SPA/MF) ---")
+
+# 1. Empresas Judiciais (Garantidas na base)
 empresas_judiciais = [
     {
         "cnpj": "55.997.392/0001-05",
@@ -24,79 +24,82 @@ empresas_judiciais = [
     }
 ]
 
-# ==========================================
-# PARTE 1: SCRAPER CASAS DE APOSTAS (SPA/MF)
-# ==========================================
-print("--- Iniciando raspagem de Bets (SPA/MF) ---")
+headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36',
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
+    'Accept-Language': 'pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7'
+}
 
 urls_bets = [
     "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas/empresas-autorizadas-1/empresas-autorizadas",
     "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas/empresas-autorizadas-1/processos-administrativos"
 ]
 
-headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-    'Accept': 'application/json, text/plain, */*'
-}
-
 empresas_extraidas = {}
 
-# 1. Primeiro inclui as empresas judiciais na lista final
+# Insere judiciais primeiro
 for emp in empresas_judiciais:
     empresas_extraidas[emp['cnpj']] = emp
 
-# 2. Depois raspa as empresas do site do Governo Federal
+# Baixa as páginas do gov.br
 for url in urls_bets:
     try:
-        print(f"Acessando: {url}")
-        tabelas = pd.read_html(url)
-        for df in tabelas:
-            df.columns = [str(col).upper().strip() for col in df.columns]
+        print(f"Buscando: {url}")
+        res = requests.get(url, headers=headers, timeout=20)
+        
+        if res.status_code == 200:
+            # Usa StringIO para evitar warnings de depreciação no Pandas
+            tabelas = pd.read_html(StringIO(res.text))
             
-            for _, row in df.iterrows():
-                cnpj_raw = str(row.get('CNPJ', '')).strip()
-                razao_raw = str(row.get('DENOMINAÇÃO SOCIAL DA EMPRESA', row.get('RAZÃO SOCIAL', ''))).strip()
-                marcas_raw = str(row.get('MARCAS', '')).strip()
-                portaria_raw = str(row.get('PORTARIA', row.get('INFORMAÇÕES JUDICIAIS', 'SPA/MF'))).strip()
+            for df in tabelas:
+                df.columns = [str(col).upper().strip() for col in df.columns]
                 
-                cnpj_limpo = re.sub(r'\D', '', cnpj_raw)
-                
-                if cnpj_limpo and len(cnpj_limpo) == 14:
-                    razao = '' if razao_raw.lower() in ['nan', 'none', ''] else razao_raw
-                    marcas = '' if marcas_raw.lower() in ['nan', 'none', ''] else marcas_raw
-                    portaria = 'SPA/MF' if portaria_raw.lower() in ['nan', 'none', ''] else portaria_raw
+                for _, row in df.iterrows():
+                    cnpj_raw = str(row.get('CNPJ', '')).strip()
+                    razao_raw = str(row.get('DENOMINAÇÃO SOCIAL DA EMPRESA', row.get('RAZÃO SOCIAL', ''))).strip()
+                    marcas_raw = str(row.get('MARCAS', '')).strip()
+                    portaria_raw = str(row.get('PORTARIA', row.get('INFORMAÇÕES JUDICIAIS', 'SPA/MF'))).strip()
                     
-                    cnpj_formatado = f"{cnpj_limpo[:2]}.{cnpj_limpo[2:5]}.{cnpj_limpo[5:8]}/{cnpj_limpo[8:12]}-{cnpj_limpo[12:]}"
+                    cnpj_limpo = re.sub(r'\D', '', cnpj_raw)
                     
-                    # Salva ou atualiza
-                    empresas_extraidas[cnpj_formatado] = {
-                        "cnpj": cnpj_formatado,
-                        "razao_social": razao,
-                        "marcas": marcas,
-                        "portaria": portaria
-                    }
+                    if cnpj_limpo and len(cnpj_limpo) == 14:
+                        razao = '' if razao_raw.lower() in ['nan', 'none', ''] else razao_raw
+                        marcas = '' if marcas_raw.lower() in ['nan', 'none', ''] else marcas_raw
+                        portaria = 'SPA/MF' if portaria_raw.lower() in ['nan', 'none', ''] else portaria_raw
+                        
+                        cnpj_fmt = f"{cnpj_limpo[:2]}.{cnpj_limpo[2:5]}.{cnpj_limpo[5:8]}/{cnpj_limpo[8:12]}-{cnpj_limpo[12:]}"
+                        
+                        empresas_extraidas[cnpj_fmt] = {
+                            "cnpj": cnpj_fmt,
+                            "razao_social": razao,
+                            "marcas": marcas,
+                            "portaria": portaria
+                        }
+        else:
+            print(f"⚠️ Erro ao acessar gov.br (Status Code: {res.status_code})")
     except Exception as e:
-        print(f"Aviso ao processar {url}: {e}")
+        print(f"⚠️ Erro no processamento de {url}: {e}")
 
-# Salva a base completa de dados.json
-if empresas_extraidas:
+# Salva dados.json
+if len(empresas_extraidas) > 0:
     with open('dados.json', 'w', encoding='utf-8') as f:
         for item in empresas_extraidas.values():
             f.write(json.dumps(item, ensure_ascii=False) + '\n')
             
-    print(f"✅ {len(empresas_extraidas)} Bets (SPA/MF + Judiciais) salvas em dados.json!")
+    print(f"✅ Sucesso! {len(empresas_extraidas)} Bets salvas em dados.json!")
 
 
-# ==========================================
-# PARTE 2: INSTITUIÇÕES DE PAGAMENTO (BCB)
-# ==========================================
-print("\n--- Buscando Instituições de Pagamento no Banco Central ---")
+print("\n--- [2/2] Buscando Instituições de Pagamento no Banco Central ---")
 
-url_bcb = "https://olinda.bcb.gov.br/olinda/servico/BcBase_v2/versao/v1/odata/EntidadesBancariasEnquadramento?$top=5000&$format=json"
+url_bcb = "https://olinda.bcb.gov.br/olinda/servico/BcBase_v2/versao/v1/odata/EntidadesBancariasEnquadramento?$top=10000&$format=json"
 
 try:
-    resp = requests.get(url_bcb, headers=headers, timeout=30)
-    print(f"Status da resposta BCB: {resp.status_code}")
+    headers_bcb = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+        'Accept': 'application/json'
+    }
+    
+    resp = requests.get(url_bcb, headers=headers_bcb, timeout=30)
     
     if resp.status_code == 200:
         dados_raw = resp.json().get('value', [])
@@ -132,4 +135,4 @@ try:
     else:
         print(f"⚠️ API BCB retornou status {resp.status_code}")
 except Exception as e:
-    print(f"⚠️ Erro ao consultar API do Banco Central: {e}")
+    print(f"⚠️ Erro ao consultar Banco Central: {e}")
