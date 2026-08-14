@@ -10,7 +10,7 @@ print("==========================================")
 print("--- [1/2] RASPAGEM DE BETS (SPA/MF) ---")
 print("==========================================")
 
-# 1. Base fixa com as empresas autorizadas por Decisão Judicial
+# 1. Base fixa com Autorizações Judiciais
 base_bets = {
     "55.997.392/0001-05": {
         "cnpj": "55.997.392/0001-05",
@@ -39,9 +39,9 @@ if os.path.exists('dados.json'):
     except Exception as e:
         print(f"Aviso ao ler dados.json local: {e}")
 
-# 3. URLs Corrigidas do Portal do Governo Federal (SPA/MF)
+# 3. URL Oficial Corrigida da SPA/MF (Sem hífens extras no subcaminho)
 urls_bets = [
-    "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas/empresas-autorizadas-1/empresas-autorizadas"
+    "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas/empresas-autorizadas"
 ]
 
 headers = {
@@ -84,13 +84,13 @@ for url in urls_bets:
                             }
                 except Exception:
                     continue
-            print(f"✅ Sucesso ao raspar SPA/MF!")
+            print("✅ Sucesso ao raspar SPA/MF!")
         else:
             print(f"⚠️ Erro HTTP {res.status_code} ao acessar a SPA/MF")
     except Exception as e:
         print(f"⚠️ Erro ao raspar {url}: {e}")
 
-# Salva a base completa
+# Salva a base completa de Bets
 with open('dados.json', 'w', encoding='utf-8') as f:
     for item in base_bets.values():
         f.write(json.dumps(item, ensure_ascii=False) + '\n')
@@ -102,8 +102,8 @@ print("\n==========================================")
 print("--- [2/2] BUSCA DE IPs (BANCO CENTRAL) ---")
 print("==========================================")
 
-# URL Oficial e Ativa de Dados Abertos do Banco Central (Olinda BCB)
-url_bcb = "https://olinda.bcb.gov.br/olinda/servico/BcBase/versao/v2/odata/EntidadesSupervisionadas?$top=10000&$format=json"
+# Endpoint OData Oficial Limpo e Estável da API de Dados Abertos do Banco Central
+url_bcb = "https://olinda.bcb.gov.br/olinda/servico/BcBase/versao/v2/odata/EntidadesSupervisionadas?format=json"
 
 try:
     print("Consultando API oficial Olinda do Banco Central...")
