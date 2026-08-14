@@ -5,14 +5,14 @@ import requests
 import os
 from datetime import datetime
 
-urls = [
+# --- PARTE 1: RASPAR CASAS DE APOSTAS (SPA/MF) ---
+urls_bets = [
     "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas/empresas-autorizadas-1/empresas-autorizadas",
     "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas/empresas-autorizadas-1/processos-administrativos"
 ]
 
 headers = {'User-Agent': 'Mozilla/5.0'}
 
-# 1. Carrega os dados antigos para comparação
 dados_antigos = []
 if os.path.exists('dados.json'):
     try:
@@ -25,9 +25,8 @@ if os.path.exists('dados.json'):
 
 cnpjs_antigos = {e['cnpj']: e['razao_social'] for e in dados_antigos if 'cnpj' in e}
 
-# 2. Raspa os dados novos do Governo
 empresas_novas = []
-for url in urls:
+for url in urls_bets:
     try:
         tabelas = pd.read_html(url)
         for df in tabelas:
@@ -54,13 +53,11 @@ if empresas_novas:
     empresas_novas_dict = {e['cnpj']: e for e in empresas_novas}
     cnpjs_novos = {e['cnpj']: e['razao_social'] for e in empresas_novas_dict.values()}
     
-    # 3. Compara Diferenças (Diff)
     adicionadas = [f"{razao} ({cnpj})" for cnpj, razao in cnpjs_novos.items() if cnpj not in cnpjs_antigos]
     removidas = [f"{razao} ({cnpj})" for cnpj, razao in cnpjs_antigos.items() if cnpj not in cnpjs_novos]
     
     data_hoje = datetime.now().strftime("%d/%m/%Y")
     
-    # Prepara o registro de histórico
     registro_historico = {
         "data": data_hoje,
         "adicionadas": adicionadas,
@@ -69,13 +66,45 @@ if empresas_novas:
         "total_removidas": len(removidas)
     }
     
-    # Salva o historico.json
     with open('historico.json', 'w', encoding='utf-8') as f:
         json.dump(registro_historico, f, ensure_ascii=False, indent=2)
         
-    # Salva a nova base dados.json
     with open('dados.json', 'w', encoding='utf-8') as f:
         for item in empresas_novas_dict.values():
             f.write(json.dumps(item, ensure_ascii=False) + '\n')
             
-    print(f"✅ Atualizado! +{len(adicionadas)} adicionadas, -{len(removidas)} removidas.")
+    print(f"✅ Bets Atualizadas! +{len(adicionadas)} adicionadas, -{len(removidas)} removidas.")
+
+
+# --- PARTE 2: BUSCAR INSTITUIÇÕES DE PAGAMENTO (BCB / OLINDA) ---
+print("Buscando Instituições de Pagamento no Banco Central...")
+url_bcb = "https://olinda.bcb.gov.br/olinda/servico/BcBase_v2/versao/v1/odata/EntidadesBancariasEnquadramento(database=@database)?@database='2026-08-05'&$format=json"
+
+try:
+    response = requests.get(url_bcb, headers=headers, timeout=30)
+    if response.status_code == 200:
+        raw_bcb = response.json().get('value', [])
+        ips_list = []
+        
+        for item in raw_bcb:
+            cnpj = str(item.get('codigoCNPJ14', '')).strip()
+            nome = str(item.get('nomeEntidadeInteresse', '')).strip()
+            municipio = str(item.get('nomeDoMunicipio', '')).strip()
+            uf = str(item.get('nomeDaUnidadeDaFederacao', '')).strip()
+            
+            if cnpj and nome:
+                ips_list.append({
+                    "cnpj": cnpj,
+                    "nome": nome,
+                    "municipio": f"{municipio}/{uf}" if municipio else UF,
+                    "status": "Autorizada a Funcionar pelo Banco Central (BCB)"
+                })
+        
+        with open('ips.json', 'w', encoding='utf-8') as f:
+            json.dump(ips_list, f, ensure_ascii=False, indent=2)
+            
+        print(f"✅ IPs Atualizadas! {len(ips_list)} Instituições de Pagamento salvas em ips.json.")
+    else:
+        print(f"⚠️ Erro ao consultar API do BCB: Status {response.status_code}")
+except Exception as e:
+    print(f"⚠️ Erro no processamento do BCB: {e}")
