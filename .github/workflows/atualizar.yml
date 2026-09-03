@@ -1,37 +1,135 @@
-name: Automação Base de Apostas (SPA/MF)
+# =============================================================================
+#  NU - CONSULTA BET  |  Robo de atualizacao da base
+# =============================================================================
+#
+#  O QUE MUDOU EM RELACAO A VERSAO ANTIGA
+#  --------------------------------------
+#  ANTES: o robo rodava, e o que quer que saisse do scraper ia direto pro ar.
+#         Quando o scraper falhou, ele publicou uma base vazia sozinho.
+#
+#  AGORA: o robo roda, e se o scraper reprovar nas travas de seguranca ele
+#         para e te avisa. Se passar, ele NAO publica: abre um Pull Request
+#         para voce revisar e aprovar com um clique.
+#
+#  ROTINA SEMANAL (~30 segundos)
+#  -----------------------------
+#  1. Voce recebe um e-mail do GitHub: "novo Pull Request"
+#  2. Abre, clica em "Files changed" e ve exatamente o que mudou
+#  3. Se estiver certo, clica em "Merge". O site atualiza sozinho.
+#  4. Se estiver errado, clica em "Close". Nada vai pro ar.
+#
+#  CONFIGURACAO NECESSARIA (uma vez so)
+#  ------------------------------------
+#  No GitHub: Settings > Actions > General > Workflow permissions
+#    [x] Read and write permissions
+#    [x] Allow GitHub Actions to create and approve pull requests
+#
+# =============================================================================
+
+name: Atualizar base de apostas (SPA/MF)
 
 on:
   schedule:
-    - cron: '0 8 * * 1'
-  workflow_dispatch:
+    # Toda segunda a sexta, as 09:00 de Brasilia (12:00 UTC).
+    # O governo costuma atualizar em dia util, entao checar todo dia util
+    # pega a mudanca no mesmo dia.
+    - cron: '0 12 * * 1-5'
+  workflow_dispatch:        # permite rodar na mao pelo botao "Run workflow"
 
 permissions:
   contents: write
+  pull-requests: write
 
 jobs:
-  build:
+  atualizar:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Baixar o repositório
-      uses: actions/checkout@v4
+      - name: Baixar o repositorio
+        uses: actions/checkout@v4
 
-    - name: Configurar o Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.10'
+      - name: Configurar o Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
 
-    - name: Instalar dependências
-      run: |
-        python -m pip install --upgrade pip
-        pip install pandas lxml html5lib requests beautifulsoup4
+      - name: Instalar dependencias
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests beautifulsoup4 lxml
 
-    - name: Executar o Scraper
-      run: python scraper.py
+      # Se o scraper reprovar nas travas, ele sai com erro e o workflow
+      # inteiro falha aqui. Nenhum arquivo e alterado e voce recebe o aviso.
+      - name: Rodar o scraper
+        id: scraper
+        run: python scraper.py
 
-    - name: Salvar alterações no Git
-      run: |
-        git config --global user.name 'github-actions[bot]'
-        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-        git add -A
-        git diff --staged --quiet || (git commit -m "Auto-update: Atualização de Bets" && git push)
+      - name: Verificar se algo mudou
+        id: diff
+        run: |
+          if git diff --quiet -- dados.json historico.json; then
+            echo "mudou=nao" >> "$GITHUB_OUTPUT"
+            echo "Nenhuma alteracao. Nada a fazer."
+          else
+            echo "mudou=sim" >> "$GITHUB_OUTPUT"
+            echo "Alteracoes detectadas:"
+            git diff --stat -- dados.json historico.json
+          fi
+
+      - name: Abrir Pull Request para revisao
+        if: steps.diff.outputs.mudou == 'sim'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: atualizacao-base-apostas
+          delete-branch: true
+          commit-message: "Atualiza base SPA/MF (${{ steps.scraper.outputs.resumo }})"
+          title: "Atualizacao da base: ${{ steps.scraper.outputs.resumo }}"
+          labels: atualizacao-automatica
+          body: |
+            ## Atualizacao automatica da base oficial
+
+            | | |
+            |---|---|
+            | **Total de empresas** | ${{ steps.scraper.outputs.total }} |
+            | **Adicionadas** | +${{ steps.scraper.outputs.adicionadas }} |
+            | **Removidas** | -${{ steps.scraper.outputs.removidas }} |
+
+            ### Antes de aprovar
+
+            - [ ] Abri a aba **Files changed** e o diff faz sentido
+            - [ ] O total de empresas bate com a pagina oficial
+            - [ ] As datas de "Publicado / Atualizado" em `dados.json` conferem
+
+            **Fontes conferidas nesta execucao:**
+
+            - [Empresas autorizadas](https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/transparencia-ativa-processos-de-autorizacao-de-apostas-de-quota-fixa/empresas-autorizadas)
+            - [Autorizadas por determinacao judicial](https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/transparencia-ativa-processos-de-autorizacao-de-apostas-de-quota-fixa/autorizadas-por-determinacao-judicial)
+
+            > Este PR foi aberto automaticamente. O site **nao** muda ate voce dar merge.
+
+      # Se qualquer passo acima falhar, abre uma issue avisando.
+      # Assim voce nunca fica sem saber que o robo parou de funcionar.
+      - name: Avisar em caso de falha
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const url = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `Robo da base de apostas falhou em ${new Date().toLocaleDateString('pt-BR')}`,
+              labels: ['falha-automacao'],
+              body: [
+                'O robo tentou atualizar a base e **nao conseguiu**.',
+                '',
+                '**Importante:** nada foi publicado. O site continua com a base anterior,',
+                'que esta correta, apenas possivelmente desatualizada.',
+                '',
+                `[Ver o log completo da execucao](${url})`,
+                '',
+                '### Causa mais provavel',
+                'O governo mudou o endereco ou o formato da pagina.',
+                'Confira as URLs no topo do `scraper.py` e ajuste se necessario.'
+              ].join('\n')
+            });
