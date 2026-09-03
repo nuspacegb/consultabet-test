@@ -3,10 +3,10 @@
     "fonte_administrativas": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/transparencia-ativa-processos-de-autorizacao-de-apostas-de-quota-fixa/empresas-autorizadas",
     "fonte_judiciais": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/transparencia-ativa-processos-de-autorizacao-de-apostas-de-quota-fixa/autorizadas-por-determinacao-judicial",
     "publicado_em": "20/07/2026 17h28",
-    "atualizado_em": "19/08/2026 12h40",
+    "atualizado_em": "03/09/2026 15h20",
     "publicado_em_judicial": "20/07/2026 17h29",
-    "atualizado_em_judicial": "19/08/2026 15h58",
-    "verificado_em": "conversao manual da base anterior",
+    "atualizado_em_judicial": "03/09/2026 15h22",
+    "verificado_em": "03/09/2026 15:28",
     "total": 87,
     "total_administrativas": 85,
     "total_judiciais": 2
@@ -15,774 +15,859 @@
     {
       "cnpj": "56.442.917/0001-09",
       "razao_social": "7MBR LTDA",
-      "marcas": "VERT, CGG, FANBIT",
-      "dominio": "",
-      "portaria": "SPA/MF nº 844/2025",
-      "requerimento": "0056/2024",
-      "origem": "administrativa"
+      "marcas": "•, VERT, •, CGG, •, FANBIT",
+      "dominio": "vert.bet.br cgg.bet.br fanbit.bet.br",
+      "portaria": "SPA/MF nº 844, de 17 de abril de 2025 ( Alterada pela Portaria SPA/MF nº 975, de 06 de maio de 2025 ) ( E pela Portaria SPA/MF nº 1.176, de 29 de maio de 2025 )",
+      "requerimento": "00562024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/transparencia-ativa-processos-de-autorizacao-de-apostas-de-quota-fixa/arquivos_tarjados/00562024_7mbr.pdf"
     },
     {
       "cnpj": "56.147.145/0001-74",
       "razao_social": "A2FBR S.A.",
-      "marcas": "PINNACLE, MATCHBOOK, BETESPECIAL, BOLSA DE APOSTA",
-      "dominio": "",
-      "portaria": "SPA/MF nº 2.102/2024",
-      "requerimento": "0067/2024",
-      "origem": "administrativa"
+      "marcas": "•, PINNACLE, •, MATCHBOOK, •, BETESPECIAL",
+      "dominio": "pinnacle.bet.br matchbook.bet.br betespecial.bet.br",
+      "portaria": "SPA/MF nº 2.102, de 30 de dezembro de 2024 (Alterada pela Portaria SPA/MF nº 799, de 23 de março de 2026)",
+      "requerimento": "00672024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/transparencia-ativa-processos-de-autorizacao-de-apostas-de-quota-fixa/arquivos_tarjados/00672024_a2fbr.pdf"
     },
     {
       "cnpj": "56.147.145/0001-74",
       "razao_social": "A2FBR S.A.",
-      "marcas": "FULLTBET, BETBRA",
-      "dominio": "",
-      "portaria": "SPA/MF nº 2.101/2024",
-      "requerimento": "0067/2024",
-      "origem": "administrativa"
+      "marcas": "•, BOLSA DE APOSTA, •, FULLTBET, •, BETBRA",
+      "dominio": "bolsadeaposta.bet.br fulltbet.bet.br betbra.bet.br",
+      "portaria": "SPA/MF nº 2.101, de 30 de dezembro de 2024 (Alterada pela Portaria SPA/MF nº 798, de 23 de março de 2026)",
+      "requerimento": "00672024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/transparencia-ativa-processos-de-autorizacao-de-apostas-de-quota-fixa/arquivos_tarjados/00672024_a2fbr.pdf"
     },
     {
       "cnpj": "55.359.927/0001-04",
       "razao_social": "ALFA ENTRETENIMENTO S.A.",
-      "marcas": "ALFA.BET",
-      "dominio": "",
-      "portaria": "SPA/MF nº 2.100/2024",
-      "requerimento": "0060/2024",
-      "origem": "administrativa"
+      "marcas": "•, ALFA.BET",
+      "dominio": "alfa.bet.br",
+      "portaria": "SPA/MF nº 2.100, de 30 de dezembro de 2024",
+      "requerimento": "00602024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/transparencia-ativa-processos-de-autorizacao-de-apostas-de-quota-fixa/arquivos_tarjados/00602024_alfa-entretenimento.pdf"
     },
     {
       "cnpj": "55.933.850/0001-34",
       "razao_social": "ANA GAMING BRASIL S.A.",
-      "marcas": "7K, CASSINO, VERA",
-      "dominio": "",
-      "portaria": "SPA/MF nº 322/2025",
-      "requerimento": "0054/2024",
-      "origem": "administrativa"
+      "marcas": "•, 7K, •, CASSINO, •, VERA",
+      "dominio": "7k.bet.br, cassino.bet.br, vera.bet.br",
+      "portaria": "SPA/MF nº 322, de 17 de fevereiro de 2025 (Alterada pela Portaria SPA/MF nº 1.056, de 14 de maio de 2025)",
+      "requerimento": "00542024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/transparencia-ativa-processos-de-autorizacao-de-apostas-de-quota-fixa/arquivos_tarjados/00542024_ana-gaming.pdf"
     },
     {
       "cnpj": "54.923.003/0001-26",
       "razao_social": "APOLLO OPERATIONS LTDA",
-      "marcas": "KTO",
-      "dominio": "",
-      "portaria": "SPA/MF nº 2.093/2024",
-      "requerimento": "0007/2024",
-      "origem": "administrativa"
+      "marcas": "•, KTO",
+      "dominio": "kto.bet.br",
+      "portaria": "SPA/MF nº 2.093, de 30 de dezembro de 2024",
+      "requerimento": "00072024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/transparencia-ativa-processos-de-autorizacao-de-apostas-de-quota-fixa/arquivos_tarjados/00072024_apollo.pdf"
     },
     {
       "cnpj": "56.001.749/0001-08",
       "razao_social": "APOSTA GANHA LOTERIAS LTDA",
-      "marcas": "APOSTA GANHA, BETBOO, RECEBA",
-      "dominio": "",
-      "portaria": "SPA/MF nº 251/2025",
-      "requerimento": "0022/2024",
-      "origem": "administrativa"
+      "marcas": "•, APOSTA GANHA, •, RECEBA",
+      "dominio": "apostaganha.bet.br receba.bet.br",
+      "portaria": "SPA/MF nº 251, de 07 de fevereiro de 2025 (Alterada pela Portaria SPA/MF nº 807, de 23 de março de 2026)",
+      "requerimento": "00222024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/transparencia-ativa-processos-de-autorizacao-de-apostas-de-quota-fixa/arquivos_tarjados/00222024_aposta-ganha.pdf"
     },
     {
       "cnpj": "56.706.644/0001-54",
       "razao_social": "B3T4 INTERNATIONAL GROUP LTDA",
-      "marcas": "BET4, APOSTA BET, FAZ O BET",
-      "dominio": "",
-      "portaria": "SPA/MF nº 472/2025",
-      "requerimento": "0063/2024",
-      "origem": "administrativa"
+      "marcas": "•, BET4, •, APOSTA BET, •, FAZ O BET",
+      "dominio": "bet4.bet.br aposta.bet.br fazo.bet.br",
+      "portaria": "SPA/MF nº 472, de 10 de março de 2025",
+      "requerimento": "00632024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/transparencia-ativa-processos-de-autorizacao-de-apostas-de-quota-fixa/arquivos_tarjados/00632024_b3t4.pdf"
     },
     {
       "cnpj": "57.522.731/0001-14",
       "razao_social": "BB GAMING LTDA",
-      "marcas": "BRA, XX",
-      "dominio": "",
-      "portaria": "SPA/MF nº 92/2026",
-      "requerimento": "0210/2024",
-      "origem": "administrativa"
+      "marcas": "•, BRA, •, XX",
+      "dominio": "bra.bet.br, xx.bet.br",
+      "portaria": "SPA/MF nº 92, de 13 de janeiro de 2026 Alterada pela Portaria SPA/MF nº 1.166, de 28 de abril de 2026",
+      "requerimento": "02102024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas/arquivos_tarjados/02102024_bb-gaming-13-ago_ocultado.pdf"
     },
     {
       "cnpj": "56.638.458/0001-25",
       "razao_social": "BELL VENTURES DIGITAL LTDA",
-      "marcas": "BANDBET",
-      "dominio": "",
-      "portaria": "SPA/MF nº 270/2025",
-      "requerimento": "0051/2024",
-      "origem": "administrativa"
+      "marcas": "•, BANDBET",
+      "dominio": "bandbet.bet.br",
+      "portaria": "SPA/MF nº 270, de 10 de fevereiro de 2025",
+      "requerimento": "00512024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas/arquivos_tarjados/00512024_bell-ventures-tarjado.pdf"
     },
     {
       "cnpj": "54.951.974/0001-80",
       "razao_social": "BETBOOM LTDA",
-      "marcas": "BETBOOM",
-      "dominio": "",
-      "portaria": "SPA/MF nº 2.103/2024",
-      "requerimento": "0069/2024",
-      "origem": "administrativa"
+      "marcas": "•, BETBOOM, •, FREE",
+      "dominio": "betboom.bet.br free.bet.br",
+      "portaria": "SPA/MF nº 2.103, de 30 de dezembro de 2024 (Alterada pela Portaria SPA/MF nº 1.926, de 30 de junho de 2026)",
+      "requerimento": "00692024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/transparencia-ativa-processos-de-autorizacao-de-apostas-de-quota-fixa/arquivos_tarjados/00692024_betboom.pdf"
     },
     {
       "cnpj": "55.881.028/0001-77",
       "razao_social": "BETBR LOTERIAS LTDA",
-      "marcas": "APOSTOU, B1 BET, BRBET",
-      "dominio": "",
-      "portaria": "SPA/MF nº 373/2025",
-      "requerimento": "0045/2024",
-      "origem": "administrativa"
+      "marcas": "•, APOSTOU, •, B1 BET, •, BRBET",
+      "dominio": "apostou.bet.br, b1bet.bet.br, brbet.bet.br",
+      "portaria": "SPA/MF nº 373, de 24 de fevereiro de 2025",
+      "requerimento": "00452024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas/arquivos_tarjados/00452024_betbr-loterias_tarjado.pdf"
     },
     {
       "cnpj": "56.295.104/0001-25",
-      "razao_social": "BETESPORTE APOSTAS ON LINE LTDA",
-      "marcas": "BETESPORTE, LANCE DE SORTE",
-      "dominio": "",
-      "portaria": "SPA/MF nº 257/2025",
-      "requerimento": "0033/2024",
-      "origem": "administrativa"
+      "razao_social": "BETESPORTE APOSTAS ONLINE LTDA",
+      "marcas": "•, BETESPORTE, •, LANCE DE SORTE",
+      "dominio": "betesporte.bet.br, lancedesorte.bet.br",
+      "portaria": "SPA/MF nº 257, de 07 de fevereiro de 2025",
+      "requerimento": "00332024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/transparencia-ativa-processos-de-autorizacao-de-apostas-de-quota-fixa/arquivos_tarjados/00332024_betesporte.pdf"
     },
     {
       "cnpj": "56.061.524/0001-47",
       "razao_social": "BETSPEED LTDA",
-      "marcas": "TIGER.BET, PQ777, 5G",
-      "dominio": "",
-      "portaria": "SPA/MF nº 258/2025",
-      "requerimento": "0037/2024",
-      "origem": "administrativa"
+      "marcas": "•, TIGER.BET, •, PQ777, •, 5G",
+      "dominio": "tiger.bet.br, pq777.bet.br, 5g.bet.br",
+      "portaria": "SPA/MF nº 258, de 07 de fevereiro de 2025 (Alterada pela Portaria SPA/MF nº 1.426, de 30 de junho de 2025)",
+      "requerimento": "00372024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/transparencia-ativa-processos-de-autorizacao-de-apostas-de-quota-fixa/arquivos_tarjados/00372024_betspeed.pdf"
     },
     {
       "cnpj": "41.590.869/0001-10",
       "razao_social": "BIG BRAZIL TECNOLOGIA E LOTERIA S.A.",
-      "marcas": "BIG, APOSTAR",
-      "dominio": "",
-      "portaria": "SPA/MF nº 370/2025",
-      "requerimento": "0005/2024",
-      "origem": "administrativa"
+      "marcas": "•, BIG, •, APOSTAR",
+      "dominio": "big.bet.br, apostar.bet.br",
+      "portaria": "SPA/MF nº 370, de 24 de fevereiro de 2025 ( Alterada pela Portaria SPA/MF nº 479, de 10 de março de 2025 ) ( E pela Portaria SPA/MF nº 755, de 08 de abril de 2025 ) ( E pela Portaria SPA/MF nº 410, de 12 de fevereiro de 2026 )",
+      "requerimento": "00052024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas/arquivos_tarjados/00052024_big-brazil_tarjado-12-ago.pdf"
     },
     {
       "cnpj": "55.988.317/0001-70",
       "razao_social": "BLAC JOGOS LTDA",
-      "marcas": "SPORTYBET",
-      "dominio": "",
-      "portaria": "SPA/MF nº 2.095/2024",
-      "requerimento": "0011/2024",
-      "origem": "administrativa"
+      "marcas": "•, SPORTYBET",
+      "dominio": "sporty.bet.br",
+      "portaria": "SPA/MF nº 2.095, de 30 de dezembro de 2024 (Alterada pela Portaria SPA/MF nº 480, de 10 de março de 2025)",
+      "requerimento": "00112024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas/arquivos_tarjados/00112024_blac-jogos-tarjado-12-ago-_ocultado.pdf"
     },
     {
       "cnpj": "37.486.405/0001-91",
       "razao_social": "BLOW MARKETPLACE LTDA",
-      "marcas": "BRAVO, TRADICIONAL, APOSTATUDO",
-      "dominio": "",
-      "portaria": "SPA/MF nº 468/2025",
-      "requerimento": "0039/2024",
-      "origem": "administrativa"
+      "marcas": "•, BRAVO, •, TRADICIONAL, •, APOSTATUDO",
+      "dominio": "bravo.bet.br, tradicional.bet.br, apostatudo.bet.br",
+      "portaria": "SPA/MF nº 468, de 10 de março de 2025",
+      "requerimento": "00392024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas/arquivos_tarjados/0039_2024-blow_tarjado_ordem.pdf"
     },
     {
       "cnpj": "53.837.227/0001-52",
       "razao_social": "BOA LION S.A.",
-      "marcas": "BETMGM, MGM",
-      "dominio": "",
-      "portaria": "SPA/MF nº 2.098/2024",
-      "requerimento": "0036/2024",
-      "origem": "administrativa"
+      "marcas": "•, BETMGM, •, MGM",
+      "dominio": "betmgm.bet.br mgm.bet.br",
+      "portaria": "SPA/MF nº 2.098, de 30 de dezembro de 2024",
+      "requerimento": "00362024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas/arquivos_tarjados/00362024_boa-lion-tarjado_ocultado-14-ago.pdf"
     },
     {
       "cnpj": "55.590.815/0001-60",
       "razao_social": "BPX BETS SPORTS GROUP LTDA",
-      "marcas": "VAIDEBET, BETPIX365, OBABET",
-      "dominio": "",
-      "portaria": "SPA/MF nº 797/2026",
-      "requerimento": "0059/2024",
-      "origem": "administrativa"
+      "marcas": "•, VAIDEBET, •, BETPIX365, •, OBABET",
+      "dominio": "vaidebet.bet.br, betpix365.bet.br, obabet.bet.br",
+      "portaria": "SPA/MF nº 797, de 23 de março de 2026 (Retificada em 26 de março de 2026)",
+      "requerimento": "00592024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas/arquivos_tarjados/00592024_bpx-bets_tarjado.pdf"
     },
     {
       "cnpj": "56.259.060/0001-88",
       "razao_social": "BRILLIANT GAMING LTDA",
-      "marcas": "AFUN, AI, 6Z",
-      "dominio": "",
-      "portaria": "SPA/MF nº 261/2025",
-      "requerimento": "0052/2024",
-      "origem": "administrativa"
+      "marcas": "•, AFUN, •, AI, •, 6Z",
+      "dominio": "afun.bet.br, ai.bet.br, 6z.bet.br",
+      "portaria": "SPA/MF nº 261, de 07 de fevereiro de 2025",
+      "requerimento": "00522024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas/arquivos_tarjados/00522024_brilliant-gaming-tarjado.pdf"
     },
     {
       "cnpj": "24.038.490/0001-83",
       "razao_social": "CAIXA LOTERIAS S.A.",
-      "marcas": "BETCAIXA, MEGABET",
-      "dominio": "",
-      "portaria": "SPA/MF nº 1.665/2025",
-      "requerimento": "0081/2024",
-      "origem": "administrativa"
+      "marcas": "•, BETCAIXA, •, MEGABET, •, XBET CAIXA",
+      "dominio": "betcaixa.bet.br megabet.bet.br xbetcaixa.bet.br",
+      "portaria": "SPA/MF nº 1.665, de 29 de julho de 2025",
+      "requerimento": "00812024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas/arquivos_tarjados/00812024_caixa-loterias-com-tarjamento-12-ago.pdf"
     },
     {
       "cnpj": "56.636.543/0001-54",
       "razao_social": "CDA GAMING LTDA",
-      "marcas": "CASA DE APOSTAS, BET SUL, JOGO ONLINE",
-      "dominio": "",
-      "portaria": "SPA/MF nº 255/2025",
-      "requerimento": "0029/2024",
-      "origem": "administrativa"
+      "marcas": "•, CASA DE APOSTAS, •, BET SUL, •, JOGO ONLINE",
+      "dominio": "casadeapostas.bet.br, betsul.bet.br, jogoonline.bet.br",
+      "portaria": "SPA/MF nº 255, de 07 de fevereiro de 2025 (Retificada em 18 de fevereiro de 2025)",
+      "requerimento": "00292024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/transparencia-ativa-processos-de-autorizacao-de-apostas-de-quota-fixa/arquivos_tarjados/00292024_cda-gaming.pdf"
     },
     {
       "cnpj": "47.974.569/0001-11",
       "razao_social": "DEFY LTDA",
-      "marcas": "1XBET",
-      "dominio": "",
-      "portaria": "SPA/MF nº 1.666/2025",
-      "requerimento": "0104/2024",
-      "origem": "administrativa"
+      "marcas": "•, 1XBET",
+      "dominio": "1xbet.bet.br",
+      "portaria": "SPA/MF nº 1.666, de 29 de julho de 2025",
+      "requerimento": "01042024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas/arquivos_tarjados/01042024_defy_tarjado.pdf"
     },
     {
       "cnpj": "56.060.798/0001-11",
       "razao_social": "DIGIPLUS BRAZIL INTERACTIVE LTDA",
-      "marcas": "ARENAPLUS, BINGOPLUS",
-      "dominio": "",
-      "portaria": "SPA/MF nº 2.099/2024",
-      "requerimento": "0041/2024",
-      "origem": "administrativa"
+      "marcas": "•, ARENAPLUS, •, BINGOPLUS",
+      "dominio": "arenaplus.bet.br bingoplus.bet.br",
+      "portaria": "SPA/MF nº 2.099, de 30 de dezembro de 2024 (Alterada pela Portaria SPA/MF nº 1.761, de 11 de agosto de 2025) (E pela Portaria SPA/MF nº 2.429, de 24 de outubro de 2025)",
+      "requerimento": "00412024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas/arquivos_tarjados/00412024_digiplus_tarjado.pdf"
     },
     {
       "cnpj": "53.570.592/0001-43",
       "razao_social": "EA ENTRETENIMENTO E ESPORTES S.A.",
-      "marcas": "BATEU BET, ESPORTIVA BET",
-      "dominio": "",
-      "portaria": "SPA/MF nº 523/2025",
-      "requerimento": "0047/2024",
-      "origem": "administrativa"
+      "marcas": "•, BATEU BET, •, ESPORTIVA BET",
+      "dominio": "bateu.bet.br esportiva.bet.br",
+      "portaria": "SPA/MF nº 523, de 14 de março de 2025 ( Alterada pela Portaria SPA/MF nº 1.885, de 26 de agosto de 2025 ) ( E pela Portaria SPA/MF nº 2.449, de 29 de outubro de 2025 )",
+      "requerimento": "00472024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas/arquivos_tarjados/00472024_ea-entretenimento-tarjado-10-ago.pdf"
     },
     {
       "cnpj": "52.639.845/0001-25",
       "razao_social": "EB INTERMEDIACOES E JOGOS S.A.",
-      "marcas": "ESTRELABET, VUPI",
-      "dominio": "",
-      "portaria": "SPA/MF nº 320/2025",
-      "requerimento": "0012/2024",
-      "origem": "administrativa"
+      "marcas": "•, ESTRELABET, •, VUPI",
+      "dominio": "estrelabet.bet.br, vupi.bet.br",
+      "portaria": "SPA/MF nº 320, de 17 de fevereiro de 2025 (Alterada pela Portaria SPA/MF nº 1.762, de 11 de agosto de 2025)",
+      "requerimento": "00122024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas/arquivos_tarjados/00122024_eb-intermediacoes-tarjado-12-ago.pdf"
     },
     {
       "cnpj": "53.429.401/0001-28",
       "razao_social": "ENSEADA SERVIÇOS E TECNOLOGIA LTDA",
-      "marcas": "KBET",
-      "dominio": "",
-      "portaria": "SPA/MF nº 1.792/2025",
-      "requerimento": "0058/2024",
-      "origem": "administrativa"
+      "marcas": "•, KBET",
+      "dominio": "kbet.bet.br",
+      "portaria": "SPA/MF nº 1.792, de 13 de agosto de 2025",
+      "requerimento": "00582024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/transparencia-ativa-processos-de-autorizacao-de-apostas-de-quota-fixa/arquivos_tarjados/00582024_enseada.pdf"
     },
     {
       "cnpj": "56.075.466/0001-00",
       "razao_social": "ESPORTES GAMING BRASIL LTDA",
-      "marcas": "ESPORTES DA SORTE, ONABET, LOTTU",
-      "dominio": "",
-      "portaria": "SPA/MF nº 136/2025",
-      "requerimento": "0030/2024",
-      "origem": "administrativa"
+      "marcas": "•, ESPORTES DA SORTE, •, ONABET, •, LOTTU",
+      "dominio": "esportesdasorte.bet.br ona.bet.br lottu.bet.br",
+      "portaria": "SPA/MF nº 136, de 22 de janeiro de 2025 (Alterada pela Portaria SPA/MF nº 1.559, de 16 de julho de 2025) (Retificada em 18 de julho de 2025)",
+      "requerimento": "00302024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas/arquivos_tarjados/00302024_esportes-gaming-tarjado-10ago-1-3.pdf"
     },
     {
       "cnpj": "56.108.627/0001-15",
       "razao_social": "ESTADOX LTDA",
-      "marcas": "TROPINO, BZ, 55W",
-      "dominio": "",
-      "portaria": "SPA/MF nº 2.325/2025",
-      "requerimento": "0091/2024",
-      "origem": "administrativa"
+      "marcas": "•, TROPINO, •, BZ, •, 55W",
+      "dominio": "tropino.bet.br, bz.bet.br, 55w.bet.br",
+      "portaria": "SPA/MF nº 2.325, de 14 de outubro de 2025",
+      "requerimento": "00912024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/transparencia-ativa-processos-de-autorizacao-de-apostas-de-quota-fixa/arquivos_tarjados/00912024_estadox.pdf"
     },
     {
       "cnpj": "51.897.834/0001-82",
       "razao_social": "F12 DO BRASIL JOGOS ELETRONICOS LTDA",
-      "marcas": "F12.BET, LUVA.BET, BRASIL.BET",
-      "dominio": "",
-      "portaria": "SPA/MF nº 319/2025",
-      "requerimento": "0010/2024",
-      "origem": "administrativa"
+      "marcas": "•, F12.BET, •, LUVA.BET, •, BRASIL.BET",
+      "dominio": "f12.bet.br, luva.bet.br, brasil.bet.br",
+      "portaria": "SPA/MF nº 319, de 17 de fevereiro de 2025 (Alterada pela Portaria SPA/MF nº 1.423, de 30 de junho de 2025)",
+      "requerimento": "00102024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/transparencia-ativa-processos-de-autorizacao-de-apostas-de-quota-fixa/arquivos_tarjados/00102024_f12-do-brasil.pdf"
     },
     {
       "cnpj": "55.980.542/0001-60",
       "razao_social": "FAST GAMING S.A.",
-      "marcas": "BETFAST, FAZ1BET, TIVOBET",
-      "dominio": "",
-      "portaria": "SPA/MF nº 467/2025",
-      "requerimento": "0031/2024",
-      "origem": "administrativa"
+      "marcas": "•, BETFAST, •, FAZ1BET, •, TIVOBET",
+      "dominio": "betfast.bet.br, faz1.bet.br, tivo.bet.br",
+      "portaria": "SPA/MF nº 467, de 10 de março de 2025",
+      "requerimento": "00312024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas/arquivos_tarjados/00312024_fast-gaming-tarjado.pdf"
     },
     {
       "cnpj": "56.431.248/0001-61",
       "razao_social": "FOGGO ENTERTAINMENT LTDA",
-      "marcas": "BLAZE, JONBET",
-      "dominio": "",
-      "portaria": "SPA/MF nº 471/2025",
-      "requerimento": "0053/2024",
-      "origem": "administrativa"
+      "marcas": "•, BLAZE, •, JONBET",
+      "dominio": "blaze.bet.br, jonbet.bet.br",
+      "portaria": "SPA/MF nº 471, de 10 de março de 2025",
+      "requerimento": "00532024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas/arquivos_tarjados/00532024_foggo-tarjado-1.pdf"
     },
     {
       "cnpj": "55.399.607/0001-88",
       "razao_social": "FUTURAS APOSTAS LTDA",
-      "marcas": "BRAZINO777",
-      "dominio": "",
-      "portaria": "SPA/MF nº 466/2025",
-      "requerimento": "0023/2024",
-      "origem": "administrativa"
+      "marcas": "•, BRAZINO777",
+      "dominio": "brazino777.bet.br",
+      "portaria": "SPA/MF nº 466, de 10 de março de 2025",
+      "requerimento": "00232024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas/arquivos_tarjados/00232024_futuras-apostas_ocultado.pdf"
     },
     {
       "cnpj": "31.853.299/0001-50",
       "razao_social": "GALERA GAMING JOGOS ELETRONICOS S.A.",
-      "marcas": "GALERA.BET",
-      "dominio": "",
-      "portaria": "SPA/MF nº 2.094/2024",
-      "requerimento": "0009/2024",
-      "origem": "administrativa"
+      "marcas": "•, GALERA.BET",
+      "dominio": "galera.bet.br",
+      "portaria": "SPA/MF nº 2.094, de 30 de dezembro de 2024",
+      "requerimento": "00092024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas/arquivos_tarjados/00092024_galera-gaming-13ago_ocultado.pdf"
     },
     {
       "cnpj": "56.195.099/0001-89",
       "razao_social": "GAMEWIZ BRASIL LTDA",
-      "marcas": "IJOGO, FOG0777, P9, 9F",
-      "dominio": "",
-      "portaria": "SPA/MF nº 465/2025",
-      "requerimento": "0020/2024",
-      "origem": "administrativa"
+      "marcas": "•, IJOGO, •, FOGO777, •, P9",
+      "dominio": "ijogo.bet.br, fogo777.bet.br, p9.bet.br",
+      "portaria": "SPA/MF nº 465, de 10 de março de 2025",
+      "requerimento": "00202024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas/arquivos_tarjados/00202024_gamewiz-brasil-tarjado1.pdf"
     },
     {
       "cnpj": "56.195.099/0001-89",
       "razao_social": "GAMEWIZ BRASIL LTDA",
-      "marcas": "6R, BET.APP",
-      "dominio": "",
-      "portaria": "SPA/MF nº 464/2025",
-      "requerimento": "0019/2024",
-      "origem": "administrativa"
+      "marcas": "•, 9F, •, 6R, •, BET.APP",
+      "dominio": "9f.bet.br, 6r.bet.br, betapp.bet.br",
+      "portaria": "SPA/MF nº 464, de 10 de março de 2025",
+      "requerimento": "00192024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas/arquivos_tarjados/00192024_gamewiz-brasil-tarjado.pdf"
     },
     {
       "cnpj": "37.456.039/0001-28",
       "razao_social": "GORILLAS GROUP DO BRASIL LTDA",
-      "marcas": "BET GORILLAS, BET BUFFALOS, BET FALCONS",
-      "dominio": "",
-      "portaria": "SPA/MF nº 469/2025",
-      "requerimento": "0046/2024",
-      "origem": "administrativa"
+      "marcas": "•, BET GORILLAS, •, BET BUFFALOS, •, BET FALCONS",
+      "dominio": "betgorillas.bet.br, betbuffalos.bet.br, betfalcons.bet.br",
+      "portaria": "SPA/MF nº 469, de 10 de março de 2025",
+      "requerimento": "00462024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/transparencia-ativa-processos-de-autorizacao-de-apostas-de-quota-fixa/arquivos_tarjados/00462024_gorillas-1-tarjado.pdf"
     },
     {
       "cnpj": "56.303.755/0001-10",
       "razao_social": "H2 LICENSED LTDA",
-      "marcas": "SEUBET, H2 BET",
-      "dominio": "",
-      "portaria": "SPA/MF nº 253/2025",
-      "requerimento": "0027/2024",
-      "origem": "administrativa"
+      "marcas": "•, SEUBET, •, H2 BET",
+      "dominio": "seu.bet.br h2.bet.br",
+      "portaria": "SPA/MF nº 253, de 07 de fevereiro de 2025",
+      "requerimento": "00272024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/transparencia-ativa-processos-de-autorizacao-de-apostas-de-quota-fixa/arquivos_tarjados/00272024_h2-licensed.pdf"
     },
     {
       "cnpj": "54.362.120/0001-68",
       "razao_social": "HILGARDO GAMING LTDA",
-      "marcas": "A247, HILGARDO, HILGARDO GAMING",
-      "dominio": "",
-      "portaria": "SPA/MF nº 475/2025",
-      "requerimento": "0106/2024",
-      "origem": "administrativa"
+      "marcas": "•, A247, •, HILGARDO, •, HILGARDO GAMING",
+      "dominio": "a247.bet.br a definir a definir",
+      "portaria": "SPA/MF nº 475, de 10 de março de 2025",
+      "requerimento": "01062024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas/arquivos_tarjados/01062024_hilgardo-1-10-ago.pdf"
     },
     {
       "cnpj": "55.404.799/0001-73",
       "razao_social": "HIPER BET TECNOLOGIA LTDA.",
-      "marcas": "HIPERBET",
-      "dominio": "",
-      "portaria": "SPA/MF nº 321/2025",
-      "requerimento": "0016/2024",
-      "origem": "administrativa"
+      "marcas": "•, HIPERBET",
+      "dominio": "hiper.bet.br",
+      "portaria": "SPA/MF nº 321, de 17 de fevereiro de 2025",
+      "requerimento": "00162024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas/arquivos_tarjados/00162024_hiperbet-tarjado-10-ago.pdf"
     },
     {
       "cnpj": "47.123.407/0001-70",
       "razao_social": "HS DO BRASIL LTDA",
-      "marcas": "BET365",
-      "dominio": "",
-      "portaria": "SPA/MF nº 250/2025",
-      "requerimento": "0021/2024",
-      "origem": "administrativa"
+      "marcas": "•, BET365",
+      "dominio": "bet365.bet.br",
+      "portaria": "SPA/MF nº 250, de 07 de fevereiro de 2025",
+      "requerimento": "00212024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/transparencia-ativa-processos-de-autorizacao-de-apostas-de-quota-fixa/arquivos_tarjados/00212024_hs-do-brasil.pdf"
     },
     {
       "cnpj": "56.302.709/0001-04",
       "razao_social": "JOGO PRINCIPAL LTDA",
-      "marcas": "GINGABET, QGBET, VIVASORTE",
-      "dominio": "",
-      "portaria": "SPA/MF nº 262/2025",
-      "requerimento": "0073/2024",
-      "origem": "administrativa"
+      "marcas": "•, GINGABET, •, QGBET, •, VIVASORTE",
+      "dominio": "ginga.bet.br, qg.bet.br, vivasorte.bet.br",
+      "portaria": "SPA/MF nº 262, de 07 de fevereiro de 2025 (Retificada em 18 de fevereiro de 2025)",
+      "requerimento": "00732024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/transparencia-ativa-processos-de-autorizacao-de-apostas-de-quota-fixa/arquivos_tarjados/00732024_jogo-principal.pdf"
     },
     {
       "cnpj": "46.786.961/0001-74",
       "razao_social": "KAIZEN GAMING BRASIL LTDA",
-      "marcas": "BETANO",
-      "dominio": "",
-      "portaria": "SPA/MF nº 246/2025",
-      "requerimento": "0001/2024",
-      "origem": "administrativa"
+      "marcas": "•, BETANO",
+      "dominio": "betano.bet.br",
+      "portaria": "SPA/MF nº 246, de 07 de fevereiro de 2025",
+      "requerimento": "00012024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/transparencia-ativa-processos-de-autorizacao-de-apostas-de-quota-fixa/arquivos_tarjados/00012024_kaizen.pdf"
     },
     {
       "cnpj": "50.920.462/0001-03",
       "razao_social": "LAGUNA SERVIÇOS E TECNOLOGIA LTDA",
-      "marcas": "NOSSABET",
-      "dominio": "",
-      "portaria": "SPA/MF nº 1.791/2025",
-      "requerimento": "0087/2024",
-      "origem": "administrativa"
+      "marcas": "•, NOSSABET",
+      "dominio": "nossa.bet.br",
+      "portaria": "SPA/MF nº 1.791, de 13 de agosto de 2025",
+      "requerimento": "00872024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas/arquivos_tarjados/00872024_laguna-com-tarjamento_ocultado.pdf"
     },
     {
       "cnpj": "56.441.713/0001-45",
       "razao_social": "LBBR APOSTAS DE QUOTA FIXA LIMITADA",
-      "marcas": "LUCK.BET, 1 PRA 1, STARTBET",
-      "dominio": "",
-      "portaria": "SPA/MF nº 527/2025",
-      "requerimento": "0090/2024",
-      "origem": "administrativa"
+      "marcas": "•, LUCK.BET, •, 1 PRA 1, •, STARTBET",
+      "dominio": "luck.bet.br 1pra1.bet.br start.bet.br",
+      "portaria": "SPA/MF nº 527, de 14 de março de 2025",
+      "requerimento": "00902024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/transparencia-ativa-processos-de-autorizacao-de-apostas-de-quota-fixa/arquivos_tarjados/00902024_lbbr-apostas.pdf"
     },
     {
       "cnpj": "55.045.663/0001-14",
       "razao_social": "LEVANTE BRASIL LTDA",
-      "marcas": "SORTE ONLINE, LOTTOLAND",
-      "dominio": "",
-      "portaria": "SPA/MF nº 259/2025",
-      "requerimento": "0040/2024",
-      "origem": "administrativa"
+      "marcas": "•, SORTE ONLINE, •, LOTTOLAND",
+      "dominio": "sorteonline.bet.br, lottoland.bet.br",
+      "portaria": "SPA/MF nº 259, de 07 de fevereiro de 2025",
+      "requerimento": "00402024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas/arquivos_tarjados/0040_2024-levantebrasil.pdf"
     },
     {
       "cnpj": "50.550.511/0001-55",
       "razao_social": "LINDAU GAMING BRASIL S.A.",
-      "marcas": "OLEYBET",
-      "dominio": "",
-      "portaria": "SPA/MF nº 2.105/2024",
-      "requerimento": "0085/2024",
-      "origem": "administrativa"
+      "marcas": "•, OLEYBET",
+      "dominio": "oleybet.bet.br",
+      "portaria": "SPA/MF nº 2.105, de 30 de dezembro de 2024 (Alterada pela Portaria SPA/MF nº 756, de 08 de abril de 2025) (E pela Portaria SPA/MF nº 418, de 13 de fevereiro de 2026) (E pela Portaria SPA/MF nº 1.334, de 12 de maio de 2026)",
+      "requerimento": "00852024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas/arquivos_tarjados/00852024_lindau-com-tarjamento.pdf"
     },
     {
       "cnpj": "56.349.116/0001-95",
       "razao_social": "LOGAME DO BRASIL LTDA",
-      "marcas": "LÍDERBET, GERALBET",
-      "dominio": "",
-      "portaria": "SPA/MF nº 324/2025",
-      "requerimento": "0096/2024",
-      "origem": "administrativa"
+      "marcas": "•, LÍDERBET, •, GERALBET",
+      "dominio": "lider.bet.br, geralbet.bet.br",
+      "portaria": "SPA/MF nº 324, de 17 fevereiro de 2025 (Alterada pela Portaria SPA/MF nº 931, de 1º de abril de 2026)",
+      "requerimento": "00952024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/transparencia-ativa-processos-de-autorizacao-de-apostas-de-quota-fixa/arquivos_tarjados/00962024_logame.pdf"
     },
     {
       "cnpj": "56.212.040/0001-51",
       "razao_social": "LUCKY GAMING LTDA",
-      "marcas": "4WIN, 4PLAY, PAGOL",
-      "dominio": "",
-      "portaria": "SPA/MF nº 252/2025",
-      "requerimento": "0025/2024",
-      "origem": "administrativa"
+      "marcas": "•, 4WIN, •, 4PLAY, •, PAGOL",
+      "dominio": "4win.bet.br 4play.bet.br pagol.bet.br",
+      "portaria": "SPA/MF nº 252, de 07 de fevereiro de 2025 (Alterada pela Portaria SPA/MF nº 713, de 02 de abril de 2025)",
+      "requerimento": "00252024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas/arquivos_tarjados/00252024_lucky-gaming_ocultado.pdf"
     },
     {
       "cnpj": "56.195.600/0001-07",
       "razao_social": "MERIDIAN GAMING BRASIL SPE LTDA",
-      "marcas": "MERIDIAN, PIN",
-      "dominio": "",
-      "portaria": "SPA/MF nº 526/2025",
-      "requerimento": "0086/2024",
-      "origem": "administrativa"
+      "marcas": "•, MERIDIAN, •, PIN",
+      "dominio": "meridianbet.bet.br pin.bet.br",
+      "portaria": "SPA/MF nº 526, de 14 de março de 2025 ( Alterada pela Portaria SPA/MF nº 1.203, de 02 de junho de 2025 )",
+      "requerimento": "00862024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas/arquivos_tarjados/00862024_meridian-com-tarjamento.pdf"
     },
     {
       "cnpj": "34.935.286/0001-19",
-      "razao_social": "MMD TECNOLOGIA, ENTRETENIMENTO E MARKETING LTDA",
-      "marcas": "REI DO PITACO, PITACO, RDP",
-      "dominio": "",
-      "portaria": "SPA/MF nº 2.091/2024",
-      "requerimento": "0003/2024",
-      "origem": "administrativa"
+      "razao_social": "MMD TECNOLOGIA ENTRETENIMENTO E MARKETING LTDA",
+      "marcas": "•, REI DO PITACO, •, PITACO, •, RdP",
+      "dominio": "reidopitaco.bet.br pitaco.bet.br rdp.bet.br",
+      "portaria": "SPA/MF nº 2.091, de 30 de dezembro 2024 (Alterada pela Portaria SPA/MF nº 1.142, de 23 de maio de 2025)",
+      "requerimento": "00032024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas/arquivos_tarjados/00032024_mmd_tarjado_ocultado-12-ago-1.pdf"
     },
     {
       "cnpj": "55.078.134/0001-17",
       "razao_social": "NEXUS INTERNATIONAL LTDA",
-      "marcas": "MEGAPOSTA",
-      "dominio": "",
-      "portaria": "SPA/MF nº 265/2025",
-      "requerimento": "0118/2024",
-      "origem": "administrativa"
+      "marcas": "•, MEGAPOSTA",
+      "dominio": "megaposta.bet.br",
+      "portaria": "SPA/MF nº 265, de 07 de fevereiro de 2025",
+      "requerimento": "01182024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/transparencia-ativa-processos-de-autorizacao-de-apostas-de-quota-fixa/arquivos_tarjados/01182024_nexus.pdf"
     },
     {
       "cnpj": "60.828.451/0001-43",
       "razao_social": "NOSSO TIME IGAMING LTDA",
-      "marcas": "JOGA JUNTO",
-      "dominio": "",
-      "portaria": "SPA/MF nº 604/2026",
-      "requerimento": "0062/2025",
-      "origem": "administrativa"
+      "marcas": "•, JOGA JUNTO",
+      "dominio": "jogajunto.bet.br",
+      "portaria": "SPA/MF nº 604, de 6 de março de 2026",
+      "requerimento": "00622025",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas/arquivos_tarjados/00622025_nosso-time_revisado_13ago.pdf"
     },
     {
       "cnpj": "55.229.080/0001-43",
       "razao_social": "NSX BETFAIR BRASIL S.A",
-      "marcas": "BETFAIR",
-      "dominio": "",
-      "portaria": "SPA/MF nº 248/2025",
-      "requerimento": "0014/2024",
-      "origem": "administrativa"
+      "marcas": "•, BETFAIR",
+      "dominio": "betfair.bet.br",
+      "portaria": "SPA/MF nº 248, de 07 de fevereiro de 2025 (Alterada pela Portaria SPA/MF nº 2.291, de 09 de outubro de 2025)",
+      "requerimento": "00142024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas/arquivos_tarjados/00142024_nsx-betfair-tarjado-10-ago.pdf"
     },
     {
       "cnpj": "55.056.104/0001-00",
       "razao_social": "NSX BRASIL S.A.",
-      "marcas": "BETNACIONAL",
-      "dominio": "",
-      "portaria": "SPA/MF nº 2.092/2024",
-      "requerimento": "0006/2024",
-      "origem": "administrativa"
+      "marcas": "•, BETNACIONAL",
+      "dominio": "betnacional.bet.br",
+      "portaria": "SPA/MF nº 2.092, de 30 de dezembro de 2024 (Alterada pela Portaria SPA/MF nº 1814, de 15 de agosto de 2025)",
+      "requerimento": "00062024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/transparencia-ativa-processos-de-autorizacao-de-apostas-de-quota-fixa/arquivos_tarjados/00062024_nsx-brasil.pdf"
     },
     {
       "cnpj": "50.587.712/0001-27",
       "razao_social": "NVBT GAMING LTDA",
-      "marcas": "NOVIBET",
-      "dominio": "",
-      "portaria": "SPA/MF nº 249/2025",
-      "requerimento": "0017/2024",
-      "origem": "administrativa"
+      "marcas": "•, NOVIBET",
+      "dominio": "novibet.bet.br",
+      "portaria": "SPA/MF nº 249, de 07 fevereiro de 2025",
+      "requerimento": "00172024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas/arquivos_tarjados/00172024_nvbt-gaming-tarjado_revisado_14ago.pdf"
     },
     {
       "cnpj": "55.459.453/0001-72",
       "razao_social": "OIG GAMING BRAZIL LTDA",
-      "marcas": "ICE",
-      "dominio": "",
-      "portaria": "SPA/MF nº 2.040/2025",
-      "requerimento": "0044/2025",
-      "origem": "administrativa"
+      "marcas": "•, 7GAMES, •, BETÃO, •, R7",
+      "dominio": "7games.bet.br betao.bet.br r7.bet.br",
+      "portaria": "SPA/MF nº 2.040, de 11 de setembro de 2025",
+      "requerimento": "00152024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/transparencia-ativa-processos-de-autorizacao-de-apostas-de-quota-fixa/arquivos_tarjados/00152024_oig-gaming.pdf"
     },
     {
       "cnpj": "55.459.453/0001-72",
       "razao_social": "OIG GAMING BRAZIL LTDA",
-      "marcas": "7GAMES, BETÃO, R7",
-      "dominio": "",
-      "portaria": "SPA/MF nº 2.096/2024",
-      "requerimento": "0015/2024",
-      "origem": "administrativa"
+      "marcas": "• ICE",
+      "dominio": "ice.bet.br",
+      "portaria": "SPA/MF nº 2.096, de 30 de dezembro de 2024",
+      "requerimento": "00442025",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/transparencia-ativa-processos-de-autorizacao-de-apostas-de-quota-fixa/arquivos_tarjados/00442025_oig-gaming.pdf"
     },
     {
       "cnpj": "56.873.267/0001-48",
       "razao_social": "OLAVIR LTDA",
-      "marcas": "RIVALO",
-      "dominio": "",
-      "portaria": "SPA/MF nº 264/2025",
-      "requerimento": "0105/2024",
-      "origem": "administrativa"
+      "marcas": "•, RIVALO",
+      "dominio": "rivalo.bet.br",
+      "portaria": "SPA/MF nº 264, de 07 de fevereiro de 2025",
+      "requerimento": "01052024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas/arquivos_tarjados/01052024_olavir-tarjado.pdf"
     },
     {
       "cnpj": "53.274.124/0001-21",
       "razao_social": "OPEN GAMING S.A.",
-      "marcas": "BET.BET, DONALDBET",
-      "dominio": "",
-      "portaria": "SPA/MF nº 326/2025",
-      "requerimento": "0103/2024",
-      "origem": "administrativa"
+      "marcas": "•, BET.BET, •, DONALDBET",
+      "dominio": "betpontobet.bet.br, donald.bet.br",
+      "portaria": "SPA/MF nº 326, de 17 fevereiro de 2025 ( Alterada pela Portaria SPA/MF nº 508, de 25 de fevereiro de 2026 )",
+      "requerimento": "01032024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/transparencia-ativa-processos-de-autorizacao-de-apostas-de-quota-fixa/arquivos_tarjados/01032024_open-gaming.pdf"
     },
     {
       "cnpj": "55.258.645/0001-10",
       "razao_social": "PIX NA HORA",
-      "marcas": "APOSTA1, APOSTAMAX, AVIÃOBET",
-      "dominio": "",
-      "portaria": "SPA/MF nº 524/2025",
-      "requerimento": "0072/2024",
-      "origem": "administrativa"
+      "marcas": "•, APOSTA1, •, APOSTAMAX, •, AVIÃOBET",
+      "dominio": "aposta1.bet.br apostamax.bet.br aviao.bet.br",
+      "portaria": "SPA/MF nº 524, de 14 de março de 2025 ( Alterada pela Portaria SPA/MF nº 1.760, de 11 de agosto de 2025 )",
+      "requerimento": "00722024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/transparencia-ativa-processos-de-autorizacao-de-apostas-de-quota-fixa/arquivos_tarjados/00722024_pix-na-hora.pdf"
     },
     {
       "cnpj": "40.633.348/0001-30",
       "razao_social": "PIXBET SOLUÇÕES TECNOLÓGICAS LTDA.",
-      "marcas": "PIXBET, GANHEIBET, BET DA SORTE",
-      "dominio": "",
-      "portaria": "SPA/MF nº 806/2025",
-      "requerimento": "0042/2024",
-      "origem": "administrativa"
+      "marcas": "•, PIXBET, •, GANHEIBET, •, BET DA SORTE",
+      "dominio": "pix.bet.br ganhei.bet.br betdasorte.bet.br",
+      "portaria": "SPA/MF nº 806, de 14 de abril de 2025 ( Alterada pela Portaria SPA/MF nº 2.326, de 14 de outubro de 2025 )",
+      "requerimento": "00422024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas/arquivos_tarjados/00422024_pixbet_tarjado.pdf"
     },
     {
       "cnpj": "56.905.647/0001-17",
       "razao_social": "RESPONSA GAMMING BRASIL LIMITADA",
-      "marcas": "JOGA LIMPO, ENERGIA",
-      "dominio": "",
-      "portaria": "SPA/MF nº 1.343/2025",
-      "requerimento": "0083/2024",
-      "origem": "administrativa"
+      "marcas": "•, JOGA LIMPO, •, ENERGIA",
+      "dominio": "jogalimpo.bet.br energia.bet.br",
+      "portaria": "SPA/MF nº 1.343, de 18 de junho de 2025",
+      "requerimento": "00832024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/transparencia-ativa-processos-de-autorizacao-de-apostas-de-quota-fixa/arquivos_tarjados/00832024_responsa.pdf"
     },
     {
       "cnpj": "23.159.703/0001-62",
-      "razao_social": "RR PARTICIPACOES E INTERMEDIACOES DE NEGOCIOS LTDA",
-      "marcas": "MULTIBET, RICOBET, BRXBET",
-      "dominio": "",
-      "portaria": "SPA/MF nº 525/2025",
-      "requerimento": "0077/2024",
-      "origem": "administrativa"
+      "razao_social": "RR PARTICIPAÇÕES E INTERMEDIAÇÕES DE NEGÓCIOS LTDA",
+      "marcas": "•, MULTIBET, •, RICOBET, •, BRXBET",
+      "dominio": "multi.bet.br rico.bet.br brx.bet.br",
+      "portaria": "SPA/MF nº 525, de 14 de março de 2025",
+      "requerimento": "00772024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas/arquivos_tarjados/00772024_rr-participacoes-tarjado.pdf"
     },
     {
       "cnpj": "04.426.418/0001-16",
       "razao_social": "SABIA ADMINISTRACAO LTDA",
-      "marcas": "BR4BET, GOL DE BET, LOTOGREEN",
-      "dominio": "",
-      "portaria": "SPA/MF nº 399/2025",
-      "requerimento": "0066/2024",
-      "origem": "administrativa"
+      "marcas": "•, BR4BET, •, GOL DE BET, •, LOTOGREEN",
+      "dominio": "br4.bet.br, goldebet.bet.br, lotogreen.bet.br",
+      "portaria": "SPA/MF nº 399, de 24 de fevereiro de 2025",
+      "requerimento": "00662024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/transparencia-ativa-processos-de-autorizacao-de-apostas-de-quota-fixa/arquivos_tarjados/00662024_sabia.pdf"
     },
     {
       "cnpj": "54.068.631/0001-71",
       "razao_social": "SC OPERATING BRAZIL LTDA",
-      "marcas": "VBET, VIVARO",
-      "dominio": "",
-      "portaria": "SPA/MF nº 254/2025",
-      "requerimento": "0028/2024",
-      "origem": "administrativa"
+      "marcas": "•, VBET, •, VIVARO",
+      "dominio": "vbet.bet.br vivaro.bet.br",
+      "portaria": "SPA/MF nº 254, de 07 de fevereiro de 2025",
+      "requerimento": "00282024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/transparencia-ativa-processos-de-autorizacao-de-apostas-de-quota-fixa/arquivos_tarjados/00282024_sc-operating.pdf"
     },
     {
       "cnpj": "56.268.974/0001-05",
       "razao_social": "SEGURO BET LTDA",
-      "marcas": "SEGURO BET, KING PANDA",
-      "dominio": "",
-      "portaria": "SPA/MF nº 2.097/2024",
-      "requerimento": "0018/2024",
-      "origem": "administrativa"
+      "marcas": "•, SEGURO BET, •, KING PANDA",
+      "dominio": "seguro.bet.br kingpanda.bet.br",
+      "portaria": "SPA/MF nº 2.097, de 30 de dezembro de 2024",
+      "requerimento": "00182024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/transparencia-ativa-processos-de-autorizacao-de-apostas-de-quota-fixa/arquivos_tarjados/00182024_seguro-bet.pdf"
     },
     {
       "cnpj": "56.875.122/0001-86",
       "razao_social": "SELECT OPERATIONS LTDA",
-      "marcas": "MMA, BETVIP, PAPIGAMES",
-      "dominio": "",
-      "portaria": "SPA/MF nº 1.112/2025",
-      "requerimento": "0062/2024",
-      "origem": "administrativa"
+      "marcas": "•, MMA, •, BETVIP, •, PAPIGAMES",
+      "dominio": "mmabet.bet.br betvip.bet.br papigames.bet.br",
+      "portaria": "SPA/MF nº 1.112, de 21 de maio de 2025",
+      "requerimento": "00622024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/transparencia-ativa-processos-de-autorizacao-de-apostas-de-quota-fixa/arquivos_tarjados/00622024_select.pdf"
     },
     {
       "cnpj": "56.504.413/0001-68",
       "razao_social": "SEVENX GAMING LTDA",
-      "marcas": "BULLSBET, JOGÃO, JOGOS",
-      "dominio": "",
-      "portaria": "SPA/MF nº 325/2025",
-      "requerimento": "0097/2024",
-      "origem": "administrativa"
+      "marcas": "•, BULLSBET, •, JOGÃO, •, JOGOS",
+      "dominio": "bullsbet.bet.br, jogao.bet.br, jogos.bet.br",
+      "portaria": "SPA/MF nº 325, de 17 fevereiro de 2025 (Alterada pela Portaria SPA/MF nº 1.143, de 23 de maio de 2025)",
+      "requerimento": "00972024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas/arquivos_tarjados/00972024_sevenx-1-10-ago.pdf"
     },
     {
       "cnpj": "17.385.948/0001-05",
       "razao_social": "SIMULCASTING BRASIL SOM E IMAGEM S.A.",
-      "marcas": "BETSSON",
-      "dominio": "",
-      "portaria": "SPA/MF nº 371/2025",
-      "requerimento": "0008/2024",
-      "origem": "administrativa"
+      "marcas": "•, BETSSON",
+      "dominio": "betsson.bet.br",
+      "portaria": "SPA/MF nº 371, de 24 de fevereiro de 2025",
+      "requerimento": "00082024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/transparencia-ativa-processos-de-autorizacao-de-apostas-de-quota-fixa/arquivos_tarjados/00082024_simulcasting.pdf"
     },
     {
       "cnpj": "06.023.798/0001-73",
       "razao_social": "SISTEMA LOTÉRICO DE PERNAMBUCO LTDA.",
-      "marcas": "MCGAMES, PLAY, MONTECARLOS",
-      "dominio": "",
-      "portaria": "SPA/MF nº 528/2025",
-      "requerimento": "0109/2024",
-      "origem": "administrativa"
+      "marcas": "•, MCGAMES, •, PLAY, •, MONTECARLOS",
+      "dominio": "mcgames.bet.br play.bet.br montecarlos.bet.br",
+      "portaria": "SPA/MF nº 528, de 14 de março de 2025 ( Retificada em 26 de março de 2026 ) ( Alterada pela Portaria SPA/MF nº 2.007, de 09 de setembro de 2025 )",
+      "requerimento": "01092024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/transparencia-ativa-processos-de-autorizacao-de-apostas-de-quota-fixa/arquivos_tarjados/01092024_sistema-loterico.pdf"
     },
     {
       "cnpj": "55.927.219/0001-22",
       "razao_social": "SKILL ON NET LTDA",
-      "marcas": "BACANAPLAY, PLAYUZU",
-      "dominio": "",
-      "portaria": "SPA/MF nº 374/2025",
-      "requerimento": "0074/2024",
-      "origem": "administrativa"
+      "marcas": "•, BACANAPLAY, •, PLAYUZU",
+      "dominio": "bacanaplay.bet.br, playuzu.bet.br",
+      "portaria": "SPA/MF nº 374, de 24 de fevereiro de 2025",
+      "requerimento": "00742024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas/arquivos_tarjados/00742024_skill-tarjado.pdf"
     },
     {
       "cnpj": "54.989.030/0001-00",
       "razao_social": "SORTENABET GAMING BRASIL S.A.",
-      "marcas": "SORTENABET, BETOU, BETFUSION",
-      "dominio": "",
-      "portaria": "SPA/MF nº 260/2025",
-      "requerimento": "0050/2024",
-      "origem": "administrativa"
+      "marcas": "•, SORTENABET, •, BETOU, •, BETFUSION",
+      "dominio": "sortenabet.bet.br, betou.bet.br, betfusion.bet.br",
+      "portaria": "SPA/MF nº 260, de 07 de fevereiro de 2025",
+      "requerimento": "00502024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/transparencia-ativa-processos-de-autorizacao-de-apostas-de-quota-fixa/arquivos_tarjados/00502024_sortenabet.pdf"
     },
     {
       "cnpj": "56.257.966/0001-63",
       "razao_social": "SPORTVIP GROUP INTERNATIONAL APOSTAS LTDA",
-      "marcas": "ESPORTIVAVIP, CBESPORTES, DONOSDABOLA",
-      "dominio": "",
-      "portaria": "SPA/MF nº 1.055/2025",
-      "requerimento": "0065/2024",
-      "origem": "administrativa"
+      "marcas": "•, ESPORTIVAVIP, •, CBESPORTES, •, DONOSDABOLA",
+      "dominio": "esportivavip.bet.br cbesportes.bet.br donosdabola.bet.br",
+      "portaria": "SPA/MF nº 1.055, de 14 de maio de 2025",
+      "requerimento": "00652024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/transparencia-ativa-processos-de-autorizacao-de-apostas-de-quota-fixa/arquivos_tarjados/00652024-sportvip.pdf"
     },
     {
       "cnpj": "54.071.596/0001-40",
       "razao_social": "SPRBT INTERACTIVE BRASIL LTDA",
-      "marcas": "SUPERBET, MAGICJACKPOT, SUPER",
-      "dominio": "",
-      "portaria": "SPA/MF nº 2.090/2024",
-      "requerimento": "0002/2024",
-      "origem": "administrativa"
+      "marcas": "•, SUPERBET, •, MAGICJACKPOT, •, SUPER",
+      "dominio": "superbet.bet.br magicjackpot.bet.br super.bet.br",
+      "portaria": "SPA/MF nº 2.090, de 30 de dezembro de 2024",
+      "requerimento": "00022024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas/arquivos_tarjados/00022024_sprbt-tarjado-12-ago.pdf"
     },
     {
       "cnpj": "56.525.936/0001-90",
       "razao_social": "STAKE BRAZIL LTDA",
-      "marcas": "STAKE",
-      "dominio": "",
-      "portaria": "SPA/MF nº 263/2025",
-      "requerimento": "0079/2024",
-      "origem": "administrativa"
+      "marcas": "•, STAKE",
+      "dominio": "stake.bet.br",
+      "portaria": "SPA/MF nº 263, de 07 de fevereiro de 2025",
+      "requerimento": "00792024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas/arquivos_tarjados/00792024_stake-tarjado.pdf"
     },
     {
       "cnpj": "56.183.358/0001-51",
       "razao_social": "SUPREMA BET LTDA",
-      "marcas": "SUPREMABET, MAXIMABET, ULTRABET",
-      "dominio": "",
-      "portaria": "SPA/MF nº 256/2025",
-      "requerimento": "0032/2024",
-      "origem": "administrativa"
+      "marcas": "•, SUPREMABET, •, MAXIMABET, •, ULTRABET",
+      "dominio": "suprema.bet.br, maxima.bet.br, ultra.bet.br",
+      "portaria": "SPA/MF nº 256, de 07 de fevereiro de 2025 (Alterada pela Portaria SPA/MF nº 1.539, de 14 de julho de 2025)",
+      "requerimento": "00322024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas/arquivos_tarjados/00322024_suprema-bet-tarjado_ocultado-13-ago.pdf"
     },
     {
       "cnpj": "55.238.676/0001-00",
       "razao_social": "TQJ-PAR PARTICIPAÇÕES SOCIETÁRIAS S.A.",
-      "marcas": "XBET CAIXA, BAÚ BINGO, BET DO MILHÃO",
-      "dominio": "",
-      "portaria": "SPA/MF nº 1.344/2025",
-      "requerimento": "0055/2024",
-      "origem": "administrativa"
+      "marcas": "•, BAÚ BINGO, •, BET DO MILHÃO",
+      "dominio": "bau.bet.br milhao.bet.br",
+      "portaria": "SPA/MF nº 1.344, de 18 de junho de 2025 (Alterada pela Portaria SPA/MF nº 2.149, de 23 de setembro de 2025)",
+      "requerimento": "00552024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/transparencia-ativa-processos-de-autorizacao-de-apostas-de-quota-fixa/arquivos_tarjados/00552024_tqj.pdf"
     },
     {
       "cnpj": "56.706.701/0001-03",
       "razao_social": "TRACK GAMING BRASIL LTDA",
-      "marcas": "BETWARRIOR, DR. BINGO",
-      "dominio": "",
-      "portaria": "SPA/MF nº 470/2025",
-      "requerimento": "0049/2024",
-      "origem": "administrativa"
+      "marcas": "•, BETWARRIOR, •, DR.BINGO",
+      "dominio": "betwarrior.bet.br, drbingo.bet.br",
+      "portaria": "SPA/MF nº 470, de 10 de março de 2025 ( Alterada pela Portaria SPA/MF nº 1.030, e 15 abril de 2026 )",
+      "requerimento": "00492024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas/arquivos_tarjados/00492024_track-gaming-13-ago.pdf"
     },
     {
       "cnpj": "56.236.761/0001-00",
       "razao_social": "UPBET BRASIL LTDA",
-      "marcas": "UPBETBR, 9D, WJCASINO",
-      "dominio": "",
-      "portaria": "SPA/MF nº 323/2025",
-      "requerimento": "0057/2024",
-      "origem": "administrativa"
+      "marcas": "•, UPBETBR, •, 9D, •, WJCASINO",
+      "dominio": "up.bet.br, 9d.bet.br, wjcasino.bet.br",
+      "portaria": "SPA/MF nº 323, de 17 de fevereiro de 2025",
+      "requerimento": "00572024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas/arquivos_tarjados/00572024_upbet-brasil_ocultado.pdf"
     },
     {
       "cnpj": "56.197.912/0001-50",
       "razao_social": "UX ENTERTAINMENT LTDA",
-      "marcas": "REALS, BINGO, BETGO",
-      "dominio": "",
-      "portaria": "SPA/MF nº 372/2025",
-      "requerimento": "0013/2024",
-      "origem": "administrativa"
+      "marcas": "•, REALS, •, BINGO, •, BETGO",
+      "dominio": "reals.bet.br, bingo.bet.br, betgo.bet.br",
+      "portaria": "SPA/MF nº 372, de 24 de fevereiro de 2025 ( Alterada pela Portaria SPA/MF nº 1.896, de 27 de agosto de 2025 ) ( E pela Portaria SPA/MF nº 2.292, de 09 de outubro de 2025 ) ( E pela Portaria SPA/MF nº 1.066, de 17 de abril de 2026 )",
+      "requerimento": "00132024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/transparencia-ativa-processos-de-autorizacao-de-apostas-de-quota-fixa/arquivos_tarjados/00132024_ux-entertainment.pdf"
     },
     {
       "cnpj": "56.885.537/0001-30",
       "razao_social": "VANGUARD ENTRETENIMENTO BRASIL LTDA",
-      "marcas": "ESPORTE 365, BET AKI, JOGO DE OURO",
-      "dominio": "",
-      "portaria": "SPA/MF nº 693/2025",
-      "requerimento": "0092/2024",
-      "origem": "administrativa"
+      "marcas": "•, ESPORTE 365, •, BET AKI, •, JOGO DE OURO",
+      "dominio": "esporte365.bet.br betaki.bet.br jogodeouro.bet.br",
+      "portaria": "SPA/MF nº 693, de 1º de abril de 2025",
+      "requerimento": "00922024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas/arquivos_tarjados/00922024_vanguard-1-tarjado-10ago.pdf"
     },
     {
       "cnpj": "52.868.380/0001-84",
       "razao_social": "VENTMEAR BRASIL S.A.",
-      "marcas": "SPORTINGBET",
-      "dominio": "",
-      "portaria": "SPA/MF nº 247/2025",
-      "requerimento": "0004/2024",
-      "origem": "administrativa"
+      "marcas": "•, SPORTINGBET, •, BETBOO",
+      "dominio": "sportingbet.bet.br betboo.bet.br",
+      "portaria": "SPA/MF nº 247, de 07 de fevereiro de 2025",
+      "requerimento": "00042024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/transparencia-ativa-processos-de-autorizacao-de-apostas-de-quota-fixa/arquivos_tarjados/00042024_ventmear.pdf"
     },
     {
       "cnpj": "55.080.231/0001-44",
       "razao_social": "VERSUS BRASIL LTDA",
-      "marcas": "VERSUSBET, VS-VERSUS",
-      "dominio": "",
-      "portaria": "SPA/MF nº 474/2025",
-      "requerimento": "0089/2024",
-      "origem": "administrativa"
+      "marcas": "•, VERSUSBET, •, VS - VERSUS",
+      "dominio": "versus.bet.br a definir",
+      "portaria": "SPA/MF nº 474, de 10 de março de 2025",
+      "requerimento": "00892024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/transparencia-ativa-processos-de-autorizacao-de-apostas-de-quota-fixa/arquivos_tarjados/00892024_versus.pdf"
     },
     {
       "cnpj": "55.822.818/0001-81",
       "razao_social": "WORLD SPORTS TECHNOLOGY DO BRASIL S.A.",
-      "marcas": "BETCOPA, BRASIL DA SORTE, FYBET",
-      "dominio": "",
-      "portaria": "SPA/MF nº 473/2025",
-      "requerimento": "0075/2024",
-      "origem": "administrativa"
+      "marcas": "•, BETCOPA, •, BRASIL DA SORTE, •, FYBET",
+      "dominio": "betcopa.bet.br brasildasorte.bet.br fybet.bet.br",
+      "portaria": "SPA/MF nº 473, de 10 de março de 2025",
+      "requerimento": "00752024",
+      "origem": "administrativa",
+      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/transparencia-ativa-processos-de-autorizacao-de-apostas-de-quota-fixa/arquivos_tarjados/00752024_world-sports.pdf"
     },
     {
       "cnpj": "55.997.392/0001-05",
       "razao_social": "ZEROUMBET PLATAFORMA DIGITAL LTDA",
       "marcas": "ZEROUM, ENERGIA, SPORTVIP",
       "dominio": "zeroum.bet, energia.bet, sportvip.bet",
-      "portaria": "5007941-50.2025.4.03.6100 — 14ª Vara Federal Cível de São Paulo",
+      "portaria": "5007941-50.2025.4.03.6100, em trâmite na 14ª Vara Federal Cível da Seção Judiciária de São Paulo",
       "requerimento": "",
       "origem": "judicial"
     },
@@ -791,7 +876,7 @@
       "razao_social": "ZONA DE JOGO NEGÓCIOS E PARTICIPAÇÕES LTDA",
       "marcas": "ZONA DE JOGO, APOSTAONLINE, ONLYBETS",
       "dominio": "zonadejogo.bet.br, apostaonline.bet.br, onlybets.bet.br",
-      "portaria": "1096849-60.2025.4.01.3400 — 4ª Vara Federal Cível do Distrito Federal",
+      "portaria": "1096849-60.2025.4.01.3400, em trâmite na 4ª Vara Federal Cível da Seção Judiciária do Distrito Federal",
       "requerimento": "",
       "origem": "judicial"
     }

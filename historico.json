@@ -1,9 +1,420 @@
 {
-  "data": "03/09/2026 - 12:40",
-  "verificado_em": "conversao manual da base anterior",
+  "data": "03/09/2026 15h20",
+  "verificado_em": "03/09/2026 15:28",
   "adicionadas": [],
   "removidas": [],
-  "marcas_alteradas": [],
+  "marcas_alteradas": [
+    {
+      "empresa": "7MBR LTDA",
+      "antes": "VERT, CGG, FANBIT",
+      "depois": "•, VERT, •, CGG, •, FANBIT"
+    },
+    {
+      "empresa": "A2FBR S.A.",
+      "antes": "FULLTBET, BETBRA",
+      "depois": "•, BOLSA DE APOSTA, •, FULLTBET, •, BETBRA"
+    },
+    {
+      "empresa": "ALFA ENTRETENIMENTO S.A.",
+      "antes": "ALFA.BET",
+      "depois": "•, ALFA.BET"
+    },
+    {
+      "empresa": "ANA GAMING BRASIL S.A.",
+      "antes": "7K, CASSINO, VERA",
+      "depois": "•, 7K, •, CASSINO, •, VERA"
+    },
+    {
+      "empresa": "APOLLO OPERATIONS LTDA",
+      "antes": "KTO",
+      "depois": "•, KTO"
+    },
+    {
+      "empresa": "APOSTA GANHA LOTERIAS LTDA",
+      "antes": "APOSTA GANHA, BETBOO, RECEBA",
+      "depois": "•, APOSTA GANHA, •, RECEBA"
+    },
+    {
+      "empresa": "B3T4 INTERNATIONAL GROUP LTDA",
+      "antes": "BET4, APOSTA BET, FAZ O BET",
+      "depois": "•, BET4, •, APOSTA BET, •, FAZ O BET"
+    },
+    {
+      "empresa": "BB GAMING LTDA",
+      "antes": "BRA, XX",
+      "depois": "•, BRA, •, XX"
+    },
+    {
+      "empresa": "BELL VENTURES DIGITAL LTDA",
+      "antes": "BANDBET",
+      "depois": "•, BANDBET"
+    },
+    {
+      "empresa": "BETBOOM LTDA",
+      "antes": "BETBOOM",
+      "depois": "•, BETBOOM, •, FREE"
+    },
+    {
+      "empresa": "BETBR LOTERIAS LTDA",
+      "antes": "APOSTOU, B1 BET, BRBET",
+      "depois": "•, APOSTOU, •, B1 BET, •, BRBET"
+    },
+    {
+      "empresa": "BETESPORTE APOSTAS ONLINE LTDA",
+      "antes": "BETESPORTE, LANCE DE SORTE",
+      "depois": "•, BETESPORTE, •, LANCE DE SORTE"
+    },
+    {
+      "empresa": "BETSPEED LTDA",
+      "antes": "TIGER.BET, PQ777, 5G",
+      "depois": "•, TIGER.BET, •, PQ777, •, 5G"
+    },
+    {
+      "empresa": "BIG BRAZIL TECNOLOGIA E LOTERIA S.A.",
+      "antes": "BIG, APOSTAR",
+      "depois": "•, BIG, •, APOSTAR"
+    },
+    {
+      "empresa": "BLAC JOGOS LTDA",
+      "antes": "SPORTYBET",
+      "depois": "•, SPORTYBET"
+    },
+    {
+      "empresa": "BLOW MARKETPLACE LTDA",
+      "antes": "BRAVO, TRADICIONAL, APOSTATUDO",
+      "depois": "•, BRAVO, •, TRADICIONAL, •, APOSTATUDO"
+    },
+    {
+      "empresa": "BOA LION S.A.",
+      "antes": "BETMGM, MGM",
+      "depois": "•, BETMGM, •, MGM"
+    },
+    {
+      "empresa": "BPX BETS SPORTS GROUP LTDA",
+      "antes": "VAIDEBET, BETPIX365, OBABET",
+      "depois": "•, VAIDEBET, •, BETPIX365, •, OBABET"
+    },
+    {
+      "empresa": "BRILLIANT GAMING LTDA",
+      "antes": "AFUN, AI, 6Z",
+      "depois": "•, AFUN, •, AI, •, 6Z"
+    },
+    {
+      "empresa": "CAIXA LOTERIAS S.A.",
+      "antes": "BETCAIXA, MEGABET",
+      "depois": "•, BETCAIXA, •, MEGABET, •, XBET CAIXA"
+    },
+    {
+      "empresa": "CDA GAMING LTDA",
+      "antes": "CASA DE APOSTAS, BET SUL, JOGO ONLINE",
+      "depois": "•, CASA DE APOSTAS, •, BET SUL, •, JOGO ONLINE"
+    },
+    {
+      "empresa": "DEFY LTDA",
+      "antes": "1XBET",
+      "depois": "•, 1XBET"
+    },
+    {
+      "empresa": "DIGIPLUS BRAZIL INTERACTIVE LTDA",
+      "antes": "ARENAPLUS, BINGOPLUS",
+      "depois": "•, ARENAPLUS, •, BINGOPLUS"
+    },
+    {
+      "empresa": "EA ENTRETENIMENTO E ESPORTES S.A.",
+      "antes": "BATEU BET, ESPORTIVA BET",
+      "depois": "•, BATEU BET, •, ESPORTIVA BET"
+    },
+    {
+      "empresa": "EB INTERMEDIACOES E JOGOS S.A.",
+      "antes": "ESTRELABET, VUPI",
+      "depois": "•, ESTRELABET, •, VUPI"
+    },
+    {
+      "empresa": "ENSEADA SERVIÇOS E TECNOLOGIA LTDA",
+      "antes": "KBET",
+      "depois": "•, KBET"
+    },
+    {
+      "empresa": "ESPORTES GAMING BRASIL LTDA",
+      "antes": "ESPORTES DA SORTE, ONABET, LOTTU",
+      "depois": "•, ESPORTES DA SORTE, •, ONABET, •, LOTTU"
+    },
+    {
+      "empresa": "ESTADOX LTDA",
+      "antes": "TROPINO, BZ, 55W",
+      "depois": "•, TROPINO, •, BZ, •, 55W"
+    },
+    {
+      "empresa": "F12 DO BRASIL JOGOS ELETRONICOS LTDA",
+      "antes": "F12.BET, LUVA.BET, BRASIL.BET",
+      "depois": "•, F12.BET, •, LUVA.BET, •, BRASIL.BET"
+    },
+    {
+      "empresa": "FAST GAMING S.A.",
+      "antes": "BETFAST, FAZ1BET, TIVOBET",
+      "depois": "•, BETFAST, •, FAZ1BET, •, TIVOBET"
+    },
+    {
+      "empresa": "FOGGO ENTERTAINMENT LTDA",
+      "antes": "BLAZE, JONBET",
+      "depois": "•, BLAZE, •, JONBET"
+    },
+    {
+      "empresa": "FUTURAS APOSTAS LTDA",
+      "antes": "BRAZINO777",
+      "depois": "•, BRAZINO777"
+    },
+    {
+      "empresa": "GALERA GAMING JOGOS ELETRONICOS S.A.",
+      "antes": "GALERA.BET",
+      "depois": "•, GALERA.BET"
+    },
+    {
+      "empresa": "GAMEWIZ BRASIL LTDA",
+      "antes": "6R, BET.APP",
+      "depois": "•, 9F, •, 6R, •, BET.APP"
+    },
+    {
+      "empresa": "GORILLAS GROUP DO BRASIL LTDA",
+      "antes": "BET GORILLAS, BET BUFFALOS, BET FALCONS",
+      "depois": "•, BET GORILLAS, •, BET BUFFALOS, •, BET FALCONS"
+    },
+    {
+      "empresa": "H2 LICENSED LTDA",
+      "antes": "SEUBET, H2 BET",
+      "depois": "•, SEUBET, •, H2 BET"
+    },
+    {
+      "empresa": "HILGARDO GAMING LTDA",
+      "antes": "A247, HILGARDO, HILGARDO GAMING",
+      "depois": "•, A247, •, HILGARDO, •, HILGARDO GAMING"
+    },
+    {
+      "empresa": "HIPER BET TECNOLOGIA LTDA.",
+      "antes": "HIPERBET",
+      "depois": "•, HIPERBET"
+    },
+    {
+      "empresa": "HS DO BRASIL LTDA",
+      "antes": "BET365",
+      "depois": "•, BET365"
+    },
+    {
+      "empresa": "JOGO PRINCIPAL LTDA",
+      "antes": "GINGABET, QGBET, VIVASORTE",
+      "depois": "•, GINGABET, •, QGBET, •, VIVASORTE"
+    },
+    {
+      "empresa": "KAIZEN GAMING BRASIL LTDA",
+      "antes": "BETANO",
+      "depois": "•, BETANO"
+    },
+    {
+      "empresa": "LAGUNA SERVIÇOS E TECNOLOGIA LTDA",
+      "antes": "NOSSABET",
+      "depois": "•, NOSSABET"
+    },
+    {
+      "empresa": "LBBR APOSTAS DE QUOTA FIXA LIMITADA",
+      "antes": "LUCK.BET, 1 PRA 1, STARTBET",
+      "depois": "•, LUCK.BET, •, 1 PRA 1, •, STARTBET"
+    },
+    {
+      "empresa": "LEVANTE BRASIL LTDA",
+      "antes": "SORTE ONLINE, LOTTOLAND",
+      "depois": "•, SORTE ONLINE, •, LOTTOLAND"
+    },
+    {
+      "empresa": "LINDAU GAMING BRASIL S.A.",
+      "antes": "OLEYBET",
+      "depois": "•, OLEYBET"
+    },
+    {
+      "empresa": "LOGAME DO BRASIL LTDA",
+      "antes": "LÍDERBET, GERALBET",
+      "depois": "•, LÍDERBET, •, GERALBET"
+    },
+    {
+      "empresa": "LUCKY GAMING LTDA",
+      "antes": "4WIN, 4PLAY, PAGOL",
+      "depois": "•, 4WIN, •, 4PLAY, •, PAGOL"
+    },
+    {
+      "empresa": "MERIDIAN GAMING BRASIL SPE LTDA",
+      "antes": "MERIDIAN, PIN",
+      "depois": "•, MERIDIAN, •, PIN"
+    },
+    {
+      "empresa": "MMD TECNOLOGIA ENTRETENIMENTO E MARKETING LTDA",
+      "antes": "REI DO PITACO, PITACO, RDP",
+      "depois": "•, REI DO PITACO, •, PITACO, •, RdP"
+    },
+    {
+      "empresa": "NEXUS INTERNATIONAL LTDA",
+      "antes": "MEGAPOSTA",
+      "depois": "•, MEGAPOSTA"
+    },
+    {
+      "empresa": "NOSSO TIME IGAMING LTDA",
+      "antes": "JOGA JUNTO",
+      "depois": "•, JOGA JUNTO"
+    },
+    {
+      "empresa": "NSX BETFAIR BRASIL S.A",
+      "antes": "BETFAIR",
+      "depois": "•, BETFAIR"
+    },
+    {
+      "empresa": "NSX BRASIL S.A.",
+      "antes": "BETNACIONAL",
+      "depois": "•, BETNACIONAL"
+    },
+    {
+      "empresa": "NVBT GAMING LTDA",
+      "antes": "NOVIBET",
+      "depois": "•, NOVIBET"
+    },
+    {
+      "empresa": "OIG GAMING BRAZIL LTDA",
+      "antes": "7GAMES, BETÃO, R7",
+      "depois": "• ICE"
+    },
+    {
+      "empresa": "OLAVIR LTDA",
+      "antes": "RIVALO",
+      "depois": "•, RIVALO"
+    },
+    {
+      "empresa": "OPEN GAMING S.A.",
+      "antes": "BET.BET, DONALDBET",
+      "depois": "•, BET.BET, •, DONALDBET"
+    },
+    {
+      "empresa": "PIX NA HORA",
+      "antes": "APOSTA1, APOSTAMAX, AVIÃOBET",
+      "depois": "•, APOSTA1, •, APOSTAMAX, •, AVIÃOBET"
+    },
+    {
+      "empresa": "PIXBET SOLUÇÕES TECNOLÓGICAS LTDA.",
+      "antes": "PIXBET, GANHEIBET, BET DA SORTE",
+      "depois": "•, PIXBET, •, GANHEIBET, •, BET DA SORTE"
+    },
+    {
+      "empresa": "RESPONSA GAMMING BRASIL LIMITADA",
+      "antes": "JOGA LIMPO, ENERGIA",
+      "depois": "•, JOGA LIMPO, •, ENERGIA"
+    },
+    {
+      "empresa": "RR PARTICIPAÇÕES E INTERMEDIAÇÕES DE NEGÓCIOS LTDA",
+      "antes": "MULTIBET, RICOBET, BRXBET",
+      "depois": "•, MULTIBET, •, RICOBET, •, BRXBET"
+    },
+    {
+      "empresa": "SABIA ADMINISTRACAO LTDA",
+      "antes": "BR4BET, GOL DE BET, LOTOGREEN",
+      "depois": "•, BR4BET, •, GOL DE BET, •, LOTOGREEN"
+    },
+    {
+      "empresa": "SC OPERATING BRAZIL LTDA",
+      "antes": "VBET, VIVARO",
+      "depois": "•, VBET, •, VIVARO"
+    },
+    {
+      "empresa": "SEGURO BET LTDA",
+      "antes": "SEGURO BET, KING PANDA",
+      "depois": "•, SEGURO BET, •, KING PANDA"
+    },
+    {
+      "empresa": "SELECT OPERATIONS LTDA",
+      "antes": "MMA, BETVIP, PAPIGAMES",
+      "depois": "•, MMA, •, BETVIP, •, PAPIGAMES"
+    },
+    {
+      "empresa": "SEVENX GAMING LTDA",
+      "antes": "BULLSBET, JOGÃO, JOGOS",
+      "depois": "•, BULLSBET, •, JOGÃO, •, JOGOS"
+    },
+    {
+      "empresa": "SIMULCASTING BRASIL SOM E IMAGEM S.A.",
+      "antes": "BETSSON",
+      "depois": "•, BETSSON"
+    },
+    {
+      "empresa": "SISTEMA LOTÉRICO DE PERNAMBUCO LTDA.",
+      "antes": "MCGAMES, PLAY, MONTECARLOS",
+      "depois": "•, MCGAMES, •, PLAY, •, MONTECARLOS"
+    },
+    {
+      "empresa": "SKILL ON NET LTDA",
+      "antes": "BACANAPLAY, PLAYUZU",
+      "depois": "•, BACANAPLAY, •, PLAYUZU"
+    },
+    {
+      "empresa": "SORTENABET GAMING BRASIL S.A.",
+      "antes": "SORTENABET, BETOU, BETFUSION",
+      "depois": "•, SORTENABET, •, BETOU, •, BETFUSION"
+    },
+    {
+      "empresa": "SPORTVIP GROUP INTERNATIONAL APOSTAS LTDA",
+      "antes": "ESPORTIVAVIP, CBESPORTES, DONOSDABOLA",
+      "depois": "•, ESPORTIVAVIP, •, CBESPORTES, •, DONOSDABOLA"
+    },
+    {
+      "empresa": "SPRBT INTERACTIVE BRASIL LTDA",
+      "antes": "SUPERBET, MAGICJACKPOT, SUPER",
+      "depois": "•, SUPERBET, •, MAGICJACKPOT, •, SUPER"
+    },
+    {
+      "empresa": "STAKE BRAZIL LTDA",
+      "antes": "STAKE",
+      "depois": "•, STAKE"
+    },
+    {
+      "empresa": "SUPREMA BET LTDA",
+      "antes": "SUPREMABET, MAXIMABET, ULTRABET",
+      "depois": "•, SUPREMABET, •, MAXIMABET, •, ULTRABET"
+    },
+    {
+      "empresa": "TQJ-PAR PARTICIPAÇÕES SOCIETÁRIAS S.A.",
+      "antes": "XBET CAIXA, BAÚ BINGO, BET DO MILHÃO",
+      "depois": "•, BAÚ BINGO, •, BET DO MILHÃO"
+    },
+    {
+      "empresa": "TRACK GAMING BRASIL LTDA",
+      "antes": "BETWARRIOR, DR. BINGO",
+      "depois": "•, BETWARRIOR, •, DR.BINGO"
+    },
+    {
+      "empresa": "UPBET BRASIL LTDA",
+      "antes": "UPBETBR, 9D, WJCASINO",
+      "depois": "•, UPBETBR, •, 9D, •, WJCASINO"
+    },
+    {
+      "empresa": "UX ENTERTAINMENT LTDA",
+      "antes": "REALS, BINGO, BETGO",
+      "depois": "•, REALS, •, BINGO, •, BETGO"
+    },
+    {
+      "empresa": "VANGUARD ENTRETENIMENTO BRASIL LTDA",
+      "antes": "ESPORTE 365, BET AKI, JOGO DE OURO",
+      "depois": "•, ESPORTE 365, •, BET AKI, •, JOGO DE OURO"
+    },
+    {
+      "empresa": "VENTMEAR BRASIL S.A.",
+      "antes": "SPORTINGBET",
+      "depois": "•, SPORTINGBET, •, BETBOO"
+    },
+    {
+      "empresa": "VERSUS BRASIL LTDA",
+      "antes": "VERSUSBET, VS-VERSUS",
+      "depois": "•, VERSUSBET, •, VS - VERSUS"
+    },
+    {
+      "empresa": "WORLD SPORTS TECHNOLOGY DO BRASIL S.A.",
+      "antes": "BETCOPA, BRASIL DA SORTE, FYBET",
+      "depois": "•, BETCOPA, •, BRASIL DA SORTE, •, FYBET"
+    }
+  ],
   "total_adicionadas": 0,
   "total_removidas": 0
 }
