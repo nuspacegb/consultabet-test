@@ -34,12 +34,40 @@ COMO RODAR NA MAO
 import json
 import os
 import re
+import socket
 import sys
+import time
 import unicodedata
 from datetime import datetime, timedelta, timezone
 
 import requests
 from bs4 import BeautifulSoup
+
+# ----------------------------------------------------------------------------
+# FORCAR IPv4
+# ----------------------------------------------------------------------------
+#
+# O www.gov.br publica endereco IPv6 (AAAA) alem do IPv4. Os servidores do
+# GitHub Actions so tem rede IPv4. Quando o Python resolve o dominio, ele
+# recebe o IPv6, tenta conectar por ele e leva um
+#
+#     [Errno 101] Network is unreachable
+#
+# na hora -- nao e bloqueio nem lentidao do gov.br, e o runner que nao tem
+# rota IPv6. Na sua maquina isso nao acontece porque voce tem as duas redes.
+#
+# A linha abaixo diz para a biblioteca de rede ignorar IPv6 e usar so IPv4.
+# ----------------------------------------------------------------------------
+
+def forcar_ipv4():
+    try:
+        import urllib3.util.connection as conexao_urllib3
+        conexao_urllib3.allowed_gai_family = lambda: socket.AF_INET
+        return True
+    except Exception as e:  # noqa: BLE001
+        print(f"  AVISO: nao consegui forcar IPv4 ({e}). Seguindo assim mesmo.")
+        return False
+
 
 # ----------------------------------------------------------------------------
 # CONFIGURACAO
@@ -120,22 +148,60 @@ def formatar_cnpj(bruto):
     return f"{digitos[:2]}.{digitos[2:5]}.{digitos[5:8]}/{digitos[8:12]}-{digitos[12:]}"
 
 
-def baixar(url, tentativas=3):
-    """Baixa uma pagina. Se falhar nas 3 tentativas, aborta o script."""
+def diagnosticar_dns(host):
+    """Mostra por quais enderecos o dominio responde. Ajuda a entender falhas."""
+    try:
+        v4 = sorted({i[4][0] for i in socket.getaddrinfo(host, 443, socket.AF_INET)})
+    except Exception:  # noqa: BLE001
+        v4 = []
+    try:
+        v6 = sorted({i[4][0] for i in socket.getaddrinfo(host, 443, socket.AF_INET6)})
+    except Exception:  # noqa: BLE001
+        v6 = []
+    log(f"  DNS de {host}: IPv4 {v4 or 'nenhum'} | IPv6 {v6 or 'nenhum'}")
+
+
+def baixar(url, tentativas=4):
+    """
+    Baixa uma pagina. Espera um pouco mais a cada tentativa (2s, 5s, 10s).
+    Se falhar em todas, aborta o script sem escrever nada.
+    """
     ultimo_erro = None
+    esperas = [2, 5, 10]
+
     for n in range(1, tentativas + 1):
         try:
             log(f"  Tentativa {n}/{tentativas}: {url}")
-            resp = requests.get(url, headers=CABECALHO_HTTP, timeout=40)
+            resp = requests.get(url, headers=CABECALHO_HTTP, timeout=45)
+
             if resp.status_code == 200 and len(resp.text) > 5000:
                 resp.encoding = resp.apparent_encoding or "utf-8"
                 log(f"  OK ({len(resp.text):,} caracteres recebidos)")
                 return resp.text
+
             ultimo_erro = f"HTTP {resp.status_code}, {len(resp.text)} caracteres"
+
         except Exception as e:  # noqa: BLE001
             ultimo_erro = str(e)
+
         log(f"  Falhou: {ultimo_erro}")
-    morrer(f"Nao consegui baixar {url}. Ultimo erro: {ultimo_erro}")
+
+        if n < tentativas:
+            espera = esperas[min(n - 1, len(esperas) - 1)]
+            log(f"  Aguardando {espera}s antes de tentar de novo...")
+            time.sleep(espera)
+
+    # Mensagem de erro que aponta a causa provavel em vez de um texto generico
+    dica = "O governo pode ter mudado o endereco ou o formato da pagina."
+    if "Network is unreachable" in str(ultimo_erro):
+        dica = ("O servidor tentou conectar por IPv6 e nao conseguiu. "
+                "Confira se a funcao forcar_ipv4() esta sendo chamada no inicio do main().")
+    elif "timed out" in str(ultimo_erro).lower():
+        dica = "O gov.br nao respondeu a tempo. Costuma resolver na proxima execucao."
+    elif "403" in str(ultimo_erro):
+        dica = "O gov.br recusou a requisicao. Pode ser bloqueio por User-Agent."
+
+    morrer(f"Nao consegui baixar {url}.\n  Ultimo erro: {ultimo_erro}\n  Causa provavel: {dica}")
 
 
 # ----------------------------------------------------------------------------
@@ -391,6 +457,12 @@ def main():
     log("  NU - CONSULTA BET  |  Atualizacao da base oficial")
     log(f"  Execucao: {agora.strftime('%d/%m/%Y %H:%M')} (horario de Brasilia)")
     log("=" * 70)
+
+    # ---------- 0. Preparar a rede ----------
+    log("")
+    log("[0/5] Preparando a conexao...")
+    log(f"  IPv4 forcado: {'sim' if forcar_ipv4() else 'nao'}")
+    diagnosticar_dns("www.gov.br")
 
     # ---------- 1. Empresas autorizadas administrativamente ----------
     log("")
