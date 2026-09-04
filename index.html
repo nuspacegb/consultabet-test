@@ -3,7 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Nu · Consulta Bet — Verificação de casas de apostas autorizadas</title>
+<!-- ==========================================================================
+     O NOME DO PRODUTO APARECE EM 4 LUGARES NESTE ARQUIVO.
+     Se um dia mudar (a votacao com os usuarios, por exemplo), troque nestes:
+       1. a tag <title> logo abaixo
+       2. a meta og:title
+       3. a barra do topo, classe "marca"
+       4. o <h1> do hero
+     ========================================================================== -->
+<title>Nu · Consulta Bet</title>
 
 <meta name="description" content="Verifique em segundos se uma casa de apostas está autorizada pelo Governo Federal. Base oficial da Secretaria de Prêmios e Apostas (SPA/MF).">
 <meta name="theme-color" content="#0A0A0F">
@@ -531,6 +539,8 @@ footer a:hover { color: var(--roxo); }
   <!-- =================================================== BARRA SUPERIOR -->
   <div class="barra-topo">
     <div class="barra-topo-interna">
+      <!-- Quando entrarem outros modulos (Instituicoes de Pagamento etc.),
+           e aqui na barra do topo que eles vao aparecer como abas. -->
       <div class="marca"><span class="marca-ponto"></span> Nu · Consulta Bet</div>
       <a class="link-fonte" href="https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/transparencia-ativa-processos-de-autorizacao-de-apostas-de-quota-fixa/empresas-autorizadas" target="_blank" rel="noopener noreferrer">
         Fonte: <b>gov.br / SPA-MF ↗</b>
@@ -822,6 +832,14 @@ async function carregarBase() {
   }
 }
 
+/** Quantos dias desde a última verificação bem-sucedida. null se não souber. */
+function diasDesdeVerificacao(meta) {
+  if (!meta.verificado_em_iso) return null;
+  const quando = new Date(meta.verificado_em_iso);
+  if (isNaN(quando)) return null;
+  return Math.max(0, Math.floor((Date.now() - quando.getTime()) / 86400000));
+}
+
 /** Preenche o painel com as datas vindas do próprio dados.json. */
 function renderizarPainel() {
   const partes = [];
@@ -833,8 +851,19 @@ function renderizarPainel() {
   if (meta.publicado_em) {
     partes.push(`<span class="painel-item">Publicada em <b>${esc(meta.publicado_em)}</b></span>`);
   }
-  if (meta.verificado_em) {
+  /* Quando o robô conferiu a fonte oficial pela última vez.
+     Se ficar velho, é sinal de que ele está sem conseguir acessar o gov.br —
+     e é melhor a pessoa saber disso do que confiar numa base parada. */
+  const dias = diasDesdeVerificacao(meta);
+  if (dias === null && meta.verificado_em) {
     partes.push(`<span class="painel-item">Verificado em <b>${esc(meta.verificado_em)}</b></span>`);
+  } else if (dias !== null) {
+    const quando = dias === 0 ? 'hoje' : dias === 1 ? 'ontem' : `há ${dias} dias`;
+    const velho = dias >= 8;
+    partes.push(
+      `<span class="painel-item"${velho ? ' style="color:var(--alerta)"' : ''}>` +
+      `${velho ? '⚠️ ' : ''}Fonte oficial verificada <b>${quando}</b></span>`
+    );
   }
   if (!meta.atualizado_em) {
     partes.push('<span class="painel-item" style="color:var(--alerta)">Data da lista não informada na base</span>');
