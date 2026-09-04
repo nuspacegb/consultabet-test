@@ -76,6 +76,7 @@ jobs:
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
           URL_SITE: ${{ vars.URL_SITE }}
+          MODO_SLACK: ${{ vars.MODO_SLACK }}
         run: python avisar_slack.py mudancas
 
       # --- 2. Resumo de segunda-feira ---
@@ -84,6 +85,7 @@ jobs:
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
           URL_SITE: ${{ vars.URL_SITE }}
+          MODO_SLACK: ${{ vars.MODO_SLACK }}
         run: python avisar_slack.py semanal
 
       # --- 3. Aviso escrito na mao ---
@@ -92,6 +94,7 @@ jobs:
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
           URL_SITE: ${{ vars.URL_SITE }}
+          MODO_SLACK: ${{ vars.MODO_SLACK }}
           ASSUNTO: ${{ inputs.assunto }}
           MENSAGEM: ${{ inputs.mensagem }}
         run: python avisar_slack.py aviso --assunto "$ASSUNTO" --texto "$MENSAGEM"
