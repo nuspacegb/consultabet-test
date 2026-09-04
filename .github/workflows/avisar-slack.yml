@@ -1,0 +1,97 @@
+# =============================================================================
+#  NU - CONSULTA BET  |  Bot do Slack
+# =============================================================================
+#
+#  Este arquivo tem TRES gatilhos diferentes no mesmo lugar:
+#
+#  1. PUBLICACAO  -- quando voce da merge no Pull Request do robo e a base nova
+#                    entra no ar, o canal recebe "entraram X, sairam Y".
+#                    Dispara na publicacao, nao na deteccao: o que o canal le
+#                    e sempre o que esta no site de verdade.
+#
+#  2. SEGUNDA-FEIRA -- resumo semanal as 9h de Brasilia, mesmo sem novidade.
+#                    E o sinal de vida: se nao chegar, o robo parou.
+#
+#  3. AVISO MANUAL -- voce abre a aba Actions, clica em "Run workflow", digita
+#                    o texto e ele posta. Para anunciar mudanca de visual ou
+#                    funcao nova.
+#
+#  CONFIGURACAO NECESSARIA (uma vez so)
+#  ------------------------------------
+#  Settings > Secrets and variables > Actions > New repository secret
+#    Name:   SLACK_WEBHOOK_URL
+#    Secret: a URL que o Slack te deu (https://hooks.slack.com/services/...)
+#
+#  Opcional, se o endereco do site nao for o padrao:
+#  Settings > Secrets and variables > Actions > Variables > New variable
+#    Name:  URL_SITE
+#    Value: https://seu-endereco-aqui/
+#
+# =============================================================================
+
+name: Avisar no Slack
+
+on:
+  # 1. A base nova entrou no ar
+  push:
+    branches: [main]
+    paths:
+      - 'historico.json'
+
+  # 2. Resumo toda segunda, 09:00 de Brasilia (12:00 UTC)
+  schedule:
+    - cron: '0 12 * * 1'
+
+  # 3. Aviso escrito por voce
+  workflow_dispatch:
+    inputs:
+      assunto:
+        description: 'Título do aviso'
+        required: true
+        default: 'Novidade no Consulta Bet'
+      mensagem:
+        description: 'O que você quer contar para o canal'
+        required: true
+        default: ''
+
+permissions:
+  contents: read
+
+jobs:
+  avisar:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar o repositorio
+        uses: actions/checkout@v5
+
+      - name: Configurar o Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+
+      # --- 1. A base mudou e foi publicada ---
+      - name: Anunciar mudancas na lista
+        if: github.event_name == 'push'
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          URL_SITE: ${{ vars.URL_SITE }}
+        run: python avisar_slack.py mudancas
+
+      # --- 2. Resumo de segunda-feira ---
+      - name: Enviar resumo semanal
+        if: github.event_name == 'schedule'
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          URL_SITE: ${{ vars.URL_SITE }}
+        run: python avisar_slack.py semanal
+
+      # --- 3. Aviso escrito na mao ---
+      - name: Postar aviso manual
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          URL_SITE: ${{ vars.URL_SITE }}
+          ASSUNTO: ${{ inputs.assunto }}
+          MENSAGEM: ${{ inputs.mensagem }}
+        run: python avisar_slack.py aviso --assunto "$ASSUNTO" --texto "$MENSAGEM"
