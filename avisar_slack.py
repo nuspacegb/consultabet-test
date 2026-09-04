@@ -46,6 +46,25 @@ import urllib.request
 
 URL_SITE = os.getenv("URL_SITE", "https://nuspacegb.github.io/consultabet/")
 
+# ----------------------------------------------------------------------------
+# MODO DE ENVIO
+# ----------------------------------------------------------------------------
+#
+#   blocos   (padrao) Para o "Incoming Webhook" de um app do Slack.
+#            Manda a mensagem formatada em blocos: titulo grande, secoes
+#            separadas, links com texto clicavel. E o mais bonito.
+#
+#   simples  Para o Workflow Builder do Slack ou para o Zapier.
+#            Esses dois nao entendem blocos -- eles recebem um campo de texto
+#            e repassam. A mensagem vira texto corrido com negrito e emoji,
+#            que ja fica boa.
+#
+# Trocar entre um e outro nao exige mexer no codigo: e so definir a variavel
+# MODO_SLACK no GitHub (Settings > Secrets and variables > Actions > Variables).
+# ----------------------------------------------------------------------------
+
+MODO_SLACK = os.getenv("MODO_SLACK", "blocos").strip().lower()
+
 URL_FONTE_OFICIAL = (
     "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas"
     "/transparencia-ativa-processos-de-autorizacao-de-apostas-de-quota-fixa/empresas-autorizadas"
@@ -266,6 +285,39 @@ def montar_falha(meta, url_log):
 # ENVIO
 # ----------------------------------------------------------------------------
 
+def achatar(mensagem):
+    """
+    Transforma a mensagem em blocos numa unica string de texto.
+
+    Usado no modo 'simples'. O Workflow Builder e o Zapier so sabem repassar
+    um campo de texto -- entao a gente entrega a mensagem ja montada, com o
+    negrito e os emoji que o Slack renderiza normalmente.
+    """
+    linhas = []
+    for b in mensagem.get("blocks", []):
+        tipo = b.get("type")
+        if tipo == "divider":
+            continue
+        if tipo == "header":
+            linhas.append(f"*{b['text']['text']}*")
+        elif tipo == "section":
+            linhas.append(b["text"]["text"])
+        elif tipo == "context":
+            linhas.append(" ".join(e["text"] for e in b.get("elements", [])))
+    return "\n\n".join(l for l in linhas if l.strip())
+
+
+def montar_corpo(mensagem):
+    """Decide o formato do que vai ser enviado, conforme MODO_SLACK."""
+    if MODO_SLACK == "simples":
+        texto_puro = achatar(mensagem)
+        # Manda o mesmo conteudo em varios nomes de campo porque cada
+        # ferramenta espera um: o Workflow Builder costuma usar uma variavel
+        # nomeada, e o Zapier deixa voce escolher qual campo usar.
+        return {"texto": texto_puro, "text": texto_puro, "mensagem": texto_puro}
+    return mensagem
+
+
 def enviar(mensagem):
     url = os.getenv("SLACK_WEBHOOK_URL", "").strip()
     if not url:
@@ -273,7 +325,8 @@ def enviar(mensagem):
         print("      No GitHub: Settings > Secrets and variables > Actions > New secret.")
         sys.exit(1)
 
-    corpo = json.dumps(mensagem, ensure_ascii=False).encode("utf-8")
+    print(f"Modo de envio: {MODO_SLACK}")
+    corpo = json.dumps(montar_corpo(mensagem), ensure_ascii=False).encode("utf-8")
     req = urllib.request.Request(
         url, data=corpo,
         headers={"Content-Type": "application/json; charset=utf-8"},
@@ -331,7 +384,11 @@ def main():
         msg = montar_aviso(empresas, meta, args.texto.strip(), args.assunto.strip())
 
     if args.simular:
-        print(json.dumps(msg, ensure_ascii=False, indent=2))
+        if MODO_SLACK == "simples":
+            print("--- modo simples: e isto que chega no canal ---\n")
+            print(achatar(msg))
+        else:
+            print(json.dumps(montar_corpo(msg), ensure_ascii=False, indent=2))
         return
 
     enviar(msg)
