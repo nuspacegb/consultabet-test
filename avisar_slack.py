@@ -36,6 +36,7 @@ COMO RODAR NA MAO
 import argparse
 import json
 import os
+import re
 import sys
 import urllib.error
 import urllib.request
@@ -44,7 +45,10 @@ import urllib.request
 # CONFIGURACAO -- ajuste o endereco do site aqui
 # ----------------------------------------------------------------------------
 
-URL_SITE = os.getenv("URL_SITE", "https://nuspacegb.github.io/consultabet/")
+# Atencao ao "or": o GitHub Actions define a variavel como texto VAZIO quando
+# ela nao existe, e texto vazio nao aciona o valor padrao do os.getenv.
+# Sem o "or", o link da mensagem sai sem endereco.
+URL_SITE = os.getenv("URL_SITE", "").strip() or "https://nuspacegb.github.io/consultabet/"
 
 # ----------------------------------------------------------------------------
 # MODO DE ENVIO
@@ -63,7 +67,7 @@ URL_SITE = os.getenv("URL_SITE", "https://nuspacegb.github.io/consultabet/")
 # MODO_SLACK no GitHub (Settings > Secrets and variables > Actions > Variables).
 # ----------------------------------------------------------------------------
 
-MODO_SLACK = os.getenv("MODO_SLACK", "blocos").strip().lower()
+MODO_SLACK = os.getenv("MODO_SLACK", "").strip().lower() or "blocos"
 
 URL_FONTE_OFICIAL = (
     "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas"
@@ -285,13 +289,31 @@ def montar_falha(meta, url_log):
 # ENVIO
 # ----------------------------------------------------------------------------
 
+def texto_puro(txt):
+    """
+    Tira toda a formatacao do Slack de um trecho de texto.
+
+    Isso e necessario no modo 'simples' porque o Workflow Builder insere o
+    conteudo da variavel COMO TEXTO LITERAL. Ele nao interpreta *negrito*
+    nem <link|rotulo> -- entao esses simbolos apareceriam crus na mensagem.
+
+    Sem negrito disponivel, a hierarquia vem de outro lugar: MAIUSCULA nos
+    titulos, linha em branco entre os blocos, e o emoji como marcador.
+    """
+    # <https://site.com|Abrir o site>  ->  Abrir o site: https://site.com
+    txt = re.sub(r"<(https?://[^|>]+)\|([^>]+)>", r"\2: \1", txt)
+    # <https://site.com>  ->  https://site.com
+    txt = re.sub(r"<(https?://[^>]+)>", r"\1", txt)
+    # *negrito* e _italico_ -> texto normal
+    txt = re.sub(r"\*([^*\n]+)\*", r"\1", txt)
+    txt = re.sub(r"_([^_\n]+)_", r"\1", txt)
+    return txt
+
+
 def achatar(mensagem):
     """
-    Transforma a mensagem em blocos numa unica string de texto.
-
-    Usado no modo 'simples'. O Workflow Builder e o Zapier so sabem repassar
-    um campo de texto -- entao a gente entrega a mensagem ja montada, com o
-    negrito e os emoji que o Slack renderiza normalmente.
+    Transforma a mensagem em blocos numa unica string de texto limpa,
+    pronta para o Workflow Builder ou para o Zapier.
     """
     linhas = []
     for b in mensagem.get("blocks", []):
@@ -299,12 +321,18 @@ def achatar(mensagem):
         if tipo == "divider":
             continue
         if tipo == "header":
-            linhas.append(f"*{b['text']['text']}*")
+            # sem negrito disponivel, o titulo vira maiuscula
+            linhas.append(texto_puro(b["text"]["text"]).upper())
         elif tipo == "section":
-            linhas.append(b["text"]["text"])
+            linhas.append(texto_puro(b["text"]["text"]))
         elif tipo == "context":
-            linhas.append(" ".join(e["text"] for e in b.get("elements", [])))
-    return "\n\n".join(l for l in linhas if l.strip())
+            limpo = texto_puro(" ".join(e["text"] for e in b.get("elements", [])))
+            # Sem o rotulo clicavel, o endereco inteiro aparece. Dois deles na
+            # mesma linha viram uma parede -- entao cada um ganha sua linha.
+            if limpo.count("http") >= 2:
+                limpo = limpo.replace(" · ", "\n")
+            linhas.append(limpo)
+    return "\n\n".join(l.strip() for l in linhas if l.strip())
 
 
 def montar_corpo(mensagem):
