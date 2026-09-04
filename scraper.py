@@ -103,8 +103,17 @@ CABECALHO_HTTP = {
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
         "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
     ),
-    "Accept-Language": "pt-BR,pt;q=0.9",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "Accept-Language": "pt-BR,pt;q=0.9,en;q=0.8",
+    "Accept-Encoding": "gzip, deflate",
+    "Connection": "keep-alive",
+    "Upgrade-Insecure-Requests": "1",
 }
+
+# (tempo para ABRIR a conexao, tempo para RECEBER a resposta)
+# Separar os dois importa: se o gov.br nem aceita a conexao, nao faz sentido
+# esperar 45 segundos para descobrir. Falha rapido e tenta de novo.
+TIMEOUT = (12, 45)
 
 FUSO_BRASILIA = timezone(timedelta(hours=-3))
 
@@ -117,15 +126,41 @@ def log(msg):
     print(msg, flush=True)
 
 
-def morrer(msg):
-    """Aborta o script sem salvar nada. A base atual continua no ar."""
+def morrer(msg, transitorio=False):
+    """
+    Para o script sem salvar nada. A base atual continua no ar.
+
+    A diferenca entre os dois casos e importante:
+
+    transitorio=True   Nao deu para nem conversar com o gov.br (fora do ar,
+                       lento, ou bloqueando o servidor do GitHub). Nao e um
+                       problema do nosso lado e provavelmente funciona amanha.
+                       Sai com codigo 0 -> o workflow fica VERDE e voce nao
+                       recebe e-mail de falha. Sem alarme falso.
+
+    transitorio=False  Conseguimos ler a pagina, mas o conteudo esta errado:
+                       tabela sumiu, contagem despencou, empresa sem nome.
+                       Isso exige a sua atencao. Sai com codigo 1 -> workflow
+                       VERMELHO, e-mail e issue.
+    """
     log("")
     log("=" * 70)
-    log("  ABORTADO - NADA FOI SALVO")
+    log("  SEM ATUALIZACAO - NADA FOI SALVO" if transitorio
+        else "  ABORTADO - NADA FOI SALVO")
     log("=" * 70)
     log(f"  Motivo: {msg}")
     log("")
     log("  A base que ja esta no ar continua intacta.")
+
+    if transitorio:
+        log("")
+        log("  Isto NAO e considerado uma falha: o gov.br nao respondeu, o que")
+        log("  acontece de vez em quando. A proxima execucao tenta de novo.")
+        log("  Se acontecer vários dias seguidos, o site vai mostrar que a")
+        log("  ultima verificacao esta antiga -- ai vale investigar.")
+        log("=" * 70)
+        sys.exit(0)
+
     log("  Verifique se o governo mudou o endereco ou o formato da pagina.")
     log("=" * 70)
     sys.exit(1)
@@ -161,18 +196,37 @@ def diagnosticar_dns(host):
     log(f"  DNS de {host}: IPv4 {v4 or 'nenhum'} | IPv6 {v6 or 'nenhum'}")
 
 
-def baixar(url, tentativas=4):
+# Erros que significam "nao consegui nem falar com o servidor".
+# Sao transitorios: nao dependem de nada que a gente controla.
+ERROS_DE_REDE = (
+    "timed out", "timeout",
+    "network is unreachable", "connection refused", "connection reset",
+    "name resolution", "temporary failure", "connectionerror",
+    "bad gateway", "502", "503", "504",
+)
+
+
+def eh_erro_de_rede(erro):
+    texto = str(erro).lower()
+    return any(marca in texto for marca in ERROS_DE_REDE)
+
+
+def baixar(url, tentativas=6):
     """
-    Baixa uma pagina. Espera um pouco mais a cada tentativa (2s, 5s, 10s).
-    Se falhar em todas, aborta o script sem escrever nada.
+    Baixa uma pagina, com espera crescente entre as tentativas.
+
+    O gov.br as vezes ignora conexoes vindas de datacenter -- e os servidores
+    do GitHub sao datacenter. Como isso e intermitente (ontem funcionou, hoje
+    nao), a estrategia e insistir por uns 2 minutos e, se nao der, desistir
+    SEM tratar como falha. Amanha tenta de novo.
     """
     ultimo_erro = None
-    esperas = [2, 5, 10]
+    esperas = [3, 8, 15, 25, 40]
 
     for n in range(1, tentativas + 1):
         try:
             log(f"  Tentativa {n}/{tentativas}: {url}")
-            resp = requests.get(url, headers=CABECALHO_HTTP, timeout=45)
+            resp = requests.get(url, headers=CABECALHO_HTTP, timeout=TIMEOUT)
 
             if resp.status_code == 200 and len(resp.text) > 5000:
                 resp.encoding = resp.apparent_encoding or "utf-8"
@@ -184,24 +238,34 @@ def baixar(url, tentativas=4):
         except Exception as e:  # noqa: BLE001
             ultimo_erro = str(e)
 
-        log(f"  Falhou: {ultimo_erro}")
+        # log enxuto: a mensagem do urllib3 e enorme e repete a URL inteira
+        resumo = str(ultimo_erro)
+        if len(resumo) > 160:
+            resumo = resumo[:160] + "…"
+        log(f"  Falhou: {resumo}")
 
         if n < tentativas:
             espera = esperas[min(n - 1, len(esperas) - 1)]
             log(f"  Aguardando {espera}s antes de tentar de novo...")
             time.sleep(espera)
 
-    # Mensagem de erro que aponta a causa provavel em vez de um texto generico
-    dica = "O governo pode ter mudado o endereco ou o formato da pagina."
-    if "Network is unreachable" in str(ultimo_erro):
-        dica = ("O servidor tentou conectar por IPv6 e nao conseguiu. "
-                "Confira se a funcao forcar_ipv4() esta sendo chamada no inicio do main().")
-    elif "timed out" in str(ultimo_erro).lower():
-        dica = "O gov.br nao respondeu a tempo. Costuma resolver na proxima execucao."
-    elif "403" in str(ultimo_erro):
-        dica = "O gov.br recusou a requisicao. Pode ser bloqueio por User-Agent."
+    # ---- Desistiu. Agora decide se isso e alarme ou nao. ----
+    if eh_erro_de_rede(ultimo_erro):
+        morrer(
+            f"O gov.br nao respondeu depois de {tentativas} tentativas.\n"
+            f"  Ultimo erro: {ultimo_erro}",
+            transitorio=True,
+        )
 
-    morrer(f"Nao consegui baixar {url}.\n  Ultimo erro: {ultimo_erro}\n  Causa provavel: {dica}")
+    dica = "O governo pode ter mudado o endereco ou o formato da pagina."
+    if "403" in str(ultimo_erro) or "401" in str(ultimo_erro):
+        dica = "O gov.br recusou a requisicao. Pode ser bloqueio por User-Agent."
+    elif "404" in str(ultimo_erro):
+        dica = "A pagina nao existe mais. Confira as URLs no topo deste arquivo."
+
+    morrer(f"Nao consegui baixar {url}.\n"
+           f"  Ultimo erro: {ultimo_erro}\n"
+           f"  Causa provavel: {dica}")
 
 
 # ----------------------------------------------------------------------------
@@ -544,6 +608,7 @@ def main():
             "publicado_em_judicial": datas_jud["publicado_em"],
             "atualizado_em_judicial": datas_jud["atualizado_em"],
             "verificado_em": agora.strftime("%d/%m/%Y %H:%M"),
+            "verificado_em_iso": agora.isoformat(timespec="seconds"),
             "total": total_novo,
             "total_administrativas": len(adm),
             "total_judiciais": len(jud),
@@ -551,37 +616,67 @@ def main():
         "empresas": sorted(empresas, key=lambda e: sem_acento(e["razao_social"])),
     }
 
-    saida_historico = {
-        "data": datas_adm["atualizado_em"] or agora.strftime("%d/%m/%Y %H:%M"),
-        "verificado_em": agora.strftime("%d/%m/%Y %H:%M"),
-        "adicionadas": mudancas["adicionadas"],
-        "removidas": mudancas["removidas"],
-        "marcas_alteradas": mudancas["marcas_alteradas"],
-        "total_adicionadas": len(mudancas["adicionadas"]),
-        "total_removidas": len(mudancas["removidas"]),
-    }
-
+    # O dados.json e reescrito em TODA execucao bem-sucedida, mesmo sem
+    # novidade, porque o campo "verificado_em" e o batimento cardiaco do robo.
+    # E ele que permite o site dizer "verificado ha 2 dias" -- e permite
+    # perceber quando o robo para de funcionar de verdade.
     with open(ARQUIVO_DADOS, "w", encoding="utf-8") as f:
         json.dump(saida_dados, f, ensure_ascii=False, indent=2)
-
-    with open(ARQUIVO_HISTORICO, "w", encoding="utf-8") as f:
-        json.dump(saida_historico, f, ensure_ascii=False, indent=2)
-
     log(f"  {ARQUIVO_DADOS} gravado ({total_novo} empresas)")
-    log(f"  {ARQUIVO_HISTORICO} gravado")
 
-    # Deixa um resumo para o GitHub Actions usar no titulo/corpo do Pull Request
-    resumo = (
-        f"{total_novo} empresas | "
-        f"+{len(mudancas['adicionadas'])} / -{len(mudancas['removidas'])} | "
-        f"atualizado no gov.br em {datas_adm['atualizado_em']}"
+    # Ja o historico.json so muda quando algo mudou de fato. Assim o diff do
+    # Git fica limpo e o aviso no Slack nunca dispara sem motivo.
+    houve_mudanca = bool(
+        mudancas["adicionadas"] or mudancas["removidas"] or mudancas["marcas_alteradas"]
     )
+
+    if houve_mudanca:
+        saida_historico = {
+            "data": datas_adm["atualizado_em"] or agora.strftime("%d/%m/%Y %H:%M"),
+            "verificado_em": agora.strftime("%d/%m/%Y %H:%M"),
+            "adicionadas": mudancas["adicionadas"],
+            "removidas": mudancas["removidas"],
+            "marcas_alteradas": mudancas["marcas_alteradas"],
+            "total_adicionadas": len(mudancas["adicionadas"]),
+            "total_removidas": len(mudancas["removidas"]),
+        }
+        with open(ARQUIVO_HISTORICO, "w", encoding="utf-8") as f:
+            json.dump(saida_historico, f, ensure_ascii=False, indent=2)
+        log(f"  {ARQUIVO_HISTORICO} gravado")
+    else:
+        log(f"  {ARQUIVO_HISTORICO} nao mexido (nada mudou)")
+
+    # ---------- Resumo para o GitHub Actions ----------
+    #
+    # "batimento" diz ao workflow como tratar esta execucao:
+    #   sim -> a lista esta igual, mudou so o horario da verificacao.
+    #          Pode ir direto para a main, sem incomodar voce com um PR.
+    #   nao -> a lista mudou de verdade. Abre Pull Request para voce revisar.
+    antes_comparavel = json.dumps(
+        sorted(base_anterior, key=lambda e: sem_acento(e.get("razao_social", ""))),
+        ensure_ascii=False, sort_keys=True,
+    )
+    depois_comparavel = json.dumps(
+        saida_dados["empresas"], ensure_ascii=False, sort_keys=True
+    )
+    batimento = "nao" if antes_comparavel != depois_comparavel else "sim"
+
+    if batimento == "sim":
+        resumo = f"verificacao de rotina, {total_novo} empresas, nada mudou"
+    else:
+        resumo = (
+            f"{total_novo} empresas | "
+            f"+{len(mudancas['adicionadas'])} / -{len(mudancas['removidas'])} | "
+            f"atualizado no gov.br em {datas_adm['atualizado_em']}"
+        )
+
     if os.getenv("GITHUB_OUTPUT"):
         with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as f:
             f.write(f"resumo={resumo}\n")
             f.write(f"total={total_novo}\n")
             f.write(f"adicionadas={len(mudancas['adicionadas'])}\n")
             f.write(f"removidas={len(mudancas['removidas'])}\n")
+            f.write(f"batimento={batimento}\n")
 
     log("")
     log("=" * 70)
