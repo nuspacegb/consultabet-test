@@ -65,8 +65,31 @@ jobs:
         id: scraper
         run: python scraper.py
 
+      # O scraper distingue dois desfechos bem-sucedidos:
+      #
+      #   batimento=sim  A lista esta identica. Mudou so o horario da
+      #                  verificacao dentro do dados.json. Vai direto para a
+      #                  main, sem PR -- e o "estou vivo" do robo, e nao faz
+      #                  sentido pedir sua aprovacao para um relogio.
+      #
+      #   batimento=nao  A lista mudou. Abre Pull Request para voce revisar.
+      #
+      - name: Registrar a verificacao (nada mudou)
+        if: steps.scraper.outputs.batimento == 'sim'
+        run: |
+          if git diff --quiet -- dados.json historico.json; then
+            echo "Nem o horario mudou. Nada a commitar."
+            exit 0
+          fi
+          git config user.name  'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git add dados.json historico.json
+          git commit -m "Verificacao de rotina: ${{ steps.scraper.outputs.total }} empresas, nada mudou"
+          git push
+
       - name: Verificar se algo mudou
         id: diff
+        if: steps.scraper.outputs.batimento == 'nao'
         run: |
           if git diff --quiet -- dados.json historico.json; then
             echo "mudou=nao" >> "$GITHUB_OUTPUT"
