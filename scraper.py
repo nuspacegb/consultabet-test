@@ -683,13 +683,23 @@ def main():
     )
     batimento = "nao" if antes_comparavel != depois_comparavel else "sim"
 
+    n_add = len(mudancas["adicionadas"])
+    n_rem = len(mudancas["removidas"])
+
     if batimento == "sim":
         resumo = f"verificacao de rotina, {total_novo} empresas, nada mudou"
-    else:
+    elif n_add or n_rem:
         resumo = (
-            f"{total_novo} empresas | "
-            f"+{len(mudancas['adicionadas'])} / -{len(mudancas['removidas'])} | "
-            f"atualizado no gov.br em {datas_adm['atualizado_em']}"
+            f"{total_novo} empresas | +{n_add} entraram / -{n_rem} sairam | "
+            f"gov.br atualizado em {datas_adm['atualizado_em']}"
+        )
+    else:
+        # A lista de empresas e a mesma, mas algum campo mudou: dominio,
+        # numero da portaria, grafia de uma marca. Dizer "+0 / -0" aqui
+        # confunde -- parece que nada mudou, e mudou.
+        resumo = (
+            f"{total_novo} empresas | mesmas casas, dados atualizados | "
+            f"gov.br atualizado em {datas_adm['atualizado_em']}"
         )
 
     avisar_workflow(
