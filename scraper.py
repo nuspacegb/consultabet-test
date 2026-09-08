@@ -318,6 +318,27 @@ def extrair_datas(soup, nome_pagina):
 # LEITURA DAS TABELAS
 # ----------------------------------------------------------------------------
 
+# Simbolos que o gov.br usa como marcador de lista dentro das celulas.
+# Eles nao sao conteudo -- se entrarem, viram "marcas" fantasmas.
+MARCADORES = "•·▪●○◦‣∙*-–—"
+
+
+def limpar_marcador(txt):
+    """
+    Tira marcador de lista do inicio do texto e descarta o que sobrar vazio.
+
+    Exemplos:
+        "• VERT"  -> "VERT"
+        "•"       -> ""
+        "VERT"    -> "VERT"
+    """
+    limpo = txt.strip().lstrip(MARCADORES).strip()
+    # se depois de tirar os marcadores nao sobrou letra nem numero, era lixo
+    if not re.search(r"[A-Za-z0-9]", limpo):
+        return ""
+    return limpo
+
+
 def texto_da_celula(td):
     """
     Devolve a lista de "pedacos" de uma celula.
@@ -340,6 +361,7 @@ def texto_da_celula(td):
     for p in pedacos:
         for linha in p.split("\n"):
             limpo = re.sub(r"\s+", " ", linha).strip(" ;, ")
+            limpo = limpar_marcador(limpo)   # tira os "•" que nao sao conteudo
             if limpo:
                 resultado.append(limpo)
     return resultado
@@ -503,6 +525,23 @@ def rotulo(empresa):
     return f"{nome} ({marcas})" if marcas else nome
 
 
+def conjunto_marcas(texto):
+    """
+    "VERT, CGG, FANBIT" -> {"vert", "cgg", "fanbit"}
+
+    Comparar conjuntos, e nao a string inteira, evita alarme falso quando o
+    governo so troca a ordem, a pontuacao ou o espacamento das marcas.
+    So avisa quando uma marca de fato entrou ou saiu.
+    """
+    nomes = set()
+    for pedaco in re.split(r"[,;/|]", texto or ""):
+        limpo = sem_acento(limpar_marcador(pedaco))
+        limpo = re.sub(r"[^a-z0-9]", "", limpo)
+        if limpo:
+            nomes.add(limpo)
+    return nomes
+
+
 def comparar(antes, depois):
     """Monta o relatorio de mudancas entre a base antiga e a nova."""
     por_cnpj_antes = {e["cnpj"]: e for e in antes if e.get("cnpj")}
@@ -514,7 +553,7 @@ def comparar(antes, depois):
     alteradas = []
     for cnpj in set(por_cnpj_antes) & set(por_cnpj_depois):
         a, d = por_cnpj_antes[cnpj], por_cnpj_depois[cnpj]
-        if sem_acento(a.get("marcas", "")) != sem_acento(d.get("marcas", "")):
+        if conjunto_marcas(a.get("marcas", "")) != conjunto_marcas(d.get("marcas", "")):
             alteradas.append({
                 "empresa": d.get("razao_social", cnpj),
                 "antes": a.get("marcas", ""),
