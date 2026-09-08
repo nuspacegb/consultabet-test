@@ -126,6 +126,22 @@ def log(msg):
     print(msg, flush=True)
 
 
+def avisar_workflow(**campos):
+    """
+    Deixa recados para o GitHub Actions ler depois (a secao 'outputs').
+    E assim que o workflow sabe o que aconteceu aqui dentro.
+    """
+    destino = os.getenv("GITHUB_OUTPUT")
+    if not destino:
+        return
+    try:
+        with open(destino, "a", encoding="utf-8") as f:
+            for chave, valor in campos.items():
+                f.write(f"{chave}={valor}\n")
+    except Exception:  # noqa: BLE001
+        pass
+
+
 def morrer(msg, transitorio=False):
     """
     Para o script sem salvar nada. A base atual continua no ar.
@@ -159,10 +175,12 @@ def morrer(msg, transitorio=False):
         log("  Se acontecer vários dias seguidos, o site vai mostrar que a")
         log("  ultima verificacao esta antiga -- ai vale investigar.")
         log("=" * 70)
+        avisar_workflow(resultado="sem_acesso", batimento="nao_rodou")
         sys.exit(0)
 
     log("  Verifique se o governo mudou o endereco ou o formato da pagina.")
     log("=" * 70)
+    avisar_workflow(resultado="erro")
     sys.exit(1)
 
 
@@ -674,13 +692,15 @@ def main():
             f"atualizado no gov.br em {datas_adm['atualizado_em']}"
         )
 
-    if os.getenv("GITHUB_OUTPUT"):
-        with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as f:
-            f.write(f"resumo={resumo}\n")
-            f.write(f"total={total_novo}\n")
-            f.write(f"adicionadas={len(mudancas['adicionadas'])}\n")
-            f.write(f"removidas={len(mudancas['removidas'])}\n")
-            f.write(f"batimento={batimento}\n")
+    avisar_workflow(
+        resultado="ok",
+        resumo=resumo,
+        total=total_novo,
+        adicionadas=len(mudancas["adicionadas"]),
+        removidas=len(mudancas["removidas"]),
+        batimento=batimento,
+        atualizado_em=datas_adm["atualizado_em"] or "",
+    )
 
     log("")
     log("=" * 70)
