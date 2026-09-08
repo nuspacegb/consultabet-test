@@ -363,6 +363,39 @@ def montar_aviso(empresas, meta, corpo, assunto):
     return {"text": f"{assunto} — {corpo[:120]}", "blocks": blocos}
 
 
+def montar_execucao(empresas, meta, hist, desfecho, url_log, ok=True):
+    """
+    Retorno de uma execucao que VOCE disparou na mao.
+
+    Diferente do resumo semanal: aqui o que interessa e "o que acabou de
+    acontecer e o que eu preciso fazer agora", nao o panorama.
+    """
+    total = meta.get("total", len(empresas))
+    atualizado = meta.get("atualizado_em", "")
+
+    icone = "✅" if ok else "⚠️"
+    blocos = [
+        titulo(f"{icone} Execução manual do robô da base"),
+        texto(desfecho),
+    ]
+
+    detalhes = [f"*{total}* casas na base"]
+    if atualizado:
+        detalhes.append(f"lista oficial atualizada em *{atualizado}*")
+    dias = dias_desde_verificacao(meta)
+    if dias is not None:
+        detalhes.append("verificada " + ("hoje" if dias == 0 else
+                                         "ontem" if dias == 1 else f"há {dias} dias"))
+    blocos.append(contexto(" · ".join(detalhes)))
+
+    blocos.append({"type": "divider"})
+    blocos.append(contexto(
+        f"<{url_log}|Ver o log completo> · <{URL_SITE}|Abrir o Consulta Bet>"
+    ))
+
+    return {"text": f"Execução manual: {desfecho[:140]}", "blocks": blocos}
+
+
 def montar_falha(meta, url_log):
     """Alerta de que o robo nao conseguiu atualizar a base."""
     blocos = [
@@ -511,11 +544,15 @@ def enviar(mensagem):
 
 def main():
     p = argparse.ArgumentParser(description="Bot do Slack do Nu - Consulta Bet")
-    p.add_argument("tipo", choices=["mudancas", "semanal", "aviso", "falha", "divulgacao"])
+    p.add_argument("tipo", choices=["mudancas", "semanal", "aviso", "falha",
+                                    "divulgacao", "execucao"])
     p.add_argument("--texto", default="", help="corpo da mensagem (so para 'aviso')")
     p.add_argument("--assunto", default="Novidade no Consulta Bet",
                    help="titulo da mensagem (so para 'aviso')")
-    p.add_argument("--log", default="", help="link do log (so para 'falha')")
+    p.add_argument("--log", default="", help="link do log da execucao")
+    p.add_argument("--desfecho", default="", help="o que aconteceu (so para 'execucao')")
+    p.add_argument("--alerta", action="store_true",
+                   help="marca a execucao como problematica (so para 'execucao')")
     p.add_argument("--simular", action="store_true",
                    help="monta a mensagem e imprime, sem enviar nada")
     p.add_argument("--markdown", action="store_true",
@@ -539,6 +576,11 @@ def main():
             return
     elif args.tipo == "semanal":
         msg = montar_semanal(empresas, meta, hist)
+    elif args.tipo == "execucao":
+        msg = montar_execucao(empresas, meta, hist,
+                              args.desfecho.strip() or "Execução concluída.",
+                              args.log or URL_SITE,
+                              ok=not args.alerta)
     elif args.tipo == "falha":
         msg = montar_falha(meta, args.log or URL_SITE)
     else:
