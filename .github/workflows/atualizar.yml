@@ -149,14 +149,21 @@ jobs:
           ADD="${{ steps.scraper.outputs.adicionadas }}"
           REM="${{ steps.scraper.outputs.removidas }}"
 
+          # O texto abaixo e escrito para ser lido por quem nao mexe com
+          # GitHub todo dia: cada termo tecnico vem com a traducao ao lado.
+          APROVAR="Abra o *Pull Request* (a proposta de mudanca que fica esperando sua aprovacao), confira se esta certo e clique em *Merge* (aprovar e publicar). *Enquanto voce nao aprovar, o site continua exatamente como esta.*"
+
           if [ "$RESULTADO" = "sem_acesso" ]; then
-            TEXTO="O gov.br nao respondeu desta vez, entao nada foi atualizado. *Isto nao e uma falha* -- a base que esta no ar continua correta. Tente de novo em alguns minutos."
+            TEXTO="O gov.br nao respondeu desta vez, entao nada foi atualizado. *Isto nao e uma falha* -- a base que esta no ar continua correta, so nao foi conferida agora. Tente de novo em alguns minutos."
             ALERTA="--alerta"
+          elif [ "$MUDOU" = "sim" ] && { [ "$ADD" != "0" ] || [ "$REM" != "0" ]; }; then
+            TEXTO="*Entraram ${ADD} e sairam ${REM} casas da lista oficial.* ${APROVAR}"
+            ALERTA=""
           elif [ "$MUDOU" = "sim" ]; then
-            TEXTO="*A lista mudou:* +${ADD} / -${REM}. Um Pull Request foi aberto para voce revisar. O site so muda depois que voce der merge."
+            TEXTO="*As mesmas casas continuam autorizadas*, mas algum dado delas mudou -- dominio, marca ou numero da portaria. ${APROVAR}"
             ALERTA=""
           elif [ "$BATIMENTO" = "sim" ]; then
-            TEXTO="Nenhuma casa entrou ou saiu. So a data da verificacao foi atualizada, e ja esta no ar."
+            TEXTO="*Nada mudou.* Nenhuma casa entrou ou saiu e nenhum dado foi alterado. So registrei que a fonte oficial foi conferida agora -- isso ja esta no ar, sem precisar da sua aprovacao."
             ALERTA=""
           else
             TEXTO="Verificacao concluida. Nada a publicar."
@@ -222,6 +229,19 @@ jobs:
                 `| Lista oficial atualizada em | ${{ steps.scraper.outputs.atualizado_em }} |`,
                 '',
                 `[Ver o log completo](${url})`,
+                '',
+                '<details><summary>O que significam os termos</summary>',
+                '',
+                '| Termo | Em português |',
+                '|---|---|',
+                '| **Pull Request** (ou PR) | Uma proposta de mudança. Fica parada esperando você aprovar. Nada vai pro ar antes disso. |',
+                '| **Merge** | Aprovar a proposta. É o clique que publica a mudança no site. |',
+                '| **Commit** | Uma alteração já gravada no projeto. |',
+                '| **main** | A versão oficial, que é a que o site mostra. |',
+                '| **Actions** | A aba onde os robôs rodam. |',
+                '| **Workflow** | Um robô: uma sequência de passos que roda sozinha. |',
+                '',
+                '</details>',
                 '',
                 '<sub>Esta issue fecha sozinha na próxima execução manual.</sub>',
               ].join('\n'),
