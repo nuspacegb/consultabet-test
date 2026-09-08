@@ -1085,31 +1085,76 @@ async function abrirHistorico() {
     if (!resp.ok) throw new Error('HTTP ' + resp.status);
     const h = await resp.json();
 
-    data.textContent = h.data ? `Referência: ${h.data}` : 'Última verificação';
+    /* Duas datas diferentes, e confundir as duas é o que deixava este modal
+       parecendo travado no passado:
+
+         verificado_em  -> quando o robô conferiu a fonte pela última vez.
+                           Anda todo dia útil, mesmo sem novidade.
+         alterado_em    -> quando a lista de fato mudou pela última vez.
+                           Pode ficar semanas parada, e isso é normal.
+
+       O subtítulo mostra a primeira; o corpo, a segunda. */
+    const diasVerif = diasDesdeVerificacao(meta);
+    const quandoVerif = diasVerif === null ? (meta.verificado_em || '—')
+      : diasVerif === 0 ? 'hoje' : diasVerif === 1 ? 'ontem' : `há ${diasVerif} dias`;
+    data.textContent = `Fonte oficial verificada ${quandoVerif}`;
 
     const add = h.adicionadas || [];
     const rem = h.removidas || [];
     const alt = h.marcas_alteradas || [];
+    const houve = add.length || rem.length || alt.length;
+
+    // Faz quanto tempo foi a última alteração registrada
+    let diasAlt = null;
+    if (h.alterado_em_iso) {
+      const q = new Date(h.alterado_em_iso);
+      if (!isNaN(q)) diasAlt = Math.max(0, Math.floor((Date.now() - q.getTime()) / 86400000));
+    }
+    const recente = diasAlt !== null && diasAlt <= 8;
+    const quandoAlt = h.alterado_em || h.data || 'data não registrada';
+
     let html = '';
 
-    if (add.length) {
-      html += `<div class="bloco-mudanca add"><h4>+${add.length} empresa(s) adicionada(s)</h4>
-        <ul>${add.map(i => `<li>${esc(i)}</li>`).join('')}</ul></div>`;
-    }
-    if (rem.length) {
-      html += `<div class="bloco-mudanca rem"><h4>−${rem.length} empresa(s) removida(s)</h4>
-        <ul>${rem.map(i => `<li>${esc(i)}</li>`).join('')}</ul></div>`;
-    }
-    if (alt.length) {
-      html += `<div class="bloco-mudanca neutro"><h4 style="color:var(--roxo)">${alt.length} empresa(s) com marcas alteradas</h4>
-        <ul>${alt.map(a => `<li><strong style="color:var(--text)">${esc(a.empresa)}</strong>: ${esc(a.antes)} → ${esc(a.depois)}</li>`).join('')}</ul></div>`;
-    }
-    if (!add.length && !rem.length && !alt.length) {
+    if (!houve) {
       html = `<div class="bloco-mudanca neutro">
-        <h4 style="color:var(--roxo)">Nenhuma alteração identificada</h4>
-        <p style="margin:0;font-size:13px;color:var(--text-muted)">A lista oficial permanece idêntica à verificação anterior.</p>
-      </div>`;
+        <h4 style="color:var(--roxo)">Nenhuma alteração registrada</h4>
+        <p style="margin:0;font-size:13px;color:var(--text-muted)">
+          A lista oficial não mudou desde que o acompanhamento começou.
+        </p></div>`;
+    } else {
+      html += recente
+        ? `<p style="margin:0 0 12px;font-size:12.5px;color:var(--ok)">
+             Alterações detectadas em <strong>${esc(quandoAlt)}</strong>.
+           </p>`
+        : `<div class="bloco-mudanca neutro">
+             <h4 style="color:var(--roxo)">Nenhuma alteração recente</h4>
+             <p style="margin:0;font-size:13px;color:var(--text-muted)">
+               A lista está igual desde <strong style="color:var(--text)">${esc(quandoAlt)}</strong>.
+               Abaixo, a última mudança registrada.
+             </p></div>`;
+
+      if (add.length) {
+        html += `<div class="bloco-mudanca add"><h4>+${add.length} empresa(s) adicionada(s)</h4>
+          <ul>${add.map(i => `<li>${esc(i)}</li>`).join('')}</ul></div>`;
+      }
+      if (rem.length) {
+        html += `<div class="bloco-mudanca rem"><h4>−${rem.length} empresa(s) removida(s)</h4>
+          <ul>${rem.map(i => `<li>${esc(i)}</li>`).join('')}</ul></div>`;
+      }
+      if (alt.length) {
+        html += `<div class="bloco-mudanca neutro"><h4 style="color:var(--roxo)">${alt.length} empresa(s) com marcas alteradas</h4>
+          <ul>${alt.map(a => `<li><strong style="color:var(--text)">${esc(a.empresa)}</strong>: ${esc(a.antes)} → ${esc(a.depois)}</li>`).join('')}</ul></div>`;
+      }
     }
+
+    if (meta.atualizado_em) {
+      html += `<p style="margin:14px 0 0;font-size:12px;color:var(--text-dim)">
+        Carimbo da própria página do gov.br: atualizada em <strong style="color:var(--text-muted)">${esc(meta.atualizado_em)}</strong>.
+        O governo às vezes republica a página sem mexer na lista — por isso essa data pode
+        mudar sem que nenhuma casa tenha entrado ou saído.
+      </p>`;
+    }
+
     alvo.innerHTML = html;
 
   } catch (erro) {
