@@ -207,20 +207,94 @@ def dias_desde_verificacao(meta):
         return None
 
 
+def dias_desde_alteracao(hist):
+    """Ha quantos dias a lista mudou pela ultima vez. None se nao souber."""
+    iso = hist.get("alterado_em_iso")
+    if not iso:
+        return None
+    try:
+        from datetime import datetime, timezone
+        quando = datetime.fromisoformat(iso)
+        if quando.tzinfo is None:
+            quando = quando.replace(tzinfo=timezone.utc)
+        return (datetime.now(timezone.utc) - quando).days
+    except Exception:  # noqa: BLE001
+        return None
+
+
+def montar_divulgacao(empresas, meta, hist):
+    """
+    Texto pronto para copiar e colar num canal com mais gente.
+
+    E diferente do resumo pessoal: nada de "o robo parou", nada de link do
+    GitHub. So o que interessa para quem nao cuida da ferramenta.
+    """
+    add = hist.get("adicionadas", [])
+    rem = hist.get("removidas", [])
+    alt = hist.get("marcas_alteradas", [])
+    total = meta.get("total", len(empresas))
+    atualizado = meta.get("atualizado_em", "")
+
+    partes = ["📢 *Atualização na lista de casas de apostas autorizadas*", ""]
+
+    if add:
+        partes.append(f"*Entraram na lista ({len(add)}):*")
+        partes += [f"• {n}" for n in add[:MAXIMO_NOMES]]
+        if len(add) > MAXIMO_NOMES:
+            partes.append(f"_… e mais {len(add) - MAXIMO_NOMES}._")
+        partes.append("")
+    if rem:
+        partes.append(f"*Saíram da lista ({len(rem)}):*")
+        partes += [f"• {n}" for n in rem[:MAXIMO_NOMES]]
+        if len(rem) > MAXIMO_NOMES:
+            partes.append(f"_… e mais {len(rem) - MAXIMO_NOMES}._")
+        partes.append("")
+    if alt:
+        partes.append(f"*Mudaram de marca ({len(alt)}):*")
+        partes += [f"• {a['empresa']}: {a['antes'] or '—'} → {a['depois'] or '—'}"
+                   for a in alt[:MAXIMO_NOMES]]
+        partes.append("")
+
+    partes.append(
+        f"São *{total}* casas autorizadas pelo Governo Federal"
+        + (f", conforme lista da SPA/MF atualizada em {atualizado}." if atualizado else ".")
+    )
+    partes.append(f"Consulte qualquer casa por marca ou CNPJ: {URL_SITE}")
+
+    return "\n".join(partes)
+
+
 def montar_semanal(empresas, meta, hist):
     """Resumo de segunda-feira. Sai mesmo quando nada mudou."""
     add = hist.get("adicionadas", [])
     rem = hist.get("removidas", [])
+    alt = hist.get("marcas_alteradas", [])
     total = meta.get("total", len(empresas))
     atualizado = meta.get("atualizado_em", "data não informada")
 
-    if add or rem:
-        linha = (f"Desde a última verificação: *{len(add)}* entraram e "
-                 f"*{len(rem)}* saíram da lista.")
-        linha_simples = (f"Desde a última verificação: {len(add)} entraram e "
-                         f"{len(rem)} saíram.")
+    # O historico.json guarda a ULTIMA alteracao, que pode ser de meses atras.
+    # Sem esta checagem, o resumo repetiria a mesma novidade toda segunda.
+    dias_alt = dias_desde_alteracao(hist)
+    houve = bool(add or rem or alt)
+    recente = houve and dias_alt is not None and dias_alt <= 7
+    quando_alt = hist.get("alterado_em") or hist.get("data") or "data não registrada"
+
+    if recente:
+        pedacos = []
+        if add:
+            pedacos.append(f"*{len(add)}* {'entrou' if len(add) == 1 else 'entraram'}")
+        if rem:
+            pedacos.append(f"*{len(rem)}* {'saiu' if len(rem) == 1 else 'saíram'}")
+        if alt:
+            pedacos.append(f"*{len(alt)}* mudou de marca" if len(alt) == 1
+                           else f"*{len(alt)}* mudaram de marca")
+        linha = "Nesta semana: " + " · ".join(pedacos) + "."
+        linha_simples = re.sub(r"\*", "", linha)
+    elif houve:
+        linha = (f"Nenhuma alteração nesta semana. A última foi em *{quando_alt}*.")
+        linha_simples = f"Nenhuma alteração nesta semana. A última foi em {quando_alt}."
     else:
-        linha = "Nenhuma alteração desde a última verificação. A lista segue igual."
+        linha = "Nenhuma alteração registrada até agora."
         linha_simples = linha
 
     blocos = [
@@ -230,6 +304,24 @@ def montar_semanal(empresas, meta, hist):
             f"{linha}"
         ),
     ]
+
+    # Quando houve mudanca de verdade nesta semana, ja entrega o texto pronto
+    # para colar num canal com mais gente. Evita reescrever na mao.
+    if recente:
+        if add:
+            blocos.append(texto("*🟢 Entraram*\n" + lista_de_nomes(add)))
+        if rem:
+            blocos.append(texto("*🔴 Saíram*\n" + lista_de_nomes(rem)))
+        if alt:
+            blocos.append(texto("*🟣 Marcas alteradas*\n" + "\n".join(
+                f"• *{a['empresa']}*: {a['antes'] or '—'} → {a['depois'] or '—'}"
+                for a in alt[:MAXIMO_NOMES])))
+        blocos.append({"type": "divider"})
+        blocos.append(texto(
+            "📋 *Texto pronto para copiar no canal aberto* — copie daqui para baixo:"
+        ))
+        blocos.append(texto(montar_divulgacao(empresas, meta, hist)))
+        blocos.append({"type": "divider"})
 
     # Se a ultima verificacao bem-sucedida ficou velha, o robo pode estar
     # travado -- por exemplo, o gov.br bloqueando o servidor todos os dias.
@@ -335,6 +427,40 @@ def achatar(mensagem):
     return "\n\n".join(l.strip() for l in linhas if l.strip())
 
 
+def para_markdown(mensagem):
+    """
+    Converte a mensagem para Markdown de verdade (o do GitHub).
+
+    Usado no corpo da issue que vira e-mail. A sintaxe do Slack e parecida
+    mas nao igual: la o negrito e *assim*, aqui e **assim**; la o link e
+    <endereco|rotulo>, aqui e [rotulo](endereco).
+    """
+    linhas = []
+    for b in mensagem.get("blocks", []):
+        tipo = b.get("type")
+        if tipo == "divider":
+            linhas.append("---")
+            continue
+
+        if tipo == "header":
+            bruto, prefixo, sufixo = b["text"]["text"], "## ", ""
+        elif tipo == "section":
+            bruto, prefixo, sufixo = b["text"]["text"], "", ""
+        elif tipo == "context":
+            bruto = " ".join(e["text"] for e in b.get("elements", []))
+            prefixo, sufixo = "", ""
+        else:
+            continue
+
+        t = re.sub(r"<(https?://[^|>]+)\|([^>]+)>", r"[\2](\1)", bruto)
+        t = re.sub(r"<(https?://[^>]+)>", r"\1", t)
+        t = re.sub(r"\*([^*\n]+)\*", r"**\1**", t)   # negrito do Slack -> do Markdown
+        t = re.sub(r"_([^_\n]+)_", r"*\1*", t)       # italico
+        linhas.append(prefixo + t + sufixo)
+
+    return "\n\n".join(l.strip() for l in linhas if l.strip())
+
+
 def montar_corpo(mensagem):
     """Decide o formato do que vai ser enviado, conforme MODO_SLACK."""
     if MODO_SLACK == "simples":
@@ -385,16 +511,26 @@ def enviar(mensagem):
 
 def main():
     p = argparse.ArgumentParser(description="Bot do Slack do Nu - Consulta Bet")
-    p.add_argument("tipo", choices=["mudancas", "semanal", "aviso", "falha"])
+    p.add_argument("tipo", choices=["mudancas", "semanal", "aviso", "falha", "divulgacao"])
     p.add_argument("--texto", default="", help="corpo da mensagem (so para 'aviso')")
     p.add_argument("--assunto", default="Novidade no Consulta Bet",
                    help="titulo da mensagem (so para 'aviso')")
     p.add_argument("--log", default="", help="link do log (so para 'falha')")
     p.add_argument("--simular", action="store_true",
                    help="monta a mensagem e imprime, sem enviar nada")
+    p.add_argument("--markdown", action="store_true",
+                   help="imprime em Markdown (para o corpo da issue), sem enviar")
+    p.add_argument("--titulo-issue", action="store_true",
+                   help="imprime so uma linha de resumo, para o titulo da issue")
     args = p.parse_args()
 
     empresas, meta, hist = carregar()
+
+    # 'divulgacao' nao e mensagem de Slack: e o texto pronto para voce colar
+    # num canal com mais gente. Sempre sai em texto puro.
+    if args.tipo == "divulgacao":
+        print(montar_divulgacao(empresas, meta, hist))
+        return
 
     if args.tipo == "mudancas":
         msg = montar_mudancas(empresas, meta, hist)
@@ -410,6 +546,15 @@ def main():
             print("ERRO: o aviso precisa de um texto. Use --texto \"sua mensagem\".")
             sys.exit(1)
         msg = montar_aviso(empresas, meta, args.texto.strip(), args.assunto.strip())
+
+    # Uma linha so, para virar titulo de issue / assunto de e-mail
+    if args.titulo_issue:
+        print(msg.get("text", "Consulta Bet"))
+        return
+
+    if args.markdown:
+        print(para_markdown(msg))
+        return
 
     if args.simular:
         if MODO_SLACK == "simples":
