@@ -632,8 +632,12 @@ def main():
 
     if houve_mudanca:
         saida_historico = {
+            # Data que o gov.br carimbou na pagina quando a mudanca aconteceu
             "data": datas_adm["atualizado_em"] or agora.strftime("%d/%m/%Y %H:%M"),
-            "verificado_em": agora.strftime("%d/%m/%Y %H:%M"),
+            # Quando NOS detectamos a mudanca. E isso que responde
+            # "faz quanto tempo que algo mudou?"
+            "alterado_em": agora.strftime("%d/%m/%Y %H:%M"),
+            "alterado_em_iso": agora.isoformat(timespec="seconds"),
             "adicionadas": mudancas["adicionadas"],
             "removidas": mudancas["removidas"],
             "marcas_alteradas": mudancas["marcas_alteradas"],
