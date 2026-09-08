@@ -131,6 +131,102 @@ jobs:
 
             > Este PR foi aberto automaticamente. O site **nao** muda ate voce dar merge.
 
+      # =================================================================
+      #  RETORNO DA EXECUCAO MANUAL
+      # -----------------------------------------------------------------
+      #  So dispara quando VOCE aperta "Run workflow". As execucoes
+      #  automaticas de segunda a sexta continuam caladas -- se avisassem
+      #  todo dia, viraria ruido e voce pararia de ler.
+      # =================================================================
+
+      - name: Descrever o que aconteceu
+        if: github.event_name == 'workflow_dispatch' && always()
+        id: desfecho
+        run: |
+          RESULTADO="${{ steps.scraper.outputs.resultado }}"
+          BATIMENTO="${{ steps.scraper.outputs.batimento }}"
+          MUDOU="${{ steps.diff.outputs.mudou }}"
+          ADD="${{ steps.scraper.outputs.adicionadas }}"
+          REM="${{ steps.scraper.outputs.removidas }}"
+
+          if [ "$RESULTADO" = "sem_acesso" ]; then
+            TEXTO="O gov.br nao respondeu desta vez, entao nada foi atualizado. *Isto nao e uma falha* -- a base que esta no ar continua correta. Tente de novo em alguns minutos."
+            ALERTA="--alerta"
+          elif [ "$MUDOU" = "sim" ]; then
+            TEXTO="*A lista mudou:* +${ADD} / -${REM}. Um Pull Request foi aberto para voce revisar. O site so muda depois que voce der merge."
+            ALERTA=""
+          elif [ "$BATIMENTO" = "sim" ]; then
+            TEXTO="Nenhuma casa entrou ou saiu. So a data da verificacao foi atualizada, e ja esta no ar."
+            ALERTA=""
+          else
+            TEXTO="Verificacao concluida. Nada a publicar."
+            ALERTA=""
+          fi
+
+          echo "texto=$TEXTO"   >> "$GITHUB_OUTPUT"
+          echo "alerta=$ALERTA" >> "$GITHUB_OUTPUT"
+
+      - name: Avisar no Slack
+        if: github.event_name == 'workflow_dispatch' && always()
+        continue-on-error: true
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          URL_SITE: ${{ vars.URL_SITE }}
+          MODO_SLACK: ${{ vars.MODO_SLACK }}
+          DESFECHO: ${{ steps.desfecho.outputs.texto }}
+        run: >
+          python avisar_slack.py execucao
+          --desfecho "$DESFECHO"
+          ${{ steps.desfecho.outputs.alerta }}
+          --log "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+      - name: Avisar por e-mail (via issue)
+        if: github.event_name == 'workflow_dispatch' && always()
+        continue-on-error: true
+        uses: actions/github-script@v8
+        env:
+          DESFECHO: ${{ steps.desfecho.outputs.texto }}
+        with:
+          script: |
+            const url = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            const agora = new Date().toLocaleString('pt-BR');
+            const desfecho = (process.env.DESFECHO || '').replace(/\*/g, '**');
+
+            // Fecha o retorno da execucao manual anterior, para nao acumular
+            const antigas = await github.rest.issues.listForRepo({
+              owner: context.repo.owner, repo: context.repo.repo,
+              state: 'open', labels: 'execucao-manual',
+            });
+            for (const issue of antigas.data) {
+              await github.rest.issues.update({
+                owner: context.repo.owner, repo: context.repo.repo,
+                issue_number: issue.number, state: 'closed',
+              });
+            }
+
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `Execucao manual do robo · ${agora}`,
+              labels: ['execucao-manual'],
+              body: [
+                '## Resultado da execução que você disparou',
+                '',
+                desfecho,
+                '',
+                '| | |',
+                '|---|---|',
+                `| Total de empresas | ${{ steps.scraper.outputs.total }} |`,
+                `| Adicionadas | ${{ steps.scraper.outputs.adicionadas }} |`,
+                `| Removidas | ${{ steps.scraper.outputs.removidas }} |`,
+                `| Lista oficial atualizada em | ${{ steps.scraper.outputs.atualizado_em }} |`,
+                '',
+                `[Ver o log completo](${url})`,
+                '',
+                '<sub>Esta issue fecha sozinha na próxima execução manual.</sub>',
+              ].join('\n'),
+            });
+
       # Se qualquer passo acima falhar, abre uma issue avisando.
       # Assim voce nunca fica sem saber que o robo parou de funcionar.
       - name: Avisar em caso de falha
