@@ -832,12 +832,44 @@ async function carregarBase() {
   }
 }
 
-/** Quantos dias desde a última verificação bem-sucedida. null se não souber. */
+/** Hoje no fuso de Brasília, como "2026-09-09". */
+function hojeEmBrasilia() {
+  try {
+    return new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Sao_Paulo' })
+      .format(new Date());
+  } catch {
+    return new Date().toISOString().slice(0, 10);
+  }
+}
+
+/**
+ * Quantos dias de CALENDÁRIO desde a última verificação. null se não souber.
+ *
+ * Tem que ser calendário, não "períodos de 24 horas". Uma verificação de
+ * ontem às 18h54, vista hoje às 15h20, tem só 20 horas de idade — se a conta
+ * fosse por horas decorridas, o site diria "hoje", que é falso e destrói a
+ * confiança em tudo que ele mostra.
+ */
 function diasDesdeVerificacao(meta) {
-  if (!meta.verificado_em_iso) return null;
-  const quando = new Date(meta.verificado_em_iso);
-  if (isNaN(quando)) return null;
-  return Math.max(0, Math.floor((Date.now() - quando.getTime()) / 86400000));
+  // A data vem de "08/09/2026 18:54", que o robô grava em horário de Brasília
+  const m = String(meta.verificado_em || '').match(/^(\d{2})\/(\d{2})\/(\d{4})/);
+  let iso;
+  if (m) {
+    iso = `${m[3]}-${m[2]}-${m[1]}`;
+  } else if (meta.verificado_em_iso) {
+    iso = String(meta.verificado_em_iso).slice(0, 10);
+  } else {
+    return null;
+  }
+
+  const [a1, m1, d1] = iso.split('-').map(Number);
+  const [a2, m2, d2] = hojeEmBrasilia().split('-').map(Number);
+  if (!a1 || !a2) return null;
+
+  const dias = Math.round(
+    (Date.UTC(a2, m2 - 1, d2) - Date.UTC(a1, m1 - 1, d1)) / 86400000
+  );
+  return Math.max(0, dias);
 }
 
 /**
