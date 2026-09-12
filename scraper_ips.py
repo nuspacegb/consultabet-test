@@ -254,78 +254,80 @@ def mostrar_catalogo():
 # AS TENTATIVAS
 # ----------------------------------------------------------------------------
 
-def formatos_de_data(data):
-    """Varias grafias da mesma data, porque o 500 pode ser so isso."""
-    a, m, d = data.split("-")
-    return [
-        (f"'{a}-{m}-{d}'", f"'{data}'"),
-        (f"{a}-{m}-{d} sem aspas", data),
-        (f"'{d}/{m}/{a}'", f"'{d}/{m}/{a}'"),
-        (f"'{a}{m}{d}'", f"'{a}{m}{d}'"),
-        (f"'{a}-{m}'", f"'{a}-{m}'"),
-        (f"'{a}{m}'", f"'{a}{m}'"),
-    ]
+# ============================================================================
+#  A ARMADILHA DA DATA -- leia antes de mexer aqui
+# ----------------------------------------------------------------------------
+#  A API espera a data em MM/DD/YYYY (formato americano), e NAO avisa quando
+#  voce manda no formato brasileiro. Ela simplesmente devolve outro mes.
+#
+#      pedimos '05/09/2026'  pensando em 5 de setembro
+#      recebemos dados com   database = 2026-05-09   (9 de MAIO)
+#
+#  O robo funcionaria, o site mostraria dados, e estariam quatro meses
+#  atrasados sem ninguem perceber. Por isso, depois de baixar, o script
+#  CONFERE se a data que voltou e a que ele pediu.
+# ============================================================================
+
+def montar_url(data, com_filtro=True):
+    """Monta a chamada no formato que a API aceita."""
+    valor = data.strftime("%m/%d/%Y")        # MM/DD/YYYY -- veja o aviso acima
+    url = (f"{BASE}(dataBase=@dataBase)?@dataBase='{valor}'"
+           f"&$format=json&$top=5000")
+    if com_filtro:
+        tipo = quote("Instituição de Pagamento")
+        url += f"&$filter=descricaoTipoEntidadeSupervisionada%20eq%20'{tipo}'"
+    return url
 
 
-def datas_provaveis(quantas=6):
+def data_que_voltou(registros):
+    """Le o campo 'database' dos registros e devolve como date, ou None."""
+    bruto = str(registros[0].get("database") or "").strip()[:10]
+    try:
+        return datetime.strptime(bruto, "%Y-%m-%d").date()
+    except Exception:  # noqa: BLE001
+        return None
+
+
+def buscar(dias_para_tras=45):
+    """
+    Procura a base mais recente disponivel.
+
+    Comeca em hoje e volta um dia por vez. A primeira data que devolver dados
+    e a mais fresca que existe -- nao precisamos adivinhar em que dia do mes
+    o BCB publica.
+    """
+    titulo("PROCURANDO A BASE MAIS RECENTE")
     hoje = datetime.now(FUSO_BRASILIA).date()
-    datas, ano, mes = [], hoje.year, hoje.month
-    for _ in range(quantas):
-        datas.append(f"{ano:04d}-{mes:02d}-05")
-        mes -= 1
-        if mes == 0:
-            mes, ano = 12, ano - 1
-    return datas
+    erros = {}
 
+    for n in range(dias_para_tras):
+        data = hoje - timedelta(days=n)
+        url = montar_url(data)
+        registros, erro = pedir(url, tentativas=1)
 
-def montar_tentativas(nomes_parametro):
-    """
-    Gera (rotulo, url). A ordem importa: comeca pelo mais provavel.
-    Cada tentativa e barata, mas o total e limitado de proposito.
-    """
-    tipo = quote("Instituição de Pagamento")
-    filtro = f"&$filter=descricaoTipoEntidadeSupervisionada%20eq%20'{tipo}'"
-    fim = "&$format=json&$top=5000"
-
-    tentativas = []
-    for data in datas_provaveis():
-        for rotulo_fmt, valor in formatos_de_data(data):
-            for nome in nomes_parametro:
-                tentativas.append((
-                    f"{nome}={rotulo_fmt} (com filtro de tipo)",
-                    f"{BASE}({nome}=@{nome})?@{nome}={valor}{fim}{filtro}",
-                ))
-                tentativas.append((
-                    f"{nome}={rotulo_fmt} (sem filtro)",
-                    f"{BASE}({nome}=@{nome})?@{nome}={valor}{fim}",
-                ))
-    return tentativas
-
-
-def buscar(nomes_parametro, limite=60):
-    titulo("TENTATIVAS DE CHAMADA")
-    vistos_erros = {}
-    tentativas = montar_tentativas(nomes_parametro)[:limite]
-    log(f"  {len(tentativas)} combinacoes a testar")
-    log()
-
-    for rotulo, url in tentativas:
-        registros, erro = pedir(url)
         if registros:
-            log(f"  ✓ FUNCIONOU: {rotulo}")
+            voltou = data_que_voltou(registros)
+            log(f"  ✓ Base encontrada: {data.strftime('%d/%m/%Y')}")
             log(f"    {len(registros):,} registros")
+            log(f"    campo 'database' na resposta: {voltou}")
+
+            # A conferencia que impede o erro silencioso
+            if voltou and voltou != data:
+                log(f"    ATENCAO: pedi {data} e vieram dados de {voltou}.")
+                log("    A API interpretou a data de outro jeito. Ignorando esta.")
+                continue
+
             log(f"    URL: {url}")
-            return registros, rotulo, url
-        # agrupa erros iguais para o log nao virar uma parede
-        chave = (erro or "")[:60]
-        vistos_erros[chave] = vistos_erros.get(chave, 0) + 1
-        if vistos_erros[chave] <= 2:
-            log(f"  ✗ {rotulo}")
-            log(f"    {erro}")
+            return registros, data, url
+
+        chave = (erro or "")[:70]
+        erros[chave] = erros.get(chave, 0) + 1
+        if n < 3 or erros[chave] == 1:
+            log(f"  ✗ {data.strftime('%d/%m/%Y')} — {erro}")
 
     log()
     log("  Resumo dos erros:")
-    for erro, n in sorted(vistos_erros.items(), key=lambda x: -x[1]):
+    for erro, n in sorted(erros.items(), key=lambda x: -x[1]):
         log(f"    {n:3}x  {erro}")
     return None, None, None
 
@@ -341,19 +343,27 @@ def eh_ip(registro):
 
 def achar_situacao(registro):
     """
-    Procura o campo de situacao sem depender do nome exato.
+    Pega a DESCRICAO da situacao, nao o codigo.
 
-    A planilha de referencia mostra tres valores possiveis:
-        "Autorizada em Atividade"
-        "Autorizada sem Atividade"
-        "Cancelada/Encerrada"
+    A API traz os dois campos, e o codigo vem antes na ordem alfabetica:
 
-    Como o nome do campo na API pode ser descricaoSituacao,
-    descricaoSituacaoPessoaJuridica ou outro, a busca e por conteudo.
+        codigoTipoSituacaoPessoaJuridica     = 3
+        descricaoTipoSituacaoPessoaJuridica  = "Autorizada em Atividade"
+
+    Pegar o primeiro campo com "situacao" no nome devolvia "3", que nao
+    diz nada. Por isso a busca exige "descricao" no nome do campo.
     """
+    # 1) o nome exato, que ja conhecemos
+    valor = registro.get("descricaoTipoSituacaoPessoaJuridica")
+    if isinstance(valor, str) and valor.strip():
+        return valor.strip()
+
+    # 2) qualquer campo que seja descricao E situacao (caso o BCB renomeie)
     for chave, valor in registro.items():
-        if "situacao" in sem_acento(chave) and isinstance(valor, str) and valor.strip():
-            return valor.strip()
+        nome = sem_acento(chave)
+        if "descricao" in nome and "situacao" in nome:
+            if isinstance(valor, str) and valor.strip():
+                return valor.strip()
     return ""
 
 
@@ -404,7 +414,10 @@ def normalizar(registro):
         "situacao": situacao,              # texto original do BCB
         "status": classificar(situacao),   # o que a tela usa para colorir
         "municipio": (registro.get("nomeDoMunicipio") or "").strip(),
-        "uf": (registro.get("nomeDaUnidadeFederacao") or "").strip(),
+        # Atencao ao nome: e "Federativa", nao "Federacao"
+        "uf": (registro.get("nomeDaUnidadeFederativa")
+               or registro.get("nomeDaUnidadeFederacao") or "").strip(),
+        "codigo_bacen": str(registro.get("codigoIdentificadorBacen") or "").strip(),
         "data_base": str(registro.get("database") or registro.get("dataBase") or "").strip(),
     }
 
@@ -590,30 +603,22 @@ def main():
         salvar(ips, args.url, agora)
         return
 
-    # --- caminho longo: descobrir ---
-    parametros = []
+    # --- caminho normal ---
     if args.explorar:
-        parametros = mostrar_catalogo()
+        mostrar_catalogo()
 
-    # Nomes de parametro a testar: os que o esquema revelou primeiro,
-    # depois os palpites de sempre.
-    nomes = [n for n in parametros if "data" in n.lower()]
-    for palpite in ("dataBase", "DataBase", "database", "data"):
-        if palpite not in nomes:
-            nomes.append(palpite)
-
-    registros, rotulo, url = buscar(nomes)
+    registros, data, url = buscar()
 
     if not registros:
         morrer(
-            "Nenhuma combinacao funcionou.\n"
-            "  Veja o resumo de erros acima e o esquema da API.\n"
-            "  Caminho mais curto: pegar a URL pronta do Apps Script da planilha\n"
-            "  e rodar com --url \"<a URL>\".",
+            "Nao encontrei nenhuma base nos ultimos 45 dias.\n"
+            "  Se os erros acima forem de rede, e transitorio.\n"
+            "  Se forem HTTP 400/500, a API mudou o formato da chamada.",
+            transitorio=True,
         )
 
     if args.explorar:
-        explorar(registros, rotulo, url)
+        explorar(registros, f"dataBase={data.strftime('%d/%m/%Y')}", url)
         return
 
     ips = limpar([r for r in registros if eh_ip(r)])
