@@ -406,7 +406,13 @@ def normalizar(registro):
 
     return {
         "cnpj": cnpj,
-        "cnpj_raiz": re.sub(r"\D", "", str(registro.get("codigoCNPJ8") or ""))[:8].zfill(8),
+        # A raiz sao os 8 primeiros digitos do CNPJ completo. Se a API mandar
+        # o campo proprio, usamos; se vier vazio, tiramos do CNPJ14 -- porque
+        # e por ela que o analista acha a matriz quando so tem o CNPJ de
+        # uma filial em maos.
+        "cnpj_raiz": (re.sub(r"\D", "", str(registro.get("codigoCNPJ8") or "")).zfill(8)
+                      if str(registro.get("codigoCNPJ8") or "").strip()
+                      else re.sub(r"\D", "", cnpj)[:8]),
         "razao_social": razao,
         "nomes": ", ".join(apelidos),
         "tipo": (registro.get("descricaoTipoEntidadeSupervisionada") or "").strip(),
@@ -495,6 +501,12 @@ def explorar(registros, rotulo, url):
     log(f"  Instituicoes de Pagamento: {len(ips):,}")
     log()
 
+    # Quantos registros a API mandou e quantos sobraram depois da limpeza.
+    # Sem isto, um descarte silencioso apareceria so como "um numero menor".
+    log("  Conferencia de contagem:")
+    tratadas = limpar(ips, contar=True)
+    log()
+
     # A quebra por situacao e o dado mais importante desta exploracao:
     # define quantas das IPs estao de fato autorizadas.
     situacoes = {}
@@ -511,8 +523,7 @@ def explorar(registros, rotulo, url):
         log(f"    {campo:45} = {str(registros[0].get(campo))[:55]}")
     log()
 
-    if ips:
-        tratadas = limpar(ips)
+    if tratadas:
         log("  Exemplo ja tratado pelo script:")
         log(json.dumps(tratadas[0], ensure_ascii=False, indent=2))
         log()
