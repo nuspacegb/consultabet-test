@@ -53,11 +53,22 @@ jobs:
         id: scraper
         run: python scraper_ips.py
 
-      # Nada mudou na lista: so o carimbo de data. Vai direto para a main.
+      # ---------------------------------------------------------------
+      #  ATENCAO AO "git status" NO LUGAR DE "git diff"
+      # ---------------------------------------------------------------
+      #  "git diff" so compara arquivos que o Git JA CONHECE. Um arquivo
+      #  criado agora (o ips.json na primeira execucao) e "nao rastreado":
+      #  o diff nao ve nada, o workflow conclui que nada mudou, e o arquivo
+      #  some junto com o servidor temporario.
+      #
+      #  "git status --porcelain" enxerga os dois casos -- arquivo alterado
+      #  e arquivo novo. E o que precisamos aqui.
+      # ---------------------------------------------------------------
+
       - name: Registrar a verificacao (nada mudou)
         if: steps.scraper.outputs.batimento == 'sim'
         run: |
-          if git diff --quiet -- ips.json historico_ips.json; then
+          if [ -z "$(git status --porcelain -- ips.json historico_ips.json)" ]; then
             echo "Nem o horario mudou. Nada a commitar."
             exit 0
           fi
@@ -71,11 +82,14 @@ jobs:
         id: diff
         if: steps.scraper.outputs.batimento == 'nao'
         run: |
-          if git diff --quiet -- ips.json historico_ips.json; then
+          MUDANCAS="$(git status --porcelain -- ips.json historico_ips.json)"
+          if [ -z "$MUDANCAS" ]; then
             echo "mudou=nao" >> "$GITHUB_OUTPUT"
+            echo "Nenhuma alteracao nos arquivos."
           else
             echo "mudou=sim" >> "$GITHUB_OUTPUT"
-            git diff --stat -- ips.json historico_ips.json
+            echo "Arquivos alterados ou criados:"
+            echo "$MUDANCAS"
           fi
 
       - name: Abrir Pull Request para revisao
