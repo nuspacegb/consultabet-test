@@ -418,7 +418,10 @@ def normalizar(registro):
         "uf": (registro.get("nomeDaUnidadeFederativa")
                or registro.get("nomeDaUnidadeFederacao") or "").strip(),
         "codigo_bacen": str(registro.get("codigoIdentificadorBacen") or "").strip(),
-        "data_base": str(registro.get("database") or registro.get("dataBase") or "").strip(),
+        # A data-base NAO entra aqui de proposito: ela e a mesma para todos os
+        # registros e ja fica no bloco "meta". Se ficasse em cada um, as 211
+        # linhas mudariam todo dia e o diff do Git viraria inutil -- seria
+        # impossivel ver, no meio do ruido, qual IP realmente entrou ou saiu.
     }
 
 
@@ -515,7 +518,7 @@ def comparar(antes, depois):
     }
 
 
-def salvar(ips, url, agora):
+def salvar(ips, url, agora, data_base=""):
     anterior = carregar_anterior()
 
     if len(ips) < MINIMO_IPS:
@@ -526,7 +529,12 @@ def salvar(ips, url, agora):
             morrer(f"A base cairia de {len(anterior)} para {len(ips)} ({queda:.0%}).")
 
     mudancas = comparar(anterior, ips)
-    data_base = next((i["data_base"] for i in ips if i.get("data_base")), "")
+
+    # Quantas em cada situacao -- o site usa isso para explicar a base
+    por_status = {}
+    for i in ips:
+        por_status[i["status"]] = por_status.get(i["status"], 0) + 1
+    log("  Situacao: " + " · ".join(f"{n} {s}" for s, n in sorted(por_status.items())))
 
     with open(ARQUIVO_DADOS, "w", encoding="utf-8") as f:
         json.dump({
@@ -537,6 +545,7 @@ def salvar(ips, url, agora):
                 "verificado_em": agora.strftime("%d/%m/%Y %H:%M"),
                 "verificado_em_iso": agora.isoformat(timespec="seconds"),
                 "total": len(ips),
+                "por_status": por_status,
                 "escopo": "Apenas Instituições de Pagamento supervisionadas pelo BCB",
             },
             "instituicoes": sorted(ips, key=lambda e: sem_acento(e["razao_social"])),
@@ -600,7 +609,8 @@ def main():
             return
         ips = limpar([r for r in registros if eh_ip(r)])
         log(f"  {len(registros):,} registros -> {len(ips):,} IPs")
-        salvar(ips, args.url, agora)
+        voltou = data_que_voltou(registros)
+        salvar(ips, args.url, agora, voltou.isoformat() if voltou else "")
         return
 
     # --- caminho normal ---
@@ -623,7 +633,7 @@ def main():
 
     ips = limpar([r for r in registros if eh_ip(r)])
     log(f"  {len(registros):,} registros -> {len(ips):,} IPs")
-    salvar(ips, url, agora)
+    salvar(ips, url, agora, data.isoformat())
 
 
 if __name__ == "__main__":
