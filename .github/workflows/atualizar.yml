@@ -74,10 +74,13 @@ jobs:
       #
       #   batimento=nao  A lista mudou. Abre Pull Request para voce revisar.
       #
+      # Usamos "git status --porcelain" e nao "git diff" porque o diff so
+      # compara arquivos que o Git ja conhece -- um arquivo criado agora
+      # passaria despercebido e sumiria junto com o servidor temporario.
       - name: Registrar a verificacao (nada mudou)
         if: steps.scraper.outputs.batimento == 'sim'
         run: |
-          if git diff --quiet -- dados.json historico.json; then
+          if [ -z "$(git status --porcelain -- dados.json historico.json)" ]; then
             echo "Nem o horario mudou. Nada a commitar."
             exit 0
           fi
@@ -91,13 +94,14 @@ jobs:
         id: diff
         if: steps.scraper.outputs.batimento == 'nao'
         run: |
-          if git diff --quiet -- dados.json historico.json; then
+          MUDANCAS="$(git status --porcelain -- dados.json historico.json)"
+          if [ -z "$MUDANCAS" ]; then
             echo "mudou=nao" >> "$GITHUB_OUTPUT"
             echo "Nenhuma alteracao. Nada a fazer."
           else
             echo "mudou=sim" >> "$GITHUB_OUTPUT"
-            echo "Alteracoes detectadas:"
-            git diff --stat -- dados.json historico.json
+            echo "Arquivos alterados ou criados:"
+            echo "$MUDANCAS"
           fi
 
       - name: Abrir Pull Request para revisao
