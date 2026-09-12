@@ -3,8 +3,8 @@
     "fonte": "https://dadosabertos.bcb.gov.br/dataset/dados-cadastrais-de-entidades-autorizadas",
     "api": "https://olinda.bcb.gov.br/olinda/servico/BcBase/versao/v2/odata/EntidadesSupervisionadas(dataBase=@dataBase)?@dataBase='09/11/2026'&$format=json&$top=5000&$filter=descricaoTipoEntidadeSupervisionada%20eq%20'Institui%C3%A7%C3%A3o%20de%20Pagamento'",
     "data_base": "2026-09-11",
-    "verificado_em": "11/09/2026 21:51",
-    "verificado_em_iso": "2026-09-11T21:51:39-03:00",
+    "verificado_em": "11/09/2026 22:21",
+    "verificado_em_iso": "2026-09-11T22:21:03-03:00",
     "total": 211,
     "por_status": {
       "autorizada": 195,
