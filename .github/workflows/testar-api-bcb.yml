@@ -1,0 +1,53 @@
+# =============================================================================
+#  TESTE DA API DO BANCO CENTRAL  (Instituicoes de Pagamento)
+# =============================================================================
+#
+#  Este workflow existe para UMA coisa: descobrir como a API do BCB responde.
+#  Ele nao salva nada, nao commita nada, nao abre Pull Request e nao manda
+#  mensagem nenhuma. So roda a consulta e imprime o resultado no log.
+#
+#  COMO USAR
+#  ---------
+#  Actions > "Testar API do BCB (Instituicoes de Pagamento)" > Run workflow
+#
+#  Depois abra o log do passo "Explorar a API do BCB" e mande para o Claude.
+#  O log vai dizer:
+#    - qual formato de URL funcionou
+#    - quantos registros vieram
+#    - quais tipos de entidade existem na base
+#    - quais campos cada registro tem
+#    - um exemplo de IP ja tratada
+#
+#  Depois que a API estiver entendida, este arquivo pode ser apagado --
+#  ele e um andaime, nao faz parte do sistema.
+#
+# =============================================================================
+
+name: Testar API do BCB (Instituicoes de Pagamento)
+
+on:
+  workflow_dispatch:      # so roda quando voce apertar o botao
+
+permissions:
+  contents: read          # so leitura: este workflow nao altera nada
+
+jobs:
+  explorar:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar o repositorio
+        uses: actions/checkout@v5
+
+      - name: Configurar o Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+
+      - name: Instalar dependencias
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Explorar a API do BCB
+        run: python scraper_ips.py --explorar
