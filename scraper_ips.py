@@ -1,142 +1,828 @@
-Run if [ -n "$DATA" ]; then
-======================================================================
-  NU - CONSULTA  |  Instituicoes de Pagamento (BCB)
-  Execucao: 11/09/2026 22:11 (horario de Brasilia)
-======================================================================
-  IPv4 forcado: sim
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+=============================================================================
+ NU - CONSULTA  |  Instituicoes de Pagamento autorizadas pelo BCB
+=============================================================================
 
-----------------------------------------------------------------------
-  CATALOGO: quais recursos esta API oferece
-----------------------------------------------------------------------
-  GET https://olinda.bcb.gov.br/olinda/servico/BcBase/versao/v2/odata/   ->  HTTP 200
-  {"@odata.context":"https://olinda.bcb.gov.br/olinda/servico/BcBase/versao/v2/odata/$metadata","value":[{"name":"ClasseCooperativa","url":"ClasseCooperativa"},{"
+  Servico: BcBase v2       Recurso: EntidadesSupervisionadas
+  Portal:  https://dadosabertos.bcb.gov.br/dataset/dados-cadastrais-de-entidades-autorizadas
 
+O QUE APRENDEMOS NA PRIMEIRA EXECUCAO
+-------------------------------------
+  Chamada SEM dataBase  -> HTTP 400 "The URI is malformed"
+      A API recusa a URL. O parametro e obrigatorio.
 
-----------------------------------------------------------------------
-  ESQUEMA ($metadata): parametros que cada recurso exige
-----------------------------------------------------------------------
-  GET https://olinda.bcb.gov.br/olinda/servico/BcBase/versao/v2/odata/$metadata   ->  HTTP 200
+  Chamada COM (dataBase=@dataBase) -> HTTP 500 "Erro desconhecido"
+      A URL foi ACEITA -- o formato da chamada esta certo. O servidor
+      engasgou no valor, ou faltou algum outro parametro obrigatorio.
 
-  <EntityType Name="TipoEntidadeSupervisionada">
-  <EntityType Name="CategoriaCooperativa">
-  <EntityType Name="ClasseCooperativa">
-  <EntityType Name="NaturezaJuridica">
-  <EntityType Name="EntidadeSupervisionada">
-  <EntityType Name="TipoCooperativa">
-  <EntityType Name="Cooperativa">
-  <EntityType Name="EsferaPublica">
-  <EntityType Name="TipoSituacaoPessoaJuridica">
-  <Function Name="EntidadesSupervisionadas" IsComposable="true">
-  <Parameter Name="dataBase" Type="Edm.String" Nullable="false"/>
-  <Function Name="Cooperativas" IsComposable="true">
-  <Parameter Name="dataBase" Type="Edm.String" Nullable="false"/>
-  <EntitySet Name="ClasseCooperativa" EntityType="br.gov.bcb.olinda.servico.BcBase.ClasseCooperativa"/>
-  <EntitySet Name="_Cooperativas" EntityType="br.gov.bcb.olinda.servico.BcBase.Cooperativa"/>
-  <EntitySet Name="TipoCooperativa" EntityType="br.gov.bcb.olinda.servico.BcBase.TipoCooperativa"/>
-  <EntitySet Name="_EntidadesSupervisionadas" EntityType="br.gov.bcb.olinda.servico.BcBase.EntidadeSupervisionada"/>
-  <EntitySet Name="CategoriaCooperativa" EntityType="br.gov.bcb.olinda.servico.BcBase.CategoriaCooperativa"/>
-  <EntitySet Name="TipoSituacaoPessoaJuridica" EntityType="br.gov.bcb.olinda.servico.BcBase.TipoSituacaoPessoaJuridica"/>
-  <EntitySet Name="TipoEntidadeSupervisionada" EntityType="br.gov.bcb.olinda.servico.BcBase.TipoEntidadeSupervisionada"/>
-  <EntitySet Name="NaturezaJuridica" EntityType="br.gov.bcb.olinda.servico.BcBase.NaturezaJuridica"/>
-  <EntitySet Name="EsferaPublica" EntityType="br.gov.bcb.olinda.servico.BcBase.EsferaPublica"/>
-  <FunctionImport Name="Cooperativas" Function="br.gov.bcb.olinda.servico.BcBase.Cooperativas" EntitySet="br.gov.bcb.olinda.servico.BcBase._Cooperativas" IncludeInServiceDocument="tr
-  <FunctionImport Name="EntidadesSupervisionadas" Function="br.gov.bcb.olinda.servico.BcBase.EntidadesSupervisionadas" EntitySet="br.gov.bcb.olinda.servico.BcBase._EntidadesSupervisi
+Ou seja: nao adianta continuar chutando formato de data. Este script agora
+pergunta para a propria API quais recursos existem e quais parametros cada um
+exige, usando o catalogo OData ($metadata). So depois disso ele tenta.
 
-  Parametros encontrados no esquema: dataBase
+MODOS
+-----
+    python scraper_ips.py --explorar
+        Mostra o catalogo da API, os parametros exigidos e testa as chamadas.
+        Nao salva nada. Use este primeiro.
 
-----------------------------------------------------------------------
-  TIPOS DE ENTIDADE SUPERVISIONADA (catalogo do BCB)
-----------------------------------------------------------------------
-  36 tipos cadastrados. Os que mencionam 'pagamento':
+    python scraper_ips.py --url "<URL completa>"
+        Usa exatamente a URL que voce passar, sem tentar adivinhar.
+        Serve para quando ja se sabe a chamada certa.
 
-    codigo    ?  Instituidor de Arranjo de Pagamento
-    codigo    ?  Instituição de Pagamento não sujeita a autorização pelo BCB
-    codigo    ?  Instituição de Pagamento  <-- E O NOSSO
+    python scraper_ips.py
+        Modo normal: busca, valida e salva ips.json e historico_ips.json.
+
+=============================================================================
+"""
+
+import argparse
+import json
+import os
+import re
+import socket
+import sys
+import time
+import unicodedata
+from datetime import datetime, timedelta, timezone
+from urllib.parse import quote
+
+import requests
 
 
-----------------------------------------------------------------------
-  PROCURANDO A BASE MAIS RECENTE
-----------------------------------------------------------------------
-  ✓ Base encontrada: 11/09/2026
-    211 registros
-    campo 'database' na resposta: 2026-09-11
-    URL: https://olinda.bcb.gov.br/olinda/servico/BcBase/versao/v2/odata/EntidadesSupervisionadas(dataBase=@dataBase)?@dataBase='09/11/2026'&$format=json&$top=5000&$filter=descricaoTipoEntidadeSupervisionada%20eq%20'Institui%C3%A7%C3%A3o%20de%20Pagamento'
+def forcar_ipv4():
+    """Os servidores do GitHub so tem rede IPv4."""
+    try:
+        import urllib3.util.connection as conexao
+        conexao.allowed_gai_family = lambda: socket.AF_INET
+        return True
+    except Exception as e:  # noqa: BLE001
+        print(f"  AVISO: nao consegui forcar IPv4 ({e}).")
+        return False
 
-----------------------------------------------------------------------
-  O QUE VEIO NA RESPOSTA
-----------------------------------------------------------------------
-  Chamada: dataBase=11/09/2026
-  URL:     https://olinda.bcb.gov.br/olinda/servico/BcBase/versao/v2/odata/EntidadesSupervisionadas(dataBase=@dataBase)?@dataBase='09/11/2026'&$format=json&$top=5000&$filter=descricaoTipoEntidadeSupervisionada%20eq%20'Institui%C3%A7%C3%A3o%20de%20Pagamento'
-  Total:   211 registros
 
-  Tipos de entidade presentes:
-       211  Instituição de Pagamento   <-- e o que queremos
+# ----------------------------------------------------------------------------
+# CONFIGURACAO
+# ----------------------------------------------------------------------------
 
-  Instituicoes de Pagamento: 211
+SERVICO = "https://olinda.bcb.gov.br/olinda/servico/BcBase/versao/v2/odata"
+RECURSO = "EntidadesSupervisionadas"
+BASE = f"{SERVICO}/{RECURSO}"
 
-  Conferencia de contagem:
-  211 registros recebidos da API
-  nenhum registro descartado
-  211 na base final
+FONTE_HUMANA = ("https://dadosabertos.bcb.gov.br/dataset/"
+                "dados-cadastrais-de-entidades-autorizadas")
 
-  Situacao das IPs (ATENCAO: nem toda IP na base esta autorizada):
-       195  Autorizada em Atividade             -> status: autorizada
-         7  Cancelada/Encerrada                 -> status: cancelada
-         7  Autorizada sem Atividade            -> status: autorizada_sem_atividade
-         2  Em Liquidação Extrajudicial         -> status: cancelada
+# ----------------------------------------------------------------------------
+#  AS TRES CATEGORIAS COM "PAGAMENTO" NO CATALOGO DO BCB
+# ----------------------------------------------------------------------------
+#  O catalogo do BCB (recurso TipoEntidadeSupervisionada) tem tres:
+#
+#    1. "Instituição de Pagamento"
+#       A principal: autorizada pelo BCB. E o que a maioria das pessoas
+#       quer dizer quando fala "IP".
+#
+#    2. "Instituição de Pagamento não sujeita a autorização pelo BCB"
+#       Categoria historica: operava abaixo do limite de volume e por isso
+#       nao precisava de autorizacao. A Resolucao BCB 494 acabou com ela --
+#       o prazo de regularizacao venceu em 31/05/2026. Uma empresa ainda
+#       aqui e um dado relevante para analise, NAO um erro.
+#
+#       Ela precisa entrar na base. Se ficasse de fora, consultar uma dessas
+#       devolveria "nao consta" -- e um analista poderia ler como irregular
+#       algo que esta no cadastro do BCB, so em outra prateleira.
+#
+#    3. "Instituidor de Arranjo de Pagamento"
+#       Negocio diferente: quem CRIA o arranjo (bandeiras, esquemas de
+#       cartao), nao quem opera conta de pagamento. Fica de fora.
+# ----------------------------------------------------------------------------
 
-  Campos disponiveis em cada registro:
-    codigoCNPJ14                                  = 35523352000106
-    codigoCNPJ8                                   = 35523352
-    codigoDoMunicipioNoIBGE                       = 3550308
-    codigoEsferaPublica                           = None
-    codigoIdentificadorBacen                      = Z9215259
-    codigoNaturezaJuridica                        = 35
-    codigoSisbacen                                = 00179
-    codigoTipoEntidadeSupervisionada              = 41
-    codigoTipoSituacaoPessoaJuridica              = 3
-    database                                      = 2026-09-11
-    descricaoNaturezaJuridica                     = Sociedade Empresária Limitada
-    descricaoTipoEntidadeSupervisionada           = Instituição de Pagamento
-    descricaoTipoSituacaoPessoaJuridica           = Autorizada em Atividade
-    indicadorEsferaPublica                        = 2
-    nomeDaUnidadeFederativa                       = São Paulo
-    nomeDoMunicipio                               = São Paulo
-    nomeDoPais                                    = Brasil
-    nomeEntidadeInteresse                         = BEES INSTITUICAO DE PAGAMENTO LTDA.
-    nomeEntidadeInteresseNaoFormatado             = BEES INSTITUICAO DE PAGAMENTO LTDA.
-    nomeFantasia                                  = None
-    nomeReduzido                                  = BEES IP LTDA.
-    siglaDaPessoaJuridica                         = None
-    siglaISO3digitos                              = BRA
+TIPOS_NA_BASE = [
+    "Instituição de Pagamento",
+    "Instituição de Pagamento não sujeita a autorização pelo BCB",
+]
 
-  Exemplo ja tratado pelo script:
-{
-  "cnpj": "35.523.352/0001-06",
-  "cnpj_raiz": "35523352",
-  "razao_social": "BEES INSTITUICAO DE PAGAMENTO LTDA.",
-  "nomes": "BEES IP LTDA.",
-  "tipo": "Instituição de Pagamento",
-  "natureza_juridica": "Sociedade Empresária Limitada",
-  "situacao": "Autorizada em Atividade",
-  "status": "autorizada",
-  "municipio": "São Paulo",
-  "uf": "São Paulo",
-  "codigo_bacen": "Z9215259"
+TERMO_TIPO_IP = "instituicao de pagamento"
+
+MINIMO_IPS = 120
+QUEDA_MAXIMA_ACEITAVEL = 0.30
+
+ARQUIVO_DADOS = "ips.json"
+ARQUIVO_HISTORICO = "historico_ips.json"
+
+CABECALHO_HTTP = {
+    "User-Agent": ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                   "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"),
+    "Accept": "application/json",
+    "Accept-Language": "pt-BR,pt;q=0.9",
 }
 
-  Primeiras 10:
-    35.523.352/0001-06  BEES INSTITUICAO DE PAGAMENTO LTDA.
-    12.481.100/0001-66  BIZ INSTITUIÇÃO DE PAGAMENTO S.A.
-    12.102.128/0001-45  SAFETYPAY BRASIL INSTITUICAO DE PAGAMENTO LTDA
-    31.531.997/0001-30  CONPAY INSTITUIÇÃO DE PAGAMENTO E TECNOLOGIA S.A
-    35.713.491/0001-00  PROTOTYPE INSTITUICAO DE PAGAMENTO S.A.
-    39.696.395/0001-44  CACTVS INSTITUICAO DE PAGAMENTO S.A
-    22.121.209/0001-46  STRIPE BRASIL SOLUCOES DE PAGAMENTO INSTITUICAO DE PAGA
-    30.944.783/0001-22  PAGPRIME INSTITUICAO DE PAGAMENTO LTDA
-    32.219.232/0001-21  NUPAY FOR BUSINESS INSTITUICAO DE PAGAMENTO LTDA.
-    44.154.779/0001-75  LEND INSTITUICAO DE PAGAMENTO LTDA
+TIMEOUT = (12, 90)
+FUSO_BRASILIA = timezone(timedelta(hours=-3))
 
-======================================================================
-  Mande este log para o Claude.
-======================================================================
+
+# ----------------------------------------------------------------------------
+# UTILITARIOS
+# ----------------------------------------------------------------------------
+
+def log(msg=""):
+    print(msg, flush=True)
+
+
+def titulo(txt):
+    log()
+    log("-" * 70)
+    log(f"  {txt}")
+    log("-" * 70)
+
+
+def avisar_workflow(**campos):
+    destino = os.getenv("GITHUB_OUTPUT")
+    if not destino:
+        return
+    try:
+        with open(destino, "a", encoding="utf-8") as f:
+            for c, v in campos.items():
+                f.write(f"{c}={v}\n")
+    except Exception:  # noqa: BLE001
+        pass
+
+
+def morrer(msg, transitorio=False):
+    log()
+    log("=" * 70)
+    log("  SEM ATUALIZACAO - NADA FOI SALVO" if transitorio
+        else "  ABORTADO - NADA FOI SALVO")
+    log("=" * 70)
+    log(f"  Motivo: {msg}")
+    log()
+    log("  A base que ja esta no ar continua intacta.")
+    log("=" * 70)
+    avisar_workflow(resultado="sem_acesso" if transitorio else "erro")
+    sys.exit(0 if transitorio else 1)
+
+
+def sem_acento(texto):
+    nfkd = unicodedata.normalize("NFKD", str(texto or ""))
+    limpo = "".join(c for c in nfkd if not unicodedata.combining(c))
+    return re.sub(r"\s+", " ", limpo).strip().lower()
+
+
+def formatar_cnpj(bruto):
+    """A API devolve o CNPJ como numero, perdendo zeros da frente."""
+    digitos = re.sub(r"\D", "", str(bruto or ""))
+    if not digitos:
+        return None
+    digitos = digitos.zfill(14)
+    if len(digitos) != 14:
+        return None
+    return f"{digitos[:2]}.{digitos[2:5]}.{digitos[5:8]}/{digitos[8:12]}-{digitos[12:]}"
+
+
+# ----------------------------------------------------------------------------
+# CONVERSA COM A API
+# ----------------------------------------------------------------------------
+
+def pedir(url, tentativas=2):
+    """
+    Faz a chamada. Devolve (registros, erro_legivel).
+    Um dos dois vem preenchido, nunca os dois.
+    """
+    ultimo = None
+    for n in range(1, tentativas + 1):
+        try:
+            r = requests.get(url, headers=CABECALHO_HTTP, timeout=TIMEOUT)
+            if r.status_code != 200:
+                resumo = re.sub(r"\s+", " ", r.text[:150]).strip()
+                return None, f"HTTP {r.status_code} — {resumo}"
+            try:
+                dados = r.json()
+            except Exception:  # noqa: BLE001
+                return None, f"resposta nao era JSON — {r.text[:120]}"
+            registros = dados.get("value", dados if isinstance(dados, list) else [])
+            if not registros:
+                return None, "resposta vazia (0 registros)"
+            return registros, None
+        except Exception as e:  # noqa: BLE001
+            ultimo = f"erro de rede: {str(e)[:140]}"
+            if n < tentativas:
+                time.sleep(3)
+    return None, ultimo
+
+
+def texto_cru(url):
+    """Baixa como texto puro. Usado para o catalogo e o $metadata."""
+    try:
+        r = requests.get(url, headers={**CABECALHO_HTTP, "Accept": "*/*"},
+                         timeout=TIMEOUT)
+        return r.status_code, r.text
+    except Exception as e:  # noqa: BLE001
+        return None, str(e)
+
+
+# ----------------------------------------------------------------------------
+# O CATALOGO DA API
+# ----------------------------------------------------------------------------
+
+def mostrar_catalogo():
+    """
+    Pergunta para a API quais recursos ela tem e quais parametros exige.
+
+    Toda API OData publica dois documentos de auto-descricao:
+      /odata/           -> a lista de recursos disponiveis
+      /odata/$metadata  -> o esquema completo, com os parametros de cada um
+
+    E ali que esta a resposta para o erro 500: ou o parametro tem outro nome,
+    ou o recurso exige mais de um parametro e a gente so mandou um.
+    """
+    titulo("CATALOGO: quais recursos esta API oferece")
+    status, corpo = texto_cru(f"{SERVICO}/")
+    log(f"  GET {SERVICO}/   ->  HTTP {status}")
+    if corpo:
+        for linha in corpo[:2500].splitlines():
+            if linha.strip():
+                log(f"  {linha[:160]}")
+    log()
+
+    titulo("ESQUEMA ($metadata): parametros que cada recurso exige")
+    status, corpo = texto_cru(f"{SERVICO}/$metadata")
+    log(f"  GET {SERVICO}/$metadata   ->  HTTP {status}")
+    log()
+
+    if not corpo or status != 200:
+        log("  Nao consegui ler o esquema.")
+        return []
+
+    # O $metadata e um XML grande. Mostra so o que interessa: nomes de
+    # recursos, de funcoes e os parametros de cada uma.
+    interessantes = ("EntitySet", "FunctionImport", "Parameter",
+                     "EntityType Name", "Function Name", "Action Name")
+    linhas = [l.strip() for l in corpo.replace("><", ">\n<").splitlines()]
+    mostradas = 0
+    for l in linhas:
+        if any(chave in l for chave in interessantes):
+            log(f"  {l[:180]}")
+            mostradas += 1
+            if mostradas >= 160:
+                log("  ... (cortado)")
+                break
+    if not mostradas:
+        log("  Nenhuma linha reconhecivel. Comeco do documento:")
+        log(f"  {corpo[:1200]}")
+
+    # Tenta descobrir sozinho os parametros do nosso recurso
+    parametros = sorted(set(re.findall(
+        r'<Parameter\s+Name="([^"]+)"', corpo)))
+    if parametros:
+        log()
+        log(f"  Parametros encontrados no esquema: {', '.join(parametros)}")
+
+    listar_tipos_de_entidade()
+    return parametros
+
+
+def listar_tipos_de_entidade():
+    """
+    Lista TODOS os tipos de entidade que o BCB supervisiona.
+
+    Serve para responder uma pergunta especifica: existe mais de um tipo com
+    a palavra "pagamento" no nome? Se existir, filtrar por "contem pagamento"
+    traz categorias diferentes -- por exemplo "Instituidor de Arranjo de
+    Pagamento", que nao e uma Instituicao de Pagamento.
+
+    E assim que a gente descobre se duas bases com contagens diferentes
+    estao medindo a mesma coisa.
+    """
+    titulo("TIPOS DE ENTIDADE SUPERVISIONADA (catalogo do BCB)")
+    registros, erro = pedir(f"{SERVICO}/TipoEntidadeSupervisionada?$format=json&$top=200")
+    if not registros:
+        log(f"  Nao consegui listar: {erro}")
+        return
+
+    log(f"  {len(registros)} tipos cadastrados. Os que mencionam 'pagamento':")
+    log()
+    achou = False
+    for r in registros:
+        descricao = ""
+        for chave, valor in r.items():
+            if "descricao" in sem_acento(chave) and isinstance(valor, str):
+                descricao = valor
+                break
+        if "pagamento" in sem_acento(descricao):
+            achou = True
+            marca = "  <-- E O NOSSO" if sem_acento(descricao) == TERMO_TIPO_IP else ""
+            codigo = r.get("codigoTipoEntidadeSupervisionada", "?")
+            log(f"    codigo {codigo:>4}  {descricao}{marca}")
+    if not achou:
+        log("    (nenhum -- lista completa abaixo)")
+        for r in registros[:40]:
+            log(f"    {r}")
+    log()
+
+
+# ----------------------------------------------------------------------------
+# AS TENTATIVAS
+# ----------------------------------------------------------------------------
+
+# ============================================================================
+#  A ARMADILHA DA DATA -- leia antes de mexer aqui
+# ----------------------------------------------------------------------------
+#  A API espera a data em MM/DD/YYYY (formato americano), e NAO avisa quando
+#  voce manda no formato brasileiro. Ela simplesmente devolve outro mes.
+#
+#      pedimos '05/09/2026'  pensando em 5 de setembro
+#      recebemos dados com   database = 2026-05-09   (9 de MAIO)
+#
+#  O robo funcionaria, o site mostraria dados, e estariam quatro meses
+#  atrasados sem ninguem perceber. Por isso, depois de baixar, o script
+#  CONFERE se a data que voltou e a que ele pediu.
+# ============================================================================
+
+def montar_url(data, tipo=None):
+    """
+    Monta a chamada. Se 'tipo' vier, filtra por ele na propria API.
+
+    Filtrar na API importa: sem filtro, a resposta traz TODAS as entidades
+    supervisionadas do pais e a chamada estoura o tempo limite.
+    """
+    valor = data.strftime("%m/%d/%Y")        # MM/DD/YYYY -- veja o aviso acima
+    url = (f"{BASE}(dataBase=@dataBase)?@dataBase='{valor}'"
+           f"&$format=json&$top=5000")
+    if tipo:
+        url += (f"&$filter=descricaoTipoEntidadeSupervisionada%20eq%20"
+                f"'{quote(tipo)}'")
+    return url
+
+
+def buscar_todos_os_tipos(data):
+    """
+    Junta as categorias de TIPOS_NA_BASE numa lista so.
+
+    Uma chamada por categoria, em vez de uma sem filtro: mais rapido, e o
+    log mostra quantos vieram de cada uma -- o que deixa visivel se o BCB
+    esvaziar ou criar uma categoria.
+    """
+    juntos, por_tipo = [], {}
+    for tipo in TIPOS_NA_BASE:
+        registros, erro = pedir(montar_url(data, tipo))
+        n = len(registros) if registros else 0
+        por_tipo[tipo] = n
+        log(f"    {n:>5}  {tipo}" + (f"   ({erro})" if erro and n == 0 else ""))
+        if registros:
+            juntos.extend(registros)
+    return juntos, por_tipo
+
+
+def data_que_voltou(registros):
+    """Le o campo 'database' dos registros e devolve como date, ou None."""
+    bruto = str(registros[0].get("database") or "").strip()[:10]
+    try:
+        return datetime.strptime(bruto, "%Y-%m-%d").date()
+    except Exception:  # noqa: BLE001
+        return None
+
+
+def buscar(dias_para_tras=45):
+    """
+    Procura a base mais recente disponivel.
+
+    Comeca em hoje e volta um dia por vez. A primeira data que devolver dados
+    e a mais fresca que existe -- nao precisamos adivinhar em que dia do mes
+    o BCB publica.
+    """
+    titulo("PROCURANDO A BASE MAIS RECENTE")
+    hoje = datetime.now(FUSO_BRASILIA).date()
+    erros = {}
+
+    for n in range(dias_para_tras):
+        data = hoje - timedelta(days=n)
+        url = montar_url(data, TIPOS_NA_BASE[0])
+        registros, erro = pedir(url, tentativas=1)
+
+        if registros:
+            voltou = data_que_voltou(registros)
+
+            # A conferencia que impede o erro silencioso
+            if voltou and voltou != data:
+                log(f"  ✗ {data.strftime('%d/%m/%Y')}: pedi esta data e vieram "
+                    f"dados de {voltou}. Ignorando.")
+                continue
+
+            log(f"  ✓ Base encontrada: {data.strftime('%d/%m/%Y')}")
+            log(f"    campo 'database' na resposta: {voltou}")
+            log()
+            log("  Registros por categoria:")
+            todos, por_tipo = buscar_todos_os_tipos(data)
+            log(f"    {len(todos):>5}  TOTAL")
+            return todos, data, url
+
+        chave = (erro or "")[:70]
+        erros[chave] = erros.get(chave, 0) + 1
+        if n < 3 or erros[chave] == 1:
+            log(f"  ✗ {data.strftime('%d/%m/%Y')} — {erro}")
+
+    log()
+    log("  Resumo dos erros:")
+    for erro, n in sorted(erros.items(), key=lambda x: -x[1]):
+        log(f"    {n:3}x  {erro}")
+    return None, None, None
+
+
+# ----------------------------------------------------------------------------
+# TRATAMENTO DOS REGISTROS
+# ----------------------------------------------------------------------------
+
+def eh_ip(registro):
+    """Aceita as categorias de TIPOS_NA_BASE, comparando sem acento."""
+    tipo = sem_acento(registro.get("descricaoTipoEntidadeSupervisionada", ""))
+    return any(sem_acento(t) == tipo for t in TIPOS_NA_BASE)
+
+
+def eh_nao_sujeita(registro):
+    """A categoria que o BCB registra mas nao exige autorizacao."""
+    tipo = sem_acento(registro.get("descricaoTipoEntidadeSupervisionada", ""))
+    return "nao sujeita" in tipo
+
+
+def achar_situacao(registro):
+    """
+    Pega a DESCRICAO da situacao, nao o codigo.
+
+    A API traz os dois campos, e o codigo vem antes na ordem alfabetica:
+
+        codigoTipoSituacaoPessoaJuridica     = 3
+        descricaoTipoSituacaoPessoaJuridica  = "Autorizada em Atividade"
+
+    Pegar o primeiro campo com "situacao" no nome devolvia "3", que nao
+    diz nada. Por isso a busca exige "descricao" no nome do campo.
+    """
+    # 1) o nome exato, que ja conhecemos
+    valor = registro.get("descricaoTipoSituacaoPessoaJuridica")
+    if isinstance(valor, str) and valor.strip():
+        return valor.strip()
+
+    # 2) qualquer campo que seja descricao E situacao (caso o BCB renomeie)
+    for chave, valor in registro.items():
+        nome = sem_acento(chave)
+        if "descricao" in nome and "situacao" in nome:
+            if isinstance(valor, str) and valor.strip():
+                return valor.strip()
+    return ""
+
+
+def classificar(situacao):
+    """
+    Traduz a situacao em um status que a tela pode usar direto.
+
+    Esta e a parte mais importante deste arquivo. Uma IP com autorizacao
+    CANCELADA continua aparecendo na base do BCB -- e mostra-la como
+    "consta na lista" seria dar sinal verde para quem o BCB descredenciou.
+    """
+    s = sem_acento(situacao)
+    if "cancelad" in s or "encerrad" in s or "liquidac" in s or "baixad" in s:
+        return "cancelada"
+    if "autorizada" in s and "sem atividade" in s:
+        return "autorizada_sem_atividade"
+    if "autorizada" in s:
+        return "autorizada"
+    return "indefinida"
+
+
+def normalizar(registro):
+    cnpj = formatar_cnpj(registro.get("codigoCNPJ14"))
+    if not cnpj:
+        return None
+    razao = (registro.get("nomeEntidadeInteresse")
+             or registro.get("nomeEntidadeInteresseNaoFormatado") or "").strip()
+    if not razao:
+        return None
+
+    apelidos, vistos = [], set()
+    for campo in ("nomeReduzido", "nomeFantasia", "siglaDaPessoaJuridica"):
+        valor = (registro.get(campo) or "").strip()
+        chave = sem_acento(valor)
+        if valor and chave != sem_acento(razao) and chave not in vistos:
+            vistos.add(chave)
+            apelidos.append(valor)
+
+    situacao = achar_situacao(registro)
+    status = classificar(situacao)
+
+    # A categoria manda no status, nao a situacao.
+    # Uma entidade "nao sujeita a autorizacao" pode estar "em atividade" --
+    # mas chamar isso de "autorizada" seria mentira: ela nunca foi autorizada,
+    # so nao precisava ser. Depois da Resolucao 494, precisa.
+    if eh_nao_sujeita(registro) and status != "cancelada":
+        status = "nao_sujeita"
+
+    return {
+        "cnpj": cnpj,
+        # A raiz sao os 8 primeiros digitos do CNPJ completo. Se a API mandar
+        # o campo proprio, usamos; se vier vazio, tiramos do CNPJ14 -- porque
+        # e por ela que o analista acha a matriz quando so tem o CNPJ de
+        # uma filial em maos.
+        "cnpj_raiz": (re.sub(r"\D", "", str(registro.get("codigoCNPJ8") or "")).zfill(8)
+                      if str(registro.get("codigoCNPJ8") or "").strip()
+                      else re.sub(r"\D", "", cnpj)[:8]),
+        "razao_social": razao,
+        "nomes": ", ".join(apelidos),
+        "tipo": (registro.get("descricaoTipoEntidadeSupervisionada") or "").strip(),
+        "natureza_juridica": (registro.get("descricaoNaturezaJuridica") or "").strip(),
+        "situacao": situacao,   # texto original do BCB
+        "status": status,       # o que a tela usa para colorir
+        "municipio": (registro.get("nomeDoMunicipio") or "").strip(),
+        # Atencao ao nome: e "Federativa", nao "Federacao"
+        "uf": (registro.get("nomeDaUnidadeFederativa")
+               or registro.get("nomeDaUnidadeFederacao") or "").strip(),
+        "codigo_bacen": str(registro.get("codigoIdentificadorBacen") or "").strip(),
+        # A data-base NAO entra aqui de proposito: ela e a mesma para todos os
+        # registros e ja fica no bloco "meta". Se ficasse em cada um, as 211
+        # linhas mudariam todo dia e o diff do Git viraria inutil -- seria
+        # impossivel ver, no meio do ruido, qual IP realmente entrou ou saiu.
+    }
+
+
+def limpar(registros, contar=False):
+    """
+    Converte os registros da API e descarta o que nao serve.
+
+    O parametro 'contar' existe por um motivo especifico: descartar em
+    silencio e como o robo antigo das bets engolia erro. Se a nossa base
+    tiver menos registros que a fonte, precisamos saber se foi porque a
+    fonte mudou ou porque NOS jogamos algo fora -- e quanto.
+    """
+    saida, vistos = [], set()
+    descartes = {"sem_cnpj": 0, "sem_nome": 0, "repetido": 0}
+
+    for r in registros:
+        cnpj = formatar_cnpj(r.get("codigoCNPJ14"))
+        if not cnpj:
+            descartes["sem_cnpj"] += 1
+            continue
+
+        item = normalizar(r)
+        if not item:
+            descartes["sem_nome"] += 1
+            continue
+
+        if item["cnpj"] in vistos:
+            descartes["repetido"] += 1
+            continue
+
+        vistos.add(item["cnpj"])
+        saida.append(item)
+
+    if contar:
+        total = sum(descartes.values())
+        log(f"  {len(registros):,} registros recebidos da API")
+        if total:
+            log(f"  {total} descartado(s): "
+                f"{descartes['sem_cnpj']} sem CNPJ · "
+                f"{descartes['sem_nome']} sem nome · "
+                f"{descartes['repetido']} CNPJ repetido")
+        else:
+            log("  nenhum registro descartado")
+        log(f"  {len(saida):,} na base final")
+
+    return saida
+
+
+# ----------------------------------------------------------------------------
+# EXPLORACAO
+# ----------------------------------------------------------------------------
+
+def explorar(registros, rotulo, url):
+    titulo("O QUE VEIO NA RESPOSTA")
+    log(f"  Chamada: {rotulo}")
+    log(f"  URL:     {url}")
+    log(f"  Total:   {len(registros):,} registros")
+    log()
+
+    tipos = {}
+    for r in registros:
+        t = (r.get("descricaoTipoEntidadeSupervisionada") or "(sem tipo)").strip()
+        tipos[t] = tipos.get(t, 0) + 1
+    log("  Tipos de entidade presentes:")
+    for t, n in sorted(tipos.items(), key=lambda x: -x[1])[:30]:
+        marca = "   <-- e o que queremos" if TERMO_TIPO_IP in sem_acento(t) else ""
+        log(f"    {n:6,}  {t}{marca}")
+    log()
+
+    ips = [r for r in registros if eh_ip(r)]
+    log(f"  Instituicoes de Pagamento: {len(ips):,}")
+    log()
+
+    # Quantos registros a API mandou e quantos sobraram depois da limpeza.
+    # Sem isto, um descarte silencioso apareceria so como "um numero menor".
+    log("  Conferencia de contagem:")
+    tratadas = limpar(ips, contar=True)
+    log()
+
+    # A quebra por situacao e o dado mais importante desta exploracao:
+    # define quantas das IPs estao de fato autorizadas.
+    situacoes = {}
+    for r in ips:
+        s = achar_situacao(r) or "(sem situacao)"
+        situacoes[s] = situacoes.get(s, 0) + 1
+    log("  Situacao das IPs (ATENCAO: nem toda IP na base esta autorizada):")
+    for s, n in sorted(situacoes.items(), key=lambda x: -x[1]):
+        log(f"    {n:6,}  {s:35} -> status: {classificar(s)}")
+    log()
+
+    log("  Campos disponiveis em cada registro:")
+    for campo in sorted(registros[0].keys()):
+        log(f"    {campo:45} = {str(registros[0].get(campo))[:55]}")
+    log()
+
+    if tratadas:
+        log("  Exemplo ja tratado pelo script:")
+        log(json.dumps(tratadas[0], ensure_ascii=False, indent=2))
+        log()
+        log("  Primeiras 10:")
+        for i in tratadas[:10]:
+            log(f"    {i['cnpj']}  {i['razao_social'][:55]}")
+    log()
+    log("=" * 70)
+    log("  Mande este log para o Claude.")
+    log("=" * 70)
+
+
+# ----------------------------------------------------------------------------
+# GRAVACAO
+# ----------------------------------------------------------------------------
+
+def carregar_anterior():
+    if not os.path.exists(ARQUIVO_DADOS):
+        return []
+    try:
+        with open(ARQUIVO_DADOS, encoding="utf-8") as f:
+            d = json.load(f)
+        return d.get("instituicoes", []) if isinstance(d, dict) else d
+    except Exception:  # noqa: BLE001
+        return []
+
+
+def rotulo_empresa(e):
+    return f"{e['razao_social']} ({e['nomes']})" if e.get("nomes") else e["razao_social"]
+
+
+def comparar(antes, depois):
+    a = {e["cnpj"]: e for e in antes if e.get("cnpj")}
+    d = {e["cnpj"]: e for e in depois if e.get("cnpj")}
+    return {
+        "adicionadas": [rotulo_empresa(d[c]) for c in sorted(set(d) - set(a))],
+        "removidas": [rotulo_empresa(a[c]) for c in sorted(set(a) - set(d))],
+    }
+
+
+def salvar(ips, url, agora, data_base=""):
+    anterior = carregar_anterior()
+
+    if len(ips) < MINIMO_IPS:
+        morrer(f"So encontrei {len(ips)} IPs, e o minimo aceitavel e {MINIMO_IPS}.")
+    if anterior:
+        queda = (len(anterior) - len(ips)) / len(anterior)
+        if queda > QUEDA_MAXIMA_ACEITAVEL:
+            morrer(f"A base cairia de {len(anterior)} para {len(ips)} ({queda:.0%}).")
+
+    mudancas = comparar(anterior, ips)
+
+    # Quantas em cada situacao -- o site usa isso para explicar a base
+    por_status = {}
+    for i in ips:
+        por_status[i["status"]] = por_status.get(i["status"], 0) + 1
+    log("  Situacao: " + " · ".join(f"{n} {s}" for s, n in sorted(por_status.items())))
+
+    with open(ARQUIVO_DADOS, "w", encoding="utf-8") as f:
+        json.dump({
+            "meta": {
+                "fonte": FONTE_HUMANA,
+                "api": url,
+                "data_base": data_base,
+                "verificado_em": agora.strftime("%d/%m/%Y %H:%M"),
+                "verificado_em_iso": agora.isoformat(timespec="seconds"),
+                "total": len(ips),
+                "por_status": por_status,
+                "escopo": "Apenas Instituições de Pagamento supervisionadas pelo BCB",
+            },
+            "instituicoes": sorted(ips, key=lambda e: sem_acento(e["razao_social"])),
+        }, f, ensure_ascii=False, indent=2)
+    log(f"  {ARQUIVO_DADOS} gravado ({len(ips)} IPs, data-base {data_base or '?'})")
+
+    houve = bool(mudancas["adicionadas"] or mudancas["removidas"])
+    if houve:
+        with open(ARQUIVO_HISTORICO, "w", encoding="utf-8") as f:
+            json.dump({
+                "data_base": data_base,
+                "alterado_em": agora.strftime("%d/%m/%Y %H:%M"),
+                "alterado_em_iso": agora.isoformat(timespec="seconds"),
+                **mudancas,
+                "total_adicionadas": len(mudancas["adicionadas"]),
+                "total_removidas": len(mudancas["removidas"]),
+            }, f, ensure_ascii=False, indent=2)
+        log(f"  {ARQUIVO_HISTORICO} gravado")
+
+    resumo = (f"{len(ips)} IPs | +{len(mudancas['adicionadas'])} / "
+              f"-{len(mudancas['removidas'])} | data-base {data_base or '?'}")
+    avisar_workflow(resultado="ok", total=len(ips), resumo=resumo,
+                    batimento="nao" if houve else "sim", data_base=data_base,
+                    adicionadas=len(mudancas["adicionadas"]),
+                    removidas=len(mudancas["removidas"]))
+    log()
+    log("=" * 70)
+    log(f"  CONCLUIDO: {resumo}")
+    log("=" * 70)
+
+
+# ----------------------------------------------------------------------------
+# PRINCIPAL
+# ----------------------------------------------------------------------------
+
+def main():
+    p = argparse.ArgumentParser()
+    p.add_argument("--explorar", action="store_true",
+                   help="mostra o catalogo da API e testa as chamadas, sem salvar")
+    p.add_argument("--url", default="",
+                   help="usa exatamente esta URL, sem tentar adivinhar")
+    p.add_argument("--data", default="",
+                   help="consulta uma data-base especifica, no formato DD/MM/AAAA. "
+                        "Serve para comparar com outra base da mesma data.")
+    args = p.parse_args()
+
+    agora = datetime.now(FUSO_BRASILIA)
+    log("=" * 70)
+    log("  NU - CONSULTA  |  Instituicoes de Pagamento (BCB)")
+    log(f"  Execucao: {agora.strftime('%d/%m/%Y %H:%M')} (horario de Brasilia)")
+    log("=" * 70)
+    log(f"  IPv4 forcado: {'sim' if forcar_ipv4() else 'nao'}")
+
+    # --- caminho curto: a URL ja e conhecida ---
+    if args.url:
+        titulo("USANDO A URL INFORMADA")
+        log(f"  {args.url}")
+        registros, erro = pedir(args.url)
+        if not registros:
+            morrer(f"A URL informada nao devolveu dados. {erro}",
+                   transitorio="rede" in (erro or ""))
+        if args.explorar:
+            explorar(registros, "URL informada", args.url)
+            return
+        ips = limpar([r for r in registros if eh_ip(r)], contar=True)
+        voltou = data_que_voltou(registros)
+        salvar(ips, args.url, agora, voltou.isoformat() if voltou else "")
+        return
+
+    # --- data-base especifica: util para comparar com outra base ---
+    if args.data:
+        if args.explorar:
+            listar_tipos_de_entidade()
+        titulo(f"CONSULTANDO A DATA-BASE {args.data}")
+        try:
+            alvo = datetime.strptime(args.data.strip(), "%d/%m/%Y").date()
+        except ValueError:
+            morrer(f"Data invalida: '{args.data}'. Use o formato DD/MM/AAAA.")
+
+        log("  Registros por categoria:")
+        registros, por_tipo = buscar_todos_os_tipos(alvo)
+        log(f"    {len(registros):>5}  TOTAL")
+        if not registros:
+            morrer(f"A data {args.data} nao devolveu dados.", transitorio=True)
+
+        voltou = data_que_voltou(registros)
+        log(f"  campo 'database' na resposta: {voltou}")
+        if voltou and voltou != alvo:
+            morrer(f"Pedi {alvo} e vieram dados de {voltou}. "
+                   "A API interpretou a data de outro jeito.")
+        url = montar_url(alvo, TIPOS_NA_BASE[0])
+
+        ips = limpar([r for r in registros if eh_ip(r)], contar=True)
+        if args.explorar:
+            explorar(registros, f"dataBase={args.data}", url)
+        else:
+            salvar(ips, url, agora, alvo.isoformat())
+        return
+
+    # --- caminho normal ---
+    if args.explorar:
+        mostrar_catalogo()
+
+    registros, data, url = buscar()
+
+    if not registros:
+        morrer(
+            "Nao encontrei nenhuma base nos ultimos 45 dias.\n"
+            "  Se os erros acima forem de rede, e transitorio.\n"
+            "  Se forem HTTP 400/500, a API mudou o formato da chamada.",
+            transitorio=True,
+        )
+
+    if args.explorar:
+        explorar(registros, f"dataBase={data.strftime('%d/%m/%Y')}", url)
+        return
+
+    ips = limpar([r for r in registros if eh_ip(r)], contar=True)
+    salvar(ips, url, agora, data.isoformat())
+
+
+if __name__ == "__main__":
+    main()
