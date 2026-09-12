@@ -247,7 +247,48 @@ def mostrar_catalogo():
     if parametros:
         log()
         log(f"  Parametros encontrados no esquema: {', '.join(parametros)}")
+
+    listar_tipos_de_entidade()
     return parametros
+
+
+def listar_tipos_de_entidade():
+    """
+    Lista TODOS os tipos de entidade que o BCB supervisiona.
+
+    Serve para responder uma pergunta especifica: existe mais de um tipo com
+    a palavra "pagamento" no nome? Se existir, filtrar por "contem pagamento"
+    traz categorias diferentes -- por exemplo "Instituidor de Arranjo de
+    Pagamento", que nao e uma Instituicao de Pagamento.
+
+    E assim que a gente descobre se duas bases com contagens diferentes
+    estao medindo a mesma coisa.
+    """
+    titulo("TIPOS DE ENTIDADE SUPERVISIONADA (catalogo do BCB)")
+    registros, erro = pedir(f"{SERVICO}/TipoEntidadeSupervisionada?$format=json&$top=200")
+    if not registros:
+        log(f"  Nao consegui listar: {erro}")
+        return
+
+    log(f"  {len(registros)} tipos cadastrados. Os que mencionam 'pagamento':")
+    log()
+    achou = False
+    for r in registros:
+        descricao = ""
+        for chave, valor in r.items():
+            if "descricao" in sem_acento(chave) and isinstance(valor, str):
+                descricao = valor
+                break
+        if "pagamento" in sem_acento(descricao):
+            achou = True
+            marca = "  <-- E O NOSSO" if sem_acento(descricao) == TERMO_TIPO_IP else ""
+            codigo = r.get("codigoTipoEntidadeSupervisionada", "?")
+            log(f"    codigo {codigo:>4}  {descricao}{marca}")
+    if not achou:
+        log("    (nenhum -- lista completa abaixo)")
+        for r in registros[:40]:
+            log(f"    {r}")
+    log()
 
 
 # ----------------------------------------------------------------------------
@@ -663,6 +704,8 @@ def main():
 
     # --- data-base especifica: util para comparar com outra base ---
     if args.data:
+        if args.explorar:
+            listar_tipos_de_entidade()
         titulo(f"CONSULTANDO A DATA-BASE {args.data}")
         try:
             alvo = datetime.strptime(args.data.strip(), "%d/%m/%Y").date()
