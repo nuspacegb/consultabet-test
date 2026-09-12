@@ -27,6 +27,11 @@ name: Testar API do BCB (Instituicoes de Pagamento)
 
 on:
   workflow_dispatch:      # so roda quando voce apertar o botao
+    inputs:
+      data:
+        description: 'Data-base a consultar (DD/MM/AAAA). Deixe vazio para a mais recente.'
+        required: false
+        default: ''
 
 permissions:
   contents: read          # so leitura: este workflow nao altera nada
@@ -50,4 +55,11 @@ jobs:
           pip install requests
 
       - name: Explorar a API do BCB
-        run: python scraper_ips.py --explorar
+        env:
+          DATA: ${{ inputs.data }}
+        run: |
+          if [ -n "$DATA" ]; then
+            python scraper_ips.py --explorar --data "$DATA"
+          else
+            python scraper_ips.py --explorar
+          fi
