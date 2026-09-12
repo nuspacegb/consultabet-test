@@ -141,38 +141,72 @@ body::before {
 .link-fonte b { color: var(--text-muted); font-weight: 500; }
 .link-fonte:hover b { color: var(--roxo); }
 
-/* ---------------------------------------------------------------------- ABAS */
-.abas {
-  max-width: var(--largura);
-  margin: 0 auto;
-  padding: 0 20px;
-  display: flex;
-  gap: 4px;
+/* ------------------------------------------------------------------ SELETOR */
+/* As duas consultas ficam logo acima do campo de busca, e não escondidas no
+   topo. Motivo prático: o erro mais fácil de cometer é procurar um banco na
+   base de apostas. Com o seletor colado na busca, a pergunta "em qual base
+   estou procurando?" é respondida antes de a pessoa digitar. */
+.seletor {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 10px;
 }
-.aba {
-  background: none;
-  border: 0;
-  border-bottom: 2px solid transparent;
-  color: var(--text-dim);
-  font-family: var(--fonte-texto);
-  font-size: 13.5px;
-  font-weight: 500;
-  padding: 12px 14px;
+.seletor-item {
+  position: relative;
+  overflow: hidden;
+  text-align: left;
+  background: var(--bg-elev);
+  border: 1px solid var(--line);
+  border-radius: var(--raio);
+  padding: 13px 16px;
   cursor: pointer;
-  transition: color .15s, border-color .15s;
-  white-space: nowrap;
+  font-family: var(--fonte-texto);
+  transition: background .15s, border-color .15s;
 }
-.aba:hover { color: var(--text-muted); }
-.aba[aria-selected="true"] {
-  color: var(--text);
-  border-bottom-color: var(--roxo);
-  font-weight: 600;
+.seletor-item:hover { background: var(--surface-hover); }
+
+/* Filete roxo no topo do item ativo: marca a seleção sem gritar */
+.seletor-item::before {
+  content: "";
+  position: absolute; left: 0; right: 0; top: 0; height: 2px;
+  background: transparent;
+  transition: background .15s;
 }
-.aba-conta {
-  font-variant-numeric: tabular-nums;
+.seletor-item[aria-selected="true"] {
+  background: var(--surface);
+  border-color: var(--line-strong);
+}
+.seletor-item[aria-selected="true"]::before { background: var(--roxo); }
+
+.seletor-titulo {
+  display: block;
+  font-family: var(--fonte-titulo);
+  font-weight: 700;
+  font-size: 14.5px;
+  letter-spacing: .07em;
+  text-transform: uppercase;
   color: var(--text-dim);
-  font-weight: 400;
-  margin-left: 5px;
+  transition: color .15s;
+}
+.seletor-item[aria-selected="true"] .seletor-titulo { color: var(--text); }
+
+.seletor-meta {
+  display: block;
+  margin-top: 3px;
+  font-size: 12px;
+  color: var(--text-dim);
+}
+.seletor-meta b {
+  color: var(--roxo);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.seletor-item[aria-selected="true"] .seletor-meta { color: var(--text-muted); }
+
+.seletor-item:focus-visible {
+  outline: 2px solid var(--roxo);
+  outline-offset: 2px;
 }
 
 /* --------------------------------------------------------------------- HERO */
@@ -493,7 +527,7 @@ footer a:hover { color: var(--roxo); }
   .btn-buscar { width: 100%; }
   .painel-base { flex-direction: column; align-items: stretch; }
   .cartao { padding: 20px; }
-  .abas { overflow-x: auto; }
+  .seletor { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -509,16 +543,6 @@ footer a:hover { color: var(--roxo); }
         Fonte: <b id="linkFonteTexto">—</b>
       </a>
     </div>
-    <!-- As duas consultas. Cada aba tem sua própria base, sua própria fonte
-         oficial e suas próprias regras de leitura. -->
-    <div class="abas" role="tablist" aria-label="Tipo de consulta">
-      <button class="aba" id="aba-bets" role="tab" aria-selected="true" data-modulo="bets">
-        Casas de apostas<span class="aba-conta" id="conta-bets"></span>
-      </button>
-      <button class="aba" id="aba-ips" role="tab" aria-selected="false" data-modulo="ips">
-        Instituições de Pagamento<span class="aba-conta" id="conta-ips"></span>
-      </button>
-    </div>
   </div>
 
   <main>
@@ -527,6 +551,18 @@ footer a:hover { color: var(--roxo); }
       <h1 id="heroTitulo"></h1>
       <p id="heroTexto"></p>
     </section>
+
+    <!-- Em qual base estou procurando -->
+    <div class="seletor" role="tablist" aria-label="Escolha a base a consultar">
+      <button class="seletor-item" id="aba-bets" role="tab" aria-selected="true" data-modulo="bets">
+        <span class="seletor-titulo">Casas de apostas</span>
+        <span class="seletor-meta"><b id="conta-bets">—</b> autorizadas · SPA/MF</span>
+      </button>
+      <button class="seletor-item" id="aba-ips" role="tab" aria-selected="false" data-modulo="ips">
+        <span class="seletor-titulo">Inst. de Pagamento</span>
+        <span class="seletor-meta"><b id="conta-ips">—</b> na base · Banco Central</span>
+      </button>
+    </div>
 
     <label for="campoBusca" class="sr-only">Buscar por nome, marca ou CNPJ</label>
     <div class="caixa-busca">
@@ -856,7 +892,7 @@ async function carregar(modulo) {
     });
 
     definirEstado(modulo, Estado.PRONTO);
-    $(`conta-${modulo}`).textContent = ` ${d.lista.length}`;
+    $(`conta-${modulo}`).textContent = d.lista.length;
     if (modulo === aba) renderizarPainel();
   } catch (erro) {
     console.error(`[Consulta] Falha ao carregar ${cfg.arquivo}:`, erro);
@@ -1275,7 +1311,7 @@ function trocarAba(novo) {
   aba = novo;
   const cfg = MODULOS[aba];
 
-  document.querySelectorAll('.aba').forEach(b =>
+  document.querySelectorAll('.seletor-item').forEach(b =>
     b.setAttribute('aria-selected', String(b.dataset.modulo === aba)));
 
   $('heroTitulo').innerHTML = cfg.titulo;
@@ -1322,7 +1358,7 @@ btnLimpar.addEventListener('click', () => {
   campo.focus();
 });
 
-document.querySelectorAll('.aba').forEach(b =>
+document.querySelectorAll('.seletor-item').forEach(b =>
   b.addEventListener('click', () => trocarAba(b.dataset.modulo)));
 
 $('btnLista').addEventListener('click', alternarLista);
@@ -1375,7 +1411,7 @@ document.addEventListener('keydown', e => {
   $('rodapeAviso').textContent = cfg.rodape;
   $('linkFonte').href = cfg.fonteUrl;
   $('linkFonteTexto').textContent = cfg.fonteNome + ' ↗';
-  document.querySelector('.aba[data-modulo="bets"]').setAttribute('aria-selected', 'true');
+  document.querySelector('.seletor-item[data-modulo="bets"]').setAttribute('aria-selected', 'true');
 
   carregar('bets').then(() => campo.focus());
 })();
