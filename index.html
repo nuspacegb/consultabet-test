@@ -3,23 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <!-- ==========================================================================
      O NOME DO PRODUTO APARECE EM 4 LUGARES NESTE ARQUIVO.
-     Se um dia mudar (a votacao com os usuarios, por exemplo), troque nestes:
+     Se um dia mudar (a votação com os usuários, por exemplo), troque nestes:
        1. a tag <title> logo abaixo
        2. a meta og:title
        3. a barra do topo, classe "marca"
-       4. o <h1> do hero
+       4. o título de cada aba, na constante MODULOS
      ========================================================================== -->
 <title>Nu · Consulta Bet</title>
 
-<meta name="description" content="Verifique em segundos se uma casa de apostas está autorizada pelo Governo Federal. Base oficial da Secretaria de Prêmios e Apostas (SPA/MF).">
+<meta name="description" content="Verifique se uma casa de apostas está autorizada pelo Governo Federal e se uma Instituição de Pagamento está autorizada pelo Banco Central.">
 <meta name="theme-color" content="#0A0A0F">
 
-<!-- Preview ao compartilhar o link (Slack, WhatsApp, LinkedIn) -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="Nu · Consulta Bet">
-<meta property="og:description" content="A casa de apostas é autorizada pelo Governo Federal? Consulte por marca ou CNPJ.">
+<meta property="og:description" content="Casas de apostas (SPA/MF) e Instituições de Pagamento (BCB). Consulte por marca ou CNPJ.">
 <meta property="og:locale" content="pt_BR">
 <meta name="twitter:card" content="summary">
 
@@ -40,16 +40,13 @@
 
 <style>
 /* ==========================================================================
-   NU · CONSULTA BET — folha de estilo
+   NU · CONSULTA — folha de estilo
    --------------------------------------------------------------------------
-   Paleta e identidade preservadas: fundo quase preto, roxo neon, Rajdhani.
-   O que mudou: o brilho foi dosado, o texto corrido passou para Inter
-   (Rajdhani é ótima para títulos e ruim para leitura em corpo pequeno),
-   e tudo agora usa variáveis — para trocar uma cor, mexa só aqui em cima.
+   Rajdhani nos títulos (a identidade), Inter no texto corrido (legibilidade).
+   Para trocar qualquer cor, mexa só nas variáveis aqui de cima.
    ========================================================================== */
 
 :root {
-  /* --- cores --- */
   --bg:            #0A0A0F;
   --bg-elev:       #101017;
   --surface:       #14141C;
@@ -62,8 +59,8 @@
   --text-muted:    #9C9CB0;
   --text-dim:      #6E6E82;
 
-  --roxo:          #A855F7;   /* roxo de trabalho: botões, links, destaques */
-  --roxo-neon:     #BC13FE;   /* roxo original: reservado para o logo */
+  --roxo:          #A855F7;
+  --roxo-neon:     #BC13FE;
   --roxo-fundo:    rgba(168, 85, 247, .10);
 
   --ok:            #34D399;
@@ -73,8 +70,7 @@
   --erro:          #F87171;
   --erro-fundo:    rgba(248, 113, 113, .10);
 
-  /* --- estrutura --- */
-  --largura:       780px;
+  --largura:       800px;
   --raio:          14px;
   --raio-sm:       8px;
 
@@ -83,7 +79,6 @@
 }
 
 * { box-sizing: border-box; }
-
 html { scroll-behavior: smooth; }
 
 body {
@@ -99,7 +94,6 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Brilho roxo bem sutil no topo — substitui o glow forte de antes */
 body::before {
   content: "";
   position: fixed;
@@ -131,69 +125,89 @@ body::before {
   gap: 16px;
 }
 .marca {
-  display: flex;
-  align-items: center;
-  gap: 9px;
+  display: flex; align-items: center; gap: 9px;
   font-family: var(--fonte-titulo);
-  font-weight: 700;
-  font-size: 15px;
-  letter-spacing: .08em;
-  text-transform: uppercase;
+  font-weight: 700; font-size: 15px;
+  letter-spacing: .08em; text-transform: uppercase;
   color: var(--text);
 }
 .marca-ponto {
-  width: 7px; height: 7px;
-  border-radius: 50%;
+  width: 7px; height: 7px; border-radius: 50%;
   background: var(--roxo-neon);
   box-shadow: 0 0 8px var(--roxo-neon);
   flex: none;
 }
-.link-fonte {
-  font-size: 12.5px;
-  color: var(--text-dim);
-  text-decoration: none;
-  white-space: nowrap;
-}
+.link-fonte { font-size: 12.5px; color: var(--text-dim); text-decoration: none; white-space: nowrap; }
 .link-fonte b { color: var(--text-muted); font-weight: 500; }
 .link-fonte:hover b { color: var(--roxo); }
 
+/* ---------------------------------------------------------------------- ABAS */
+.abas {
+  max-width: var(--largura);
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  gap: 4px;
+}
+.aba {
+  background: none;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  color: var(--text-dim);
+  font-family: var(--fonte-texto);
+  font-size: 13.5px;
+  font-weight: 500;
+  padding: 12px 14px;
+  cursor: pointer;
+  transition: color .15s, border-color .15s;
+  white-space: nowrap;
+}
+.aba:hover { color: var(--text-muted); }
+.aba[aria-selected="true"] {
+  color: var(--text);
+  border-bottom-color: var(--roxo);
+  font-weight: 600;
+}
+.aba-conta {
+  font-variant-numeric: tabular-nums;
+  color: var(--text-dim);
+  font-weight: 400;
+  margin-left: 5px;
+}
+
 /* --------------------------------------------------------------------- HERO */
 main {
-  flex: 1;
-  width: 100%;
+  flex: 1; width: 100%;
   max-width: var(--largura);
   margin: 0 auto;
   padding: 0 20px 64px;
 }
 
-.hero { text-align: center; padding: 56px 0 32px; }
-
+.hero { text-align: center; padding: 48px 0 30px; }
 .hero h1 {
   font-family: var(--fonte-titulo);
   font-weight: 700;
-  font-size: clamp(2.1rem, 7vw, 3.4rem);
+  font-size: clamp(1.9rem, 6.4vw, 3.1rem);
   line-height: 1.05;
   letter-spacing: -.01em;
   text-transform: uppercase;
   margin: 0;
   color: #F5EBFF;
-  /* brilho reduzido: presente, mas não estoura o texto */
   text-shadow: 0 0 24px rgba(188, 19, 254, .45);
+  text-wrap: balance;
 }
 .hero h1 .destaque { color: var(--roxo-neon); }
-
 .hero p {
   margin: 14px auto 0;
-  max-width: 46ch;
+  max-width: 50ch;
   color: var(--text-muted);
   font-size: clamp(.95rem, 2.4vw, 1.05rem);
+  text-wrap: balance;
 }
 
 /* -------------------------------------------------------------------- BUSCA */
 .caixa-busca {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  display: flex; align-items: center; gap: 8px;
   background: var(--surface);
   border: 1px solid var(--line-strong);
   border-radius: var(--raio);
@@ -207,74 +221,48 @@ main {
 .icone-lupa { flex: none; color: var(--text-dim); display: flex; }
 
 #campoBusca {
-  flex: 1;
-  min-width: 0;
-  background: none;
-  border: 0;
-  outline: none;
+  flex: 1; min-width: 0;
+  background: none; border: 0; outline: none;
   color: var(--text);
   font-family: var(--fonte-texto);
-  font-size: 16px;   /* 16px evita o zoom automático do iOS */
+  font-size: 16px;            /* 16px evita o zoom automático do iOS */
   padding: 13px 4px;
 }
 #campoBusca::placeholder { color: var(--text-dim); }
 
 .btn-limpar {
-  flex: none;
-  background: none;
-  border: 0;
-  color: var(--text-dim);
-  cursor: pointer;
-  padding: 6px;
-  border-radius: 50%;
-  display: none;
-  line-height: 0;
+  flex: none; background: none; border: 0;
+  color: var(--text-dim); cursor: pointer;
+  padding: 6px; border-radius: 50%; display: none; line-height: 0;
 }
 .btn-limpar:hover { color: var(--text); background: var(--surface-hover); }
 .btn-limpar.visivel { display: block; }
 
 .btn-buscar {
   flex: none;
-  background: var(--roxo);
-  color: #fff;
-  border: 0;
-  border-radius: var(--raio-sm);
+  background: var(--roxo); color: #fff;
+  border: 0; border-radius: var(--raio-sm);
   padding: 12px 22px;
   font-family: var(--fonte-texto);
-  font-weight: 600;
-  font-size: 14px;
-  letter-spacing: .02em;
-  cursor: pointer;
-  transition: background .15s;
+  font-weight: 600; font-size: 14px; letter-spacing: .02em;
+  cursor: pointer; transition: background .15s;
 }
 .btn-buscar:hover { background: #B76BF8; }
 .btn-buscar:disabled { opacity: .45; cursor: not-allowed; }
 
-.dica-teclado {
-  margin-top: 10px;
-  font-size: 12px;
-  color: var(--text-dim);
-  text-align: center;
-}
+.dica-teclado { margin-top: 10px; font-size: 12px; color: var(--text-dim); text-align: center; }
 .dica-teclado kbd {
   font-family: var(--fonte-texto);
   background: var(--surface);
   border: 1px solid var(--line);
-  border-radius: 4px;
-  padding: 1px 6px;
-  font-size: 11px;
+  border-radius: 4px; padding: 1px 6px; font-size: 11px;
 }
 
 /* ---------------------------------------------------------------- RESULTADO */
 #areaResultado { margin-top: 28px; }
 #areaResultado:empty { margin-top: 0; }
 
-.contagem {
-  font-size: 12.5px;
-  color: var(--text-dim);
-  margin-bottom: 12px;
-  letter-spacing: .02em;
-}
+.contagem { font-size: 12.5px; color: var(--text-dim); margin-bottom: 12px; letter-spacing: .02em; }
 
 .cartao {
   background: var(--surface);
@@ -289,28 +277,24 @@ main {
 @keyframes surgir { from { opacity: 0; transform: translateY(6px); } }
 @media (prefers-reduced-motion: reduce) { .cartao { animation: none; } }
 
-/* faixa colorida na lateral esquerda indicando o status */
 .cartao::before {
-  content: "";
-  position: absolute;
-  left: 0; top: 0; bottom: 0;
-  width: 3px;
+  content: ""; position: absolute;
+  left: 0; top: 0; bottom: 0; width: 3px;
   background: var(--roxo);
 }
 .cartao.ok::before     { background: var(--ok); }
 .cartao.alerta::before { background: var(--alerta); }
 .cartao.erro::before   { background: var(--erro); }
 
+/* A faixa fica mais grossa quando o resultado é uma negativa séria:
+   instituição cancelada ou em liquidação. Precisa saltar aos olhos. */
+.cartao.grave::before { width: 6px; background: var(--erro); }
+
 .selo {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: .09em;
-  text-transform: uppercase;
-  padding: 5px 11px;
-  border-radius: 100px;
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: 11px; font-weight: 600;
+  letter-spacing: .09em; text-transform: uppercase;
+  padding: 5px 11px; border-radius: 100px;
 }
 .selo.ok     { background: var(--ok-fundo);     color: var(--ok);     border: 1px solid rgba(52,211,153,.28); }
 .selo.alerta { background: var(--alerta-fundo); color: var(--alerta); border: 1px solid rgba(251,191,36,.28); }
@@ -320,51 +304,36 @@ main {
 .cartao h2 {
   font-family: var(--fonte-titulo);
   font-weight: 700;
-  font-size: clamp(1.25rem, 4vw, 1.6rem);
-  line-height: 1.2;
-  letter-spacing: .01em;
-  text-transform: uppercase;
-  margin: 14px 0 4px;
-  color: var(--text);
+  font-size: clamp(1.2rem, 3.6vw, 1.5rem);
+  line-height: 1.2; letter-spacing: .01em; text-transform: uppercase;
+  margin: 14px 0 4px; color: var(--text);
+  text-wrap: balance;
 }
-.cartao .cnpj {
-  font-variant-numeric: tabular-nums;
-  color: var(--text-muted);
-  font-size: 14px;
-  margin: 0;
-}
+.cartao .cnpj { font-variant-numeric: tabular-nums; color: var(--text-muted); font-size: 14px; margin: 0; }
 
 .grade-campos {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 18px 24px;
-  margin-top: 20px;
-  padding-top: 20px;
+  margin-top: 20px; padding-top: 20px;
   border-top: 1px solid var(--line);
 }
 .campo-rotulo {
-  font-size: 10.5px;
-  font-weight: 600;
-  letter-spacing: .11em;
-  text-transform: uppercase;
-  color: var(--roxo);
-  margin: 0 0 6px;
+  font-size: 10.5px; font-weight: 600;
+  letter-spacing: .11em; text-transform: uppercase;
+  color: var(--roxo); margin: 0 0 6px;
 }
 .campo-valor { margin: 0; font-size: 14.5px; color: var(--text); }
 .campo-valor a { color: var(--roxo); text-decoration: none; border-bottom: 1px solid var(--line-strong); }
-.campo-valor a:hover { color: #C58BFA; }
 
 .etiquetas { display: flex; flex-wrap: wrap; gap: 6px; }
 .etiqueta {
   background: var(--roxo-fundo);
   border: 1px solid var(--line);
-  border-radius: 6px;
-  padding: 3px 9px;
-  font-size: 12.5px;
-  color: #DCC7F5;
+  border-radius: 6px; padding: 3px 9px;
+  font-size: 12.5px; color: #DCC7F5;
   font-family: var(--fonte-texto);
-  cursor: pointer;
-  transition: border-color .15s;
+  cursor: pointer; transition: border-color .15s;
 }
 .etiqueta:hover { border-color: var(--line-strong); }
 .etiqueta.dominio { cursor: default; color: var(--text-muted); font-variant-numeric: tabular-nums; }
@@ -374,20 +343,30 @@ mark { background: rgba(168, 85, 247, .3); color: inherit; border-radius: 3px; p
 .texto-estado { color: var(--text-muted); margin: 10px 0 0; font-size: 14.5px; }
 .texto-estado strong { color: var(--text); }
 
+/* Caixa de aviso forte, usada quando a instituição NÃO está autorizada */
+.aviso-grave {
+  margin-top: 18px;
+  background: var(--erro-fundo);
+  border: 1px solid rgba(248,113,113,.35);
+  border-radius: 10px;
+  padding: 14px 16px;
+  color: #FFD9D9;
+  font-size: 14px;
+}
+.aviso-grave strong { color: #FFF; }
+
 .sugestoes { margin-top: 16px; }
 .sugestoes-titulo { font-size: 12.5px; color: var(--text-dim); margin-bottom: 8px; }
 
-/* --------------------------------------------------- RODAPÉ DA BASE / STATUS */
+/* --------------------------------------------------- PAINEL DA BASE / STATUS */
 .painel-base {
   margin-top: 40px;
   border: 1px solid var(--line);
   border-radius: var(--raio);
   background: var(--bg-elev);
   padding: 18px 20px;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
+  display: flex; flex-wrap: wrap;
+  align-items: center; justify-content: space-between;
   gap: 14px;
 }
 .painel-info { display: flex; flex-wrap: wrap; gap: 6px 20px; font-size: 12.5px; }
@@ -395,8 +374,8 @@ mark { background: rgba(168, 85, 247, .3); color: inherit; border-radius: 3px; p
 .painel-item b { color: var(--text); font-weight: 600; font-variant-numeric: tabular-nums; }
 .painel-status { display: flex; align-items: center; gap: 7px; color: var(--ok); font-weight: 500; }
 .painel-status .selo-ponto { box-shadow: 0 0 6px currentColor; }
-
 .painel-acoes { display: flex; gap: 8px; flex-wrap: wrap; }
+
 .btn-secundario {
   background: transparent;
   border: 1px solid var(--line-strong);
@@ -404,34 +383,39 @@ mark { background: rgba(168, 85, 247, .3); color: inherit; border-radius: 3px; p
   border-radius: var(--raio-sm);
   padding: 8px 14px;
   font-family: var(--fonte-texto);
-  font-size: 12.5px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background .15s;
-  white-space: nowrap;
+  font-size: 12.5px; font-weight: 500;
+  cursor: pointer; transition: background .15s; white-space: nowrap;
 }
 .btn-secundario:hover { background: var(--roxo-fundo); }
 
-/* Lista completa (recolhível) */
+/* Resumo de quantas estão em cada situação (só na aba de IPs) */
+.resumo-status { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.pilula {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12px; padding: 4px 10px; border-radius: 100px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--text-muted);
+}
+.pilula b { color: var(--text); font-variant-numeric: tabular-nums; }
+.pilula .selo-ponto { width: 7px; height: 7px; }
+.pilula.ok .selo-ponto     { background: var(--ok); }
+.pilula.alerta .selo-ponto { background: var(--alerta); }
+.pilula.erro .selo-ponto   { background: var(--erro); }
+
+/* Lista completa */
 #listaCompleta { margin-top: 12px; }
 .tabela-lista {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 13px;
+  width: 100%; border-collapse: collapse; font-size: 13px;
   background: var(--surface);
   border: 1px solid var(--line);
-  border-radius: var(--raio);
-  overflow: hidden;
+  border-radius: var(--raio); overflow: hidden;
 }
 .tabela-lista th {
-  text-align: left;
-  padding: 11px 14px;
-  font-size: 10.5px;
-  letter-spacing: .1em;
-  text-transform: uppercase;
+  text-align: left; padding: 11px 14px;
+  font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase;
   color: var(--text-dim);
-  border-bottom: 1px solid var(--line);
-  font-weight: 600;
+  border-bottom: 1px solid var(--line); font-weight: 600;
 }
 .tabela-lista td { padding: 11px 14px; border-bottom: 1px solid rgba(255,255,255,.04); color: var(--text-muted); vertical-align: top; }
 .tabela-lista tr:last-child td { border-bottom: 0; }
@@ -443,74 +427,54 @@ mark { background: rgba(168, 85, 247, .3); color: inherit; border-radius: 3px; p
 footer {
   border-top: 1px solid var(--line);
   padding: 28px 20px 36px;
-  text-align: center;
-  color: var(--text-dim);
-  font-size: 12.5px;
-  line-height: 1.7;
+  text-align: center; color: var(--text-dim);
+  font-size: 12.5px; line-height: 1.7;
 }
 footer a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--line); }
 footer a:hover { color: var(--roxo); }
-.aviso-legal { max-width: 58ch; margin: 0 auto 14px; color: var(--text-dim); }
+.aviso-legal { max-width: 62ch; margin: 0 auto 14px; color: var(--text-dim); }
 
 /* -------------------------------------------------------------- BOTÃO AJUDA */
 .btn-ajuda {
-  position: fixed;
-  right: 20px; bottom: 20px;
-  width: 46px; height: 46px;
-  border-radius: 50%;
-  background: var(--roxo);
-  color: #fff;
-  border: 0;
-  font-size: 19px;
-  font-weight: 600;
-  cursor: pointer;
+  position: fixed; right: 20px; bottom: 20px;
+  width: 46px; height: 46px; border-radius: 50%;
+  background: var(--roxo); color: #fff; border: 0;
+  font-size: 19px; font-weight: 600; cursor: pointer;
   box-shadow: 0 6px 20px rgba(0,0,0,.5);
-  z-index: 40;
-  transition: transform .15s, background .15s;
+  z-index: 40; transition: transform .15s, background .15s;
 }
 .btn-ajuda:hover { background: #B76BF8; transform: scale(1.06); }
 
 /* -------------------------------------------------------------------- MODAL */
 .fundo-modal {
-  position: fixed;
-  inset: 0;
+  position: fixed; inset: 0;
   background: rgba(5, 5, 9, .82);
   backdrop-filter: blur(4px);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  z-index: 100;
+  display: none; align-items: center; justify-content: center;
+  padding: 20px; z-index: 100;
 }
 .fundo-modal[data-aberto="sim"] { display: flex; }
 
 .modal {
   background: var(--bg-elev);
   border: 1px solid var(--line-strong);
-  border-radius: 18px;
-  padding: 26px;
-  width: 100%;
-  max-width: 480px;
-  max-height: 85vh;
-  overflow-y: auto;
+  border-radius: 18px; padding: 26px;
+  width: 100%; max-width: 520px; max-height: 85vh; overflow-y: auto;
 }
 .modal h3 {
   font-family: var(--fonte-titulo);
-  font-size: 1.3rem;
-  font-weight: 700;
-  letter-spacing: .02em;
-  text-transform: uppercase;
-  margin: 0 0 4px;
-  color: var(--text);
+  font-size: 1.3rem; font-weight: 700;
+  letter-spacing: .02em; text-transform: uppercase;
+  margin: 0 0 4px; color: var(--text);
 }
 .modal-sub { font-size: 11.5px; letter-spacing: .09em; text-transform: uppercase; color: var(--text-dim); margin: 0 0 20px; }
 .modal p { color: var(--text-muted); }
 .modal-rodape { margin-top: 22px; display: flex; justify-content: flex-end; gap: 8px; }
 
 .bloco-mudanca { border-radius: 10px; padding: 14px 16px; margin-bottom: 10px; border: 1px solid; }
-.bloco-mudanca.add    { background: var(--ok-fundo);     border-color: rgba(52,211,153,.25); }
-.bloco-mudanca.rem    { background: var(--erro-fundo);   border-color: rgba(248,113,113,.25); }
-.bloco-mudanca.neutro { background: var(--roxo-fundo);   border-color: var(--line); }
+.bloco-mudanca.add    { background: var(--ok-fundo);   border-color: rgba(52,211,153,.25); }
+.bloco-mudanca.rem    { background: var(--erro-fundo); border-color: rgba(248,113,113,.25); }
+.bloco-mudanca.neutro { background: var(--roxo-fundo); border-color: var(--line); }
 .bloco-mudanca h4 { margin: 0 0 8px; font-size: 13px; font-weight: 600; }
 .bloco-mudanca.add h4 { color: var(--ok); }
 .bloco-mudanca.rem h4 { color: var(--erro); }
@@ -529,6 +493,7 @@ footer a:hover { color: var(--roxo); }
   .btn-buscar { width: 100%; }
   .painel-base { flex-direction: column; align-items: stretch; }
   .cartao { padding: 20px; }
+  .abas { overflow-x: auto; }
 }
 </style>
 </head>
@@ -539,25 +504,31 @@ footer a:hover { color: var(--roxo); }
   <!-- =================================================== BARRA SUPERIOR -->
   <div class="barra-topo">
     <div class="barra-topo-interna">
-      <!-- Quando entrarem outros modulos (Instituicoes de Pagamento etc.),
-           e aqui na barra do topo que eles vao aparecer como abas. -->
       <div class="marca"><span class="marca-ponto"></span> Nu · Consulta Bet</div>
-      <a class="link-fonte" href="https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/transparencia-ativa-processos-de-autorizacao-de-apostas-de-quota-fixa/empresas-autorizadas" target="_blank" rel="noopener noreferrer">
-        Fonte: <b>gov.br / SPA-MF ↗</b>
+      <a class="link-fonte" id="linkFonte" href="#" target="_blank" rel="noopener noreferrer">
+        Fonte: <b id="linkFonteTexto">—</b>
       </a>
+    </div>
+    <!-- As duas consultas. Cada aba tem sua própria base, sua própria fonte
+         oficial e suas próprias regras de leitura. -->
+    <div class="abas" role="tablist" aria-label="Tipo de consulta">
+      <button class="aba" id="aba-bets" role="tab" aria-selected="true" data-modulo="bets">
+        Casas de apostas<span class="aba-conta" id="conta-bets"></span>
+      </button>
+      <button class="aba" id="aba-ips" role="tab" aria-selected="false" data-modulo="ips">
+        Instituições de Pagamento<span class="aba-conta" id="conta-ips"></span>
+      </button>
     </div>
   </div>
 
   <main>
 
-    <!-- ============================================================= HERO -->
     <section class="hero">
-      <h1>Consulta <span class="destaque">Bet</span></h1>
-      <p>Verifique se uma plataforma de apostas está autorizada a operar no Brasil pelo Governo Federal.</p>
+      <h1 id="heroTitulo"></h1>
+      <p id="heroTexto"></p>
     </section>
 
-    <!-- ============================================================ BUSCA -->
-    <label for="campoBusca" class="sr-only">Buscar casa de apostas por marca, razão social ou CNPJ</label>
+    <label for="campoBusca" class="sr-only">Buscar por nome, marca ou CNPJ</label>
     <div class="caixa-busca">
       <span class="icone-lupa" aria-hidden="true">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
@@ -565,7 +536,6 @@ footer a:hover { color: var(--roxo); }
         </svg>
       </span>
       <input id="campoBusca" type="search" autocomplete="off" spellcheck="false"
-             placeholder="Digite a marca, o CNPJ ou o nome da empresa…"
              aria-describedby="contagemResultado">
       <button class="btn-limpar" id="btnLimpar" type="button" aria-label="Limpar busca">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
@@ -576,17 +546,16 @@ footer a:hover { color: var(--roxo); }
     </div>
     <p class="dica-teclado">Aperte <kbd>/</kbd> para buscar · <kbd>Esc</kbd> para limpar</p>
 
-    <!-- ======================================================= RESULTADO -->
-    <div id="areaResultado" role="region" aria-live="polite" aria-atomic="false"></div>
+    <div id="areaResultado" role="region" aria-live="polite"></div>
     <span id="contagemResultado" class="sr-only"></span>
 
-    <!-- ==================================================== PAINEL DA BASE -->
     <div class="painel-base">
-      <div>
+      <div style="flex:1;min-width:240px">
         <div class="painel-status" id="statusBase">
           <span class="selo-ponto"></span> <span id="statusTexto">Carregando base…</span>
         </div>
         <div class="painel-info" id="infoBase" style="margin-top:8px"></div>
+        <div class="resumo-status" id="resumoStatus"></div>
       </div>
       <div class="painel-acoes">
         <button class="btn-secundario" id="btnLista" type="button" aria-expanded="false" aria-controls="listaCompleta">Ver lista completa</button>
@@ -598,13 +567,8 @@ footer a:hover { color: var(--roxo); }
 
   </main>
 
-  <!-- ============================================================ RODAPÉ -->
   <footer>
-    <p class="aviso-legal">
-      Ferramenta informativa. A fonte oficial e definitiva é a
-      <a href="https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/transparencia-ativa-processos-de-autorizacao-de-apostas-de-quota-fixa/empresas-autorizadas" target="_blank" rel="noopener noreferrer">Secretaria de Prêmios e Apostas do Ministério da Fazenda</a>.
-      Em caso de divergência, vale sempre a lista publicada no gov.br.
-    </p>
+    <p class="aviso-legal" id="rodapeAviso"></p>
     <p style="margin:0">Elaborado por Alexandre Gabbia</p>
   </footer>
 
@@ -617,7 +581,7 @@ footer a:hover { color: var(--roxo); }
     <h3 id="tituloAjuda">Dúvidas?</h3>
     <p class="modal-sub">Suporte</p>
     <p>Mande um Slack para <strong style="color:var(--text)">@alexandregabbia</strong>.</p>
-    <p style="font-size:13.5px">Se uma casa que você sabe que é autorizada não aparecer aqui, avise — pode ser que ela tenha entrado na lista depois da última atualização da base.</p>
+    <p style="font-size:13.5px">Se uma empresa que você sabe que é autorizada não aparecer aqui, avise — pode ser que ela tenha entrado na lista depois da última atualização da base.</p>
     <div class="modal-rodape">
       <button class="btn-secundario" data-fechar="modalAjuda" type="button">Fechar</button>
     </div>
@@ -637,65 +601,98 @@ footer a:hover { color: var(--roxo); }
 
 <script>
 /* ==========================================================================
-   NU · CONSULTA BET — lógica
+   NU · CONSULTA — lógica
    --------------------------------------------------------------------------
-   Regra número 1 deste arquivo:
-   o site NUNCA pode dizer "não localizada" quando quem falhou foi ele mesmo.
-   Por isso existem três estados distintos e bem separados:
+   Duas consultas no mesmo site, cada uma com sua base e suas regras.
 
-     CARREGANDO  -> a base ainda não chegou. A busca fica bloqueada.
-     ERRO        -> a base não carregou. Aviso claro, e NÃO é um resultado.
-     PRONTO      -> a base está na memória. Só aqui a busca funciona.
+   Regra número 1, válida para as duas:
+   o site NUNCA pode dizer "não consta" quando quem falhou foi ele mesmo.
+
+   Regra número 2, específica das Instituições de Pagamento:
+   estar na base NÃO significa estar autorizada. A base do BCB inclui
+   instituições canceladas e em liquidação — e são justamente essas que
+   um analista mais precisa enxergar.
    ========================================================================== */
 
 const Estado = { CARREGANDO: 'carregando', ERRO: 'erro', PRONTO: 'pronto' };
 
 /* --------------------------------------------------------------------------
-   DATAS DE EMERGÊNCIA
-   Só são usadas enquanto o dados.json ainda estiver no formato antigo (sem o
-   bloco "meta"). Assim que o robô rodar pela primeira vez, as datas passam a
-   vir do próprio arquivo e este bloco deixa de ter efeito — pode apagar.
+   DATAS DE EMERGÊNCIA (só para a base de bets no formato antigo)
+   Assim que o robô rodar, as datas passam a vir do próprio arquivo.
    -------------------------------------------------------------------------- */
 const META_RESERVA = {
   publicado_em:  '20/07/2026 17h28',
   atualizado_em: '19/08/2026 12h40'
 };
 
-let estado = Estado.CARREGANDO;
-let empresas = [];
-let meta = {};
-
-/* --- atalhos de DOM --- */
-const $ = id => document.getElementById(id);
-const campo        = $('campoBusca');
-const areaResultado= $('areaResultado');
-const btnBuscar    = $('btnBuscar');
-const btnLimpar    = $('btnLimpar');
-const statusBase   = $('statusBase');
-const statusTexto  = $('statusTexto');
-const infoBase     = $('infoBase');
-const listaCompleta= $('listaCompleta');
-
 /* ==========================================================================
-   1. UTILITÁRIOS
+   1. OS DOIS MÓDULOS
    ========================================================================== */
 
-/** Nunca injete texto de dados direto no HTML sem passar por aqui. */
+const MODULOS = {
+  bets: {
+    arquivo: 'dados.json',
+    historico: 'historico.json',
+    chaveLista: 'empresas',
+    titulo: 'Consulta <span class="destaque">Bet</span>',
+    subtitulo: 'Verifique se uma plataforma de apostas está autorizada a operar no Brasil pelo Governo Federal.',
+    placeholder: 'Digite a marca, o CNPJ ou o nome da empresa…',
+    rotuloBase: 'casas autorizadas',
+    fonteNome: 'gov.br / SPA-MF',
+    fonteUrl: 'https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/transparencia-ativa-processos-de-autorizacao-de-apostas-de-quota-fixa/empresas-autorizadas',
+    rodape: 'Ferramenta informativa. A fonte oficial e definitiva é a Secretaria de Prêmios e Apostas do Ministério da Fazenda. Em caso de divergência, vale sempre a lista publicada no gov.br.',
+  },
+  ips: {
+    arquivo: 'ips.json',
+    historico: 'historico_ips.json',
+    chaveLista: 'instituicoes',
+    titulo: 'Instituições de <span class="destaque">Pagamento</span>',
+    subtitulo: 'Consulte a situação de uma Instituição de Pagamento na base de entidades supervisionadas pelo Banco Central.',
+    placeholder: 'Digite o CNPJ ou o nome da instituição…',
+    rotuloBase: 'instituições na base',
+    fonteNome: 'Banco Central',
+    fonteUrl: 'https://dadosabertos.bcb.gov.br/dataset/dados-cadastrais-de-entidades-autorizadas',
+    rodape: 'Ferramenta informativa, sem valor de certidão. A base cobre apenas Instituições de Pagamento — bancos, financeiras e outros tipos de instituição regulada não aparecem aqui. A fonte oficial é o Banco Central do Brasil.',
+  },
+};
+
+/* Estado de cada módulo, carregado sob demanda */
+const dados = {
+  bets: { estado: Estado.CARREGANDO, lista: [], meta: {}, carregou: false },
+  ips:  { estado: Estado.CARREGANDO, lista: [], meta: {}, carregou: false },
+};
+
+let aba = 'bets';
+
+/* --------------------------------------------------------------- atalhos */
+const $ = id => document.getElementById(id);
+const campo         = $('campoBusca');
+const areaResultado = $('areaResultado');
+const btnBuscar     = $('btnBuscar');
+const btnLimpar     = $('btnLimpar');
+const statusBase    = $('statusBase');
+const statusTexto   = $('statusTexto');
+const infoBase      = $('infoBase');
+const resumoStatus  = $('resumoStatus');
+const listaCompleta = $('listaCompleta');
+
+/* ==========================================================================
+   2. UTILITÁRIOS
+   ========================================================================== */
+
 function esc(txt) {
   return String(txt ?? '').replace(/[&<>"']/g, c => (
     { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]
   ));
 }
 
-/** "Bet 365!" -> "bet365". Tira acento, espaço e pontuação. */
 function normalizar(txt) {
   return String(txt ?? '')
     .toLowerCase()
-    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .normalize('NFD').replace(/[̀-ͯ]/g, '')
     .replace(/[^a-z0-9]/g, '');
 }
 
-/** Distância de edição — usada para sugerir "você quis dizer…". */
 function distancia(a, b) {
   if (a === b) return 0;
   if (!a.length || !b.length) return Math.max(a.length, b.length);
@@ -705,26 +702,20 @@ function distancia(a, b) {
     linha[0] = i;
     for (let j = 1; j <= b.length; j++) {
       const temp = linha[j];
-      linha[j] = Math.min(
-        linha[j] + 1,
-        linha[j - 1] + 1,
-        anterior + (a[i - 1] === b[j - 1] ? 0 : 1)
-      );
+      linha[j] = Math.min(linha[j] + 1, linha[j - 1] + 1,
+                          anterior + (a[i - 1] === b[j - 1] ? 0 : 1));
       anterior = temp;
     }
   }
   return linha[b.length];
 }
 
-/** Envolve em <mark> o trecho que casou com a busca. */
 function destacar(texto, termo) {
   const t = esc(texto);
   if (!termo || termo.length < 2) return t;
   const alvo = normalizar(texto);
   const pos = alvo.indexOf(termo);
   if (pos === -1) return t;
-
-  // mapeia a posição normalizada de volta para a posição no texto original
   let n = 0, ini = -1, fim = -1;
   for (let i = 0; i < texto.length; i++) {
     if (normalizar(texto[i]).length) {
@@ -747,13 +738,53 @@ function listaEtiquetas(valor, classe, termo) {
   ).join('') + '</div>';
 }
 
+function hojeEmBrasilia() {
+  try {
+    return new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Sao_Paulo' }).format(new Date());
+  } catch { return new Date().toISOString().slice(0, 10); }
+}
+
+/** Dias de CALENDÁRIO — não períodos de 24 horas. Ver comentário no histórico. */
+function diasDesdeVerificacao(meta) {
+  const m = String(meta.verificado_em || '').match(/^(\d{2})\/(\d{2})\/(\d{4})/);
+  let iso;
+  if (m) iso = `${m[3]}-${m[2]}-${m[1]}`;
+  else if (meta.verificado_em_iso) iso = String(meta.verificado_em_iso).slice(0, 10);
+  else return null;
+
+  const [a1, m1, d1] = iso.split('-').map(Number);
+  const [a2, m2, d2] = hojeEmBrasilia().split('-').map(Number);
+  if (!a1 || !a2) return null;
+  return Math.max(0, Math.round((Date.UTC(a2, m2 - 1, d2) - Date.UTC(a1, m1 - 1, d1)) / 86400000));
+}
+
+function descreverVerificacao(meta) {
+  const dias = diasDesdeVerificacao(meta);
+  const partes = String(meta.verificado_em || '').split(' ');
+  const dia = partes[0] || '', hora = partes[1] || '';
+  const as = hora ? ` às ${hora}` : '';
+  if (dias === null) return meta.verificado_em ? `em ${meta.verificado_em}` : null;
+  if (dias === 0) return `hoje${as}`;
+  if (dias === 1) return `ontem${as}`;
+  return `há ${dias} dias, em ${dia.slice(0, 5)}${as}`;
+}
+
+/** "2026-09-11" -> "11/09/2026" */
+function dataBr(iso) {
+  const m = String(iso || '').match(/^(\d{4})-(\d{2})-(\d{2})/);
+  return m ? `${m[3]}/${m[2]}/${m[1]}` : (iso || '');
+}
+
 /* ==========================================================================
-   2. CARREGAMENTO DA BASE
+   3. CARREGAMENTO (sob demanda: a aba de IPs só busca quando é aberta)
    ========================================================================== */
 
-function definirEstado(novo, detalhe) {
-  estado = novo;
+function definirEstado(modulo, novo, detalhe) {
+  dados[modulo].estado = novo;
+  if (modulo !== aba) return;
+
   btnBuscar.disabled = (novo !== Estado.PRONTO);
+  const cfg = MODULOS[modulo];
 
   if (novo === Estado.CARREGANDO) {
     statusBase.style.color = 'var(--text-dim)';
@@ -771,143 +802,88 @@ function definirEstado(novo, detalhe) {
         <h2>Não foi possível carregar a base</h2>
         <p class="texto-estado">
           <strong>Isto não é um resultado de consulta.</strong> O site não conseguiu
-          ler a lista oficial, então não é possível afirmar nada sobre nenhuma casa
-          de apostas agora.
+          ler a lista oficial, então não é possível afirmar nada agora.
         </p>
         <p class="texto-estado">
           Recarregue a página em alguns instantes. Se continuar, consulte direto a
-          <a href="https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/transparencia-ativa-processos-de-autorizacao-de-apostas-de-quota-fixa/empresas-autorizadas"
-             target="_blank" rel="noopener noreferrer" style="color:var(--roxo)">lista do Governo Federal</a>.
+          <a href="${cfg.fonteUrl}" target="_blank" rel="noopener noreferrer" style="color:var(--roxo)">fonte oficial</a>.
         </p>
       </div>`;
-    if (typeof gtag === 'function') gtag('event', 'falha_carregar_base', { detalhe: String(detalhe || '') });
+    if (typeof gtag === 'function') gtag('event', 'falha_carregar_base', { modulo, detalhe: String(detalhe || '') });
   }
 
   if (novo === Estado.PRONTO) {
     statusBase.style.color = 'var(--ok)';
     statusTexto.textContent = 'Base carregada';
-    campo.placeholder = 'Digite a marca, o CNPJ ou o nome da empresa…';
+    campo.placeholder = cfg.placeholder;
   }
 }
 
-async function carregarBase() {
-  definirEstado(Estado.CARREGANDO);
+async function carregar(modulo) {
+  const d = dados[modulo], cfg = MODULOS[modulo];
+  if (d.carregou) return;
+  d.carregou = true;
+  definirEstado(modulo, Estado.CARREGANDO);
+
   try {
-    // Cache-buster por versão do dia: aproveita cache do navegador dentro do
-    // mesmo dia, mas garante base nova quando o arquivo é atualizado.
     const versao = new Date().toISOString().slice(0, 10);
-    const resp = await fetch(`dados.json?v=${versao}`, { cache: 'no-cache' });
+    const resp = await fetch(`${cfg.arquivo}?v=${versao}`, { cache: 'no-cache' });
     if (!resp.ok) throw new Error('HTTP ' + resp.status);
 
     const texto = await resp.text();
-    let dados;
-    try {
-      dados = JSON.parse(texto);
-    } catch {
-      // compatibilidade com o formato antigo: um JSON por linha
-      dados = texto.trim().split('\n').filter(l => l.trim()).map(l => JSON.parse(l));
+    let bruto;
+    try { bruto = JSON.parse(texto); }
+    catch { bruto = texto.trim().split('\n').filter(l => l.trim()).map(l => JSON.parse(l)); }
+
+    if (Array.isArray(bruto)) {
+      d.lista = bruto;
+      d.meta = modulo === 'bets' ? { ...META_RESERVA } : {};
+    } else {
+      d.lista = bruto[cfg.chaveLista] || bruto.empresas || bruto.instituicoes || [];
+      d.meta = modulo === 'bets'
+        ? { ...META_RESERVA, ...(bruto.meta || {}) }
+        : (bruto.meta || {});
     }
 
-    if (Array.isArray(dados)) {          // formato antigo: lista pura
-      empresas = dados;
-      meta = { ...META_RESERVA };
-    } else {                              // formato novo: { meta, empresas }
-      empresas = dados.empresas || [];
-      meta = { ...META_RESERVA, ...(dados.meta || {}) };
-    }
+    if (!d.lista.length) throw new Error('base vazia');
 
-    if (!empresas.length) throw new Error('base vazia');
-
-    // pré-calcula o texto normalizado de cada empresa (busca fica instantânea)
-    empresas.forEach(e => {
-      e._busca = normalizar([e.marcas, e.razao_social, e.cnpj, e.dominio].join(' '));
-      e._marcas = String(e.marcas || '').split(/[,;]/).map(s => s.trim()).filter(Boolean);
+    // Índice de busca pré-calculado
+    d.lista.forEach(e => {
+      e._busca = normalizar([
+        e.marcas, e.nomes, e.razao_social, e.cnpj, e.cnpj_raiz, e.dominio,
+      ].join(' '));
+      e._apelidos = String(e.marcas || e.nomes || '').split(/[,;]/).map(s => s.trim()).filter(Boolean);
     });
 
-    definirEstado(Estado.PRONTO);
-    renderizarPainel();
+    definirEstado(modulo, Estado.PRONTO);
+    $(`conta-${modulo}`).textContent = ` ${d.lista.length}`;
+    if (modulo === aba) renderizarPainel();
   } catch (erro) {
-    console.error('[Consulta Bet] Falha ao carregar dados.json:', erro);
-    definirEstado(Estado.ERRO, erro.message);
+    console.error(`[Consulta] Falha ao carregar ${cfg.arquivo}:`, erro);
+    d.carregou = false;                    // permite tentar de novo
+    definirEstado(modulo, Estado.ERRO, erro.message);
   }
 }
 
-/** Hoje no fuso de Brasília, como "2026-09-09". */
-function hojeEmBrasilia() {
-  try {
-    return new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Sao_Paulo' })
-      .format(new Date());
-  } catch {
-    return new Date().toISOString().slice(0, 10);
-  }
-}
+/* ==========================================================================
+   4. PAINEL
+   ========================================================================== */
 
-/**
- * Quantos dias de CALENDÁRIO desde a última verificação. null se não souber.
- *
- * Tem que ser calendário, não "períodos de 24 horas". Uma verificação de
- * ontem às 18h54, vista hoje às 15h20, tem só 20 horas de idade — se a conta
- * fosse por horas decorridas, o site diria "hoje", que é falso e destrói a
- * confiança em tudo que ele mostra.
- */
-function diasDesdeVerificacao(meta) {
-  // A data vem de "08/09/2026 18:54", que o robô grava em horário de Brasília
-  const m = String(meta.verificado_em || '').match(/^(\d{2})\/(\d{2})\/(\d{4})/);
-  let iso;
-  if (m) {
-    iso = `${m[3]}-${m[2]}-${m[1]}`;
-  } else if (meta.verificado_em_iso) {
-    iso = String(meta.verificado_em_iso).slice(0, 10);
-  } else {
-    return null;
-  }
-
-  const [a1, m1, d1] = iso.split('-').map(Number);
-  const [a2, m2, d2] = hojeEmBrasilia().split('-').map(Number);
-  if (!a1 || !a2) return null;
-
-  const dias = Math.round(
-    (Date.UTC(a2, m2 - 1, d2) - Date.UTC(a1, m1 - 1, d1)) / 86400000
-  );
-  return Math.max(0, dias);
-}
-
-/**
- * "hoje às 09:04" · "ontem às 09:02" · "há 3 dias, em 05/09 às 09:01"
- *
- * O horário vem de `verificado_em`, que o robô grava já no fuso de Brasília.
- * Usar isso em vez de converter no navegador evita mostrar hora errada para
- * quem estiver acessando de outro fuso.
- */
-function descreverVerificacao(meta) {
-  const dias = diasDesdeVerificacao(meta);
-  const partes = String(meta.verificado_em || '').split(' ');
-  const dia  = partes[0] || '';
-  const hora = partes[1] || '';
-  const as   = hora ? ` às ${hora}` : '';
-
-  if (dias === null) return meta.verificado_em ? `em ${meta.verificado_em}` : null;
-  if (dias === 0) return `hoje${as}`;
-  if (dias === 1) return `ontem${as}`;
-  return `há ${dias} dias, em ${dia.slice(0, 5)}${as}`;
-}
-
-/** Preenche o painel com as datas vindas do próprio dados.json. */
 function renderizarPainel() {
+  const d = dados[aba], cfg = MODULOS[aba];
   const partes = [];
-  partes.push(`<span class="painel-item"><b>${empresas.length}</b> casas autorizadas</span>`);
 
-  if (meta.atualizado_em) {
-    partes.push(`<span class="painel-item">Lista oficial atualizada em <b>${esc(meta.atualizado_em)}</b></span>`);
+  partes.push(`<span class="painel-item"><b>${d.lista.length}</b> ${cfg.rotuloBase}</span>`);
+
+  if (aba === 'bets') {
+    if (d.meta.atualizado_em) partes.push(`<span class="painel-item">Lista oficial atualizada em <b>${esc(d.meta.atualizado_em)}</b></span>`);
+    if (d.meta.publicado_em)  partes.push(`<span class="painel-item">Publicada em <b>${esc(d.meta.publicado_em)}</b></span>`);
+  } else if (d.meta.data_base) {
+    partes.push(`<span class="painel-item">Posição do BCB em <b>${esc(dataBr(d.meta.data_base))}</b></span>`);
   }
-  if (meta.publicado_em) {
-    partes.push(`<span class="painel-item">Publicada em <b>${esc(meta.publicado_em)}</b></span>`);
-  }
-  /* Quando o robô conferiu a fonte oficial pela última vez.
-     Se ficar velho, é sinal de que ele está sem conseguir acessar o gov.br —
-     e é melhor a pessoa saber disso do que confiar numa base parada. */
-  const dias = diasDesdeVerificacao(meta);
-  const quando = descreverVerificacao(meta);
+
+  const dias = diasDesdeVerificacao(d.meta);
+  const quando = descreverVerificacao(d.meta);
   if (quando) {
     const velho = dias !== null && dias >= 8;
     partes.push(
@@ -915,18 +891,29 @@ function renderizarPainel() {
       `${velho ? '⚠️ ' : ''}Fonte oficial verificada <b>${esc(quando)}</b></span>`
     );
   }
-  if (!meta.atualizado_em) {
-    partes.push('<span class="painel-item" style="color:var(--alerta)">Data da lista não informada na base</span>');
-  }
   infoBase.innerHTML = partes.join('');
+
+  /* Quebra por situação — só faz sentido nas IPs, e é a informação que
+     impede alguém de tratar "está na base" como "está autorizada". */
+  const st = d.meta.por_status;
+  if (aba === 'ips' && st) {
+    const linhas = [];
+    if (st.autorizada) linhas.push(`<span class="pilula ok"><span class="selo-ponto"></span><b>${st.autorizada}</b> autorizadas em atividade</span>`);
+    if (st.autorizada_sem_atividade) linhas.push(`<span class="pilula alerta"><span class="selo-ponto"></span><b>${st.autorizada_sem_atividade}</b> autorizadas sem atividade</span>`);
+    if (st.cancelada) linhas.push(`<span class="pilula erro"><span class="selo-ponto"></span><b>${st.cancelada}</b> canceladas ou em liquidação</span>`);
+    resumoStatus.innerHTML = linhas.join('');
+  } else {
+    resumoStatus.innerHTML = '';
+  }
 }
 
 /* ==========================================================================
-   3. BUSCA
+   5. BUSCA
    ========================================================================== */
 
 function buscar() {
-  if (estado !== Estado.PRONTO) return;
+  const d = dados[aba];
+  if (d.estado !== Estado.PRONTO) return;
 
   const bruto = campo.value.trim();
   const termo = normalizar(bruto);
@@ -938,54 +925,45 @@ function buscar() {
     return;
   }
 
-  const achados = empresas.filter(e => e._busca.includes(termo));
+  const achados = d.lista.filter(e => e._busca.includes(termo));
 
   if (achados.length) {
-    renderizarAchados(achados, termo);
+    achados.sort((a, b) => pontuar(b, termo) - pontuar(a, termo));
+    const cabecalho = achados.length === 1 ? '1 resultado encontrado' : `${achados.length} resultados encontrados`;
+    $('contagemResultado').textContent = cabecalho;
+    areaResultado.innerHTML =
+      `<p class="contagem">${cabecalho}</p>` +
+      achados.slice(0, 25).map(e => aba === 'bets' ? cartaoBet(e, termo) : cartaoIP(e, termo)).join('') +
+      (achados.length > 25 ? `<p class="contagem">Mostrando os 25 primeiros. Refine a busca.</p>` : '');
   } else {
-    renderizarNaoEncontrado(bruto, termo);
-    if (typeof gtag === 'function') gtag('event', 'busca_sem_resultado', { termo: bruto.slice(0, 80) });
+    naoEncontrado(bruto, termo);
+    if (typeof gtag === 'function') gtag('event', 'busca_sem_resultado', { modulo: aba, termo: bruto.slice(0, 80) });
   }
-}
-
-function renderizarAchados(achados, termo) {
-  // quem casou pela marca vem primeiro, e marca exata na frente de todas
-  achados.sort((a, b) => pontuar(b, termo) - pontuar(a, termo));
-
-  const cabecalho = achados.length === 1
-    ? '1 resultado encontrado'
-    : `${achados.length} resultados encontrados`;
-
-  $('contagemResultado').textContent = cabecalho;
-
-  areaResultado.innerHTML =
-    `<p class="contagem">${cabecalho}</p>` +
-    achados.slice(0, 25).map(e => cartaoEmpresa(e, termo)).join('') +
-    (achados.length > 25 ? `<p class="contagem">Mostrando os 25 primeiros. Refine a busca para ver os demais.</p>` : '');
 }
 
 function pontuar(e, termo) {
   let p = 0;
-  if (e._marcas.some(m => normalizar(m) === termo)) p += 100;
-  if (e._marcas.some(m => normalizar(m).startsWith(termo))) p += 50;
-  if (normalizar(e.marcas).includes(termo)) p += 20;
-  if (normalizar(e.cnpj).includes(termo)) p += 10;
+  if (e._apelidos.some(m => normalizar(m) === termo)) p += 100;
+  if (e._apelidos.some(m => normalizar(m).startsWith(termo))) p += 50;
+  if (normalizar(e.cnpj).includes(termo)) p += 30;
+  if (normalizar(e.cnpj_raiz || '').includes(termo)) p += 25;
+  if (normalizar(e.razao_social || '').includes(termo)) p += 10;
+  // Uma instituição cancelada sobe na lista: é o que não pode passar batido
+  if (e.status && e.status !== 'autorizada') p += 5;
   return p;
 }
 
-function cartaoEmpresa(e, termo) {
+/* ------------------------------------------------------------ cartão: bets */
+function cartaoBet(e, termo) {
   const judicial = e.origem === 'judicial' || /judicial|liminar/i.test(e.portaria || '');
   const selo = judicial
     ? '<span class="selo alerta"><span class="selo-ponto"></span> Autorizada por decisão judicial</span>'
     : '<span class="selo ok"><span class="selo-ponto"></span> Autorizada</span>';
-
   const nota = judicial
     ? `<p class="texto-estado" style="font-size:13.5px">Opera por liminar, durante o período de adaptação. Para fins legais, tem os mesmos direitos e deveres de uma empresa autorizada administrativamente.</p>`
     : '';
-
   const linkDoc = e.documento_url
-    ? ` <a href="${esc(e.documento_url)}" target="_blank" rel="noopener noreferrer">ver ato ↗</a>`
-    : '';
+    ? ` <a href="${esc(e.documento_url)}" target="_blank" rel="noopener noreferrer">ver ato ↗</a>` : '';
 
   return `
     <article class="cartao ${judicial ? 'alerta' : 'ok'}">
@@ -1011,23 +989,116 @@ function cartaoEmpresa(e, termo) {
     </article>`;
 }
 
-function renderizarNaoEncontrado(bruto, termo) {
+/* ------------------------------------------------------------- cartão: IPs */
+function cartaoIP(e, termo) {
+  const status = e.status || 'indefinida';
+
+  /* O ponto mais importante desta tela: constar na base do BCB não é o
+     mesmo que estar autorizada. Cada situação recebe cor e texto próprios. */
+  const visual = {
+    autorizada: {
+      classe: 'ok',
+      selo: '<span class="selo ok"><span class="selo-ponto"></span> Autorizada e em atividade</span>',
+      aviso: '',
+    },
+    autorizada_sem_atividade: {
+      classe: 'alerta',
+      selo: '<span class="selo alerta"><span class="selo-ponto"></span> Autorizada, sem atividade</span>',
+      aviso: `<div class="aviso-grave" style="background:var(--alerta-fundo);border-color:rgba(251,191,36,.35);color:#FFE9BC">
+                <strong>Autorizada, mas sem operação registrada no BCB.</strong>
+                Movimentação relevante em nome de uma instituição nesta situação
+                merece atenção na análise.
+              </div>`,
+    },
+    cancelada: {
+      classe: 'erro grave',
+      selo: '<span class="selo erro"><span class="selo-ponto"></span> Não autorizada a operar</span>',
+      aviso: `<div class="aviso-grave">
+                <strong>Esta instituição consta na base do Banco Central, mas NÃO está autorizada a operar.</strong>
+                Aparecer nesta consulta não significa regularidade — significa que o BCB
+                mantém o registro histórico dela.
+              </div>`,
+    },
+    indefinida: {
+      classe: '',
+      selo: '<span class="selo alerta"><span class="selo-ponto"></span> Situação não classificada</span>',
+      aviso: `<div class="aviso-grave" style="background:var(--roxo-fundo);border-color:var(--line-strong);color:var(--text-muted)">
+                O Banco Central informa uma situação que este site ainda não sabe
+                interpretar. Confira o texto original abaixo e, na dúvida, consulte a fonte.
+              </div>`,
+    },
+  }[status];
+
+  const local = [e.municipio, e.uf].filter(Boolean).join(' · ');
+
+  return `
+    <article class="cartao ${visual.classe}">
+      ${visual.selo}
+      <h2>${destacar(e.razao_social || '—', termo)}</h2>
+      <p class="cnpj">CNPJ ${destacar(e.cnpj || '—', termo)}</p>
+      ${visual.aviso}
+      <div class="grade-campos">
+        <div>
+          <p class="campo-rotulo">Situação no BCB</p>
+          <p class="campo-valor">${esc(e.situacao || '—')}</p>
+        </div>
+        <div>
+          <p class="campo-rotulo">Natureza jurídica</p>
+          <p class="campo-valor">${esc(e.natureza_juridica || '—')}</p>
+        </div>
+        ${e.nomes ? `
+        <div>
+          <p class="campo-rotulo">Também conhecida como</p>
+          ${listaEtiquetas(e.nomes, 'marca', termo)}
+        </div>` : ''}
+        ${local ? `
+        <div>
+          <p class="campo-rotulo">Sede</p>
+          <p class="campo-valor">${esc(local)}</p>
+        </div>` : ''}
+        ${e.codigo_bacen ? `
+        <div>
+          <p class="campo-rotulo">Código no Bacen</p>
+          <p class="campo-valor" style="font-variant-numeric:tabular-nums">${esc(e.codigo_bacen)}</p>
+        </div>` : ''}
+      </div>
+    </article>`;
+}
+
+/* ------------------------------------------------------- não encontrado */
+function naoEncontrado(bruto, termo) {
+  const d = dados[aba], cfg = MODULOS[aba];
   const sugestoes = sugerir(termo);
   $('contagemResultado').textContent = 'Nenhum resultado encontrado';
 
+  const referencia = aba === 'bets'
+    ? (d.meta.atualizado_em ? `da lista publicada em ${esc(d.meta.atualizado_em)}` : 'da data de referência')
+    : (d.meta.data_base ? `da posição de ${esc(dataBr(d.meta.data_base))}` : 'da data de referência');
+
+  /* Nas IPs a negativa precisa de um cuidado extra: a base cobre APENAS
+     Instituições de Pagamento. Um banco consultado aqui dá "não consta",
+     e isso não significa que ele não seja regulado. */
+  const ressalva = aba === 'ips'
+    ? `<div class="aviso-grave" style="background:var(--alerta-fundo);border-color:rgba(251,191,36,.35);color:#FFE9BC">
+         <strong>Esta base cobre apenas Instituições de Pagamento.</strong>
+         Bancos, financeiras, corretoras e cooperativas são regulados pelo BCB
+         e <em>não aparecem aqui</em>. Para esses, consulte direto o
+         <a href="${cfg.fonteUrl}" target="_blank" rel="noopener noreferrer" style="color:#FFF">Banco Central</a>.
+       </div>`
+    : '';
+
   areaResultado.innerHTML = `
     <article class="cartao erro">
-      <span class="selo erro"><span class="selo-ponto"></span> Não consta na lista</span>
+      <span class="selo erro"><span class="selo-ponto"></span> Não consta na base</span>
       <h2>Nada encontrado para "${esc(bruto)}"</h2>
       <p class="texto-estado">
-        Nenhuma casa com esse nome, marca ou CNPJ aparece na lista oficial da
-        data de referência abaixo.
+        Nenhum registro com esse nome ou CNPJ aparece na base ${referencia}.
       </p>
+      ${ressalva}
       <p class="texto-estado" style="font-size:13.5px">
-        Antes de concluir que é irregular: confira a grafia, tente buscar pelo
-        <strong>CNPJ</strong>, ou consulte a
-        <a href="https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/transparencia-ativa-processos-de-autorizacao-de-apostas-de-quota-fixa/empresas-autorizadas"
-           target="_blank" rel="noopener noreferrer" style="color:var(--roxo)">lista oficial atualizada</a>.
+        Antes de concluir qualquer coisa: confira a grafia, tente pelo
+        <strong>CNPJ</strong> (inclusive só a raiz, os 8 primeiros dígitos), ou
+        consulte a <a href="${cfg.fonteUrl}" target="_blank" rel="noopener noreferrer" style="color:var(--roxo)">fonte oficial</a>.
       </p>
       ${sugestoes.length ? `
         <div class="sugestoes">
@@ -1039,67 +1110,67 @@ function renderizarNaoEncontrado(bruto, termo) {
     </article>`;
 }
 
-/**
- * Sugere até 4 marcas parecidas com o que foi digitado ("você quis dizer…").
- *
- * Usa distância de edição: quantas letras precisariam mudar para virar a marca.
- * O limite cresce com o tamanho da palavra — em "bet36" um erro já é muito,
- * em "betnacionall" três ainda é plausível.
- */
 function sugerir(termo) {
   const limite = termo.length <= 5 ? 1 : termo.length <= 9 ? 2 : 3;
   const candidatos = [];
-
-  for (const e of empresas) {
-    for (const marca of e._marcas) {
-      const n = normalizar(marca);
+  for (const e of dados[aba].lista) {
+    for (const nome of e._apelidos) {
+      const n = normalizar(nome);
       if (!n) continue;
-      const d = distancia(termo, n);
-      if (d <= limite) candidatos.push({ marca, custo: d });
+      const dist = distancia(termo, n);
+      if (dist <= limite) candidatos.push({ nome, custo: dist });
     }
   }
-
-  candidatos.sort((a, b) => a.custo - b.custo || a.marca.length - b.marca.length);
+  candidatos.sort((a, b) => a.custo - b.custo || a.nome.length - b.nome.length);
   const vistos = new Set();
-  return candidatos.filter(c => !vistos.has(c.marca) && vistos.add(c.marca)).slice(0, 4).map(c => c.marca);
+  return candidatos.filter(c => !vistos.has(c.nome) && vistos.add(c.nome)).slice(0, 4).map(c => c.nome);
 }
 
 /* ==========================================================================
-   4. LISTA COMPLETA
+   6. LISTA COMPLETA
    ========================================================================== */
 
 let listaVisivel = false;
 
 function alternarLista() {
-  if (estado !== Estado.PRONTO) return;
+  const d = dados[aba];
+  if (d.estado !== Estado.PRONTO) return;
   listaVisivel = !listaVisivel;
   const btn = $('btnLista');
   btn.setAttribute('aria-expanded', String(listaVisivel));
   btn.textContent = listaVisivel ? 'Ocultar lista' : 'Ver lista completa';
   listaCompleta.hidden = !listaVisivel;
+  if (listaVisivel) desenharLista();
+}
 
-  if (listaVisivel && !listaCompleta.innerHTML) {
-    const linhas = [...empresas]
-      .sort((a, b) => (a.razao_social || '').localeCompare(b.razao_social || '', 'pt-BR'))
-      .map(e => `
-        <tr>
-          <td>${esc(e.razao_social || '—')}</td>
-          <td style="font-variant-numeric:tabular-nums">${esc(e.cnpj || '—')}</td>
-          <td>${esc(e.marcas || '—')}</td>
-        </tr>`).join('');
+function desenharLista() {
+  const d = dados[aba];
+  const ordenada = [...d.lista].sort((a, b) =>
+    (a.razao_social || '').localeCompare(b.razao_social || '', 'pt-BR'));
 
-    listaCompleta.innerHTML = `
-      <div class="rolagem-h">
-        <table class="tabela-lista">
-          <thead><tr><th>Empresa</th><th>CNPJ</th><th>Marcas</th></tr></thead>
-          <tbody>${linhas}</tbody>
-        </table>
-      </div>`;
-  }
+  const cabecalho = aba === 'bets'
+    ? '<tr><th>Empresa</th><th>CNPJ</th><th>Marcas</th></tr>'
+    : '<tr><th>Instituição</th><th>CNPJ</th><th>Situação</th></tr>';
+
+  const linhas = ordenada.map(e => {
+    if (aba === 'bets') {
+      return `<tr><td>${esc(e.razao_social || '—')}</td>
+              <td style="font-variant-numeric:tabular-nums">${esc(e.cnpj || '—')}</td>
+              <td>${esc(e.marcas || '—')}</td></tr>`;
+    }
+    const cor = e.status === 'autorizada' ? 'var(--ok)'
+              : e.status === 'cancelada' ? 'var(--erro)' : 'var(--alerta)';
+    return `<tr><td>${esc(e.razao_social || '—')}</td>
+            <td style="font-variant-numeric:tabular-nums">${esc(e.cnpj || '—')}</td>
+            <td style="color:${cor}">${esc(e.situacao || '—')}</td></tr>`;
+  }).join('');
+
+  listaCompleta.innerHTML =
+    `<div class="rolagem-h"><table class="tabela-lista"><thead>${cabecalho}</thead><tbody>${linhas}</tbody></table></div>`;
 }
 
 /* ==========================================================================
-   5. MODAIS
+   7. MODAIS
    ========================================================================== */
 
 let ultimoFoco = null;
@@ -1111,47 +1182,38 @@ function abrirModal(id) {
   const alvo = m.querySelector('button');
   if (alvo) alvo.focus();
 }
-
 function fecharModal(id) {
   $(id).dataset.aberto = 'nao';
   if (ultimoFoco) ultimoFoco.focus();
 }
-
 function fecharTodosModais() {
   document.querySelectorAll('.fundo-modal[data-aberto="sim"]').forEach(m => { m.dataset.aberto = 'nao'; });
 }
 
 async function abrirHistorico() {
   abrirModal('modalHistorico');
-  const alvo = $('conteudoHistorico');
-  const data = $('dataHistorico');
-
+  const alvo = $('conteudoHistorico'), data = $('dataHistorico');
+  const d = dados[aba], cfg = MODULOS[aba];
   data.textContent = 'Consultando…';
   alvo.innerHTML = '';
 
   try {
     const versao = new Date().toISOString().slice(0, 10);
-    const resp = await fetch(`historico.json?v=${versao}`, { cache: 'no-cache' });
+    const resp = await fetch(`${cfg.historico}?v=${versao}`, { cache: 'no-cache' });
     if (!resp.ok) throw new Error('HTTP ' + resp.status);
     const h = await resp.json();
 
-    /* Duas datas diferentes, e confundir as duas é o que deixava este modal
-       parecendo travado no passado:
-
-         verificado_em  -> quando o robô conferiu a fonte pela última vez.
-                           Anda todo dia útil, mesmo sem novidade.
-         alterado_em    -> quando a lista de fato mudou pela última vez.
-                           Pode ficar semanas parada, e isso é normal.
-
-       O subtítulo mostra a primeira; o corpo, a segunda. */
-    data.textContent = `Fonte oficial verificada ${descreverVerificacao(meta) || '—'}`;
+    /* Duas datas diferentes, e confundi-las deixava este modal parecendo
+       travado no passado:
+         verificado_em -> quando o robô conferiu a fonte (anda todo dia útil)
+         alterado_em   -> quando a lista de fato mudou (pode ficar parada) */
+    data.textContent = `Fonte oficial verificada ${descreverVerificacao(d.meta) || '—'}`;
 
     const add = h.adicionadas || [];
     const rem = h.removidas || [];
     const alt = h.marcas_alteradas || [];
     const houve = add.length || rem.length || alt.length;
 
-    // Faz quanto tempo foi a última alteração registrada
     let diasAlt = null;
     if (h.alterado_em_iso) {
       const q = new Date(h.alterado_em_iso);
@@ -1161,7 +1223,6 @@ async function abrirHistorico() {
     const quandoAlt = h.alterado_em || h.data || 'data não registrada';
 
     let html = '';
-
     if (!houve) {
       html = `<div class="bloco-mudanca neutro">
         <h4 style="color:var(--roxo)">Nenhuma alteração registrada</h4>
@@ -1170,9 +1231,7 @@ async function abrirHistorico() {
         </p></div>`;
     } else {
       html += recente
-        ? `<p style="margin:0 0 12px;font-size:12.5px;color:var(--ok)">
-             Alterações detectadas em <strong>${esc(quandoAlt)}</strong>.
-           </p>`
+        ? `<p style="margin:0 0 12px;font-size:12.5px;color:var(--ok)">Alterações detectadas em <strong>${esc(quandoAlt)}</strong>.</p>`
         : `<div class="bloco-mudanca neutro">
              <h4 style="color:var(--roxo)">Nenhuma alteração recente</h4>
              <p style="margin:0;font-size:13px;color:var(--text-muted)">
@@ -1180,60 +1239,82 @@ async function abrirHistorico() {
                Abaixo, a última mudança registrada.
              </p></div>`;
 
-      if (add.length) {
-        html += `<div class="bloco-mudanca add"><h4>+${add.length} empresa(s) adicionada(s)</h4>
-          <ul>${add.map(i => `<li>${esc(i)}</li>`).join('')}</ul></div>`;
-      }
-      if (rem.length) {
-        html += `<div class="bloco-mudanca rem"><h4>−${rem.length} empresa(s) removida(s)</h4>
-          <ul>${rem.map(i => `<li>${esc(i)}</li>`).join('')}</ul></div>`;
-      }
-      if (alt.length) {
-        html += `<div class="bloco-mudanca neutro"><h4 style="color:var(--roxo)">${alt.length} empresa(s) com marcas alteradas</h4>
-          <ul>${alt.map(a => `<li><strong style="color:var(--text)">${esc(a.empresa)}</strong>: ${esc(a.antes)} → ${esc(a.depois)}</li>`).join('')}</ul></div>`;
-      }
+      if (add.length) html += `<div class="bloco-mudanca add"><h4>+${add.length} entrou(ram)</h4>
+        <ul>${add.map(i => `<li>${esc(i)}</li>`).join('')}</ul></div>`;
+      if (rem.length) html += `<div class="bloco-mudanca rem"><h4>−${rem.length} saiu(ram)</h4>
+        <ul>${rem.map(i => `<li>${esc(i)}</li>`).join('')}</ul></div>`;
+      if (alt.length) html += `<div class="bloco-mudanca neutro"><h4 style="color:var(--roxo)">${alt.length} com marcas alteradas</h4>
+        <ul>${alt.map(a => `<li><strong style="color:var(--text)">${esc(a.empresa)}</strong>: ${esc(a.antes)} → ${esc(a.depois)}</li>`).join('')}</ul></div>`;
     }
 
-    if (meta.atualizado_em) {
-      html += `<p style="margin:14px 0 0;font-size:12px;color:var(--text-dim)">
-        Carimbo da própria página do gov.br: atualizada em <strong style="color:var(--text-muted)">${esc(meta.atualizado_em)}</strong>.
-        O governo às vezes republica a página sem mexer na lista — por isso essa data pode
-        mudar sem que nenhuma casa tenha entrado ou saído.
-      </p>`;
-    }
+    const carimbo = aba === 'bets'
+      ? (d.meta.atualizado_em ? `Carimbo da página do gov.br: atualizada em <strong style="color:var(--text-muted)">${esc(d.meta.atualizado_em)}</strong>. O governo às vezes republica a página sem mexer na lista.` : '')
+      : (d.meta.data_base ? `Posição da base do Banco Central: <strong style="color:var(--text-muted)">${esc(dataBr(d.meta.data_base))}</strong>.` : '');
+    if (carimbo) html += `<p style="margin:14px 0 0;font-size:12px;color:var(--text-dim)">${carimbo}</p>`;
 
     alvo.innerHTML = html;
 
   } catch (erro) {
-    // IMPORTANTE: falha de rede NÃO pode virar "nenhuma alteração".
-    console.error('[Consulta Bet] Falha ao carregar historico.json:', erro);
+    // Falha de rede NÃO pode virar "nenhuma alteração".
+    console.error('[Consulta] Falha ao carregar histórico:', erro);
     data.textContent = 'Indisponível';
     alvo.innerHTML = `<div class="bloco-mudanca rem">
       <h4>Não foi possível carregar o histórico</h4>
       <p style="margin:0;font-size:13px;color:var(--text-muted)">
-        Isto não significa que nada mudou — significa que o arquivo de histórico
-        não pôde ser lido. Tente novamente em instantes.
+        Isto não significa que nada mudou — significa que o arquivo não pôde ser lido.
       </p></div>`;
   }
 }
 
 /* ==========================================================================
-   6. LIGAÇÕES DE EVENTOS
+   8. TROCA DE ABA
+   ========================================================================== */
+
+function trocarAba(novo) {
+  if (novo === aba) return;
+  aba = novo;
+  const cfg = MODULOS[aba];
+
+  document.querySelectorAll('.aba').forEach(b =>
+    b.setAttribute('aria-selected', String(b.dataset.modulo === aba)));
+
+  $('heroTitulo').innerHTML = cfg.titulo;
+  $('heroTexto').textContent = cfg.subtitulo;
+  $('rodapeAviso').textContent = cfg.rodape;
+  $('linkFonte').href = cfg.fonteUrl;
+  $('linkFonteTexto').textContent = cfg.fonteNome + ' ↗';
+
+  campo.value = '';
+  btnLimpar.classList.remove('visivel');
+  areaResultado.innerHTML = '';
+  listaCompleta.innerHTML = '';
+  listaCompleta.hidden = true;
+  listaVisivel = false;
+  $('btnLista').textContent = 'Ver lista completa';
+  $('btnLista').setAttribute('aria-expanded', 'false');
+
+  if (typeof gtag === 'function') gtag('event', 'trocar_aba', { modulo: aba });
+
+  definirEstado(aba, dados[aba].estado);
+  if (dados[aba].estado === Estado.PRONTO) renderizarPainel();
+  carregar(aba);
+  campo.focus();
+}
+
+/* ==========================================================================
+   9. EVENTOS
    ========================================================================== */
 
 let temporizador;
 campo.addEventListener('input', () => {
   btnLimpar.classList.toggle('visivel', campo.value.length > 0);
   clearTimeout(temporizador);
-  temporizador = setTimeout(buscar, 160);   // busca enquanto digita
+  temporizador = setTimeout(buscar, 160);
 });
-
 campo.addEventListener('keydown', e => {
   if (e.key === 'Enter') { clearTimeout(temporizador); buscar(); }
 });
-
 btnBuscar.addEventListener('click', () => { clearTimeout(temporizador); buscar(); });
-
 btnLimpar.addEventListener('click', () => {
   campo.value = '';
   btnLimpar.classList.remove('visivel');
@@ -1241,19 +1322,19 @@ btnLimpar.addEventListener('click', () => {
   campo.focus();
 });
 
+document.querySelectorAll('.aba').forEach(b =>
+  b.addEventListener('click', () => trocarAba(b.dataset.modulo)));
+
 $('btnLista').addEventListener('click', alternarLista);
 $('btnHistorico').addEventListener('click', abrirHistorico);
 $('btnAjuda').addEventListener('click', () => abrirModal('modalAjuda'));
 
-// fecha o modal clicando no fundo escuro ou no botão Fechar
 document.querySelectorAll('.fundo-modal').forEach(fundo => {
   fundo.addEventListener('click', e => { if (e.target === fundo) fecharModal(fundo.id); });
 });
-document.querySelectorAll('[data-fechar]').forEach(b => {
-  b.addEventListener('click', () => fecharModal(b.dataset.fechar));
-});
+document.querySelectorAll('[data-fechar]').forEach(b =>
+  b.addEventListener('click', () => fecharModal(b.dataset.fechar)));
 
-// clicar numa etiqueta de marca ou sugestão refaz a busca por ela
 document.addEventListener('click', e => {
   const alvo = e.target.closest('[data-busca]');
   if (!alvo) return;
@@ -1270,11 +1351,9 @@ document.addEventListener('keydown', e => {
   buscar();
 });
 
-// atalhos globais de teclado
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') {
-    const aberto = document.querySelector('.fundo-modal[data-aberto="sim"]');
-    if (aberto) { fecharTodosModais(); return; }
+    if (document.querySelector('.fundo-modal[data-aberto="sim"]')) { fecharTodosModais(); return; }
     if (document.activeElement === campo) {
       campo.value = '';
       btnLimpar.classList.remove('visivel');
@@ -1282,16 +1361,24 @@ document.addEventListener('keydown', e => {
     }
     return;
   }
-  if (e.key === '/' && document.activeElement !== campo) {
-    e.preventDefault();
-    campo.focus();
-  }
+  if (e.key === '/' && document.activeElement !== campo) { e.preventDefault(); campo.focus(); }
 });
 
 /* ==========================================================================
-   7. INÍCIO
+   10. INÍCIO
    ========================================================================== */
-carregarBase().then(() => campo.focus());
+
+(function iniciar() {
+  const cfg = MODULOS[aba];
+  $('heroTitulo').innerHTML = cfg.titulo;
+  $('heroTexto').textContent = cfg.subtitulo;
+  $('rodapeAviso').textContent = cfg.rodape;
+  $('linkFonte').href = cfg.fonteUrl;
+  $('linkFonteTexto').textContent = cfg.fonteNome + ' ↗';
+  document.querySelector('.aba[data-modulo="bets"]').setAttribute('aria-selected', 'true');
+
+  carregar('bets').then(() => campo.focus());
+})();
 </script>
 </body>
 </html>
