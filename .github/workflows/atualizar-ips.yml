@@ -1,0 +1,181 @@
+# =============================================================================
+#  NU - CONSULTA  |  Robo das Instituicoes de Pagamento (BCB)
+# =============================================================================
+#
+#  Irmao gemeo do "atualizar.yml" das bets, com a mesma logica:
+#
+#    - a lista mudou      -> abre Pull Request para voce aprovar
+#    - so a data mudou    -> commita direto, sem incomodar voce
+#    - a API nao respondeu-> sai verde, sem alarme falso
+#    - os dados vieram errados -> sai vermelho e abre issue
+#
+#  A base do BCB e atualizada TODO DIA (descobrimos isso no teste: pedimos a
+#  data de hoje e ela existia). Por isso roda de segunda a sexta, igual as
+#  bets -- nao ha motivo para esperar o mes virar.
+#
+#  HORARIO: 08h47 de Brasilia (11h47 UTC).
+#  Minuto quebrado de proposito: o GitHub enfileira as tarefas agendadas e
+#  horas redondas sao as mais concorridas, o que causa atrasos de horas.
+#
+# =============================================================================
+
+name: Atualizar Instituicoes de Pagamento (BCB)
+
+on:
+  schedule:
+    - cron: '47 11 * * 1-5'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  atualizar:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar o repositorio
+        uses: actions/checkout@v5
+
+      - name: Configurar o Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+
+      - name: Instalar dependencias
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Consultar a API do BCB
+        id: scraper
+        run: python scraper_ips.py
+
+      # Nada mudou na lista: so o carimbo de data. Vai direto para a main.
+      - name: Registrar a verificacao (nada mudou)
+        if: steps.scraper.outputs.batimento == 'sim'
+        run: |
+          if git diff --quiet -- ips.json historico_ips.json; then
+            echo "Nem o horario mudou. Nada a commitar."
+            exit 0
+          fi
+          git config user.name  'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git add ips.json historico_ips.json
+          git commit -m "IPs: verificacao de rotina (${{ steps.scraper.outputs.total }} instituicoes)"
+          git push
+
+      - name: Verificar se algo mudou
+        id: diff
+        if: steps.scraper.outputs.batimento == 'nao'
+        run: |
+          if git diff --quiet -- ips.json historico_ips.json; then
+            echo "mudou=nao" >> "$GITHUB_OUTPUT"
+          else
+            echo "mudou=sim" >> "$GITHUB_OUTPUT"
+            git diff --stat -- ips.json historico_ips.json
+          fi
+
+      - name: Abrir Pull Request para revisao
+        if: steps.diff.outputs.mudou == 'sim'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: atualizacao-ips-bcb
+          delete-branch: true
+          commit-message: "Atualiza base de IPs (${{ steps.scraper.outputs.resumo }})"
+          title: "Instituicoes de Pagamento: ${{ steps.scraper.outputs.resumo }}"
+          labels: atualizacao-automatica
+          body: |
+            ## Atualizacao automatica da base de Instituicoes de Pagamento
+
+            | | |
+            |---|---|
+            | **Total na base** | ${{ steps.scraper.outputs.total }} |
+            | **Entraram** | +${{ steps.scraper.outputs.adicionadas }} |
+            | **Sairam** | -${{ steps.scraper.outputs.removidas }} |
+            | **Data-base do BCB** | ${{ steps.scraper.outputs.data_base }} |
+
+            ### Antes de aprovar
+
+            - [ ] O total bate com a ordem de grandeza esperada (~211)
+            - [ ] A `data_base` em `ips.json` e recente
+            - [ ] As entradas e saidas no diff fazem sentido
+
+            > **Lembrete:** nem toda instituicao nesta base esta autorizada.
+            > O campo `status` separa `autorizada`, `autorizada_sem_atividade`
+            > e `cancelada`. Uma IP cancelada continua aparecendo na lista do
+            > BCB -- e isso e proposital, nao erro.
+
+            **Fonte:** [Dados cadastrais de entidades supervisionadas](https://dadosabertos.bcb.gov.br/dataset/dados-cadastrais-de-entidades-autorizadas)
+
+            > O site **nao** muda ate voce dar merge.
+
+      # ---------------------------------------------------------------
+      #  Retorno da execucao manual (igual ao robo das bets)
+      # ---------------------------------------------------------------
+      - name: Descrever o que aconteceu
+        if: github.event_name == 'workflow_dispatch' && always()
+        id: desfecho
+        run: |
+          RESULTADO="${{ steps.scraper.outputs.resultado }}"
+          MUDOU="${{ steps.diff.outputs.mudou }}"
+          ADD="${{ steps.scraper.outputs.adicionadas }}"
+          REM="${{ steps.scraper.outputs.removidas }}"
+          BASE="${{ steps.scraper.outputs.data_base }}"
+
+          APROVAR="Abra o *Pull Request* (a proposta de mudanca que espera sua aprovacao), confira e clique em *Merge* (aprovar e publicar). *Ate voce aprovar, o site continua como esta.*"
+
+          if [ "$RESULTADO" = "sem_acesso" ]; then
+            TEXTO="A API do Banco Central nao respondeu. *Isto nao e uma falha* -- a base no ar continua correta, so nao foi conferida agora."
+            ALERTA="--alerta"
+          elif [ "$MUDOU" = "sim" ]; then
+            TEXTO="*Entraram ${ADD} e sairam ${REM} instituicoes* na base do BCB (data-base ${BASE}). ${APROVAR}"
+            ALERTA=""
+          else
+            TEXTO="*Nada mudou.* Nenhuma instituicao entrou ou saiu. So registrei que a fonte foi conferida agora (data-base ${BASE}) -- ja esta no ar."
+            ALERTA=""
+          fi
+
+          echo "texto=$TEXTO"   >> "$GITHUB_OUTPUT"
+          echo "alerta=$ALERTA" >> "$GITHUB_OUTPUT"
+
+      - name: Avisar no Slack
+        if: github.event_name == 'workflow_dispatch' && always()
+        continue-on-error: true
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          URL_SITE: ${{ vars.URL_SITE }}
+          MODO_SLACK: ${{ vars.MODO_SLACK }}
+          DESFECHO: ${{ steps.desfecho.outputs.texto }}
+        run: >
+          python avisar_slack.py execucao
+          --desfecho "$DESFECHO"
+          ${{ steps.desfecho.outputs.alerta }}
+          --log "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+      - name: Avisar em caso de falha
+        if: failure()
+        continue-on-error: true
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const url = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `Robo das IPs falhou em ${new Date().toLocaleDateString('pt-BR')}`,
+              labels: ['falha-automacao'],
+              body: [
+                'O robo tentou atualizar a base de Instituicoes de Pagamento e **nao conseguiu**.',
+                '',
+                '**Importante:** nada foi publicado. O site continua com a base anterior.',
+                '',
+                `[Ver o log completo](${url})`,
+                '',
+                '### Causa mais provavel',
+                'A API do BCB mudou o formato da chamada.',
+                'Rode o workflow "Testar API do BCB" para ver o que ela esta devolvendo agora.'
+              ].join('\n')
+            });
