@@ -559,7 +559,7 @@ footer a:hover { color: var(--roxo); }
         <span class="seletor-meta"><b id="conta-bets">—</b> autorizadas · SPA/MF</span>
       </button>
       <button class="seletor-item" id="aba-ips" role="tab" aria-selected="false" data-modulo="ips">
-        <span class="seletor-titulo">Instuições de Pagamentos</span>
+        <span class="seletor-titulo">Inst. de Pagamento</span>
         <span class="seletor-meta"><b id="conta-ips">—</b> na base · Banco Central</span>
       </button>
     </div>
@@ -682,13 +682,13 @@ const MODULOS = {
     arquivo: 'ips.json',
     historico: 'historico_ips.json',
     chaveLista: 'instituicoes',
-    titulo: 'Instituições de <span class="destaque">Pagamentos</span>',
+    titulo: 'Instituições de <span class="destaque">Pagamento</span>',
     subtitulo: 'Consulte a situação de uma Instituição de Pagamento na base de entidades supervisionadas pelo Banco Central.',
     placeholder: 'Digite o CNPJ ou o nome da instituição…',
     rotuloBase: 'instituições na base',
     fonteNome: 'Banco Central',
     fonteUrl: 'https://dadosabertos.bcb.gov.br/dataset/dados-cadastrais-de-entidades-autorizadas',
-    rodape: 'Ferramenta informativa, sem valor de certidão. A base cobre apenas Instituições de Pagamento — bancos, financeiras e outros tipos de instituição regulada não aparecem aqui. A fonte oficial é o Banco Central do Brasil.',
+    rodape: 'Ferramenta informativa, sem valor de certidão. A base cobre apenas Instituições de Pagamento, incluindo as que o BCB classifica como não sujeitas a autorização — bancos, financeiras, corretoras e instituidores de arranjo de pagamento não aparecem aqui. A fonte oficial é o Banco Central do Brasil.',
   },
 };
 
@@ -936,6 +936,7 @@ function renderizarPainel() {
     const linhas = [];
     if (st.autorizada) linhas.push(`<span class="pilula ok"><span class="selo-ponto"></span><b>${st.autorizada}</b> autorizadas em atividade</span>`);
     if (st.autorizada_sem_atividade) linhas.push(`<span class="pilula alerta"><span class="selo-ponto"></span><b>${st.autorizada_sem_atividade}</b> autorizadas sem atividade</span>`);
+    if (st.nao_sujeita) linhas.push(`<span class="pilula alerta"><span class="selo-ponto"></span><b>${st.nao_sujeita}</b> não sujeitas a autorização</span>`);
     if (st.cancelada) linhas.push(`<span class="pilula erro"><span class="selo-ponto"></span><b>${st.cancelada}</b> canceladas ou em liquidação</span>`);
     resumoStatus.innerHTML = linhas.join('');
   } else {
@@ -1044,6 +1045,23 @@ function cartaoIP(e, termo) {
                 <strong>Autorizada, mas sem operação registrada no BCB.</strong>
                 Movimentação relevante em nome de uma instituição nesta situação
                 merece atenção na análise.
+              </div>`,
+    },
+    /* Categoria que o BCB registra mas nunca exigiu autorização — as que
+       operavam abaixo do limite de volume. A Resolução BCB 494 acabou com
+       ela: o prazo para se regularizar venceu em 31/05/2026. Uma empresa
+       ainda aqui é, por si só, um dado relevante para a análise. */
+    nao_sujeita: {
+      classe: 'alerta',
+      selo: '<span class="selo alerta"><span class="selo-ponto"></span> Não sujeita a autorização</span>',
+      aviso: `<div class="aviso-grave" style="background:var(--alerta-fundo);border-color:rgba(251,191,36,.35);color:#FFE9BC">
+                <strong>Consta no cadastro do BCB em uma categoria que não exigia autorização.</strong>
+                Eram instituições abaixo do limite de volume. A Resolução BCB nº 494
+                encerrou essa categoria — o prazo para pedir autorização venceu em
+                <strong>31/05/2026</strong>.
+                <br><br>
+                Ou seja: <strong>não é o mesmo que estar autorizada</strong>, e permanecer
+                nesta situação hoje merece atenção na análise.
               </div>`,
     },
     cancelada: {
