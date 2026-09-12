@@ -425,13 +425,48 @@ def normalizar(registro):
     }
 
 
-def limpar(registros):
+def limpar(registros, contar=False):
+    """
+    Converte os registros da API e descarta o que nao serve.
+
+    O parametro 'contar' existe por um motivo especifico: descartar em
+    silencio e como o robo antigo das bets engolia erro. Se a nossa base
+    tiver menos registros que a fonte, precisamos saber se foi porque a
+    fonte mudou ou porque NOS jogamos algo fora -- e quanto.
+    """
     saida, vistos = [], set()
+    descartes = {"sem_cnpj": 0, "sem_nome": 0, "repetido": 0}
+
     for r in registros:
+        cnpj = formatar_cnpj(r.get("codigoCNPJ14"))
+        if not cnpj:
+            descartes["sem_cnpj"] += 1
+            continue
+
         item = normalizar(r)
-        if item and item["cnpj"] not in vistos:
-            vistos.add(item["cnpj"])
-            saida.append(item)
+        if not item:
+            descartes["sem_nome"] += 1
+            continue
+
+        if item["cnpj"] in vistos:
+            descartes["repetido"] += 1
+            continue
+
+        vistos.add(item["cnpj"])
+        saida.append(item)
+
+    if contar:
+        total = sum(descartes.values())
+        log(f"  {len(registros):,} registros recebidos da API")
+        if total:
+            log(f"  {total} descartado(s): "
+                f"{descartes['sem_cnpj']} sem CNPJ · "
+                f"{descartes['sem_nome']} sem nome · "
+                f"{descartes['repetido']} CNPJ repetido")
+        else:
+            log("  nenhum registro descartado")
+        log(f"  {len(saida):,} na base final")
+
     return saida
 
 
@@ -587,6 +622,9 @@ def main():
                    help="mostra o catalogo da API e testa as chamadas, sem salvar")
     p.add_argument("--url", default="",
                    help="usa exatamente esta URL, sem tentar adivinhar")
+    p.add_argument("--data", default="",
+                   help="consulta uma data-base especifica, no formato DD/MM/AAAA. "
+                        "Serve para comparar com outra base da mesma data.")
     args = p.parse_args()
 
     agora = datetime.now(FUSO_BRASILIA)
@@ -607,10 +645,37 @@ def main():
         if args.explorar:
             explorar(registros, "URL informada", args.url)
             return
-        ips = limpar([r for r in registros if eh_ip(r)])
-        log(f"  {len(registros):,} registros -> {len(ips):,} IPs")
+        ips = limpar([r for r in registros if eh_ip(r)], contar=True)
         voltou = data_que_voltou(registros)
         salvar(ips, args.url, agora, voltou.isoformat() if voltou else "")
+        return
+
+    # --- data-base especifica: util para comparar com outra base ---
+    if args.data:
+        titulo(f"CONSULTANDO A DATA-BASE {args.data}")
+        try:
+            alvo = datetime.strptime(args.data.strip(), "%d/%m/%Y").date()
+        except ValueError:
+            morrer(f"Data invalida: '{args.data}'. Use o formato DD/MM/AAAA.")
+
+        url = montar_url(alvo)
+        log(f"  {url}")
+        registros, erro = pedir(url)
+        if not registros:
+            morrer(f"A data {args.data} nao devolveu dados. {erro}",
+                   transitorio="rede" in (erro or ""))
+
+        voltou = data_que_voltou(registros)
+        log(f"  campo 'database' na resposta: {voltou}")
+        if voltou and voltou != alvo:
+            morrer(f"Pedi {alvo} e vieram dados de {voltou}. "
+                   "A API interpretou a data de outro jeito.")
+
+        ips = limpar([r for r in registros if eh_ip(r)], contar=True)
+        if args.explorar:
+            explorar(registros, f"dataBase={args.data}", url)
+        else:
+            salvar(ips, url, agora, alvo.isoformat())
         return
 
     # --- caminho normal ---
@@ -631,8 +696,7 @@ def main():
         explorar(registros, f"dataBase={data.strftime('%d/%m/%Y')}", url)
         return
 
-    ips = limpar([r for r in registros if eh_ip(r)])
-    log(f"  {len(registros):,} registros -> {len(ips):,} IPs")
+    ips = limpar([r for r in registros if eh_ip(r)], contar=True)
     salvar(ips, url, agora, data.isoformat())
 
 
