@@ -1,13 +1,13 @@
 {
   "meta": {
     "fonte": "https://dadosabertos.bcb.gov.br/dataset/dados-cadastrais-de-entidades-autorizadas",
-    "api": "https://olinda.bcb.gov.br/olinda/servico/BcBase/versao/v2/odata/EntidadesSupervisionadas(dataBase=@dataBase)?@dataBase='09/11/2026'&$format=json&$top=5000&$filter=descricaoTipoEntidadeSupervisionada%20eq%20'Institui%C3%A7%C3%A3o%20de%20Pagamento'",
-    "data_base": "2026-09-11",
-    "verificado_em": "11/09/2026 22:21",
-    "verificado_em_iso": "2026-09-11T22:21:03-03:00",
-    "total": 211,
+    "api": "https://olinda.bcb.gov.br/olinda/servico/BcBase/versao/v2/odata/EntidadesSupervisionadas(dataBase=@dataBase)?@dataBase='09/18/2026'&$format=json&$top=5000&$filter=descricaoTipoEntidadeSupervisionada%20eq%20'Institui%C3%A7%C3%A3o%20de%20Pagamento'",
+    "data_base": "2026-09-18",
+    "verificado_em": "18/09/2026 12:08",
+    "verificado_em_iso": "2026-09-18T12:08:44-03:00",
+    "total": 212,
     "por_status": {
-      "autorizada": 195,
+      "autorizada": 196,
       "cancelada": 9,
       "autorizada_sem_atividade": 7
     },
@@ -1757,6 +1757,19 @@
       "codigo_bacen": "Z9052261"
     },
     {
+      "cnpj": "42.563.672/0001-55",
+      "cnpj_raiz": "42563672",
+      "razao_social": "PAGALEVE INSTITUICAO DE PAGAMENTO LTDA.",
+      "nomes": "PAGALEVE IP LTDA.",
+      "tipo": "Instituição de Pagamento",
+      "natureza_juridica": "Sociedade Empresária Limitada",
+      "situacao": "Autorizada em Atividade",
+      "status": "autorizada",
+      "municipio": "São Paulo",
+      "uf": "São Paulo",
+      "codigo_bacen": "Z8995997"
+    },
+    {
       "cnpj": "25.104.230/0001-21",
       "cnpj_raiz": "25104230",
       "razao_social": "PAGARE INSTITUICAO DE PAGAMENTO S.A.",
@@ -2493,8 +2506,8 @@
       "natureza_juridica": "Sociedade Anônima de Capital Fechado",
       "situacao": "Autorizada em Atividade",
       "status": "autorizada",
-      "municipio": "Curitiba",
-      "uf": "Paraná",
+      "municipio": "São Paulo",
+      "uf": "São Paulo",
       "codigo_bacen": "Z9215322"
     },
     {
