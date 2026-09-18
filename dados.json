@@ -3,11 +3,11 @@
     "fonte_administrativas": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/transparencia-ativa-processos-de-autorizacao-de-apostas-de-quota-fixa/empresas-autorizadas",
     "fonte_judiciais": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/transparencia-ativa-processos-de-autorizacao-de-apostas-de-quota-fixa/autorizadas-por-determinacao-judicial",
     "publicado_em": "20/07/2026 17h28",
-    "atualizado_em": "08/09/2026 11h55",
+    "atualizado_em": "16/09/2026 12h57",
     "publicado_em_judicial": "20/07/2026 17h29",
     "atualizado_em_judicial": "03/09/2026 15h22",
-    "verificado_em": "14/09/2026 14:17",
-    "verificado_em_iso": "2026-09-14T14:17:51-03:00",
+    "verificado_em": "18/09/2026 13:31",
+    "verificado_em_iso": "2026-09-18T13:31:43-03:00",
     "total": 87,
     "total_administrativas": 85,
     "total_judiciais": 2
@@ -201,7 +201,7 @@
       "portaria": "SPA/MF nº 797, de 23 de março de 2026 (Retificada em 26 de março de 2026)",
       "requerimento": "00592024",
       "origem": "administrativa",
-      "documento_url": "https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas/arquivos_tarjados/00592024_bpx-bets_tarjado.pdf"
+      "documento_url": "https://www.in.gov.br/web/dou/-/portaria-spa/mf-n-797-de-23-de-marco-de-2026-694804736"
     },
     {
       "cnpj": "56.259.060/0001-88",
