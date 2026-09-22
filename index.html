@@ -76,6 +76,72 @@
 
   --fonte-titulo:  'Rajdhani', system-ui, sans-serif;
   --fonte-texto:   'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* --- cores que antes estavam soltas no meio do CSS --- */
+  --topo-fundo:    rgba(10, 10, 15, .8);
+  --modal-fundo:   rgba(5, 5, 9, .82);
+  --linha-tabela:  rgba(255, 255, 255, .04);
+  --sombra-flutua: 0 6px 20px rgba(0, 0, 0, .5);
+  --titulo-cor:    #F5EBFF;
+  --titulo-brilho: 0 0 24px rgba(188, 19, 254, .45);
+  --roxo-claro:    #B76BF8;
+  --etiqueta-cor:  #DCC7F5;
+  --texto-erro:    #FFD9D9;
+  --texto-alerta:  #FFE9BC;
+  --contraste:     #FFFFFF;
+  --brilho-topo:   rgba(168, 85, 247, .16);
+  --brilho-cursor: rgba(168, 85, 247, .22);
+}
+
+/* ==========================================================================
+   TEMA CLARO
+   --------------------------------------------------------------------------
+   O escuro continua sendo o padrão: é a identidade que as pessoas já
+   conhecem. Este bloco só entra quando alguém aperta o botão no topo, e a
+   escolha fica lembrada no navegador.
+
+   Os verdes, âmbares e vermelhos aqui NÃO são os mesmos do tema escuro.
+   Cor clara sobre fundo claro some — cada uma foi escurecida até ficar
+   legível. Num site que usa cor para dizer "não autorizada", isso não é
+   detalhe estético.
+   ========================================================================== */
+:root[data-tema="claro"] {
+  --bg:            #F6F4FA;
+  --bg-elev:       #FFFFFF;
+  --surface:       #FFFFFF;
+  --surface-hover: #F1ECF9;
+
+  --line:          rgba(109, 40, 158, .18);
+  --line-strong:   rgba(109, 40, 158, .40);
+
+  --text:          #1A1526;
+  --text-muted:    #56506B;
+  --text-dim:      #7E7795;
+
+  --roxo:          #6D289E;
+  --roxo-neon:     #8B1FD0;
+  --roxo-fundo:    rgba(109, 40, 158, .07);
+
+  --ok:            #046C4E;
+  --ok-fundo:      rgba(4, 108, 78, .09);
+  --alerta:        #8A5A00;
+  --alerta-fundo:  rgba(138, 90, 0, .10);
+  --erro:          #B3261E;
+  --erro-fundo:    rgba(179, 38, 30, .08);
+
+  --topo-fundo:    rgba(255, 255, 255, .85);
+  --modal-fundo:   rgba(26, 21, 38, .45);
+  --linha-tabela:  rgba(26, 21, 38, .07);
+  --sombra-flutua: 0 6px 20px rgba(60, 40, 90, .22);
+  --titulo-cor:    #2A1040;
+  --titulo-brilho: none;
+  --roxo-claro:    #8637BE;
+  --etiqueta-cor:  #5B2588;
+  --texto-erro:    #7A1710;
+  --texto-alerta:  #5C3C00;
+  --contraste:     #1A1526;
+  --brilho-topo:   rgba(168, 85, 247, .13);
+  --brilho-cursor: rgba(109, 40, 158, .11);
 }
 
 * { box-sizing: border-box; }
@@ -99,7 +165,7 @@ body::before {
   position: fixed;
   inset: 0 0 auto 0;
   height: 480px;
-  background: radial-gradient(ellipse 80% 100% at 50% -20%, rgba(168,85,247,.16), transparent 70%);
+  background: radial-gradient(ellipse 80% 100% at 50% -20%, var(--brilho-topo), transparent 70%);
   pointer-events: none;
   z-index: 0;
 }
@@ -109,7 +175,7 @@ body::before {
 /* --------------------------------------------------------------- BARRA TOPO */
 .barra-topo {
   border-bottom: 1px solid var(--line);
-  background: rgba(10, 10, 15, .8);
+  background: var(--topo-fundo);
   backdrop-filter: blur(12px);
   position: sticky;
   top: 0;
@@ -141,6 +207,28 @@ body::before {
 .link-fonte b { color: var(--text-muted); font-weight: 500; }
 .link-fonte:hover b { color: var(--roxo); }
 
+/* ------------------------------------------------------------ BOTAO DO TEMA */
+.btn-tema {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px; height: 32px;
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  color: var(--text-muted);
+  cursor: pointer;
+  flex: none;
+  transition: background .15s, color .15s, border-color .15s;
+}
+.btn-tema:hover { background: var(--surface-hover); color: var(--text); border-color: var(--line-strong); }
+.btn-tema svg { width: 16px; height: 16px; }
+.btn-tema .icone-claro { display: none; }
+:root[data-tema="claro"] .btn-tema .icone-claro  { display: block; }
+:root[data-tema="claro"] .btn-tema .icone-escuro { display: none; }
+
+.topo-direita { display: flex; align-items: center; gap: 12px; }
+
 /* ------------------------------------------------------------------ SELETOR */
 /* As duas consultas ficam logo acima do campo de busca, e não escondidas no
    topo. Motivo prático: o erro mais fácil de cometer é procurar um banco na
@@ -165,6 +253,29 @@ body::before {
   transition: background .15s, border-color .15s;
 }
 .seletor-item:hover { background: var(--surface-hover); }
+
+/* Brilho que acompanha o cursor dentro do botão.
+   Diferente de um enfeite solto: ele acontece sobre um elemento clicável,
+   então reforça que ali dá para clicar. O JS só atualiza --mx e --my com a
+   posição do ponteiro; todo o resto é CSS. */
+.seletor-item::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s ease;
+  background: radial-gradient(
+    170px circle at var(--mx, 50%) var(--my, 50%),
+    var(--brilho-cursor),
+    transparent 62%
+  );
+}
+.seletor-item:hover::after,
+.seletor-item:focus-visible::after { opacity: 1; }
+
+/* O texto fica acima do brilho */
+.seletor-titulo, .seletor-meta { position: relative; z-index: 1; }
 
 /* Filete roxo no topo do item ativo: marca a seleção sem gritar */
 .seletor-item::before {
@@ -226,8 +337,8 @@ main {
   letter-spacing: -.01em;
   text-transform: uppercase;
   margin: 0;
-  color: #F5EBFF;
-  text-shadow: 0 0 24px rgba(188, 19, 254, .45);
+  color: var(--titulo-cor);
+  text-shadow: var(--titulo-brilho);
   text-wrap: balance;
 }
 .hero h1 .destaque { color: var(--roxo-neon); }
@@ -281,7 +392,7 @@ main {
   font-weight: 600; font-size: 14px; letter-spacing: .02em;
   cursor: pointer; transition: background .15s;
 }
-.btn-buscar:hover { background: #B76BF8; }
+.btn-buscar:hover { background: var(--roxo-claro); }
 .btn-buscar:disabled { opacity: .45; cursor: not-allowed; }
 
 .dica-teclado { margin-top: 10px; font-size: 12px; color: var(--text-dim); text-align: center; }
@@ -365,7 +476,7 @@ main {
   background: var(--roxo-fundo);
   border: 1px solid var(--line);
   border-radius: 6px; padding: 3px 9px;
-  font-size: 12.5px; color: #DCC7F5;
+  font-size: 12.5px; color: var(--etiqueta-cor);
   font-family: var(--fonte-texto);
   cursor: pointer; transition: border-color .15s;
 }
@@ -384,10 +495,10 @@ mark { background: rgba(168, 85, 247, .3); color: inherit; border-radius: 3px; p
   border: 1px solid rgba(248,113,113,.35);
   border-radius: 10px;
   padding: 14px 16px;
-  color: #FFD9D9;
+  color: var(--texto-erro);
   font-size: 14px;
 }
-.aviso-grave strong { color: #FFF; }
+.aviso-grave strong { color: var(--contraste); }
 
 .sugestoes { margin-top: 16px; }
 .sugestoes-titulo { font-size: 12.5px; color: var(--text-dim); margin-bottom: 8px; }
@@ -451,7 +562,7 @@ mark { background: rgba(168, 85, 247, .3); color: inherit; border-radius: 3px; p
   color: var(--text-dim);
   border-bottom: 1px solid var(--line); font-weight: 600;
 }
-.tabela-lista td { padding: 11px 14px; border-bottom: 1px solid rgba(255,255,255,.04); color: var(--text-muted); vertical-align: top; }
+.tabela-lista td { padding: 11px 14px; border-bottom: 1px solid var(--linha-tabela); color: var(--text-muted); vertical-align: top; }
 .tabela-lista tr:last-child td { border-bottom: 0; }
 .tabela-lista tr:hover td { background: var(--surface-hover); }
 .tabela-lista td:first-child { color: var(--text); font-weight: 500; }
@@ -474,15 +585,15 @@ footer a:hover { color: var(--roxo); }
   width: 46px; height: 46px; border-radius: 50%;
   background: var(--roxo); color: #fff; border: 0;
   font-size: 19px; font-weight: 600; cursor: pointer;
-  box-shadow: 0 6px 20px rgba(0,0,0,.5);
+  box-shadow: var(--sombra-flutua);
   z-index: 40; transition: transform .15s, background .15s;
 }
-.btn-ajuda:hover { background: #B76BF8; transform: scale(1.06); }
+.btn-ajuda:hover { background: var(--roxo-claro); transform: scale(1.06); }
 
 /* -------------------------------------------------------------------- MODAL */
 .fundo-modal {
   position: fixed; inset: 0;
-  background: rgba(5, 5, 9, .82);
+  background: var(--modal-fundo);
   backdrop-filter: blur(4px);
   display: none; align-items: center; justify-content: center;
   padding: 20px; z-index: 100;
@@ -539,9 +650,21 @@ footer a:hover { color: var(--roxo); }
   <div class="barra-topo">
     <div class="barra-topo-interna">
       <div class="marca"><span class="marca-ponto"></span> Nu · Consulta Bet</div>
-      <a class="link-fonte" id="linkFonte" href="#" target="_blank" rel="noopener noreferrer">
-        Fonte: <b id="linkFonteTexto">—</b>
-      </a>
+      <div class="topo-direita">
+        <a class="link-fonte" id="linkFonte" href="#" target="_blank" rel="noopener noreferrer">
+          Fonte: <b id="linkFonteTexto">—</b>
+        </a>
+        <button class="btn-tema" id="btnTema" type="button"
+                aria-label="Alternar entre tema claro e escuro" title="Alternar tema">
+          <svg class="icone-escuro" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path>
+          </svg>
+          <svg class="icone-claro" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path>
+          </svg>
+        </button>
+      </div>
     </div>
   </div>
 
@@ -1041,7 +1164,7 @@ function cartaoIP(e, termo) {
     autorizada_sem_atividade: {
       classe: 'alerta',
       selo: '<span class="selo alerta"><span class="selo-ponto"></span> Autorizada, sem atividade</span>',
-      aviso: `<div class="aviso-grave" style="background:var(--alerta-fundo);border-color:rgba(251,191,36,.35);color:#FFE9BC">
+      aviso: `<div class="aviso-grave" style="background:var(--alerta-fundo);border-color:rgba(251,191,36,.35);color:var(--texto-alerta)">
                 <strong>Autorizada, mas sem operação registrada no BCB.</strong>
                 Movimentação relevante em nome de uma instituição nesta situação
                 merece atenção na análise.
@@ -1054,7 +1177,7 @@ function cartaoIP(e, termo) {
     nao_sujeita: {
       classe: 'alerta',
       selo: '<span class="selo alerta"><span class="selo-ponto"></span> Não sujeita a autorização</span>',
-      aviso: `<div class="aviso-grave" style="background:var(--alerta-fundo);border-color:rgba(251,191,36,.35);color:#FFE9BC">
+      aviso: `<div class="aviso-grave" style="background:var(--alerta-fundo);border-color:rgba(251,191,36,.35);color:var(--texto-alerta)">
                 <strong>Consta no cadastro do BCB em uma categoria que não exigia autorização.</strong>
                 Eram instituições abaixo do limite de volume. A Resolução BCB nº 494
                 encerrou essa categoria — o prazo para pedir autorização venceu em
@@ -1133,11 +1256,11 @@ function naoEncontrado(bruto, termo) {
      Instituições de Pagamento. Um banco consultado aqui dá "não consta",
      e isso não significa que ele não seja regulado. */
   const ressalva = aba === 'ips'
-    ? `<div class="aviso-grave" style="background:var(--alerta-fundo);border-color:rgba(251,191,36,.35);color:#FFE9BC">
+    ? `<div class="aviso-grave" style="background:var(--alerta-fundo);border-color:rgba(251,191,36,.35);color:var(--texto-alerta)">
          <strong>Esta base cobre apenas Instituições de Pagamento.</strong>
          Bancos, financeiras, corretoras e cooperativas são regulados pelo BCB
          e <em>não aparecem aqui</em>. Para esses, consulte direto o
-         <a href="${cfg.fonteUrl}" target="_blank" rel="noopener noreferrer" style="color:#FFF">Banco Central</a>.
+         <a href="${cfg.fonteUrl}" target="_blank" rel="noopener noreferrer" style="color:var(--contraste)">Banco Central</a>.
        </div>`
     : '';
 
@@ -1356,7 +1479,44 @@ function trocarAba(novo) {
 }
 
 /* ==========================================================================
-   9. EVENTOS
+   9. TEMA CLARO / ESCURO
+   ========================================================================== */
+
+/* O escuro é o padrão: é como as pessoas já conhecem o site. O claro entra
+   por escolha, e a escolha fica guardada no navegador de quem escolheu.
+
+   Tudo dentro de try/catch porque o localStorage pode não existir: aba
+   anônima, navegador com dados de site bloqueados, política corporativa.
+   Nesses casos o tema simplesmente não é lembrado — o site funciona igual. */
+
+const CHAVE_TEMA = 'consulta:tema';
+
+function lerTemaSalvo() {
+  try { return localStorage.getItem(CHAVE_TEMA); } catch { return null; }
+}
+
+function aplicarTema(tema) {
+  if (tema === 'claro') document.documentElement.setAttribute('data-tema', 'claro');
+  else document.documentElement.removeAttribute('data-tema');
+
+  const btn = $('btnTema');
+  if (btn) {
+    const proximo = tema === 'claro' ? 'escuro' : 'claro';
+    btn.setAttribute('aria-label', `Mudar para o tema ${proximo}`);
+    btn.setAttribute('title', `Mudar para o tema ${proximo}`);
+  }
+}
+
+function alternarTema() {
+  const atual = document.documentElement.getAttribute('data-tema') === 'claro' ? 'claro' : 'escuro';
+  const novo = atual === 'claro' ? 'escuro' : 'claro';
+  aplicarTema(novo);
+  try { localStorage.setItem(CHAVE_TEMA, novo); } catch { /* sem memória, tudo bem */ }
+  if (typeof gtag === 'function') gtag('event', 'trocar_tema', { tema: novo });
+}
+
+/* ==========================================================================
+   10. EVENTOS
    ========================================================================== */
 
 let temporizador;
@@ -1376,12 +1536,29 @@ btnLimpar.addEventListener('click', () => {
   campo.focus();
 });
 
-document.querySelectorAll('.seletor-item').forEach(b =>
-  b.addEventListener('click', () => trocarAba(b.dataset.modulo)));
+document.querySelectorAll('.seletor-item').forEach(b => {
+  b.addEventListener('click', () => trocarAba(b.dataset.modulo));
+
+  /* Brilho seguindo o cursor: o JS só informa ONDE o ponteiro está,
+     em porcentagem. O desenho é todo do CSS, o que deixa o navegador
+     cuidar da performance. */
+  b.addEventListener('pointermove', e => {
+    const caixa = b.getBoundingClientRect();
+    b.style.setProperty('--mx', `${((e.clientX - caixa.left) / caixa.width) * 100}%`);
+    b.style.setProperty('--my', `${((e.clientY - caixa.top) / caixa.height) * 100}%`);
+  });
+
+  // ao sair, o brilho volta para o centro — assim não "salta" na próxima entrada
+  b.addEventListener('pointerleave', () => {
+    b.style.setProperty('--mx', '50%');
+    b.style.setProperty('--my', '50%');
+  });
+});
 
 $('btnLista').addEventListener('click', alternarLista);
 $('btnHistorico').addEventListener('click', abrirHistorico);
 $('btnAjuda').addEventListener('click', () => abrirModal('modalAjuda'));
+$('btnTema').addEventListener('click', alternarTema);
 
 document.querySelectorAll('.fundo-modal').forEach(fundo => {
   fundo.addEventListener('click', e => { if (e.target === fundo) fecharModal(fundo.id); });
@@ -1419,10 +1596,12 @@ document.addEventListener('keydown', e => {
 });
 
 /* ==========================================================================
-   10. INÍCIO
+   11. INÍCIO
    ========================================================================== */
 
 (function iniciar() {
+  aplicarTema(lerTemaSalvo() === 'claro' ? 'claro' : 'escuro');
+
   const cfg = MODULOS[aba];
   $('heroTitulo').innerHTML = cfg.titulo;
   $('heroTexto').textContent = cfg.subtitulo;
