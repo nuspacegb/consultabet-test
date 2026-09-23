@@ -1,14 +1,14 @@
 {
   "meta": {
     "fonte": "https://dadosabertos.bcb.gov.br/dataset/dados-cadastrais-de-entidades-autorizadas",
-    "api": "https://olinda.bcb.gov.br/olinda/servico/BcBase/versao/v2/odata/EntidadesSupervisionadas(dataBase=@dataBase)?@dataBase='09/21/2026'&$format=json&$top=5000&$filter=descricaoTipoEntidadeSupervisionada%20eq%20'Institui%C3%A7%C3%A3o%20de%20Pagamento'",
-    "data_base": "2026-09-21",
-    "verificado_em": "21/09/2026 14:11",
-    "verificado_em_iso": "2026-09-21T14:11:33-03:00",
+    "api": "https://olinda.bcb.gov.br/olinda/servico/BcBase/versao/v2/odata/EntidadesSupervisionadas(dataBase=@dataBase)?@dataBase='09/23/2026'&$format=json&$top=5000&$filter=descricaoTipoEntidadeSupervisionada%20eq%20'Institui%C3%A7%C3%A3o%20de%20Pagamento'",
+    "data_base": "2026-09-23",
+    "verificado_em": "23/09/2026 12:34",
+    "verificado_em_iso": "2026-09-23T12:34:21-03:00",
     "total": 212,
     "por_status": {
-      "autorizada": 196,
-      "cancelada": 9,
+      "autorizada": 193,
+      "cancelada": 12,
       "autorizada_sem_atividade": 7
     },
     "escopo": "Apenas Instituições de Pagamento supervisionadas pelo BCB"
@@ -736,8 +736,8 @@
       "nomes": "CRYSTAL IP",
       "tipo": "Instituição de Pagamento",
       "natureza_juridica": "Sociedade Empresária Limitada",
-      "situacao": "Autorizada em Atividade",
-      "status": "autorizada",
+      "situacao": "Cancelada/Encerrada",
+      "status": "cancelada",
       "municipio": "Barueri",
       "uf": "São Paulo",
       "codigo_bacen": "Z9154267"
@@ -866,8 +866,8 @@
       "nomes": "EDENRED SOLUCOES DE MOBILIDADE E IP HU S.A., EDENRED MOBILIDADE",
       "tipo": "Instituição de Pagamento",
       "natureza_juridica": "Sociedade Anônima de Capital Fechado",
-      "situacao": "Autorizada em Atividade",
-      "status": "autorizada",
+      "situacao": "Cancelada/Encerrada",
+      "status": "cancelada",
       "municipio": "Campo Bom",
       "uf": "Rio Grande do Sul",
       "codigo_bacen": "Z9065989"
@@ -1165,8 +1165,8 @@
       "nomes": "GREENPASS TECNOLOGIA E IP HUE S.A.",
       "tipo": "Instituição de Pagamento",
       "natureza_juridica": "Sociedade Anônima de Capital Fechado",
-      "situacao": "Autorizada em Atividade",
-      "status": "autorizada",
+      "situacao": "Cancelada/Encerrada",
+      "status": "cancelada",
       "municipio": "São Paulo",
       "uf": "São Paulo",
       "codigo_bacen": "Z9055739"
