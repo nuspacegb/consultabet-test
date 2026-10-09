@@ -1,15 +1,15 @@
 {
   "meta": {
     "fonte": "https://dadosabertos.bcb.gov.br/dataset/dados-cadastrais-de-entidades-autorizadas",
-    "api": "https://olinda.bcb.gov.br/olinda/servico/BcBase/versao/v2/odata/EntidadesSupervisionadas(dataBase=@dataBase)?@dataBase='09/28/2026'&$format=json&$top=5000&$filter=descricaoTipoEntidadeSupervisionada%20eq%20'Institui%C3%A7%C3%A3o%20de%20Pagamento'",
-    "data_base": "2026-09-28",
-    "verificado_em": "28/09/2026 15:43",
-    "verificado_em_iso": "2026-09-28T15:43:24-03:00",
-    "total": 212,
+    "api": "https://olinda.bcb.gov.br/olinda/servico/BcBase/versao/v2/odata/EntidadesSupervisionadas(dataBase=@dataBase)?@dataBase='10/09/2026'&$format=json&$top=5000&$filter=descricaoTipoEntidadeSupervisionada%20eq%20'Institui%C3%A7%C3%A3o%20de%20Pagamento'",
+    "data_base": "2026-10-09",
+    "verificado_em": "09/10/2026 14:32",
+    "verificado_em_iso": "2026-10-09T14:32:59-03:00",
+    "total": 213,
     "por_status": {
-      "autorizada": 193,
+      "autorizada": 195,
       "cancelada": 12,
-      "autorizada_sem_atividade": 7
+      "autorizada_sem_atividade": 6
     },
     "escopo": "Apenas Instituições de Pagamento supervisionadas pelo BCB"
   },
@@ -234,6 +234,19 @@
       "municipio": "São Paulo",
       "uf": "São Paulo",
       "codigo_bacen": "Z9085585"
+    },
+    {
+      "cnpj": "27.126.513/0001-08",
+      "cnpj_raiz": "27126513",
+      "razao_social": "ATLAS BRASIL ARQ INSTITUICAO DE PAGAMENTO LTDA",
+      "nomes": "ARQ IP LTDA, ARQ",
+      "tipo": "Instituição de Pagamento",
+      "natureza_juridica": "Sociedade Limitada",
+      "situacao": "Autorizada em Atividade",
+      "status": "autorizada",
+      "municipio": "São Paulo",
+      "uf": "São Paulo",
+      "codigo_bacen": "Z9215321"
     },
     {
       "cnpj": "10.789.035/0001-05",
@@ -580,8 +593,8 @@
       "nomes": "CHECKOUT DO BRASIL IP LTDA, CHECKOUT IP",
       "tipo": "Instituição de Pagamento",
       "natureza_juridica": "Sociedade Empresária Limitada",
-      "situacao": "Autorizada sem Atividade",
-      "status": "autorizada_sem_atividade",
+      "situacao": "Autorizada em Atividade",
+      "status": "autorizada",
       "municipio": "São Paulo",
       "uf": "São Paulo",
       "codigo_bacen": "Z9002599"
@@ -862,7 +875,7 @@
     {
       "cnpj": "18.587.586/0001-06",
       "cnpj_raiz": "18587586",
-      "razao_social": "EDENRED SOLUCOES DE MOBILIDADE E INSTITUICAO DE PAGAMENTO HU S.A.",
+      "razao_social": "EDENRED SOLUCOES DE MOBILIDADE S.A.",
       "nomes": "EDENRED SOLUCOES DE MOBILIDADE E IP HU S.A., EDENRED MOBILIDADE",
       "tipo": "Instituição de Pagamento",
       "natureza_juridica": "Sociedade Anônima de Capital Fechado",
@@ -1161,7 +1174,7 @@
     {
       "cnpj": "28.581.308/0001-97",
       "cnpj_raiz": "28581308",
-      "razao_social": "GREENPASS TECNOLOGIA E INSTITUICAO DE PAGAMENTO HUE S.A.",
+      "razao_social": "GREENPASS TECNOLOGIA EM PAGAMENTOS S.A.",
       "nomes": "GREENPASS TECNOLOGIA E IP HUE S.A.",
       "tipo": "Instituição de Pagamento",
       "natureza_juridica": "Sociedade Anônima de Capital Fechado",
