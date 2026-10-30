@@ -1,15 +1,15 @@
 {
   "meta": {
     "fonte": "https://dadosabertos.bcb.gov.br/dataset/dados-cadastrais-de-entidades-autorizadas",
-    "api": "https://olinda.bcb.gov.br/olinda/servico/BcBase/versao/v2/odata/EntidadesSupervisionadas(dataBase=@dataBase)?@dataBase='09/28/2026'&$format=json&$top=5000&$filter=descricaoTipoEntidadeSupervisionada%20eq%20'Institui%C3%A7%C3%A3o%20de%20Pagamento'",
-    "data_base": "2026-09-28",
-    "verificado_em": "28/09/2026 15:43",
-    "verificado_em_iso": "2026-09-28T15:43:24-03:00",
-    "total": 212,
+    "api": "https://olinda.bcb.gov.br/olinda/servico/BcBase/versao/v2/odata/EntidadesSupervisionadas(dataBase=@dataBase)?@dataBase='10/30/2026'&$format=json&$top=5000&$filter=descricaoTipoEntidadeSupervisionada%20eq%20'Institui%C3%A7%C3%A3o%20de%20Pagamento'",
+    "data_base": "2026-10-30",
+    "verificado_em": "30/10/2026 14:11",
+    "verificado_em_iso": "2026-10-30T14:11:59-03:00",
+    "total": 213,
     "por_status": {
-      "autorizada": 193,
-      "cancelada": 12,
-      "autorizada_sem_atividade": 7
+      "autorizada": 194,
+      "cancelada": 14,
+      "autorizada_sem_atividade": 5
     },
     "escopo": "Apenas Instituições de Pagamento supervisionadas pelo BCB"
   },
@@ -234,6 +234,19 @@
       "municipio": "São Paulo",
       "uf": "São Paulo",
       "codigo_bacen": "Z9085585"
+    },
+    {
+      "cnpj": "27.126.513/0001-08",
+      "cnpj_raiz": "27126513",
+      "razao_social": "ATLAS BRASIL ARQ INSTITUICAO DE PAGAMENTO LTDA",
+      "nomes": "ARQ IP LTDA, ARQ",
+      "tipo": "Instituição de Pagamento",
+      "natureza_juridica": "Sociedade Limitada",
+      "situacao": "Autorizada em Atividade",
+      "status": "autorizada",
+      "municipio": "São Paulo",
+      "uf": "São Paulo",
+      "codigo_bacen": "Z9215321"
     },
     {
       "cnpj": "10.789.035/0001-05",
@@ -509,7 +522,7 @@
       "codigo_bacen": "Z9581347"
     },
     {
-      "cnpj": "39.696.395/0001-44",
+      "cnpj": "39.696.395/0027-83",
       "cnpj_raiz": "39696395",
       "razao_social": "CACTVS INSTITUICAO DE PAGAMENTO S.A",
       "nomes": "CACTVS IP S.A.",
@@ -580,8 +593,8 @@
       "nomes": "CHECKOUT DO BRASIL IP LTDA, CHECKOUT IP",
       "tipo": "Instituição de Pagamento",
       "natureza_juridica": "Sociedade Empresária Limitada",
-      "situacao": "Autorizada sem Atividade",
-      "status": "autorizada_sem_atividade",
+      "situacao": "Autorizada em Atividade",
+      "status": "autorizada",
       "municipio": "São Paulo",
       "uf": "São Paulo",
       "codigo_bacen": "Z9002599"
@@ -795,7 +808,7 @@
       "codigo_bacen": "Z9044980"
     },
     {
-      "cnpj": "25.021.356/0001-32",
+      "cnpj": "25.021.356/0002-13",
       "cnpj_raiz": "25021356",
       "razao_social": "DLOCAL BRASIL INSTITUIÇÃO DE PAGAMENTO S.A.",
       "nomes": "DLOCAL BRASIL IP S.A., DLOCAL",
@@ -862,7 +875,7 @@
     {
       "cnpj": "18.587.586/0001-06",
       "cnpj_raiz": "18587586",
-      "razao_social": "EDENRED SOLUCOES DE MOBILIDADE E INSTITUICAO DE PAGAMENTO HU S.A.",
+      "razao_social": "EDENRED SOLUCOES DE MOBILIDADE S.A.",
       "nomes": "EDENRED SOLUCOES DE MOBILIDADE E IP HU S.A., EDENRED MOBILIDADE",
       "tipo": "Instituição de Pagamento",
       "natureza_juridica": "Sociedade Anônima de Capital Fechado",
@@ -1016,7 +1029,7 @@
       "codigo_bacen": "Z9215375"
     },
     {
-      "cnpj": "04.962.772/0001-65",
+      "cnpj": "04.962.772/0007-50",
       "cnpj_raiz": "04962772",
       "razao_social": "FISERV DO BRASIL  INSTITUIÇÃO DE PAGAMENTO LTDA",
       "nomes": "FISERV DO BRASIL IP, FISERV",
@@ -1161,7 +1174,7 @@
     {
       "cnpj": "28.581.308/0001-97",
       "cnpj_raiz": "28581308",
-      "razao_social": "GREENPASS TECNOLOGIA E INSTITUICAO DE PAGAMENTO HUE S.A.",
+      "razao_social": "GREENPASS TECNOLOGIA EM PAGAMENTOS S.A.",
       "nomes": "GREENPASS TECNOLOGIA E IP HUE S.A.",
       "tipo": "Instituição de Pagamento",
       "natureza_juridica": "Sociedade Anônima de Capital Fechado",
@@ -1590,12 +1603,12 @@
     {
       "cnpj": "53.822.116/0001-72",
       "cnpj_raiz": "53822116",
-      "razao_social": "MW INSTITUICAO DE PAGAMENTO LTDA",
-      "nomes": "MW IP LTDA.",
+      "razao_social": "MW INSTITUICAO DE PAGAMENTO LTDA - EM LIQUIDAÇÃO EXTRAJUDICIAL",
+      "nomes": "MW IP LTDA. - EM LIQUIDAÇÃO EXTRAJUDICIAL",
       "tipo": "Instituição de Pagamento",
       "natureza_juridica": "Sociedade Empresária Limitada",
-      "situacao": "Autorizada em Atividade",
-      "status": "autorizada",
+      "situacao": "Em Liquidação Extrajudicial",
+      "status": "cancelada",
       "municipio": "Joinville",
       "uf": "Santa Catarina",
       "codigo_bacen": "Z9037573"
@@ -1666,7 +1679,7 @@
       "codigo_bacen": "Z9031293"
     },
     {
-      "cnpj": "01.648.418/0001-72",
+      "cnpj": "01.648.418/0004-15",
       "cnpj_raiz": "01648418",
       "razao_social": "NSTECH IP INSTITUICAO DE PAGAMENTO S.A.",
       "nomes": "NSTECH IP S.A.",
@@ -1679,7 +1692,7 @@
       "codigo_bacen": "Z9262566"
     },
     {
-      "cnpj": "18.236.120/0009-05",
+      "cnpj": "18.236.120/0008-24",
       "cnpj_raiz": "18236120",
       "razao_social": "NU PAGAMENTOS S.A. - INSTITUIÇÃO DE PAGAMENTO",
       "nomes": "NU PAGAMENTOS - IP, NUBANK",
@@ -1861,7 +1874,7 @@
       "codigo_bacen": "Z9111888"
     },
     {
-      "cnpj": "08.561.701/0193-92",
+      "cnpj": "08.561.701/0317-67",
       "cnpj_raiz": "08561701",
       "razao_social": "PAGSEGURO INTERNET INSTITUIÇÃO DE PAGAMENTO S.A.",
       "nomes": "PAGSEGURO INTERNET IP S.A., PAGSEGURO",
@@ -2153,8 +2166,8 @@
       "nomes": "QYON IP LTDA.",
       "tipo": "Instituição de Pagamento",
       "natureza_juridica": "Sociedade Empresária Limitada",
-      "situacao": "Autorizada sem Atividade",
-      "status": "autorizada_sem_atividade",
+      "situacao": "Autorizada em Atividade",
+      "status": "autorizada",
       "municipio": "Americana",
       "uf": "São Paulo",
       "codigo_bacen": "Z9080339"
@@ -2290,7 +2303,7 @@
       "codigo_bacen": "Z9118774"
     },
     {
-      "cnpj": "04.088.208/0001-65",
+      "cnpj": "04.088.208/0074-10",
       "cnpj_raiz": "04088208",
       "razao_social": "SEM PARAR INSTITUICAO DE PAGAMENTO LTDA",
       "nomes": "SEM PARAR IP",
@@ -2407,7 +2420,7 @@
       "codigo_bacen": "Z9215345"
     },
     {
-      "cnpj": "16.501.555/0001-57",
+      "cnpj": "16.501.555/0013-90",
       "cnpj_raiz": "16501555",
       "razao_social": "STONE INSTITUIÇÃO DE PAGAMENTO S.A.",
       "nomes": "STONE IP S.A.",
@@ -2647,8 +2660,8 @@
       "nomes": "WASU IP LTDA.",
       "tipo": "Instituição de Pagamento",
       "natureza_juridica": "Sociedade Empresária Limitada",
-      "situacao": "Autorizada em Atividade",
-      "status": "autorizada",
+      "situacao": "Cancelada/Encerrada",
+      "status": "cancelada",
       "municipio": "Balneário Camboriú",
       "uf": "Santa Catarina",
       "codigo_bacen": "Z9028684"
