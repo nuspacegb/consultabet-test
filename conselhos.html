@@ -287,7 +287,7 @@ function secaoRegional(grupo) {
   const lista = ESTADO.dados.regionais[grupo] || [];
   if (!lista.length) return '';
   const nome = ESTADO.dados.grupos_regionais[grupo] || grupo;
-  const falta = (grupo === 'CRECI' || grupo === 'CRESS') ? '<p class="nota">Ainda coletando os links dos demais estados.</p>' : '';
+  const falta = grupo === 'CRECI' ? '<p class="nota">Ainda coletando os links dos demais estados.</p>' : '';
   return `<div class="secao" id="reg-${esc(grupo)}"><h2>${esc(grupo)}</h2></div>
     <p class="nota" style="margin:-6px 0 14px">${esc(nome)}</p>
     <div class="grade">${lista.map(r => cardRegional(r, grupo)).join('')}</div>${falta}`;
@@ -307,7 +307,7 @@ function desenhar() {
     ? `${grade(top)}<div class="secao"><h2>Outras profissões</h2></div>${grade(resto)}`
     : grade([...top, ...resto]);
   // Seções "por estado": todas quando não há filtro; senão só as das profissões exibidas.
-  const grupos = semFiltro ? ['COREN', 'CREFITO', 'CRC', 'CRECI', 'CRESS'] : [...new Set(l.map(p => p.regional).filter(Boolean))];
+  const grupos = semFiltro ? ['COREN', 'CREFITO', 'CRC', 'CREA', 'CRBM', 'CRESS', 'CRECI'] : [...new Set(l.map(p => p.regional).filter(Boolean))];
   html += grupos.map(secaoRegional).join('');
   $('saida').innerHTML = html;
 }
