@@ -6,19 +6,24 @@
 
 <!-- ==========================================================================
      O NOME DO PRODUTO APARECE EM 4 LUGARES NESTE ARQUIVO.
-     Se um dia mudar (a votação com os usuários, por exemplo), troque nestes:
+     Se um dia mudar (a votacao com os usuarios, por exemplo), troque nestes:
+
        1. a tag <title> logo abaixo
        2. a meta og:title
        3. a barra do topo, classe "marca"
-       4. o título de cada aba, na constante MODULOS
-     ========================================================================== -->
-<title>Nu · Consulta Bet</title>
+       4. a constante TITULO_SITE, no inicio do script
 
-<meta name="description" content="Verifique se uma casa de apostas está autorizada pelo Governo Federal e se uma Instituição de Pagamento está autorizada pelo Banco Central.">
+     Os quatro dizem "Nu · Consulta" desde 02/10/2026. O titulo grande da
+     pagina deixou de ser o nome do modulo ("Consulta Bet") e passou a ser
+     a marca -- quem diz em qual base voce esta e o seletor, logo abaixo.
+     ========================================================================== -->
+<title>Nu · Consulta</title>
+
+<meta name="description" content="Consulte a situação de uma casa de apostas na lista oficial do Governo Federal e de uma Instituição de Pagamento na base do Banco Central.">
 <meta name="theme-color" content="#0A0A0F">
 
 <meta property="og:type" content="website">
-<meta property="og:title" content="Nu · Consulta Bet">
+<meta property="og:title" content="Nu · Consulta">
 <meta property="og:description" content="Casas de apostas (SPA/MF) e Instituições de Pagamento (BCB). Consulte por marca ou CNPJ.">
 <meta property="og:locale" content="pt_BR">
 <meta name="twitter:card" content="summary">
@@ -28,6 +33,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<!-- Versão de teste: sem Google Analytics (gtag vira função vazia) -->
+<script>function gtag(){}</script>
 
 <style>
 /* ==========================================================================
@@ -219,6 +227,60 @@ body::before {
 :root[data-tema="claro"] .btn-tema .icone-escuro { display: none; }
 
 .topo-direita { display: flex; align-items: center; gap: 12px; }
+
+/* Botão da consulta do GAFI. Fica no topo, do lado do alternador de tema,
+   porque é uma consulta de canto: o analista chega com uma sigla vinda de
+   um alerta, quer a resposta e volta ao que estava fazendo. Não disputa
+   espaço com as duas bases que são a rotina do dia. */
+.btn-gafi {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 32px;
+  padding: 0 11px;
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  color: var(--text-muted);
+  font-family: var(--fonte-titulo);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: .09em;
+  cursor: pointer;
+  flex: none;
+  transition: background .15s, color .15s, border-color .15s;
+}
+.btn-gafi:hover { background: var(--surface-hover); color: var(--text); border-color: var(--line-strong); }
+.btn-gafi:focus-visible { outline: 2px solid var(--roxo); outline-offset: 2px; }
+.btn-gafi svg { width: 15px; height: 15px; }
+
+/* Dentro da janela do GAFI */
+.busca-gafi {
+  display: flex;
+  gap: 8px;
+  margin: 2px 0 14px;
+}
+.busca-gafi input {
+  flex: 1;
+  min-width: 0;
+  background: var(--bg-elev);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--raio);
+  padding: 11px 14px;
+  color: var(--text);
+  font-family: var(--fonte-texto);
+  font-size: 15px;
+  letter-spacing: .04em;
+}
+.busca-gafi input:focus { outline: 2px solid var(--roxo); outline-offset: 1px; }
+.busca-gafi input::placeholder { color: var(--text-dim); letter-spacing: normal; }
+#resultadoGafi .cartao { margin: 0 0 12px; }
+#resultadoGafi .cartao h2 { font-size: 1.25rem; }
+
+@media (max-width: 560px) {
+  .btn-gafi span { display: none; }
+  .btn-gafi { padding: 0 9px; }
+}
 
 /* ------------------------------------------------------------------ SELETOR */
 /* As duas consultas ficam logo acima do campo de busca, e não escondidas no
@@ -623,6 +685,67 @@ footer a:hover { color: var(--roxo); }
   clip: rect(0,0,0,0); white-space: nowrap; border: 0;
 }
 
+/* Aviso regulatório, como uma linha a mais no painel da base — ao lado
+   das datas de publicação e verificação, que é onde o contexto da base já
+   mora. Ganha fundo âmbar para não passar batido, mas em bloco próprio,
+   sem o peso de uma faixa no topo da página. */
+.painel-item.regulatorio {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  margin-top: 4px;
+  padding: 7px 12px;
+  border: 1px solid rgba(251,191,36,.3);
+  border-radius: 8px;
+  background: var(--alerta-fundo);
+  color: var(--texto-alerta);
+  line-height: 1.55;
+}
+.painel-item.regulatorio b { color: var(--alerta); }
+.painel-item.regulatorio a { color: var(--contraste); }
+
+/* ------------------------------------------------------------ GAFI
+   A lista de países restritos que abre junto com a aba. Não é resultado
+   de busca: é a resposta de abertura, porque são só 25 itens. */
+.bloco-gafi { margin: 22px 0 0; }
+.titulo-grupo-gafi { margin: 0 0 6px; font-size: 1em; font-weight: 400; }
+.explica-gafi {
+  margin: 0 0 11px;
+  font-size: 12.5px;
+  color: var(--text-dim);
+  line-height: 1.5;
+}
+.grade-paises {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+.chip-pais {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 7px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--bg-elev);
+  color: var(--text-muted);
+  font-family: var(--fonte-texto);
+  font-size: 12.5px;
+  cursor: pointer;
+  transition: border-color .15s, background .15s, transform .1s;
+}
+.chip-pais b {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: .06em;
+  color: var(--text);
+}
+.chip-pais:hover { background: var(--surface-hover); transform: translateY(-1px); }
+.chip-pais:focus-visible { outline: 2px solid var(--roxo); outline-offset: 2px; }
+.chip-pais.erro   { border-color: rgba(248,113,113,.4); }
+.chip-pais.alerta { border-color: rgba(251,191,36,.4); }
+.chip-pais.erro b   { color: var(--erro, #f87171); }
+.chip-pais.alerta b { color: var(--alerta); }
+
 @media (max-width: 560px) {
   .caixa-busca { flex-wrap: wrap; padding: 6px; }
   #campoBusca { padding-left: 8px; }
@@ -631,6 +754,23 @@ footer a:hover { color: var(--roxo); }
   .cartao { padding: 20px; }
   .seletor { grid-template-columns: 1fr; }
 }
+
+/* ---- Destaque: Profissionais liberais (teste) ---- */
+.destaque-lib { display:flex; align-items:center; gap:16px; margin:0 0 18px; padding:16px 18px; text-decoration:none;
+  background:linear-gradient(135deg, var(--roxo-fundo), transparent 70%), var(--surface); border:1px solid var(--line-strong);
+  border-radius:var(--raio); color:var(--text); transition:transform .15s, border-color .15s, box-shadow .15s; }
+.destaque-lib:hover { transform:translateY(-2px); border-color:var(--roxo); box-shadow:var(--sombra-flutua); }
+.destaque-lib:focus-visible { outline:2px solid var(--roxo); outline-offset:3px; }
+.destaque-lib .dl-icone { flex:none; width:48px; height:48px; border-radius:13px; display:grid; place-items:center;
+  background:var(--roxo); color:#fff; }
+.destaque-lib .dl-icone svg { width:26px; height:26px; }
+.destaque-lib .dl-texto { flex:1; min-width:0; }
+.destaque-lib .dl-titulo { font-family:var(--fonte-titulo); font-weight:700; font-size:19px; letter-spacing:.02em; line-height:1.15; }
+.destaque-lib .dl-sub { font-size:13px; color:var(--text-muted); margin-top:2px; }
+.destaque-lib .dl-seta { flex:none; font-weight:600; font-size:13px; color:var(--roxo); white-space:nowrap; }
+.destaque-lib .dl-novo { font-size:10.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; padding:2px 7px; border-radius:999px;
+  background:var(--roxo-fundo); color:var(--roxo); border:1px solid var(--line-strong); margin-left:8px; vertical-align:2px; }
+@media (max-width:560px) { .destaque-lib .dl-seta { display:none; } }
 </style>
 </head>
 
@@ -640,11 +780,19 @@ footer a:hover { color: var(--roxo); }
   <!-- =================================================== BARRA SUPERIOR -->
   <div class="barra-topo">
     <div class="barra-topo-interna">
-      <div class="marca"><span class="marca-ponto"></span> Nu · Consulta Bet</div>
+      <div class="marca"><span class="marca-ponto"></span> Nu · Consulta</div>
       <div class="topo-direita">
         <a class="link-fonte" id="linkFonte" href="#" target="_blank" rel="noopener noreferrer">
           Fonte: <b id="linkFonteTexto">—</b>
         </a>
+        <button class="btn-gafi" id="btnGafi" type="button"
+                title="Consultar país das listas do GAFI">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="9"></circle>
+            <path d="M3 12h18M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18z"></path>
+          </svg>
+          <span>GAFI</span>
+        </button>
         <button class="btn-tema" id="btnTema" type="button"
                 aria-label="Alternar entre tema claro e escuro" title="Alternar tema">
           <svg class="icone-escuro" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -665,6 +813,18 @@ footer a:hover { color: var(--roxo); }
       <h1 id="heroTitulo"></h1>
       <p id="heroTexto"></p>
     </section>
+
+
+    <a class="destaque-lib" href="conselhos.html" id="linkConselhos">
+      <span class="dl-icone" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0112 0M16 11a3 3 0 100-6M18 20a5 5 0 00-3-4.500"/></svg>
+      </span>
+      <span class="dl-texto">
+        <span class="dl-titulo">Consultar profissional liberal <span class="dl-novo">teste</span></span>
+        <span class="dl-sub" style="display:block">Médicos, dentistas, advogados, assistentes sociais e outros: abra a consulta oficial do conselho.</span>
+      </span>
+      <span class="dl-seta">Abrir →</span>
+    </a>
 
     <!-- Em qual base estou procurando -->
     <div class="seletor" role="tablist" aria-label="Escolha a base a consultar">
@@ -707,7 +867,7 @@ footer a:hover { color: var(--roxo); }
         <div class="painel-info" id="infoBase" style="margin-top:8px"></div>
         <div class="resumo-status" id="resumoStatus"></div>
       </div>
-      <div class="painel-acoes">
+      <div class="painel-acoes" id="painelAcoes">
         <button class="btn-secundario" id="btnLista" type="button" aria-expanded="false" aria-controls="listaCompleta">Ver lista completa</button>
         <button class="btn-secundario" id="btnHistorico" type="button">O que mudou</button>
       </div>
@@ -734,6 +894,27 @@ footer a:hover { color: var(--roxo); }
     <p style="font-size:13.5px">Se uma empresa que você sabe que é autorizada não aparecer aqui, avise — pode ser que ela tenha entrado na lista depois da última atualização da base.</p>
     <div class="modal-rodape">
       <button class="btn-secundario" data-fechar="modalAjuda" type="button">Fechar</button>
+    </div>
+  </div>
+</div>
+
+<div class="fundo-modal" id="modalGafi" role="dialog" aria-modal="true" aria-labelledby="tituloGafi">
+  <div class="modal">
+    <h3 id="tituloGafi">País nas listas do GAFI</h3>
+    <p class="modal-sub" id="subGafi">Carregando…</p>
+
+    <div class="busca-gafi">
+      <label for="campoGafi" class="sr-only">Sigla, código ou nome do país</label>
+      <input id="campoGafi" type="search" autocomplete="off" spellcheck="false"
+             placeholder="Sigla do alerta, por exemplo BOL">
+    </div>
+
+    <div id="resultadoGafi" aria-live="polite"></div>
+
+    <div class="modal-rodape">
+      <a href="https://www.gov.br/coaf/pt-br/assuntos/informacoes-as-pessoas-obrigadas/avisos-e-alertas/comunicados-do-gafi"
+         target="_blank" rel="noopener noreferrer" class="btn-secundario">Ver no COAF ↗</a>
+      <button class="btn-secundario" data-fechar="modalGafi" type="button">Fechar</button>
     </div>
   </div>
 </div>
@@ -779,37 +960,93 @@ const META_RESERVA = {
    1. OS DOIS MÓDULOS
    ========================================================================== */
 
+/* O título grande da página é a marca, e não muda de aba para aba.
+   Quem diz em qual base você está é o seletor, logo abaixo — que foi feito
+   para isso e mostra as contagens. Antes o título carregava o nome do
+   módulo ("Consulta Bet") de um lado e uma descrição ("Instituições de
+   Pagamento") do outro: duas lógicas diferentes no mesmo lugar. */
+const TITULO_SITE = 'Nu <span class="destaque">Consulta</span>';
+
 const MODULOS = {
   bets: {
     arquivo: 'dados.json',
     historico: 'historico.json',
     chaveLista: 'empresas',
-    titulo: 'Consulta <span class="destaque">Bet</span>',
-    subtitulo: 'Verifique se uma plataforma de apostas está autorizada a operar no Brasil pelo Governo Federal.',
+    subtitulo: 'Consulte a situação de uma plataforma de apostas na lista oficial do Governo Federal.',
+    /* Contexto regulatório, em uma linha dentro do painel da base. Quando
+       a MP for resolvida — aprovada, alterada ou caducada — apague este
+       campo e a linha desaparece, sem mexer em mais nada. O texto longo
+       vive no `rodape`, junto das outras ressalvas. */
+    avisoCurto: `<b>Proibição em vigor desde 25/09/2026</b> — MP 1.394, em
+                 tramitação no Congresso ·
+                 <a href="http://www.in.gov.br/web/dou/-/medida-provisoria-n-1.394-de-25-de-setembro-de-2026-734808521"
+                    target="_blank" rel="noopener noreferrer">ler a MP</a>`,
     placeholder: 'Digite a marca, o CNPJ ou o nome da empresa…',
     rotuloBase: 'casas autorizadas',
     fonteNome: 'gov.br / SPA-MF',
     fonteUrl: 'https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/transparencia-ativa-processos-de-autorizacao-de-apostas-de-quota-fixa/empresas-autorizadas',
-    rodape: 'Ferramenta informativa. A fonte oficial e definitiva é a Secretaria de Prêmios e Apostas do Ministério da Fazenda. Em caso de divergência, vale sempre a lista publicada no gov.br.',
+    rodape: 'Ferramenta informativa. A fonte oficial e definitiva é a Secretaria de Prêmios e Apostas do Ministério da Fazenda. Em caso de divergência, vale sempre a lista publicada no gov.br. A Medida Provisória nº 1.394, de 25/09/2026, proibiu a exploração, a oferta e a publicidade de apostas de quota fixa no país; a relação oficial segue publicada pela SPA/MF e esta consulta continua refletindo o que consta nela, o que importa para analisar períodos anteriores à proibição. A medida está em tramitação no Congresso.',
   },
   ips: {
     arquivo: 'ips.json',
     historico: 'historico_ips.json',
     chaveLista: 'instituicoes',
-    titulo: 'Instituições de <span class="destaque">Pagamento</span>',
     subtitulo: 'Consulte a situação de uma Instituição de Pagamento na base de entidades supervisionadas pelo Banco Central.',
     placeholder: 'Digite o CNPJ ou o nome da instituição…',
     rotuloBase: 'instituições na base',
     fonteNome: 'Banco Central',
     fonteUrl: 'https://dadosabertos.bcb.gov.br/dataset/dados-cadastrais-de-entidades-autorizadas',
-    rodape: 'Ferramenta informativa, sem valor de certidão. A base cobre apenas Instituições de Pagamento, incluindo as que o BCB classifica como não sujeitas a autorização — bancos, financeiras, corretoras e instituidores de arranjo de pagamento não aparecem aqui. A fonte oficial é o Banco Central do Brasil.',
+    /* A categoria "não sujeita a autorização" saiu do texto porque a fonte
+       passou a devolvê-la vazia: a Resolução BCB nº 494 a encerrou, e o
+       prazo para pedir autorização venceu em 31/05/2026. O robô continua
+       consultando a categoria, e o cartão sabe explicá-la se alguma
+       reaparecer — mas prometer no rodapé algo que a base não entrega é o
+       tipo de imprecisão que esta ferramenta existe para não cometer. */
+    rodape: 'Ferramenta informativa, sem valor de certidão. A base cobre apenas Instituições de Pagamento supervisionadas pelo Banco Central — bancos, financeiras, corretoras e instituidores de arranjo de pagamento não aparecem aqui. A fonte oficial é o Banco Central do Brasil.',
   },
+};
+
+/* O GAFI é a consulta de canto: o analista chega com uma sigla de três
+   letras vinda de um alerta, quer a resposta e volta ao que estava
+   fazendo. Não divide espaço com bets e IPs — mora numa janela própria,
+   com código próprio, e só carrega quando alguém abre. */
+const GAFI = {
+  arquivo: 'gafi.json',
+  fonteUrl: 'https://www.gov.br/coaf/pt-br/assuntos/informacoes-as-pessoas-obrigadas/avisos-e-alertas/comunicados-do-gafi',
+  lista: [],
+  meta: {},
+  estado: 'inicial',          // inicial | carregando | pronto | erro
 };
 
 /* Estado de cada módulo, carregado sob demanda */
 const dados = {
   bets: { estado: Estado.CARREGANDO, lista: [], meta: {}, carregou: false },
   ips:  { estado: Estado.CARREGANDO, lista: [], meta: {}, carregou: false },
+};
+
+/* Como cada situação do GAFI aparece na tela. Fica aqui em cima porque é
+   usada tanto no cartão quanto na lista de abertura. */
+const VISUAL_GAFI = {
+  acao_contramedidas: {
+    classe: 'erro grave', pilula: 'erro',
+    selo: 'Chamado para ação · contramedidas',
+    curto: 'Contramedidas',
+  },
+  acao_diligencia: {
+    classe: 'erro', pilula: 'erro',
+    selo: 'Chamado para ação · diligência reforçada',
+    curto: 'Diligência reforçada',
+  },
+  monitoramento: {
+    classe: 'alerta', pilula: 'alerta',
+    selo: 'Monitoramento reforçado',
+    curto: 'Monitoramento reforçado',
+  },
+  nao_listado: {
+    classe: 'ok', pilula: 'ok',
+    selo: 'Sem restrição do GAFI',
+    curto: 'Sem restrição',
+  },
 };
 
 let aba = 'bets';
@@ -1032,6 +1269,12 @@ function renderizarPainel() {
     partes.push(`<span class="painel-item">Posição do BCB em <b>${esc(dataBr(d.meta.data_base))}</b></span>`);
   }
 
+  /* Aviso regulatório, quando a base tiver um. Entra como mais um item do
+     painel, com cor de alerta mas sem virar faixa. */
+  if (cfg.avisoCurto) {
+    partes.push(`<span class="painel-item regulatorio">⚠️ ${cfg.avisoCurto}</span>`);
+  }
+
   const dias = diasDesdeVerificacao(d.meta);
   const quando = descreverVerificacao(d.meta);
   if (quando) {
@@ -1062,6 +1305,125 @@ function renderizarPainel() {
    5. BUSCA
    ========================================================================== */
 
+/**
+ * Registra no Analytics uma busca que não achou nada.
+ *
+ * O termo é enviado porque ele responde algo útil: qual marca ou
+ * instituição está faltando na base. São nomes e CNPJs de empresas
+ * públicas — o que o analista digita é a contraparte que ele está
+ * checando, não o cliente.
+ *
+ * A exceção é colagem errada. Num fluxo em que se cola CNPJ o dia inteiro,
+ * uma hora alguém cola outra coisa. Se o que foi digitado tiver cara de
+ * CPF, o termo não é enviado — só o registro de que houve busca sem
+ * resultado. Dado pessoal não sai daqui nem por acidente.
+ */
+function registrarBuscaVazia(bruto) {
+  if (typeof gtag !== 'function') return;
+
+  const digitos = String(bruto).replace(/\D/g, '');
+  const pareceCPF = digitos.length === 11;
+
+  gtag('event', 'busca_sem_resultado', {
+    modulo: aba,
+    termo: pareceCPF ? '(omitido: formato de CPF)' : String(bruto).slice(0, 80),
+  });
+}
+
+/* ==========================================================================
+   MEDIÇÃO DE CONSULTAS
+   --------------------------------------------------------------------------
+   A busca roda a cada tecla (depois de 160 ms), então "uma busca" não é o
+   mesmo que "uma consulta": digitar um nome gera várias buscas. Uma consulta
+   é contada quando termina de verdade:
+     · o analista COLOU ou digitou e parou por ESPERA_MS, ou
+     · apertou Enter / clicou em Buscar / clicou num atalho ou país.
+   O mesmo termo não é contado duas vezes seguidas; limpar o campo zera isso.
+
+   O que vai para o Analytics (evento "consulta_realizada"):
+     modulo            bets | ips | gafi
+     resultado         encontrado | nao_encontrado   (bets, ips)
+                       com_restricao | sem_restricao | nao_reconhecido | varios (gafi)
+     qtd               quantos resultados apareceram
+     status            situação, quando o resultado é único (ex.: cancelada)
+     metodo            colou | digitou | enter | botao | atalho | chip
+     tempo_ms          do primeiro caractere até parar (colar ≈ 0)
+     consulta_n        1ª, 2ª, 3ª consulta desta visita
+     consulta_no_dia   1ª, 2ª, 3ª consulta do dia neste navegador
+
+   NUNCA vai o termo digitado. O termo só sai no evento antigo de busca sem
+   resultado, que já tem a proteção contra formato de CPF.
+   ========================================================================== */
+const ESPERA_MS = 1200;
+const MEDIDA = { seq: 0, inicio: {}, fim: {}, colou: {}, ultimo: {}, timer: {} };
+let ultimaBusca = null;   // preenchida por buscar()
+let ultimaGafi  = null;   // preenchida por buscarGafi()
+
+function medirReiniciar(m) {
+  clearTimeout(MEDIDA.timer[m]);
+  MEDIDA.ultimo[m] = null;
+  MEDIDA.inicio[m] = 0;
+  MEDIDA.fim[m] = 0;
+  MEDIDA.colou[m] = false;
+}
+
+function medirEntrada(m, ev) {
+  const agora = performance.now();
+  if (!MEDIDA.inicio[m]) MEDIDA.inicio[m] = agora;
+  MEDIDA.fim[m] = agora;
+  if (ev && ev.inputType === 'insertFromPaste') MEDIDA.colou[m] = true;
+}
+
+function medirAgendar(m, fornecedor) {
+  clearTimeout(MEDIDA.timer[m]);
+  MEDIDA.timer[m] = setTimeout(() => registrarConsulta(m, fornecedor(), ''), ESPERA_MS);
+}
+
+function medirAgora(m, fornecedor, origem) {
+  clearTimeout(MEDIDA.timer[m]);
+  registrarConsulta(m, fornecedor(), origem);
+}
+
+function consultasHoje() {
+  try {
+    const hoje = new Date().toLocaleDateString('en-CA');
+    const r = JSON.parse(localStorage.getItem('nc_dia') || 'null');
+    const n = (r && r.d === hoje ? r.n : 0) + 1;
+    localStorage.setItem('nc_dia', JSON.stringify({ d: hoje, n }));
+    return n;
+  } catch { return 0; }              // sem memória do navegador: só omite o campo
+}
+
+function registrarConsulta(m, info, origem) {
+  if (typeof gtag !== 'function' || !info) return;
+  if (MEDIDA.ultimo[m] === info.termo) return;     // mesma consulta, já contada
+  MEDIDA.ultimo[m] = info.termo;
+
+  const params = {
+    modulo: m,
+    resultado: info.resultado,
+    qtd: info.n,
+    status: info.status || '',
+    metodo: MEDIDA.colou[m] ? 'colou' : (origem || 'digitou'),
+    tempo_ms: Math.max(0, Math.round((MEDIDA.fim[m] || 0) - (MEDIDA.inicio[m] || 0))),
+    consulta_n: ++MEDIDA.seq,
+  };
+  const hoje = consultasHoje();
+  if (hoje) params.consulta_no_dia = hoje;
+  gtag('event', 'consulta_realizada', params);
+
+  MEDIDA.inicio[m] = 0; MEDIDA.fim[m] = 0; MEDIDA.colou[m] = false;
+}
+
+function infoBusca() {
+  const t = normalizar(campo.value.trim());
+  return (ultimaBusca && ultimaBusca.modulo === aba && ultimaBusca.termo === t) ? ultimaBusca : null;
+}
+function infoGafi() {
+  const t = normalizar($('campoGafi').value.trim());
+  return (ultimaGafi && ultimaGafi.termo === t) ? ultimaGafi : null;
+}
+
 function buscar() {
   const d = dados[aba];
   if (d.estado !== Estado.PRONTO) return;
@@ -1078,6 +1440,13 @@ function buscar() {
 
   const achados = d.lista.filter(e => e._busca.includes(termo));
 
+  ultimaBusca = {
+    modulo: aba, termo,
+    n: achados.length,
+    resultado: achados.length ? 'encontrado' : 'nao_encontrado',
+    status: achados.length === 1 ? (achados[0].status || '') : '',
+  };
+
   if (achados.length) {
     achados.sort((a, b) => pontuar(b, termo) - pontuar(a, termo));
     const cabecalho = achados.length === 1 ? '1 resultado encontrado' : `${achados.length} resultados encontrados`;
@@ -1088,8 +1457,165 @@ function buscar() {
       (achados.length > 25 ? `<p class="contagem">Mostrando os 25 primeiros. Refine a busca.</p>` : '');
   } else {
     naoEncontrado(bruto, termo);
-    if (typeof gtag === 'function') gtag('event', 'busca_sem_resultado', { modulo: aba, termo: bruto.slice(0, 80) });
+    registrarBuscaVazia(bruto);
   }
+}
+
+/* ==========================================================================
+   5B. A JANELA DO GAFI
+   --------------------------------------------------------------------------
+   Independente do resto. Carrega a própria base na primeira abertura, tem
+   o próprio campo e o próprio render. Se este bloco inteiro falhar, bets e
+   IPs continuam funcionando.
+   ========================================================================== */
+
+async function carregarGafi() {
+  if (GAFI.estado === 'pronto' || GAFI.estado === 'carregando') return;
+  GAFI.estado = 'carregando';
+  $('subGafi').textContent = 'Carregando as listas…';
+
+  try {
+    const versao = new Date().toISOString().slice(0, 10);
+    const resp = await fetch(`${GAFI.arquivo}?v=${versao}`, { cache: 'no-cache' });
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    const bruto = await resp.json();
+
+    GAFI.lista = bruto.paises || [];
+    GAFI.meta  = bruto.meta || {};
+    if (!GAFI.lista.length) throw new Error('base vazia');
+
+    GAFI.lista.forEach(p => {
+      p._busca = normalizar([
+        p.alpha3, p.alpha2, p.numerico, p.nome, p.nome_en,
+        (p.apelidos || []).join(' '),
+      ].join(' '));
+      p._apelidos = [p.nome, p.alpha3, ...(p.apelidos || [])].filter(Boolean);
+    });
+
+    GAFI.estado = 'pronto';
+    const n = (GAFI.meta.total_acao || 0) + (GAFI.meta.total_monitoramento || 0);
+    $('subGafi').textContent =
+      `${n} países com restrição · listas de ${GAFI.meta.plenaria || '—'}`;
+    buscarGafi();
+  } catch (erro) {
+    console.error('[Consulta] Falha ao carregar gafi.json:', erro);
+    GAFI.estado = 'inicial';          // deixa tentar de novo na próxima abertura
+    $('subGafi').textContent = 'Base indisponível';
+    $('resultadoGafi').innerHTML = `
+      <article class="cartao erro">
+        <span class="selo erro"><span class="selo-ponto"></span> Não consegui carregar</span>
+        <h2>As listas do GAFI não abriram</h2>
+        <p class="texto-estado">
+          Pode ser instabilidade momentânea. Feche e abra de novo. Se
+          insistir, consulte direto no
+          <a href="${GAFI.fonteUrl}" target="_blank" rel="noopener noreferrer"
+             style="color:var(--contraste)">COAF</a>.
+        </p>
+      </article>`;
+  }
+}
+
+function buscarGafi() {
+  if (GAFI.estado !== 'pronto') return;
+
+  const bruto = $('campoGafi').value.trim();
+  const termo = normalizar(bruto);
+  const alvo  = $('resultadoGafi');
+
+  /* Sem nada digitado, mostra os 25 restritos. São poucos e cabem na
+     janela — ler é mais rápido do que adivinhar o que procurar. */
+  if (termo.length < 2) { alvo.innerHTML = listaRestritos(); return; }
+
+  let achados = GAFI.lista.filter(p => p._busca.includes(termo));
+
+  /* Sigla exata manda sozinha.
+     Sem isto, "BOL" devolve Bolívia e Venezuela — porque o nome em inglês
+     dela é "Venezuela, Bolivarian Republic of". Quem colou a sigla do
+     alerta quer um país, não uma lista para desempatar. */
+  const exato = achados.filter(p =>
+    normalizar(p.alpha3) === termo || normalizar(p.alpha2) === termo);
+  if (exato.length) achados = exato;
+
+  ultimaGafi = {
+    modulo: 'gafi', termo,
+    n: achados.length,
+    resultado: achados.length === 0 ? 'nao_reconhecido'
+             : achados.length > 1 ? 'varios'
+             : (achados[0].situacao === 'nao_listado' ? 'sem_restricao' : 'com_restricao'),
+    status: achados.length === 1 ? (achados[0].situacao || '') : '',
+  };
+
+  if (!achados.length) { alvo.innerHTML = gafiNaoReconhecido(bruto); return; }
+
+  achados.sort((a, b) => {
+    const ra = a.situacao !== 'nao_listado', rb = b.situacao !== 'nao_listado';
+    if (ra !== rb) return rb - ra;                       // restritos primeiro
+    return a.nome.localeCompare(b.nome, 'pt-BR');
+  });
+
+  alvo.innerHTML = achados.slice(0, 8).map(p => cartaoPais(p, termo)).join('') +
+    (achados.length > 8
+      ? `<p class="contagem">Mostrando 8 de ${achados.length}. Use a sigla de três letras.</p>`
+      : '');
+}
+
+/* A negativa mais importante desta janela.
+   "Não reconheci esse código" e "esse país não tem restrição" são
+   respostas opostas, e quem está fechando um caso decide em cima disso. */
+function gafiNaoReconhecido(bruto) {
+  return `
+    <article class="cartao">
+      <span class="selo alerta"><span class="selo-ponto"></span> Código não reconhecido</span>
+      <h2>“${esc(bruto)}” não é um país que eu conheça</h2>
+      <div class="aviso-grave" style="background:var(--alerta-fundo);border-color:rgba(251,191,36,.35);color:var(--texto-alerta)">
+        <strong>Isto não quer dizer que o país esteja sem restrição.</strong>
+        Quer dizer que não encontrei esse código na lista ISO de países.
+        Confira se a sigla veio completa do alerta — normalmente são três
+        letras, como <b>BOL</b>, <b>IRN</b> ou <b>VEN</b>.
+      </div>
+    </article>
+    ${listaRestritos()}`;
+}
+
+/* ------------------------------------------- a lista de abertura do GAFI */
+function listaRestritos() {
+  const d = GAFI;
+  if (d.estado !== 'pronto') return '';
+
+  const grupo = chave => d.lista.filter(p => p.situacao === chave);
+  const bloco = (titulo, itens, visual, explica) => {
+    if (!itens.length) return '';
+    return `
+      <section class="bloco-gafi">
+        <h3 class="titulo-grupo-gafi">
+          <span class="selo ${visual.pilula}"><span class="selo-ponto"></span> ${titulo}</span>
+        </h3>
+        <p class="explica-gafi">${explica}</p>
+        <div class="grade-paises">
+          ${itens.map(p => `
+            <button type="button" class="chip-pais ${visual.pilula}" data-pais="${esc(p.alpha3)}">
+              <b>${esc(p.alpha3)}</b> <span>${esc(p.nome)}</span>
+            </button>`).join('')}
+        </div>
+      </section>`;
+  };
+
+  /* A data da plenária entra aqui, e não só no painel lá embaixo: com a
+     lista aberta, o painel sai da primeira tela — e saber de quando é a
+     lista faz parte da resposta. */
+  const plenaria = d.meta.plenaria ? ` de <b>${esc(d.meta.plenaria)}</b>` : '';
+
+  return `
+    <p class="contagem">Listas do GAFI${plenaria} · clique num país, ou digite a sigla do alerta</p>
+    ${bloco('Chamado para ação · contramedidas',
+            grupo('acao_contramedidas'), VISUAL_GAFI.acao_contramedidas,
+            'O grau mais severo. O GAFI pede que os países apliquem contramedidas.')}
+    ${bloco('Chamado para ação · diligência reforçada',
+            grupo('acao_diligencia'), VISUAL_GAFI.acao_diligencia,
+            'Deficiências graves, sem pedido de contramedidas.')}
+    ${bloco('Monitoramento reforçado',
+            grupo('monitoramento'), VISUAL_GAFI.monitoramento,
+            'A chamada "lista cinza": países com plano de ação acordado com o GAFI.')}`;
 }
 
 function pontuar(e, termo) {
@@ -1107,12 +1633,30 @@ function pontuar(e, termo) {
 /* ------------------------------------------------------------ cartão: bets */
 function cartaoBet(e, termo) {
   const judicial = e.origem === 'judicial' || /judicial|liminar/i.test(e.portaria || '');
-  const selo = judicial
-    ? '<span class="selo alerta"><span class="selo-ponto"></span> Autorizada por decisão judicial</span>'
-    : '<span class="selo ok"><span class="selo-ponto"></span> Autorizada</span>';
-  const nota = judicial
-    ? `<p class="texto-estado" style="font-size:13.5px">Opera por liminar, durante o período de adaptação. Para fins legais, tem os mesmos direitos e deveres de uma empresa autorizada administrativamente.</p>`
-    : '';
+
+  /* Fonte oficial fora do ar. A página da SPA/MF que listava as autorizadas
+     por decisão judicial deixou de existir; a empresa foi mantida na base,
+     mas NÃO como confirmada. As datas vêm do robô: a primeira verificação em
+     que a página não foi encontrada e a última leitura bem-sucedida. */
+  const semFonte = !!e.fonte_indisponivel;
+
+  const selo = semFonte
+    ? '<span class="selo alerta"><span class="selo-ponto"></span> Situação não confirmada</span>'
+    : judicial
+      ? '<span class="selo alerta"><span class="selo-ponto"></span> Autorizada por decisão judicial</span>'
+      : '<span class="selo ok"><span class="selo-ponto"></span> Autorizada</span>';
+
+  const nota = semFonte
+    ? `<div class="aviso-grave" style="background:var(--alerta-fundo);border-color:rgba(251,191,36,.35);color:var(--texto-alerta)">
+         <strong>A fonte oficial desta empresa saiu do ar.</strong>
+         Ela constava na página de autorizadas por decisão judicial da SPA/MF,
+         que não foi encontrada na verificação de <b>${esc(e.fonte_indisponivel_desde || '—')}</b>${
+           e.ultima_confirmacao ? ` (última leitura com sucesso: ${esc(e.ultima_confirmacao)})` : ''}.
+         Não há como confirmar hoje se continua autorizada. Confirme direto na SPA/MF antes de decidir.
+       </div>`
+    : judicial
+      ? `<p class="texto-estado" style="font-size:13.5px">Opera por liminar, durante o período de adaptação. Para fins legais, tem os mesmos direitos e deveres de uma empresa autorizada administrativamente.</p>`
+      : '';
   const linkDoc = e.documento_url
     ? ` <a href="${esc(e.documento_url)}" target="_blank" rel="noopener noreferrer">ver ato ↗</a>` : '';
 
@@ -1229,6 +1773,54 @@ function cartaoIP(e, termo) {
           <p class="campo-rotulo">Código no Bacen</p>
           <p class="campo-valor" style="font-variant-numeric:tabular-nums">${esc(e.codigo_bacen)}</p>
         </div>` : ''}
+      </div>
+    </article>`;
+}
+
+/* --------------------------------------------------------- cartão de país */
+function cartaoPais(e, termo) {
+  const v = VISUAL_GAFI[e.situacao] || VISUAL_GAFI.nao_listado;
+  const restrito = e.situacao !== 'nao_listado';
+  const plenaria = GAFI.meta.plenaria || '—';
+
+  /* A negativa aqui é uma resposta, não uma falha — e precisa ser dita com
+     a mesma clareza que a positiva. "Não achei" e "não está restrito" são
+     coisas diferentes, e o analista está decidindo em cima disso. */
+  const aviso = restrito
+    ? `<div class="aviso-grave"${e.situacao === 'monitoramento'
+          ? ' style="background:var(--alerta-fundo);border-color:rgba(251,191,36,.35);color:var(--texto-alerta)"' : ''}>
+         <strong>${esc(e.nome)} consta nas listas do GAFI de ${esc(plenaria)}: ${esc(v.curto.toLowerCase())}.</strong>
+         ${e.situacao === 'acao_contramedidas'
+            ? 'É o grau mais severo — o GAFI pede aplicação de contramedidas.'
+            : e.situacao === 'acao_diligencia'
+            ? 'Deficiências estratégicas graves, com pedido de diligência reforçada.'
+            : 'País com deficiências estratégicas e plano de ação acordado com o GAFI.'}
+       </div>`
+    : `<div class="aviso-grave" style="background:var(--ok-fundo,rgba(34,197,94,.08));border-color:rgba(34,197,94,.3);color:var(--texto-ok,#4ade80)">
+         <strong>${esc(e.nome)} não consta nas listas do GAFI de ${esc(plenaria)}.</strong>
+         Isso responde apenas sobre as listas do GAFI — não é uma declaração
+         de que a operação está livre de risco.
+       </div>`;
+
+  return `
+    <article class="cartao ${v.classe}">
+      <span class="selo ${v.pilula}"><span class="selo-ponto"></span> ${esc(v.selo)}</span>
+      <h2>${destacar(e.nome, termo)}</h2>
+      <p class="cnpj">${destacar(e.alpha3, termo)}${e.alpha2 ? ` · ${destacar(e.alpha2, termo)}` : ''}${e.numerico ? ` · ${esc(e.numerico)}` : ''}</p>
+      ${aviso}
+      <div class="grade-campos">
+        <div>
+          <p class="campo-rotulo">Situação nas listas do GAFI</p>
+          <p class="campo-valor">${esc(v.curto)}</p>
+        </div>
+        <div>
+          <p class="campo-rotulo">Nome em inglês</p>
+          <p class="campo-valor">${esc(e.nome_en || '—')}</p>
+        </div>
+        <div>
+          <p class="campo-rotulo">Referência</p>
+          <p class="campo-valor">Comunicados do GAFI de ${esc(plenaria)}</p>
+        </div>
       </div>
     </article>`;
 }
@@ -1380,7 +1972,11 @@ async function abrirHistorico() {
     const add = h.adicionadas || [];
     const rem = h.removidas || [];
     const alt = h.marcas_alteradas || [];
-    const houve = add.length || rem.length || alt.length;
+    /* Empresas que trocaram de estabelecimento na base (matriz por filial,
+       ou o contrário). Não entraram nem saíram — só mudou qual CNPJ o
+       Banco Central está publicando para elas. */
+    const trocaCnpj = h.cnpj_alterado || [];
+    const houve = add.length || rem.length || alt.length || trocaCnpj.length;
 
     let diasAlt = null;
     if (h.alterado_em_iso) {
@@ -1413,6 +2009,13 @@ async function abrirHistorico() {
         <ul>${rem.map(i => `<li>${esc(i)}</li>`).join('')}</ul></div>`;
       if (alt.length) html += `<div class="bloco-mudanca neutro"><h4 style="color:var(--roxo)">${alt.length} com marcas alteradas</h4>
         <ul>${alt.map(a => `<li><strong style="color:var(--text)">${esc(a.empresa)}</strong>: ${esc(a.antes)} → ${esc(a.depois)}</li>`).join('')}</ul></div>`;
+      if (trocaCnpj.length) html += `<div class="bloco-mudanca neutro">
+        <h4 style="color:var(--roxo)">${trocaCnpj.length} trocaram de estabelecimento</h4>
+        <p style="margin:0 0 8px;font-size:12.5px;color:var(--text-dim)">
+          Mesma empresa, mesma raiz de CNPJ. O Banco Central passou a publicar
+          outro estabelecimento (matriz ou filial). Não entraram nem saíram da base.
+        </p>
+        <ul>${trocaCnpj.map(i => `<li>${esc(i)}</li>`).join('')}</ul></div>`;
     }
 
     const carimbo = aba === 'bets'
@@ -1446,7 +2049,6 @@ function trocarAba(novo) {
   document.querySelectorAll('.seletor-item').forEach(b =>
     b.setAttribute('aria-selected', String(b.dataset.modulo === aba)));
 
-  $('heroTitulo').innerHTML = cfg.titulo;
   $('heroTexto').textContent = cfg.subtitulo;
   $('rodapeAviso').textContent = cfg.rodape;
   $('linkFonte').href = cfg.fonteUrl;
@@ -1511,16 +2113,21 @@ function alternarTema() {
    ========================================================================== */
 
 let temporizador;
-campo.addEventListener('input', () => {
+campo.addEventListener('input', ev => {
   btnLimpar.classList.toggle('visivel', campo.value.length > 0);
   clearTimeout(temporizador);
   temporizador = setTimeout(buscar, 160);
+  if (campo.value.trim().length < 2) medirReiniciar(aba);
+  else { medirEntrada(aba, ev); medirAgendar(aba, infoBusca); }
 });
 campo.addEventListener('keydown', e => {
-  if (e.key === 'Enter') { clearTimeout(temporizador); buscar(); }
+  if (e.key === 'Enter') { clearTimeout(temporizador); buscar(); medirAgora(aba, infoBusca, 'enter'); }
 });
-btnBuscar.addEventListener('click', () => { clearTimeout(temporizador); buscar(); });
+btnBuscar.addEventListener('click', () => {
+  clearTimeout(temporizador); buscar(); medirAgora(aba, infoBusca, 'botao');
+});
 btnLimpar.addEventListener('click', () => {
+  medirReiniciar(aba);
   campo.value = '';
   btnLimpar.classList.remove('visivel');
   areaResultado.innerHTML = '';
@@ -1546,6 +2153,40 @@ document.querySelectorAll('.seletor-item').forEach(b => {
   });
 });
 
+/* ------------------------------------------------------ janela do GAFI */
+$('btnGafi').addEventListener('click', () => {
+  abrirModal('modalGafi');
+  carregarGafi();                       // só baixa a base na primeira vez
+  setTimeout(() => $('campoGafi').focus(), 60);
+});
+
+$('campoGafi').addEventListener('input', ev => {
+  buscarGafi();
+  if ($('campoGafi').value.trim().length < 2) medirReiniciar('gafi');
+  else { medirEntrada('gafi', ev); medirAgendar('gafi', infoGafi); }
+});
+$('campoGafi').addEventListener('keydown', ev => {
+  if (ev.key === 'Escape' && $('campoGafi').value) {
+    ev.stopPropagation();               // primeiro Esc limpa, não fecha
+    $('campoGafi').value = '';
+    medirReiniciar('gafi');
+    buscarGafi();
+  } else if (ev.key === 'Enter') {
+    medirAgora('gafi', infoGafi, 'enter');
+  }
+});
+
+/* Clicar num país da lista joga a sigla no campo. Delegação de evento
+   porque os chips são recriados a cada render. */
+$('resultadoGafi').addEventListener('click', ev => {
+  const chip = ev.target.closest('.chip-pais');
+  if (!chip) return;
+  $('campoGafi').value = chip.dataset.pais || '';
+  buscarGafi();
+  medirAgora('gafi', infoGafi, 'chip');
+  $('campoGafi').focus();
+});
+
 $('btnLista').addEventListener('click', alternarLista);
 $('btnHistorico').addEventListener('click', abrirHistorico);
 $('btnAjuda').addEventListener('click', () => abrirModal('modalAjuda'));
@@ -1562,6 +2203,7 @@ document.addEventListener('click', e => {
   if (!alvo) return;
   campo.value = alvo.dataset.busca;
   buscar();
+  medirAgora(aba, infoBusca, 'atalho');
   campo.scrollIntoView({ block: 'center', behavior: 'smooth' });
 });
 document.addEventListener('keydown', e => {
@@ -1594,7 +2236,7 @@ document.addEventListener('keydown', e => {
   aplicarTema(lerTemaSalvo() === 'claro' ? 'claro' : 'escuro');
 
   const cfg = MODULOS[aba];
-  $('heroTitulo').innerHTML = cfg.titulo;
+  $('heroTitulo').innerHTML = TITULO_SITE;
   $('heroTexto').textContent = cfg.subtitulo;
   $('rodapeAviso').textContent = cfg.rodape;
   $('linkFonte').href = cfg.fonteUrl;
@@ -1604,5 +2246,6 @@ document.addEventListener('keydown', e => {
   carregar('bets').then(() => campo.focus());
 })();
 </script>
+<script>document.getElementById("linkConselhos").addEventListener("click",()=>{try{gtag("event","abrir_conselhos")}catch(_){}});</script>
 </body>
 </html>
