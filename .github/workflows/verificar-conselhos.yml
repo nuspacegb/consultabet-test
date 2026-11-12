@@ -1,0 +1,54 @@
+# Confere todo dia se os links da area "Conselhos" ainda abrem.
+# Nao altera a lista: so grava conselhos_status.json (o site mostra "no ar / fora do ar /
+# nao deu para verificar") e abre UMA issue se algum link ficar fora por 3 dias seguidos.
+name: Verificar links dos conselhos
+
+on:
+  schedule:
+    - cron: '40 11 * * *'   # todo dia 08:40 de Brasilia
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  verificar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - run: pip install --quiet requests
+      - name: Conferir os links
+        id: vigia
+        run: python verificar_conselhos.py
+
+      - name: Guardar o status
+        if: always()
+        run: |
+          if [ -z "$(git status --porcelain -- conselhos_status.json)" ]; then exit 0; fi
+          git config user.name  'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git add conselhos_status.json
+          git commit -m "Links dos conselhos: conferido em $(date +%d/%m/%Y)"
+          git push
+
+      - name: Avisar links fora do ar
+        if: steps.vigia.outputs.fora == 'sim'
+        continue-on-error: true
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const fs = require('fs');
+            const st = JSON.parse(fs.readFileSync('conselhos_status.json', 'utf8'));
+            const fora = Object.entries(st.links).filter(([, v]) => v.estado === 'fora');
+            const linhas = fora.map(([u, v]) => `- ${u} (${v.codigo}; ultimo ok: ${v.ultimo_ok || 'nunca'})`).join('\n');
+            const corpo = `**${fora.length} link(s) de conselhos fora do ar ha 3 dias seguidos.**\n\n${linhas}\n\nEdite o conselhos.json (link novo ou plano B) e suba de novo. Aviso automatico.`;
+            const abertas = await github.rest.issues.listForRepo({ owner: context.repo.owner, repo: context.repo.repo, state: 'open', labels: 'conselhos' });
+            if (abertas.data.length) {
+              await github.rest.issues.update({ owner: context.repo.owner, repo: context.repo.repo, issue_number: abertas.data[0].number, body: corpo });
+            } else {
+              await github.rest.issues.create({ owner: context.repo.owner, repo: context.repo.repo, title: 'Links de conselhos fora do ar', labels: ['conselhos'], body: corpo });
+            }
