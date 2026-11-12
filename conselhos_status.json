@@ -1,8 +1,8 @@
 {
  "gerado_em": "2026-11-12",
  "resumo": {
-  "ok": 174,
-  "incerto": 34,
+  "ok": 175,
+  "incerto": 33,
   "fora": 0
  },
  "links": {
@@ -16,7 +16,7 @@
   "http://www.crbiodigital.com.br/portal": {
    "estado": "incerto",
    "codigo": "dns",
-   "falhas_seguidas": 1,
+   "falhas_seguidas": 2,
    "verificado_em": "2026-11-12",
    "ultimo_ok": ""
   },
@@ -30,7 +30,7 @@
   "http://www.cressgoias.org.br": {
    "estado": "incerto",
    "codigo": "dns",
-   "falhas_seguidas": 1,
+   "falhas_seguidas": 2,
    "verificado_em": "2026-11-12",
    "ultimo_ok": ""
   },
@@ -107,7 +107,7 @@
   "https://caubr.gov.br": {
    "estado": "incerto",
    "codigo": 403,
-   "falhas_seguidas": 1,
+   "falhas_seguidas": 2,
    "verificado_em": "2026-11-12",
    "ultimo_ok": ""
   },
@@ -142,7 +142,7 @@
   "https://cfbio.com.br/SPW/consultanacional/cadastro_cfbio_simplificado.aspx": {
    "estado": "incerto",
    "codigo": "timeout",
-   "falhas_seguidas": 1,
+   "falhas_seguidas": 2,
    "verificado_em": "2026-11-12",
    "ultimo_ok": ""
   },
@@ -184,7 +184,7 @@
   "https://cfq.org.br": {
    "estado": "incerto",
    "codigo": "conexao",
-   "falhas_seguidas": 1,
+   "falhas_seguidas": 2,
    "verificado_em": "2026-11-12",
    "ultimo_ok": ""
   },
@@ -219,7 +219,7 @@
   "https://cofecon.org.br": {
    "estado": "incerto",
    "codigo": 403,
-   "falhas_seguidas": 1,
+   "falhas_seguidas": 2,
    "verificado_em": "2026-11-12",
    "ultimo_ok": ""
   },
@@ -380,14 +380,14 @@
   "https://coren-rj.org.br/": {
    "estado": "incerto",
    "codigo": "ssl",
-   "falhas_seguidas": 1,
+   "falhas_seguidas": 2,
    "verificado_em": "2026-11-12",
    "ultimo_ok": ""
   },
   "https://coren-se.gov.br/": {
    "estado": "incerto",
    "codigo": "ssl",
-   "falhas_seguidas": 1,
+   "falhas_seguidas": 2,
    "verificado_em": "2026-11-12",
    "ultimo_ok": ""
   },
@@ -408,7 +408,7 @@
   "https://corporativo.sinceti.net.br/app/view/sight/externo.php?form=ConsultarCertidaoSimples": {
    "estado": "incerto",
    "codigo": 403,
-   "falhas_seguidas": 1,
+   "falhas_seguidas": 2,
    "verificado_em": "2026-11-12",
    "ultimo_ok": ""
   },
@@ -597,14 +597,14 @@
   "https://crecies.gov.br": {
    "estado": "incerto",
    "codigo": 403,
-   "falhas_seguidas": 1,
+   "falhas_seguidas": 2,
    "verificado_em": "2026-11-12",
    "ultimo_ok": ""
   },
   "https://crecies.gov.br/profissional-regularizado": {
    "estado": "incerto",
    "codigo": 403,
-   "falhas_seguidas": 1,
+   "falhas_seguidas": 2,
    "verificado_em": "2026-11-12",
    "ultimo_ok": ""
   },
@@ -672,11 +672,11 @@
    "ultimo_ok": "2026-11-12"
   },
   "https://crefito-19.implanta.net.br/ServicosOnline/Publico/ConsultaInscritos/": {
-   "estado": "incerto",
-   "codigo": "timeout",
-   "falhas_seguidas": 1,
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
    "verificado_em": "2026-11-12",
-   "ultimo_ok": ""
+   "ultimo_ok": "2026-11-12"
   },
   "https://crefito-20.implanta.net.br/ServicosOnline/Publico/ConsultaInscritos/": {
    "estado": "ok",
@@ -730,7 +730,7 @@
   "https://crefito18.org.br/": {
    "estado": "incerto",
    "codigo": 403,
-   "falhas_seguidas": 1,
+   "falhas_seguidas": 2,
    "verificado_em": "2026-11-12",
    "ultimo_ok": ""
   },
@@ -785,8 +785,8 @@
   },
   "https://dfe-portal.svrs.rs.gov.br/NFE/CCC": {
    "estado": "incerto",
-   "codigo": 400,
-   "falhas_seguidas": 1,
+   "codigo": 500,
+   "falhas_seguidas": 2,
    "verificado_em": "2026-11-12",
    "ultimo_ok": ""
   },
@@ -835,7 +835,7 @@
   "https://portal.coren-sp.gov.br/": {
    "estado": "incerto",
    "codigo": 403,
-   "falhas_seguidas": 1,
+   "falhas_seguidas": 2,
    "verificado_em": "2026-11-12",
    "ultimo_ok": ""
   },
@@ -849,21 +849,21 @@
   "https://servicos-es.coren-sp.gov.br/consulta-de-profissionais/": {
    "estado": "incerto",
    "codigo": 403,
-   "falhas_seguidas": 1,
+   "falhas_seguidas": 2,
    "verificado_em": "2026-11-12",
    "ultimo_ok": ""
   },
   "https://servicos-sc.coren-sp.gov.br/consulta-de-profissionais/": {
    "estado": "incerto",
    "codigo": 403,
-   "falhas_seguidas": 1,
+   "falhas_seguidas": 2,
    "verificado_em": "2026-11-12",
    "ultimo_ok": ""
   },
   "https://servicos.coren-sp.gov.br/consulta-de-profissionais/": {
    "estado": "incerto",
    "codigo": 403,
-   "falhas_seguidas": 1,
+   "falhas_seguidas": 2,
    "verificado_em": "2026-11-12",
    "ultimo_ok": ""
   },
@@ -905,7 +905,7 @@
   "https://servicos.sinceti.net.br/": {
    "estado": "incerto",
    "codigo": 403,
-   "falhas_seguidas": 1,
+   "falhas_seguidas": 2,
    "verificado_em": "2026-11-12",
    "ultimo_ok": ""
   },
@@ -989,7 +989,7 @@
   "https://webserver.crcrj.org.br/spw/": {
    "estado": "incerto",
    "codigo": 500,
-   "falhas_seguidas": 1,
+   "falhas_seguidas": 2,
    "verificado_em": "2026-11-12",
    "ultimo_ok": ""
   },
@@ -1017,7 +1017,7 @@
   "https://www.cfess.org.br": {
    "estado": "incerto",
    "codigo": 403,
-   "falhas_seguidas": 1,
+   "falhas_seguidas": 2,
    "verificado_em": "2026-11-12",
    "ultimo_ok": ""
   },
@@ -1136,21 +1136,21 @@
   "https://www.coren-ba.gov.br/": {
    "estado": "incerto",
    "codigo": "ssl",
-   "falhas_seguidas": 1,
+   "falhas_seguidas": 2,
    "verificado_em": "2026-11-12",
    "ultimo_ok": ""
   },
   "https://www.coren-ce.org.br/": {
    "estado": "incerto",
    "codigo": "ssl",
-   "falhas_seguidas": 1,
+   "falhas_seguidas": 2,
    "verificado_em": "2026-11-12",
    "ultimo_ok": ""
   },
   "https://www.coren-df.gov.br/site/": {
    "estado": "incerto",
    "codigo": "ssl",
-   "falhas_seguidas": 1,
+   "falhas_seguidas": 2,
    "verificado_em": "2026-11-12",
    "ultimo_ok": ""
   },
@@ -1199,14 +1199,14 @@
   "https://www.corenac.gov.br/": {
    "estado": "incerto",
    "codigo": "ssl",
-   "falhas_seguidas": 1,
+   "falhas_seguidas": 2,
    "verificado_em": "2026-11-12",
    "ultimo_ok": ""
   },
   "https://www.corenam.gov.br/": {
    "estado": "incerto",
    "codigo": 403,
-   "falhas_seguidas": 1,
+   "falhas_seguidas": 2,
    "verificado_em": "2026-11-12",
    "ultimo_ok": ""
   },
@@ -1220,28 +1220,28 @@
   "https://www.corenmg.gov.br/": {
    "estado": "incerto",
    "codigo": "timeout",
-   "falhas_seguidas": 1,
+   "falhas_seguidas": 2,
    "verificado_em": "2026-11-12",
    "ultimo_ok": ""
   },
   "https://www.corenms.gov.br/": {
    "estado": "incerto",
    "codigo": "ssl",
-   "falhas_seguidas": 1,
+   "falhas_seguidas": 2,
    "verificado_em": "2026-11-12",
    "ultimo_ok": ""
   },
   "https://www.corenpa.org.br/": {
    "estado": "incerto",
    "codigo": "ssl",
-   "falhas_seguidas": 1,
+   "falhas_seguidas": 2,
    "verificado_em": "2026-11-12",
    "ultimo_ok": ""
   },
   "https://www.corenpb.gov.br/": {
    "estado": "incerto",
    "codigo": "ssl",
-   "falhas_seguidas": 1,
+   "falhas_seguidas": 2,
    "verificado_em": "2026-11-12",
    "ultimo_ok": ""
   },
@@ -1269,7 +1269,7 @@
   "https://www.corentocantins.org.br/": {
    "estado": "incerto",
    "codigo": "ssl",
-   "falhas_seguidas": 1,
+   "falhas_seguidas": 2,
    "verificado_em": "2026-11-12",
    "ultimo_ok": ""
   },
@@ -1360,7 +1360,7 @@
   "https://www.crefito5.org.br/": {
    "estado": "incerto",
    "codigo": 403,
-   "falhas_seguidas": 1,
+   "falhas_seguidas": 2,
    "verificado_em": "2026-11-12",
    "ultimo_ok": ""
   },
@@ -1437,7 +1437,7 @@
   "https://www.incorpnet.com.br/appincorpnet2_corenmt/incorpnet.dll/controller?pagina=pub_mvcLocalizarCadastro.htm": {
    "estado": "incerto",
    "codigo": 503,
-   "falhas_seguidas": 1,
+   "falhas_seguidas": 2,
    "verificado_em": "2026-11-12",
    "ultimo_ok": ""
   },
@@ -1457,8 +1457,8 @@
   },
   "https://www1.cfc.org.br/sisweb/Registro/ConsultaCNPC": {
    "estado": "incerto",
-   "codigo": 500,
-   "falhas_seguidas": 1,
+   "codigo": "timeout",
+   "falhas_seguidas": 2,
    "verificado_em": "2026-11-12",
    "ultimo_ok": ""
   }
