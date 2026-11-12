@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nu · Consulta — Profissionais liberais</title>
+<meta name="description" content="Atalhos para as consultas oficiais de registro de profissionais liberais nos conselhos federais e regionais.">
+<meta name="theme-color" content="#0A0A0F">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%230A0A0F'/><path d='M30 72V28h11l18 27V28h11v44H59L41 45v27z' fill='%23A855F7'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<!-- Versão de teste: sem Google Analytics (gtag vira função vazia) -->
+<script>function gtag(){}</script>
+
+<style>
+/* Mesmas variáveis do index.html: se mudar a identidade lá, mude aqui também. */
+:root {
+  --bg:#0A0A0F; --bg-elev:#101017; --surface:#14141C; --surface-hover:#191922;
+  --line:rgba(168,85,247,.14); --line-strong:rgba(168,85,247,.32);
+  --text:#EEEEF4; --text-muted:#9C9CB0; --text-dim:#6E6E82;
+  --roxo:#A855F7; --roxo-neon:#BC13FE; --roxo-fundo:rgba(168,85,247,.12); --roxo-claro:#B76BF8;
+  --ok:#34D399; --alerta:#FBBF24; --erro:#F87171;
+  --largura:1080px; --raio:14px;
+  --fonte-titulo:'Rajdhani',system-ui,sans-serif;
+  --fonte-texto:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --topo-fundo:rgba(10,10,15,.8); --titulo-cor:#F5EBFF; --titulo-brilho:0 0 24px rgba(188,19,254,.45);
+  --brilho-topo:rgba(168,85,247,.16); --sombra:0 8px 24px rgba(0,0,0,.45); --on-roxo:#fff;
+}
+:root[data-tema="claro"] {
+  --bg:#F6F4FA; --bg-elev:#FFFFFF; --surface:#FFFFFF; --surface-hover:#F1ECF9;
+  --line:rgba(109,40,158,.18); --line-strong:rgba(109,40,158,.40);
+  --text:#1A1526; --text-muted:#56506B; --text-dim:#7E7795;
+  --roxo:#6D289E; --roxo-neon:#8B1FD0; --roxo-fundo:rgba(109,40,158,.08); --roxo-claro:#8637BE;
+  --ok:#046C4E; --alerta:#8A5A00; --erro:#B3261E;
+  --topo-fundo:rgba(255,255,255,.85); --titulo-cor:#2A1040; --titulo-brilho:none;
+  --brilho-topo:rgba(168,85,247,.13); --sombra:0 8px 24px rgba(60,40,90,.16);
+}
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { margin:0; min-height:100vh; display:flex; flex-direction:column; background:var(--bg); color:var(--text);
+  font-family:var(--fonte-texto); font-size:15px; line-height:1.55; -webkit-font-smoothing:antialiased; }
+body::before { content:""; position:fixed; inset:0 0 auto 0; height:480px; pointer-events:none; z-index:0;
+  background:radial-gradient(ellipse 80% 100% at 50% -20%, var(--brilho-topo), transparent 70%); }
+.conteudo { position:relative; z-index:1; flex:1; display:flex; flex-direction:column; }
+.sr-only { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+
+.barra { border-bottom:1px solid var(--line); background:var(--topo-fundo); backdrop-filter:blur(12px); position:sticky; top:0; z-index:50; }
+.barra-int { max-width:var(--largura); margin:0 auto; padding:14px 20px; display:flex; align-items:center; justify-content:space-between; gap:16px; }
+.marca { display:flex; align-items:center; gap:9px; font-family:var(--fonte-titulo); font-weight:700; font-size:15px;
+  letter-spacing:.08em; text-transform:uppercase; color:var(--text); text-decoration:none; }
+.marca i { width:7px; height:7px; border-radius:50%; background:var(--roxo-neon); box-shadow:0 0 8px var(--roxo-neon); }
+.topo-dir { display:flex; align-items:center; gap:10px; }
+.voltar { display:flex; align-items:center; gap:6px; height:32px; padding:0 12px; border:1px solid var(--line); border-radius:9px;
+  color:var(--text-muted); font-size:12.5px; text-decoration:none; transition:.15s; }
+.voltar:hover { background:var(--surface-hover); color:var(--text); border-color:var(--line-strong); }
+.btn-tema { width:32px; height:32px; display:grid; place-items:center; background:transparent; border:1px solid var(--line);
+  border-radius:9px; color:var(--text-muted); cursor:pointer; }
+.btn-tema:hover { background:var(--surface-hover); color:var(--text); border-color:var(--line-strong); }
+.btn-tema svg { width:16px; height:16px; }
+.btn-tema .claro { display:none; }
+:root[data-tema="claro"] .btn-tema .claro { display:block; }
+:root[data-tema="claro"] .btn-tema .escuro { display:none; }
+
+main { width:100%; max-width:var(--largura); margin:0 auto; padding:0 20px 64px; flex:1; }
+.hero { text-align:center; padding:44px 0 26px; }
+.hero h1 { margin:0; font-family:var(--fonte-titulo); font-weight:700; text-transform:uppercase; line-height:1.05;
+  font-size:clamp(1.9rem,6vw,2.8rem); color:var(--titulo-cor); text-shadow:var(--titulo-brilho); }
+.hero h1 b { color:var(--roxo-neon); font-weight:700; }
+.hero p { margin:12px auto 0; max-width:56ch; color:var(--text-muted); font-size:clamp(.95rem,2.4vw,1.05rem); text-wrap:balance; }
+
+.busca { position:relative; max-width:640px; margin:0 auto 18px; }
+.busca svg { position:absolute; left:16px; top:50%; transform:translateY(-50%); color:var(--text-dim); }
+.busca input { width:100%; background:var(--surface); border:1px solid var(--line-strong); border-radius:var(--raio);
+  padding:14px 16px 14px 46px; color:var(--text); font-family:var(--fonte-texto); font-size:16px; }
+.busca input:focus { outline:2px solid var(--roxo); outline-offset:2px; }
+.busca input::placeholder { color:var(--text-dim); }
+
+.grupos { display:flex; justify-content:center; gap:8px; flex-wrap:wrap; margin-bottom:26px; }
+.grupo { background:transparent; border:1px solid var(--line); border-radius:999px; color:var(--text-muted);
+  font-size:13px; padding:6px 14px; cursor:pointer; font-family:var(--fonte-texto); transition:.15s; }
+.grupo:hover { background:var(--surface-hover); color:var(--text); }
+.grupo[aria-pressed="true"] { background:var(--roxo); border-color:var(--roxo); color:var(--on-roxo); }
+.contagem { text-align:center; font-size:12.5px; color:var(--text-dim); margin:-8px 0 16px; }
+
+/* Cartão inteiro clicável, sempre com a mesma estrutura: ícone · título · conselho · rodapé. */
+.secao { margin:34px 0 14px; display:flex; align-items:center; gap:14px; }
+.secao h2 { margin:0; font-family:var(--fonte-titulo); font-weight:700; font-size:21px; letter-spacing:.05em; text-transform:uppercase; color:var(--text); white-space:nowrap; }
+.secao::before, .secao::after { content:""; height:1px; background:var(--line-strong); flex:1; }
+.secao small { display:block; text-align:center; color:var(--text-dim); font-size:12px; text-transform:none; letter-spacing:0; font-family:var(--fonte-texto); font-weight:400; }
+.nota { text-align:center; color:var(--text-dim); font-size:12.5px; margin:12px 0 0; }
+.grade { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:14px; }
+.card { position:relative; background:var(--surface); border:1px solid var(--line); border-radius:var(--raio); padding:16px 16px 12px;
+  display:flex; flex-direction:column; height:176px; transition:border-color .15s, transform .15s, box-shadow .15s; }
+.card:hover, .card:focus-within { border-color:var(--roxo); transform:translateY(-2px); box-shadow:var(--sombra); }
+.card .tela { position:absolute; inset:0; border-radius:inherit; z-index:1; }
+.card .tela:focus-visible { outline:2px solid var(--roxo); outline-offset:3px; }
+.icone { width:40px; height:40px; border-radius:10px; display:grid; place-items:center; background:var(--roxo); color:var(--on-roxo); flex:none; }
+.icone svg { width:23px; height:23px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+.card h3 { margin:12px 0 0; font-family:var(--fonte-titulo); font-weight:700; font-size:19px; line-height:1.1; color:var(--text);
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.card p { margin:4px 0 0; font-size:12.5px; line-height:1.4; color:var(--text-muted);
+  display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+.rodape { margin-top:auto; height:24px; display:flex; align-items:center; justify-content:space-between; gap:8px; }
+.rodape .extra { position:relative; z-index:2; font-size:12px; color:var(--text-dim); text-decoration:none; border-bottom:1px solid var(--line-strong); }
+.rodape .extra:hover { color:var(--roxo); border-color:var(--roxo); }
+.rodape .extra.alt { display:inline-flex; align-items:center; height:24px; padding:0 10px; border:1px solid var(--roxo); border-radius:999px;
+  background:var(--roxo-fundo); color:var(--roxo); font-weight:600; font-size:11.5px; white-space:nowrap; transition:.15s; }
+.rodape .extra.alt:hover { background:var(--roxo); color:var(--on-roxo); }
+.rodape .seta { margin-left:auto; color:var(--roxo); font-size:20px; line-height:1; }
+.ponto { position:absolute; top:14px; right:14px; width:9px; height:9px; border-radius:50%; background:var(--text-dim); z-index:2; }
+.ponto.ok { background:var(--ok); } .ponto.fora { background:var(--erro); } .ponto.incerto { background:var(--alerta); }
+.card.sem { opacity:.55; } .card.sem:hover { transform:none; border-color:var(--line); box-shadow:none; }
+.vazio-geral { text-align:center; padding:48px 0; color:var(--text-muted); }
+
+footer { border-top:1px solid var(--line); padding:26px 20px 34px; text-align:center; color:var(--text-dim); font-size:12.5px; line-height:1.7; }
+footer p { max-width:70ch; margin:0 auto 6px; }
+@media (max-width:980px) { .grade { grid-template-columns:repeat(3,minmax(0,1fr)); } }
+@media (max-width:720px) { .grade { grid-template-columns:repeat(2,minmax(0,1fr)); } .voltar span { display:none; } }
+@media (max-width:420px) { .grade { grid-template-columns:1fr; } }
+@media (prefers-reduced-motion:reduce) { .card, .grupo, .btn { transition:none; } .card:hover { transform:none; } }
+</style>
+</head>
+<body>
+<div class="conteudo">
+  <header class="barra"><div class="barra-int">
+    <a class="marca" href="index.html"><i></i> Nu · Consulta</a>
+    <div class="topo-dir">
+      <a class="voltar" href="index.html">← <span>Voltar às consultas</span></a>
+      <button class="btn-tema" id="btnTema" type="button" aria-label="Alternar tema">
+        <svg class="escuro" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="claro" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+    </div>
+  </div></header>
+
+  <main>
+    <section class="hero">
+      <h1>Profissionais <b>liberais</b></h1>
+      <p>Escolha a profissão e abra a consulta oficial de registro no conselho. Se a consulta principal não abrir, use o link alternativo. Onde a consulta é por estado, escolha o conselho regional mais abaixo.</p>
+    </section>
+
+    <div class="busca">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <label for="campo" class="sr-only">Profissão ou conselho</label>
+      <input id="campo" type="search" autocomplete="off" spellcheck="false" placeholder="Digite a profissão ou o conselho: dentista, assistente social, CRM…">
+    </div>
+    <div class="grupos" id="grupos"></div>
+    <p class="contagem" id="contagem" aria-live="polite">Carregando…</p>
+    <div id="saida"></div>
+  </main>
+
+  <footer>
+    <p>Este site só abre as consultas oficiais de cada conselho. Nada digitado aqui é enviado a lugar nenhum. A confirmação do registro vale somente no site do conselho.</p>
+    <p>Algum link quebrado? Avise @alexandregabbia no Slack. · Elaborado por Alexandre Gabbia</p>
+  </footer>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const semAcento = s => (s || '').toString().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+
+/* ---------- tema (mesma chave do index.html) ---------- */
+const CHAVE_TEMA = 'consulta:tema';
+function aplicarTema(t) { if (t === 'claro') document.documentElement.setAttribute('data-tema', 'claro'); else document.documentElement.removeAttribute('data-tema'); }
+try { aplicarTema(localStorage.getItem(CHAVE_TEMA)); } catch (_) {}
+$('btnTema').addEventListener('click', () => {
+  const novo = document.documentElement.getAttribute('data-tema') === 'claro' ? 'escuro' : 'claro';
+  aplicarTema(novo);
+  try { localStorage.setItem(CHAVE_TEMA, novo); } catch (_) {}
+});
+
+/* ---------- ícones (traço simples, 24x24) ---------- */
+const ICONES = {
+  steto: '<path d="M6 3v6a4 4 0 008 0V3"/><path d="M10 13v2a5 5 0 0010 0v-1"/><circle cx="20" cy="12" r="2"/>',
+  dente: '<path d="M8 3C5.500 3 4 5 4 7.500c0 3 1.500 4 2 7 .4 2.500.7 6 2.200 6 1.600 0 1.200-4 3.800-4s2.200 4 3.800 4c1.500 0 1.800-3.500 2.200-6 .5-3 2-4 2-7C20 5 18.500 3 16 3c-1.800 0-2.500 1-4 1S9.800 3 8 3z"/>',
+  pilula: '<rect x="2.500" y="8.500" width="19" height="7" rx="3.500" transform="rotate(-45 12 12)"/><path d="M8.500 8.500l7 7"/>',
+  coracao: '<path d="M12 20s-7-4.400-7-10a4 4 0 017-2.500A4 4 0 0119 10c0 5.600-7 10-7 10z"/><path d="M7 12h3l1.500-3 2 5 1.500-2h2"/>',
+  cerebro: '<path d="M9 4a3 3 0 00-3 3 3 3 0 00-2 5 3 3 0 002 5 3 3 0 003 3 3 3 0 003-3V7a3 3 0 00-3-3z"/><path d="M15 4a3 3 0 013 3 3 3 0 012 5 3 3 0 01-2 5 3 3 0 01-3 3"/>',
+  maca: '<path d="M12 8c-2-2-6-1-6 4 0 4 2 8 4 8 1 0 1.200-.600 2-.600s1 .600 2 .600c2 0 4-4 4-8 0-5-4-6-6-4z"/><path d="M12 8c0-2 1-3 3-4"/>',
+  atividade: '<path d="M3 12h4l3-8 4 16 3-8h4"/>',
+  mao: '<path d="M8 12V5.500a1.500 1.500 0 013 0V11M11 11V4a1.500 1.500 0 013 0v7M14 11V6a1.500 1.500 0 013 0v8c0 4-2.500 7-6 7s-5-2-6.500-5L3 12.500a1.500 1.500 0 012.500-1.500L8 14"/>',
+  fala: '<path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/>',
+  frasco: '<path d="M9 3h6M10 3v6l-5 9a2 2 0 002 3h10a2 2 0 002-3l-5-9V3"/><path d="M7.500 15h9"/>',
+  microscopio: '<path d="M6 21h12M9 21v-3M8 4l5 2-3 7-5-2z"/><path d="M12 14a5 5 0 005-5"/>',
+  folha: '<path d="M5 19C5 10 10 5 20 4c0 10-5 15-14 15z"/><path d="M5 19l8-8"/>',
+  pata: '<circle cx="7" cy="10" r="1.800"/><circle cx="12" cy="7" r="1.800"/><circle cx="17" cy="10" r="1.800"/><path d="M12 12c-3 0-5 3-5 5 0 1.500 1.500 2 3 1.500 1-.3 1.500-.5 2-.5s1 .2 2 .5c1.500.5 3 0 3-1.500 0-2-2-5-5-5z"/>',
+  halter: '<path d="M6 7v10M3 10v4M18 7v10M21 10v4M6 12h12"/>',
+  scan: '<path d="M4 8V5a1 1 0 011-1h3M16 4h3a1 1 0 011 1v3M20 16v3a1 1 0 01-1 1h-3M8 20H5a1 1 0 01-1-1v-3"/><path d="M8 12h8"/>',
+  pessoas: '<circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0112 0M16 11a3 3 0 100-6M18 20a5 5 0 00-3-4.500"/>',
+  calculadora: '<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 12h2M12 12h2M8 16h2M12 16h2"/>',
+  maleta: '<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a1 1 0 011-1h4a1 1 0 011 1v2M3 13h18"/>',
+  grafico: '<path d="M4 20V4M4 20h16M8 16v-5M12 16V8M16 16v-3"/>',
+  megafone: '<path d="M4 10v4h3l8 4V6L7 10z"/><path d="M18 9a4 4 0 010 6"/>',
+  aperto: '<path d="M3 12l4-4 4 2 4-2 6 4"/><path d="M7 14l3 3 2-1 3 2 4-4"/>',
+  livro: '<path d="M5 4h10a3 3 0 013 3v13H8a3 3 0 01-3-3z"/><path d="M5 17a3 3 0 013-3h10"/>',
+  museu: '<path d="M3 10l9-6 9 6M5 10v8M9 10v8M15 10v8M19 10v8M3 20h18"/>',
+  capacete: '<path d="M3 17h18M5 17a7 7 0 0114 0M12 5v5"/>',
+  lapis: '<path d="M4 20l1-5L16 4l4 4L9 19z"/><path d="M13 7l4 4"/>',
+  chave: '<path d="M14 6a4 4 0 005 5l-9 9a2 2 0 01-3-3z"/>',
+  broto: '<path d="M12 21V11M12 11c0-4 3-6 7-6 0 4-3 6-7 6zM12 15c0-3-2-5-6-5 0 3 2 5 6 5z"/>',
+  casa: '<path d="M3 11l9-7 9 7M5 10v10h5v-6h4v6h5V10"/>',
+  balanca: '<path d="M12 4v16M6 20h12M5 7h14M5 7l-3 7a3 3 0 006 0zM19 7l-3 7a3 3 0 006 0z"/>',
+  aviao: '<path d="M21 4L3 11l7 3 3 7z"/><path d="M10 14l11-10"/>',
+  escudo: '<path d="M12 3l8 3v6c0 5-3.500 8-8 9-4.500-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/>',
+  tendencia: '<path d="M3 17l6-6 4 4 8-8M15 7h6v6"/>',
+  martelo: '<path d="M13 5l6 6M8 4l6 6-3 3-6-6zM4 20l7-7"/>',
+  idiomas: '<path d="M4 5h9M8 3v2M6 5c0 4 3 7 6 8M12 5c0 3-3 7-7 9"/><path d="M13 20l4-9 4 9M14.500 17h5"/>',
+  carro: '<path d="M5 16l1.500-5a2 2 0 012-1.500h7a2 2 0 012 1.500L19 16M4 16h16v3H4z"/><circle cx="8" cy="19" r="1"/><circle cx="16" cy="19" r="1"/>',
+  arquivo: '<path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 12h6M9 16h6"/>',
+};
+
+const ORDEM_GRUPOS = ['Saúde e social', 'Negócios', 'Engenharia e Construção', 'Imóveis', 'Jurídico', 'Mercado e documentos'];
+const ESTADO = { dados: null, status: {}, grupo: 'Todos' };
+
+async function carregar() {
+  try {
+    const v = new Date().toISOString().slice(0, 10);
+    const r = await fetch(`conselhos.json?v=${v}`, { cache: 'no-cache' });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    ESTADO.dados = await r.json();
+    try {
+      const s = await fetch(`conselhos_status.json?v=${v}`, { cache: 'no-cache' });
+      if (s.ok) ESTADO.status = (await s.json()).links || {};
+    } catch (_) {}
+    // só entram cartões com ao menos um caminho para uma consulta
+    ESTADO.lista = ESTADO.dados.profissoes.filter(p => p.principal || p.plano_b || p.regional)
+      .sort((a, b) => a.nome.localeCompare(b.nome, 'pt-BR'));
+    ESTADO.lista.forEach(p => {
+      p._busca = semAcento([p.nome, p.conselho, p.grupo, ...(p.aliases || [])].join(' '));
+    });
+    const gs = ORDEM_GRUPOS.filter(g => ESTADO.lista.some(p => p.grupo === g));
+    ESTADO.lista.forEach(p => { if (!gs.includes(p.grupo)) gs.push(p.grupo); });
+    $('grupos').innerHTML = ['Todos', ...gs].map(g =>
+      `<button type="button" class="grupo" data-g="${esc(g)}" aria-pressed="${g === 'Todos'}">${esc(g)}</button>`).join('');
+    desenhar();
+  } catch (e) {
+    console.error('[Consulta] conselhos.json não abriu:', e);
+    $('contagem').textContent = '';
+    $('saida').innerHTML = '<div class="vazio-geral">A lista não abriu. Atualize a página em instantes.</div>';
+  }
+}
+
+function pontoStatus(url) {
+  const s = ESTADO.status[url];
+  return s ? `<span class="ponto ${esc(s.estado)}" title="${{ ok: 'Link no ar', fora: 'Link fora do ar', incerto: 'Não deu para verificar' }[s.estado] || ''} · conferido em ${esc(s.verificado_em || '—')}"></span>` : '';
+}
+const SETA = '<span class="seta" aria-hidden="true">→</span>';
+
+function card(p) {
+  const regOk = p.regional && (ESTADO.dados.regionais[p.regional] || []).length;
+  // Para onde o cartão inteiro leva: consulta principal > site do plano B > seção "por estado" desta página.
+  const destino = p.principal || (regOk ? '#reg-' + p.regional : '') || p.plano_b || '';
+  const interno = destino.startsWith('#');
+  const tela = destino ? `<a class="tela" data-p="${esc(p.nome)}" data-k="${p.principal ? 'principal' : regOk ? 'regional' : 'plano_b'}" href="${esc(destino)}" ${interno ? '' : 'target="_blank" rel="noopener noreferrer"'} aria-label="${esc(p.nome)}: ${interno ? 'ver por estado' : 'abrir consulta'}"></a>` : '';
+  // Rodapé: um único atalho secundário.
+  let extra = '';
+  if (regOk && p.principal) extra = `<a class="extra alt" href="#reg-${esc(p.regional)}">Por estado ↓</a>`;
+  else if (p.plano_b && (p.principal || regOk)) extra = `<a class="extra alt" data-p="${esc(p.nome)}" data-k="plano_b" href="${esc(p.plano_b)}" target="_blank" rel="noopener noreferrer" title="Se a consulta principal não abrir, use este link">Link alternativo ↗</a>`;
+  const cap = p.captcha ? ` title="Este site pode pedir ${esc(p.captcha.toLowerCase())}"` : '';
+  return `<article class="card"${cap}>
+    ${p.principal ? pontoStatus(p.principal) : ''}
+    <div class="icone" aria-hidden="true"><svg viewBox="0 0 24 24">${ICONES[p.icone] || ICONES.arquivo}</svg></div>
+    <h3 title="${esc(p.nome)}">${esc(p.nome)}</h3>
+    <p>${esc(p.desc)}</p>
+    <div class="rodape">${extra}${SETA}</div>
+    ${tela}
+  </article>`;
+}
+
+const ICONE_REG = 'museu';
+function cardRegional(r, grupo) {
+  const url = r.consulta || r.site;
+  const tela = url ? `<a class="tela" data-p="${esc(r.nome)}" data-k="regional" href="${esc(url)}" target="_blank" rel="noopener noreferrer" aria-label="${esc(r.nome)}: abrir consulta"></a>` : '';
+  return `<article class="card${url ? '' : ' sem'}">
+    ${r.consulta ? pontoStatus(r.consulta) : (r.site ? pontoStatus(r.site) : '')}
+    <div class="icone" aria-hidden="true"><svg viewBox="0 0 24 24">${ICONES[ICONE_REG]}</svg></div>
+    <h3>${esc(r.nome)}</h3>
+    <p>${esc(r.estados || r.ufs.join(', '))}${url ? '' : ' · sem link ainda'}</p>
+    <div class="rodape">${url ? SETA : ''}</div>${tela}
+  </article>`;
+}
+
+function secaoRegional(grupo) {
+  const lista = ESTADO.dados.regionais[grupo] || [];
+  if (!lista.length) return '';
+  const nome = ESTADO.dados.grupos_regionais[grupo] || grupo;
+  const falta = (grupo === 'CRECI' || grupo === 'CRESS') ? '<p class="nota">Ainda coletando os links dos demais estados.</p>' : '';
+  return `<div class="secao" id="reg-${esc(grupo)}"><h2>${esc(grupo)}</h2></div>
+    <p class="nota" style="margin:-6px 0 14px">${esc(nome)}</p>
+    <div class="grade">${lista.map(r => cardRegional(r, grupo)).join('')}</div>${falta}`;
+}
+
+function desenhar() {
+  if (!ESTADO.dados) return;
+  const t = semAcento($('campo').value.trim());
+  const l = ESTADO.lista.filter(p => (ESTADO.grupo === 'Todos' || p.grupo === ESTADO.grupo) && (!t || p._busca.includes(t)));
+  $('contagem').textContent = `${l.length} ${l.length === 1 ? 'profissão' : 'profissões'}`;
+  if (!l.length) { $('saida').innerHTML = '<div class="vazio-geral">Nada encontrado. Tente o nome da profissão (ex.: “dentista”) ou a sigla do conselho (ex.: “CRO”).</div>'; return; }
+  const grade = arr => `<div class="grade">${arr.map(card).join('')}</div>`;
+  const top = l.filter(p => p.destaque).sort((a, b) => a.destaque - b.destaque);
+  const resto = l.filter(p => !p.destaque).sort((a, b) => a.nome.localeCompare(b.nome, 'pt-BR'));
+  const semFiltro = !t && ESTADO.grupo === 'Todos';
+  let html = semFiltro && top.length
+    ? `${grade(top)}<div class="secao"><h2>Outras profissões</h2></div>${grade(resto)}`
+    : grade([...top, ...resto]);
+  // Seções "por estado": todas quando não há filtro; senão só as das profissões exibidas.
+  const grupos = semFiltro ? ['COREN', 'CREFITO', 'CRC', 'CRECI', 'CRESS'] : [...new Set(l.map(p => p.regional).filter(Boolean))];
+  html += grupos.map(secaoRegional).join('');
+  $('saida').innerHTML = html;
+}
+
+$('campo').addEventListener('input', desenhar);
+$('campo').addEventListener('keydown', e => { if (e.key === 'Escape' && $('campo').value) { $('campo').value = ''; desenhar(); } });
+$('grupos').addEventListener('click', e => {
+  const b = e.target.closest('.grupo'); if (!b) return;
+  ESTADO.grupo = b.dataset.g;
+  document.querySelectorAll('.grupo').forEach(x => x.setAttribute('aria-pressed', x === b));
+  desenhar();
+});
+document.addEventListener('click', e => {
+  const a = e.target.closest('a[data-p]'); if (!a) return;
+  try { if (typeof gtag === 'function') gtag('event', 'conselho_link', { profissao: a.dataset.p, tipo_link: a.dataset.k }); } catch (_) {}
+});
+carregar();
+</script>
+</body>
+</html>
