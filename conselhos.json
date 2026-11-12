@@ -1,0 +1,2058 @@
+{
+ "meta": {
+  "gerado_em": "2026-11-11",
+  "aviso": "Rascunho em teste: links nem todos verificados."
+ },
+ "grupos_regionais": {
+  "COREN": "Conselho Regional de Enfermagem",
+  "CREFITO": "Conselho Regional de Fisioterapia e Terapia Ocupacional",
+  "CRESS": "Conselho Regional de Serviço Social",
+  "CRECI": "Conselho Regional de Corretores de Imóveis",
+  "CRC": "Conselho Regional de Contabilidade"
+ },
+ "profissoes": [
+  {
+   "id": "medicina",
+   "nome": "Médico",
+   "desc": "CFM (Conselho Federal de Medicina)",
+   "original": "Medicina",
+   "grupo": "Saúde e social",
+   "icone": "steto",
+   "destaque": 6,
+   "conselho": "CFM",
+   "regionais_txt": "CRM, 27",
+   "tipo": "Nacional",
+   "site": "https://portal.cfm.org.br",
+   "principal": "https://portal.cfm.org.br/busca-medicos/",
+   "plano_b": "",
+   "captcha": "",
+   "verificacao": "Aberto",
+   "obs": "Exige ao menos um campo (nome, UF ou CRM).",
+   "aliases": [
+    "médico",
+    "médica",
+    "CRM",
+    "doutor",
+    "Medicina"
+   ],
+   "regional": ""
+  },
+  {
+   "id": "odontologia",
+   "nome": "Odontologista",
+   "desc": "CFO (Conselho Federal de Odontologia)",
+   "original": "Odontologia",
+   "grupo": "Saúde e social",
+   "icone": "dente",
+   "destaque": 7,
+   "conselho": "CFO",
+   "regionais_txt": "CRO, 27",
+   "tipo": "Nacional",
+   "site": "https://website.cfo.org.br",
+   "principal": "https://busca-profissionais.cfo.org.br/",
+   "plano_b": "https://website.cfo.org.br/consulta-inscritos/",
+   "captcha": "",
+   "verificacao": "Aberto",
+   "obs": "Busca nacional com filtro de categoria (cirurgião-dentista, técnico em prótese dentária, técnico/auxiliar em saúde bucal).",
+   "aliases": [
+    "dentista",
+    "cirurgião-dentista",
+    "CRO",
+    "Odontologia"
+   ],
+   "regional": ""
+  },
+  {
+   "id": "farmacia",
+   "nome": "Farmacêutico",
+   "desc": "CFF (Conselho Federal de Farmácia)",
+   "original": "Farmácia",
+   "grupo": "Saúde e social",
+   "icone": "pilula",
+   "destaque": 16,
+   "conselho": "CFF",
+   "regionais_txt": "CRF, 27",
+   "tipo": "Nacional",
+   "site": "https://site.cff.org.br",
+   "principal": "https://site.cff.org.br/",
+   "plano_b": "https://site.cff.org.br/regionais",
+   "captcha": "Captcha aritmético",
+   "verificacao": "Aberto",
+   "obs": "Formulário 'Encontre um Profissional' na home. Captcha impede consulta automática.",
+   "aliases": [
+    "farmacêutico",
+    "farmacêutica",
+    "CRF",
+    "Farmácia"
+   ],
+   "regional": ""
+  },
+  {
+   "id": "enfermagem",
+   "nome": "Enfermeiro",
+   "desc": "COFEN (Conselho Federal de Enfermagem)",
+   "original": "Enfermagem",
+   "grupo": "Saúde e social",
+   "icone": "coracao",
+   "destaque": 0,
+   "conselho": "COFEN",
+   "regionais_txt": "COREN, 27",
+   "tipo": "Nacional",
+   "site": "https://www.cofen.gov.br",
+   "principal": "https://sigen.cofen.gov.br/profissional/consultar",
+   "plano_b": "https://www.cofen.gov.br/contato/conselhos-regionais/",
+   "captcha": "",
+   "verificacao": "Visto",
+   "obs": "Sigen: consulta nacional (enfermeiro, técnico, auxiliar) por nome, CPF ou inscrição. Link visto em páginas dos COREN; robots bloqueou a abertura. Plano B: lista de COREN.",
+   "aliases": [
+    "enfermeiro",
+    "enfermeira",
+    "COREN",
+    "Enfermagem"
+   ],
+   "regional": "COREN"
+  },
+  {
+   "id": "psicologia",
+   "nome": "Psicólogo",
+   "desc": "CFP (Conselho Federal de Psicologia)",
+   "original": "Psicologia",
+   "grupo": "Saúde e social",
+   "icone": "cerebro",
+   "destaque": 5,
+   "conselho": "CFP",
+   "regionais_txt": "CRP, 24 regiões",
+   "tipo": "Nacional",
+   "site": "https://site.cfp.org.br",
+   "principal": "https://cadastro.cfp.org.br/",
+   "plano_b": "https://site.cfp.org.br/cfp/sistema-conselhos/conselhos-pelo-brasil/",
+   "captcha": "",
+   "verificacao": "Aberto",
+   "obs": "Cadastro Nacional de Profissionais de Psicologia ('Consultar Profissional').",
+   "aliases": [
+    "psicólogo",
+    "psicóloga",
+    "CRP",
+    "Psicologia"
+   ],
+   "regional": ""
+  },
+  {
+   "id": "nutricao",
+   "nome": "Nutricionista",
+   "desc": "CFN (Conselho Federal de Nutricionistas)",
+   "original": "Nutrição",
+   "grupo": "Saúde e social",
+   "icone": "maca",
+   "destaque": 15,
+   "conselho": "CFN",
+   "regionais_txt": "CRN, 11",
+   "tipo": "Nacional",
+   "site": "https://cfn.org.br",
+   "principal": "https://cnn.cfn.org.br/application/index/consulta-nacional",
+   "plano_b": "https://cnn.cfn.org.br/application/index/consulta-nacional-tecnicos",
+   "captcha": "",
+   "verificacao": "Visto",
+   "obs": "Principal = nutricionista; Plano B aqui é a consulta de técnicos (TND), que é outra categoria — ajustar.",
+   "aliases": [
+    "nutricionista",
+    "CRN",
+    "Nutrição"
+   ],
+   "regional": ""
+  },
+  {
+   "id": "fisioterapia",
+   "nome": "Fisioterapeuta",
+   "desc": "COFFITO (Conselho Federal de Fisioterapia e Terapia Ocupacional)",
+   "original": "Fisioterapia",
+   "grupo": "Saúde e social",
+   "icone": "atividade",
+   "destaque": 12,
+   "conselho": "COFFITO",
+   "regionais_txt": "CREFITO, 20-21 (divergência)",
+   "tipo": "Só regional",
+   "site": "https://www.coffito.gov.br/nsite",
+   "principal": "https://www.coffito.gov.br/nsite",
+   "plano_b": "",
+   "captcha": "",
+   "verificacao": "Aberto",
+   "obs": "Sem consulta nacional de inscritos (só de especialistas: https://especialistas.coffito.gov.br/). Região CREFITO: 22 (CREFITO-22/RN ainda em instalação).",
+   "aliases": [
+    "fisioterapeuta",
+    "CREFITO",
+    "Fisioterapia"
+   ],
+   "regional": "CREFITO"
+  },
+  {
+   "id": "terapeuta-ocupacional",
+   "nome": "Terapeuta ocupacional",
+   "desc": "COFFITO / CREFITO (Fisioterapia e Terapia Ocupacional)",
+   "original": "Terapeuta ocupacional",
+   "grupo": "Saúde e social",
+   "icone": "mao",
+   "destaque": 0,
+   "conselho": "COFFITO",
+   "regionais_txt": "CREFITO, 20-21 (divergência)",
+   "tipo": "Só regional",
+   "site": "https://www.coffito.gov.br/nsite",
+   "principal": "https://www.coffito.gov.br/nsite",
+   "plano_b": "https://especialistas.coffito.gov.br/",
+   "captcha": "",
+   "verificacao": "Aberto",
+   "obs": "Consulta de inscritos é por CREFITO (use o seletor de estado).",
+   "aliases": [
+    "TO",
+    "terapia ocupacional",
+    "CREFITO",
+    "Terapeuta ocupacional"
+   ],
+   "regional": "CREFITO"
+  },
+  {
+   "id": "fonoaudiologia",
+   "nome": "Fonoaudiólogo",
+   "desc": "CFFa (Conselho Federal de Fonoaudiologia)",
+   "original": "Fonoaudiologia",
+   "grupo": "Saúde e social",
+   "icone": "fala",
+   "destaque": 0,
+   "conselho": "CFFa",
+   "regionais_txt": "CREFONO, 9",
+   "tipo": "Parcial",
+   "site": "https://fonoaudiologia.org.br",
+   "principal": "https://fonoaudiologia.org.br/buscar-profissionais-por-regiao/",
+   "plano_b": "https://fonoaudiologia.org.br/conselhos-regionais/",
+   "captcha": "",
+   "verificacao": "Visto",
+   "obs": "Provável busca por região.",
+   "aliases": [
+    "fonoaudiólogo",
+    "fono",
+    "CREFONO",
+    "Fonoaudiologia"
+   ],
+   "regional": ""
+  },
+  {
+   "id": "biomedicina",
+   "nome": "Biomédico",
+   "desc": "CFBM (Conselho Federal de Biomedicina)",
+   "original": "Biomedicina",
+   "grupo": "Saúde e social",
+   "icone": "microscopio",
+   "destaque": 0,
+   "conselho": "CFBM",
+   "regionais_txt": "CRBM, 7",
+   "tipo": "Não achada",
+   "site": "https://cfbm.gov.br",
+   "principal": "https://cfbm.gov.br",
+   "plano_b": "",
+   "captcha": "",
+   "verificacao": "Aberto",
+   "obs": "Home lista 7 CRBMs; logo do CRBM 7 aponta para crbm1 (possível erro do site).",
+   "aliases": [
+    "biomédico",
+    "CRBM",
+    "Biomedicina"
+   ],
+   "regional": ""
+  },
+  {
+   "id": "biologia",
+   "nome": "Biólogo",
+   "desc": "CFBio (Conselho Federal de Biologia)",
+   "original": "Biologia",
+   "grupo": "Saúde e social",
+   "icone": "folha",
+   "destaque": 0,
+   "conselho": "CFBio",
+   "regionais_txt": "CRBio, 10",
+   "tipo": "Nacional",
+   "site": "https://cfbio.gov.br",
+   "principal": "https://cfbio.com.br/SPW/consultanacional/cadastro_cfbio_simplificado.aspx",
+   "plano_b": "http://www.crbiodigital.com.br/portal",
+   "captcha": "",
+   "verificacao": "Visto",
+   "obs": "Cadastro Nacional de Biólogos (CNB). Link na home com http.",
+   "aliases": [
+    "biólogo",
+    "CRBio",
+    "Biologia"
+   ],
+   "regional": ""
+  },
+  {
+   "id": "medicina-veterinaria-e-zootecnia",
+   "nome": "Veterinário",
+   "desc": "CFMV (Conselho Federal de Medicina Veterinária)",
+   "original": "Medicina Veterinária e Zootecnia",
+   "grupo": "Saúde e social",
+   "icone": "pata",
+   "destaque": 11,
+   "conselho": "CFMV",
+   "regionais_txt": "CRMV, 27",
+   "tipo": "Nacional",
+   "site": "https://www.cfmv.gov.br",
+   "principal": "https://app.cfmv.gov.br/paginas/busca",
+   "plano_b": "https://www.cfmv.gov.br/conselhos-regionais/",
+   "captcha": "",
+   "verificacao": "Visto",
+   "obs": "Também há busca por empresas: https://www.cfmv.gov.br/busca-por-empresas/servicos/2018/10/09/",
+   "aliases": [
+    "veterinário",
+    "zootecnista",
+    "CRMV",
+    "Medicina Veterinária e Zootecnia"
+   ],
+   "regional": ""
+  },
+  {
+   "id": "quimica",
+   "nome": "Químico",
+   "desc": "CFQ (Conselho Federal de Química)",
+   "original": "Química",
+   "grupo": "Saúde e social",
+   "icone": "frasco",
+   "destaque": 0,
+   "conselho": "CFQ",
+   "regionais_txt": "CRQ, 21 (não confirmado)",
+   "tipo": "Não achada",
+   "site": "https://cfq.org.br",
+   "principal": "https://cfq.org.br",
+   "plano_b": "",
+   "captcha": "",
+   "verificacao": "Não verificado",
+   "obs": "Site bloqueou o robô (robots). Abrir manualmente.",
+   "aliases": [
+    "químico",
+    "CRQ",
+    "Química"
+   ],
+   "regional": ""
+  },
+  {
+   "id": "educacao-fisica",
+   "nome": "Educador físico",
+   "desc": "CONFEF (Conselho Federal de Educação Física)",
+   "original": "Educação Física",
+   "grupo": "Saúde e social",
+   "icone": "halter",
+   "destaque": 13,
+   "conselho": "CONFEF",
+   "regionais_txt": "CREF, qtd não verificada",
+   "tipo": "Não achada",
+   "site": "https://www.confef.org.br",
+   "principal": "https://www.confef.org.br",
+   "plano_b": "",
+   "captcha": "",
+   "verificacao": "Não verificado",
+   "obs": "Site bloqueou o robô (robots). Abrir manualmente.",
+   "aliases": [
+    "personal trainer",
+    "professor de educação física",
+    "CREF",
+    "Educação Física"
+   ],
+   "regional": ""
+  },
+  {
+   "id": "tecnicos-em-radiologia",
+   "nome": "Técnico em radiologia",
+   "desc": "CONTER (Conselho Nacional de Técnicos em Radiologia)",
+   "original": "Técnicos em Radiologia",
+   "grupo": "Saúde e social",
+   "icone": "scan",
+   "destaque": 0,
+   "conselho": "CONTER",
+   "regionais_txt": "CRTR, 16",
+   "tipo": "Só regional",
+   "site": "https://conter.gov.br",
+   "principal": "https://conter.gov.br/consultageral/",
+   "plano_b": "https://conter.gov.br/regionais/",
+   "captcha": "",
+   "verificacao": "Aberto",
+   "obs": "Consulta Geral = lista de links por CRTR; CRTR 3, 4, 5 e 12 sem link.",
+   "aliases": [
+    "radiologia",
+    "técnico em radiologia",
+    "CRTR",
+    "Técnicos em Radiologia"
+   ],
+   "regional": ""
+  },
+  {
+   "id": "servico-social-assistente-social",
+   "nome": "Assistente social",
+   "desc": "CFESS / CRESS (Conselhos de Serviço Social)",
+   "original": "Serviço Social (assistente social)",
+   "grupo": "Saúde e social",
+   "icone": "pessoas",
+   "destaque": 0,
+   "conselho": "CFESS",
+   "regionais_txt": "CRESS, qtd não verificada",
+   "tipo": "Não achada",
+   "site": "https://www.cfess.org.br",
+   "principal": "https://www.cfess.org.br",
+   "plano_b": "",
+   "captcha": "",
+   "verificacao": "Não verificado",
+   "obs": "Site não abriu para o robô. Registro é por CRESS (Lei 8.662/93); consulta pública não confirmada.",
+   "aliases": [
+    "assistente social",
+    "serviço social",
+    "CRESS",
+    "CFESS",
+    "Serviço Social (assistente social)"
+   ],
+   "regional": "CRESS"
+  },
+  {
+   "id": "contabilidade",
+   "nome": "Contador",
+   "desc": "CFC (Conselho Federal de Contabilidade)",
+   "original": "Contabilidade",
+   "grupo": "Negócios",
+   "icone": "calculadora",
+   "destaque": 2,
+   "conselho": "CFC",
+   "regionais_txt": "CRC por UF",
+   "tipo": "Só regional",
+   "site": "https://cfc.org.br",
+   "principal": "",
+   "plano_b": "https://cfc.org.br",
+   "captcha": "",
+   "verificacao": "Visto",
+   "obs": "Consulta nacional do CFC fora do ar (avisado por Alexandre em 11/11/2026). Use o CRC de cada estado (aba Regionais).",
+   "aliases": [
+    "contador",
+    "contadora",
+    "técnico em contabilidade",
+    "CRC",
+    "Contabilidade"
+   ],
+   "regional": "CRC"
+  },
+  {
+   "id": "administracao",
+   "nome": "Administrador",
+   "desc": "CFA (Conselho Federal de Administração)",
+   "original": "Administração",
+   "grupo": "Negócios",
+   "icone": "maleta",
+   "destaque": 10,
+   "conselho": "CFA",
+   "regionais_txt": "CRA, 27",
+   "tipo": "Nacional",
+   "site": "https://cfa.org.br",
+   "principal": "https://cfa.org.br/cadastro-nacional/",
+   "plano_b": "https://cfa.org.br/institucional/conselho-regional/",
+   "captcha": "",
+   "verificacao": "Aberto",
+   "obs": "Formulário embutido: https://pesquisacadastronacional.cfa.org.br/ (visto).",
+   "aliases": [
+    "administrador",
+    "CRA",
+    "Administração"
+   ],
+   "regional": ""
+  },
+  {
+   "id": "economia",
+   "nome": "Economista",
+   "desc": "COFECON (Conselho Federal de Economia)",
+   "original": "Economia",
+   "grupo": "Negócios",
+   "icone": "grafico",
+   "destaque": 8,
+   "conselho": "COFECON",
+   "regionais_txt": "CORECON por UF",
+   "tipo": "Não achada",
+   "site": "https://cofecon.org.br",
+   "principal": "https://cofecon.org.br",
+   "plano_b": "",
+   "captcha": "",
+   "verificacao": "Não verificado",
+   "obs": "Site não abriu para o robô.",
+   "aliases": [
+    "economista",
+    "CORECON",
+    "Economia"
+   ],
+   "regional": ""
+  },
+  {
+   "id": "estatistica",
+   "nome": "Estatístico",
+   "desc": "CONFE (Conselho Federal de Estatística)",
+   "original": "Estatística",
+   "grupo": "Negócios",
+   "icone": "grafico",
+   "destaque": 0,
+   "conselho": "CONFE",
+   "regionais_txt": "CONRE, 7",
+   "tipo": "Não achada",
+   "site": "https://confe.org.br",
+   "principal": "https://confe.org.br/",
+   "plano_b": "https://confe.org.br/",
+   "captcha": "",
+   "verificacao": "Aberto",
+   "obs": "Regionais: conre1..conre7.org.br. Sem consulta pública vista.",
+   "aliases": [
+    "estatístico",
+    "CONRE",
+    "Estatística"
+   ],
+   "regional": ""
+  },
+  {
+   "id": "relac-es-publicas",
+   "nome": "Relações públicas",
+   "desc": "CONFERP (Conselho Federal de Profissionais de Relações Públicas)",
+   "original": "Relações Públicas",
+   "grupo": "Negócios",
+   "icone": "megafone",
+   "destaque": 0,
+   "conselho": "CONFERP",
+   "regionais_txt": "CONRERP, qtd não verificada",
+   "tipo": "Não achada",
+   "site": "https://conferp.org.br",
+   "principal": "https://conferp.org.br",
+   "plano_b": "",
+   "captcha": "",
+   "verificacao": "Aberto",
+   "obs": "Portal em transição.",
+   "aliases": [
+    "CONRERP",
+    "Relações Públicas"
+   ],
+   "regional": ""
+  },
+  {
+   "id": "representacao-comercial",
+   "nome": "Representante comercial",
+   "desc": "CONFERE (Conselho Federal dos Representantes Comerciais)",
+   "original": "Representação Comercial",
+   "grupo": "Negócios",
+   "icone": "aperto",
+   "destaque": 0,
+   "conselho": "CONFERE",
+   "regionais_txt": "CORE por UF",
+   "tipo": "Nacional",
+   "site": "https://www.confere.org.br",
+   "principal": "https://www.confere.org.br/consultapublica",
+   "plano_b": "https://www.confere.org.br/consulta_publica.php",
+   "captcha": "",
+   "verificacao": "Visto",
+   "obs": "Lista de regionais: https://www.confere.org.br/enderecos.php (visto).",
+   "aliases": [
+    "representante comercial",
+    "CORE",
+    "Representação Comercial"
+   ],
+   "regional": ""
+  },
+  {
+   "id": "biblioteconomia",
+   "nome": "Bibliotecário",
+   "desc": "CFB (Conselho Federal de Biblioteconomia)",
+   "original": "Biblioteconomia",
+   "grupo": "Negócios",
+   "icone": "livro",
+   "destaque": 0,
+   "conselho": "CFB",
+   "regionais_txt": "CRB, 14 (não oficial)",
+   "tipo": "Não achada",
+   "site": "https://cfb.org.br",
+   "principal": "https://cfb.org.br",
+   "plano_b": "",
+   "captcha": "",
+   "verificacao": "Não verificado",
+   "obs": "Site deu timeout.",
+   "aliases": [
+    "bibliotecário",
+    "CRB",
+    "Biblioteconomia"
+   ],
+   "regional": ""
+  },
+  {
+   "id": "museologia",
+   "nome": "Museólogo",
+   "desc": "COFEM (Conselho Federal de Museologia)",
+   "original": "Museologia",
+   "grupo": "Negócios",
+   "icone": "museu",
+   "destaque": 0,
+   "conselho": "COFEM",
+   "regionais_txt": "COREM, 5",
+   "tipo": "Nacional",
+   "site": "https://cofem.org.br",
+   "principal": "https://cofem.org.br/registro-e-cadastro/museologos-empresas-entidades-e-escritorios-tecnicos-registrados-nos-corems/",
+   "plano_b": "https://cofem.org.br",
+   "captcha": "",
+   "verificacao": "Visto",
+   "obs": "Lista de registrados nos COREMs.",
+   "aliases": [
+    "museólogo",
+    "COREM",
+    "Museologia"
+   ],
+   "regional": ""
+  },
+  {
+   "id": "engenharia-agronomia-geologia",
+   "nome": "Engenheiro",
+   "desc": "CONFEA (Conselho Federal de Engenharia e Agronomia)",
+   "original": "Engenharia, Agronomia, Geologia",
+   "grupo": "Engenharia e Construção",
+   "icone": "capacete",
+   "destaque": 4,
+   "conselho": "CONFEA",
+   "regionais_txt": "CREA, 27",
+   "tipo": "Nacional",
+   "site": "https://www.confea.org.br",
+   "principal": "https://consultaprofissional.confea.org.br",
+   "plano_b": "http://consultapublica.confea.org.br/",
+   "captcha": "Sem captcha visível",
+   "verificacao": "Aberto",
+   "obs": "Consulta nacional (nome, CPF ou RNP). Sem valor de certidão.",
+   "aliases": [
+    "engenheiro",
+    "agrônomo",
+    "geólogo",
+    "CREA",
+    "Engenharia, Agronomia, Geologia"
+   ],
+   "regional": ""
+  },
+  {
+   "id": "arquitetura-e-urbanismo",
+   "nome": "Arquiteto",
+   "desc": "CAU (Conselho de Arquitetura e Urbanismo)",
+   "original": "Arquitetura e Urbanismo",
+   "grupo": "Engenharia e Construção",
+   "icone": "lapis",
+   "destaque": 14,
+   "conselho": "CAU/BR",
+   "regionais_txt": "CAU/UF, qtd não verificada",
+   "tipo": "Não achada",
+   "site": "https://caubr.gov.br",
+   "principal": "https://caubr.gov.br",
+   "plano_b": "",
+   "captcha": "",
+   "verificacao": "Não verificado",
+   "obs": "Site não abriu para o robô.",
+   "aliases": [
+    "arquiteto",
+    "arquiteta",
+    "CAU",
+    "Arquitetura e Urbanismo"
+   ],
+   "regional": ""
+  },
+  {
+   "id": "tecnicos-industriais",
+   "nome": "Técnico industrial",
+   "desc": "CFT (Conselho Federal dos Técnicos Industriais)",
+   "original": "Técnicos industriais",
+   "grupo": "Engenharia e Construção",
+   "icone": "chave",
+   "destaque": 0,
+   "conselho": "CFT",
+   "regionais_txt": "CRT, 16",
+   "tipo": "Parcial",
+   "site": "https://cft.org.br",
+   "principal": "https://corporativo.sinceti.net.br/app/view/sight/externo.php?form=ConsultarCertidaoSimples",
+   "plano_b": "https://servicos.sinceti.net.br/",
+   "captcha": "",
+   "verificacao": "Visto",
+   "obs": "Só validação de certidão; consulta de profissional não confirmada.",
+   "aliases": [
+    "técnico industrial",
+    "CRT",
+    "Técnicos industriais"
+   ],
+   "regional": ""
+  },
+  {
+   "id": "tecnicos-agricolas",
+   "nome": "Técnico agrícola",
+   "desc": "CFTA (Conselho Federal dos Técnicos Agrícolas)",
+   "original": "Técnicos agrícolas",
+   "grupo": "Engenharia e Construção",
+   "icone": "broto",
+   "destaque": 0,
+   "conselho": "CFTA",
+   "regionais_txt": "Registro nacional (SITAG)",
+   "tipo": "Nacional",
+   "site": "https://www.cfta.org.br",
+   "principal": "https://corporativo.sitag.org.br/app/view/sight/externo?form=PesquisarProfissionalEmpresa",
+   "plano_b": "https://servicos.sitag.org.br/",
+   "captcha": "",
+   "verificacao": "Visto",
+   "obs": "'Consultar Profissional/Empresa'.",
+   "aliases": [
+    "técnico agrícola",
+    "Técnicos agrícolas"
+   ],
+   "regional": ""
+  },
+  {
+   "id": "corretores-de-imoveis",
+   "nome": "Corretor de imóveis",
+   "desc": "COFECI / CRECI (Conselhos de Corretores de Imóveis)",
+   "original": "Corretores de imóveis",
+   "grupo": "Imóveis",
+   "icone": "casa",
+   "destaque": 0,
+   "conselho": "COFECI",
+   "regionais_txt": "CRECI, 27 (não verificado)",
+   "tipo": "Só regional",
+   "site": "https://www.cofeci.gov.br",
+   "principal": "https://www.cofeci.gov.br",
+   "plano_b": "",
+   "captcha": "",
+   "verificacao": "Aberto",
+   "obs": "Sem consulta nacional vista; consulta no site de cada CRECI. Home tem 'Recadastramento Nacional' e 'Avaliadores de Imóveis' (links vistos).",
+   "aliases": [
+    "corretor",
+    "imobiliária",
+    "CRECI",
+    "Corretores de imóveis"
+   ],
+   "regional": "CRECI"
+  },
+  {
+   "id": "advocacia",
+   "nome": "Advogado",
+   "desc": "OAB (Ordem dos Advogados do Brasil)",
+   "original": "Advocacia",
+   "grupo": "Jurídico",
+   "icone": "balanca",
+   "destaque": 1,
+   "conselho": "OAB",
+   "regionais_txt": "Seccionais por UF",
+   "tipo": "Nacional",
+   "site": "https://www.oab.org.br",
+   "principal": "https://cna.oab.org.br",
+   "plano_b": "https://confirmadv.oab.org.br/",
+   "captcha": "",
+   "verificacao": "Aberto",
+   "obs": "Cadastro Nacional dos Advogados; página carrega por JavaScript.",
+   "aliases": [
+    "advogado",
+    "advogada",
+    "OAB",
+    "Advocacia"
+   ],
+   "regional": ""
+  },
+  {
+   "id": "guias-e-agencias-de-turismo",
+   "nome": "Cadastur",
+   "desc": "Consulta de guias e agências de viagens",
+   "original": "Guias e agências de turismo",
+   "grupo": "Mercado e documentos",
+   "icone": "aviao",
+   "destaque": 9,
+   "conselho": "Cadastur (MTur)",
+   "regionais_txt": "—",
+   "tipo": "Nacional",
+   "site": "https://cadastur.turismo.gov.br",
+   "principal": "https://cadastur.turismo.gov.br",
+   "plano_b": "",
+   "captcha": "",
+   "verificacao": "Visto",
+   "obs": "Bloqueou o robô; abrir manualmente.",
+   "aliases": [
+    "guia de turismo",
+    "agência de viagens",
+    "Cadastur",
+    "Guias e agências de turismo"
+   ],
+   "regional": ""
+  },
+  {
+   "id": "corretores-de-seguros",
+   "nome": "Corretor de seguros",
+   "desc": "SUSEP (Superintendência de Seguros Privados)",
+   "original": "Corretores de seguros",
+   "grupo": "Mercado e documentos",
+   "icone": "escudo",
+   "destaque": 3,
+   "conselho": "SUSEP",
+   "regionais_txt": "—",
+   "tipo": "Não achada",
+   "site": "https://www.gov.br/susep/pt-br",
+   "principal": "https://www.gov.br/susep/pt-br/assuntos/corretor-de-seguros",
+   "plano_b": "",
+   "captcha": "",
+   "verificacao": "Aberto",
+   "obs": "Página do corretor sem consulta pública visível.",
+   "aliases": [
+    "corretor de seguros",
+    "SUSEP",
+    "Corretores de seguros"
+   ],
+   "regional": ""
+  },
+  {
+   "id": "assessores-de-investimento-agentes-aut-nomos",
+   "nome": "Assessor de investimento",
+   "desc": "CVM / ANCORD (agentes autônomos)",
+   "original": "Assessores de investimento (agentes autônomos)",
+   "grupo": "Mercado e documentos",
+   "icone": "tendencia",
+   "destaque": 0,
+   "conselho": "CVM / ANCORD",
+   "regionais_txt": "—",
+   "tipo": "Nacional",
+   "site": "https://ancord.org.br",
+   "principal": "https://www.gov.br/cvm/pt-br/assuntos/regulados/consultas-por-participante/agentes-autonomos",
+   "plano_b": "https://ancord.org.br/certificacao-e-credenciamento/",
+   "captcha": "",
+   "verificacao": "Aberto",
+   "obs": "Consulta CVM (Central de Sistemas); Ancord é só credenciadora.",
+   "aliases": [
+    "agente autônomo",
+    "assessor de investimentos",
+    "CVM",
+    "Ancord",
+    "Assessores de investimento (agentes autônomos)"
+   ],
+   "regional": ""
+  },
+  {
+   "id": "leiloeiros-e-tradutores-publicos",
+   "nome": "Leiloeiro oficial",
+   "desc": "Juntas Comerciais (DREI)",
+   "original": "Leiloeiros e tradutores públicos",
+   "grupo": "Mercado e documentos",
+   "icone": "martelo",
+   "destaque": 0,
+   "conselho": "DREI / Juntas Comerciais",
+   "regionais_txt": "Juntas, 27 (não verificado)",
+   "tipo": "Só regional",
+   "site": "https://www.gov.br/empresas-e-negocios/pt-br/drei",
+   "principal": "https://www.gov.br/empresas-e-negocios/pt-br/drei/tradutores-e-leiloeiros",
+   "plano_b": "",
+   "captcha": "",
+   "verificacao": "Aberto",
+   "obs": "Painel só estatístico; lista nominal fica em cada Junta.",
+   "aliases": [
+    "leiloeiro",
+    "juntas comerciais",
+    "Leiloeiros e tradutores públicos"
+   ],
+   "regional": ""
+  },
+  {
+   "id": "despachantes",
+   "nome": "Despachantes",
+   "desc": "Detrans",
+   "original": "Despachantes",
+   "grupo": "Mercado e documentos",
+   "icone": "arquivo",
+   "destaque": 0,
+   "conselho": "Detrans",
+   "regionais_txt": "27 Detrans",
+   "tipo": "Só regional",
+   "site": "",
+   "principal": "",
+   "plano_b": "",
+   "captcha": "",
+   "verificacao": "Não verificado",
+   "obs": "Sem lista nacional; cada Detran mantém a sua.",
+   "aliases": [
+    "Despachantes"
+   ],
+   "regional": ""
+  },
+  {
+   "id": "produtor-rural",
+   "nome": "Produtor rural",
+   "desc": "Cadastro de contribuintes (NF-e / SVRS)",
+   "original": "Produtor rural",
+   "grupo": "Negócios",
+   "icone": "broto",
+   "destaque": 0,
+   "conselho": "SVRS (NF-e)",
+   "regionais_txt": "—",
+   "tipo": "Nacional",
+   "site": "https://dfe-portal.svrs.rs.gov.br",
+   "principal": "https://dfe-portal.svrs.rs.gov.br/NFE/CCC",
+   "plano_b": "",
+   "captcha": "Pode pedir login gov.br",
+   "verificacao": "Visto",
+   "obs": "Link indicado por Alexandre; o robô foi redirecionado para o login do gov.br, então o conteúdo não foi conferido.",
+   "aliases": [
+    "Produtor rural"
+   ],
+   "regional": ""
+  },
+  {
+   "id": "tecnico-em-enfermagem",
+   "nome": "Técnico em enfermagem",
+   "desc": "COFEN / COREN (Conselhos de Enfermagem)",
+   "original": "Técnico em enfermagem",
+   "grupo": "Saúde e social",
+   "icone": "coracao",
+   "destaque": 0,
+   "conselho": "COFEN / COREN",
+   "regionais_txt": "COREN, 27",
+   "tipo": "Nacional",
+   "site": "https://www.cofen.gov.br",
+   "principal": "https://sigen.cofen.gov.br/profissional/consultar",
+   "plano_b": "https://www.cofen.gov.br/contato/conselhos-regionais/",
+   "captcha": "",
+   "verificacao": "Visto",
+   "obs": "Mesmo link da enfermagem; não há consulta só para técnico.",
+   "aliases": [
+    "técnica de enfermagem",
+    "auxiliar de enfermagem",
+    "COREN",
+    "Técnico em enfermagem"
+   ],
+   "regional": "COREN"
+  },
+  {
+   "id": "tecnico-em-protese-dentaria",
+   "nome": "Protético",
+   "desc": "CFO (Técnico em prótese dentária)",
+   "original": "Técnico em prótese dentária",
+   "grupo": "Saúde e social",
+   "icone": "dente",
+   "destaque": 0,
+   "conselho": "CFO / CRO",
+   "regionais_txt": "CRO, 27",
+   "tipo": "Nacional",
+   "site": "https://website.cfo.org.br",
+   "principal": "https://busca-profissionais.cfo.org.br/",
+   "plano_b": "https://website.cfo.org.br/busca-profissionais",
+   "captcha": "",
+   "verificacao": "Aberto",
+   "obs": "Filtro 'Técnico em Prótese Dentária'.",
+   "aliases": [
+    "protético",
+    "TPD",
+    "Técnico em prótese dentária"
+   ],
+   "regional": ""
+  },
+  {
+   "id": "tecnico-em-saude-bucal",
+   "nome": "Técnico em saúde bucal",
+   "desc": "CFO (Conselho Federal de Odontologia)",
+   "original": "Técnico em saúde bucal",
+   "grupo": "Saúde e social",
+   "icone": "dente",
+   "destaque": 0,
+   "conselho": "CFO / CRO",
+   "regionais_txt": "CRO, 27",
+   "tipo": "Nacional",
+   "site": "https://website.cfo.org.br",
+   "principal": "https://busca-profissionais.cfo.org.br/",
+   "plano_b": "https://website.cfo.org.br/busca-profissionais",
+   "captcha": "",
+   "verificacao": "Aberto",
+   "obs": "Filtro 'Técnico em Saúde Bucal' (também auxiliares).",
+   "aliases": [
+    "TSB",
+    "auxiliar de saúde bucal",
+    "ASB",
+    "Técnico em saúde bucal"
+   ],
+   "regional": ""
+  },
+  {
+   "id": "avaliador-de-imoveis",
+   "nome": "Avaliador de imóveis",
+   "desc": "COFECI (CNAI) / CFC",
+   "original": "Avaliador de imóveis",
+   "grupo": "Imóveis",
+   "icone": "casa",
+   "destaque": 0,
+   "conselho": "COFECI (CNAI) / CFC (CNAI contador)",
+   "regionais_txt": "—",
+   "tipo": "Parcial",
+   "site": "https://www.cofeci.gov.br",
+   "principal": "https://www.cofeci.gov.br/avaliadores-imoveis",
+   "plano_b": "https://cfc.org.br/registro/cnai/",
+   "captcha": "",
+   "verificacao": "Aberto",
+   "obs": "Página abriu mas a lista não carregou no robô; confirmar à mão.",
+   "aliases": [
+    "avaliador",
+    "CNAI",
+    "Avaliador de imóveis"
+   ],
+   "regional": ""
+  },
+  {
+   "id": "perito-judicial",
+   "nome": "Perito judicial",
+   "desc": "Tribunais e CFC (peritos contábeis)",
+   "original": "Perito judicial",
+   "grupo": "Jurídico",
+   "icone": "balanca",
+   "destaque": 0,
+   "conselho": "Tribunais (CPTEC) / CFC (peritos contábeis)",
+   "regionais_txt": "—",
+   "tipo": "Parcial",
+   "site": "https://atos.cnj.jus.br/atos/detalhar/2310",
+   "principal": "https://www1.cfc.org.br/sisweb/Registro/ConsultaCNPC",
+   "plano_b": "https://aj.sigeo.jt.jus.br/aj2/internetaberto/consultapublicanomeacoes.jsf",
+   "captcha": "",
+   "verificacao": "Visto",
+   "obs": "Não há cadastro nacional único; link principal é só de peritos contábeis; Plano B é a Justiça do Trabalho (nomeações).",
+   "aliases": [
+    "perito",
+    "perícia",
+    "Perito judicial"
+   ],
+   "regional": ""
+  },
+  {
+   "id": "mediador-e-conciliador-judicial",
+   "nome": "Mediador judicial",
+   "desc": "CNJ (Cadastro Nacional de Mediadores)",
+   "original": "Mediador e conciliador judicial",
+   "grupo": "Jurídico",
+   "icone": "aperto",
+   "destaque": 0,
+   "conselho": "CNJ (CCMJ)",
+   "regionais_txt": "—",
+   "tipo": "Nacional",
+   "site": "https://www.cnj.jus.br",
+   "principal": "https://www.cnj.jus.br/cidadao-pode-escolher-mediadores-e-conciliadores-do-cadastro-nacional-do-cnj/",
+   "plano_b": "",
+   "captcha": "",
+   "verificacao": "Aberto",
+   "obs": "Matéria de 2017; sistema atual (conciliajud.cnj.jus.br/ccmj) citado em busca, não aberto.",
+   "aliases": [
+    "mediador",
+    "conciliador",
+    "CNJ",
+    "Mediador e conciliador judicial"
+   ],
+   "regional": ""
+  },
+  {
+   "id": "administrador-judicial",
+   "nome": "Administrador judicial",
+   "desc": "Tribunais",
+   "original": "Administrador judicial",
+   "grupo": "Jurídico",
+   "icone": "arquivo",
+   "destaque": 0,
+   "conselho": "Tribunais",
+   "regionais_txt": "—",
+   "tipo": "Não achada",
+   "site": "",
+   "principal": "",
+   "plano_b": "",
+   "captcha": "",
+   "verificacao": "Não verificado",
+   "obs": "Sem conselho nem lista nacional encontrada.",
+   "aliases": [
+    "recuperação judicial",
+    "falência",
+    "Administrador judicial"
+   ],
+   "regional": ""
+  },
+  {
+   "id": "tradutor-publico-e-interprete-comercial",
+   "nome": "Tradutor público",
+   "desc": "Juntas Comerciais (DREI)",
+   "original": "Tradutor público e intérprete comercial",
+   "grupo": "Mercado e documentos",
+   "icone": "idiomas",
+   "destaque": 0,
+   "conselho": "Juntas Comerciais",
+   "regionais_txt": "Juntas, 27",
+   "tipo": "Só regional",
+   "site": "https://www.gov.br/empresas-e-negocios/pt-br/drei",
+   "principal": "https://www.gov.br/empresas-e-negocios/pt-br/drei/tradutores-e-leiloeiros",
+   "plano_b": "",
+   "captcha": "",
+   "verificacao": "Aberto",
+   "obs": "Sem lista nacional; exemplo JUCEMG: https://jucemg.mg.gov.br/pagina/81/Tradutor+e+int%C3%A9rprete+p%C3%BAblico (a lista é intranet).",
+   "aliases": [
+    "tradutor juramentado",
+    "intérprete",
+    "Tradutor público e intérprete comercial"
+   ],
+   "regional": ""
+  },
+  {
+   "id": "despachante",
+   "nome": "Despachante",
+   "desc": "Detrans (por estado)",
+   "original": "Despachante",
+   "grupo": "Mercado e documentos",
+   "icone": "carro",
+   "destaque": 0,
+   "conselho": "Detrans",
+   "regionais_txt": "27 Detrans",
+   "tipo": "Só regional",
+   "site": "https://www.detran.pr.gov.br",
+   "principal": "https://www.detran.pr.gov.br/despachantes",
+   "plano_b": "",
+   "captcha": "",
+   "verificacao": "Aberto",
+   "obs": "Exemplo Detran-PR; cada UF tem a sua.",
+   "aliases": [
+    "despachante de trânsito",
+    "Detran",
+    "Despachante"
+   ],
+   "regional": ""
+  },
+  {
+   "id": "tecnico-em-seguranca-do-trabalho",
+   "nome": "Técnico seg. do trabalho",
+   "desc": "Ministério do Trabalho",
+   "original": "Técnico em segurança do trabalho",
+   "grupo": "Engenharia e Construção",
+   "icone": "capacete",
+   "destaque": 0,
+   "conselho": "MTE (sem conselho)",
+   "regionais_txt": "—",
+   "tipo": "Não achada",
+   "site": "",
+   "principal": "",
+   "plano_b": "",
+   "captcha": "",
+   "verificacao": "Não verificado",
+   "obs": "CFT não registra TST (informação de busca); órgão com cadastro não confirmado.",
+   "aliases": [
+    "TST",
+    "Técnico em segurança do trabalho"
+   ],
+   "regional": ""
+  }
+ ],
+ "regionais": {
+  "COREN": [
+   {
+    "nome": "COREN-AC",
+    "ufs": [
+     "AC"
+    ],
+    "estados": "Acre",
+    "site": "https://www.corenac.gov.br/",
+    "consulta": "https://consultapublica.cofen.gov.br/coren-ac/",
+    "verificacao": "Visto",
+    "obs": ""
+   },
+   {
+    "nome": "COREN-AL",
+    "ufs": [
+     "AL"
+    ],
+    "estados": "Alagoas",
+    "site": "https://corenalagoas.org.br/",
+    "consulta": "https://consultapublica.cofen.gov.br/coren-al/",
+    "verificacao": "Visto",
+    "obs": ""
+   },
+   {
+    "nome": "COREN-AM",
+    "ufs": [
+     "AM"
+    ],
+    "estados": "Amazonas",
+    "site": "https://www.corenam.gov.br/",
+    "consulta": "https://consultapublica.cofen.gov.br/coren-am/",
+    "verificacao": "Visto",
+    "obs": ""
+   },
+   {
+    "nome": "COREN-AP",
+    "ufs": [
+     "AP"
+    ],
+    "estados": "Amapá",
+    "site": "https://www.coren-ap.gov.br/",
+    "consulta": "https://consultapublica.cofen.gov.br/coren-ap/",
+    "verificacao": "Visto",
+    "obs": "Portal consultapublica.cofen.gov.br aberto"
+   },
+   {
+    "nome": "COREN-BA",
+    "ufs": [
+     "BA"
+    ],
+    "estados": "Bahia",
+    "site": "https://www.coren-ba.gov.br/",
+    "consulta": "https://consultapublica.cofen.gov.br/coren-ba/",
+    "verificacao": "Visto",
+    "obs": ""
+   },
+   {
+    "nome": "COREN-CE",
+    "ufs": [
+     "CE"
+    ],
+    "estados": "Ceará",
+    "site": "https://www.coren-ce.org.br/",
+    "consulta": "https://consultapublica.cofen.gov.br/coren-ce/",
+    "verificacao": "Visto",
+    "obs": ""
+   },
+   {
+    "nome": "COREN-DF",
+    "ufs": [
+     "DF"
+    ],
+    "estados": "Distrito Federal",
+    "site": "https://www.coren-df.gov.br/site/",
+    "consulta": "https://consultapublica.cofen.gov.br/coren-df/",
+    "verificacao": "Visto",
+    "obs": ""
+   },
+   {
+    "nome": "COREN-ES",
+    "ufs": [
+     "ES"
+    ],
+    "estados": "Espírito Santo",
+    "site": "https://www.coren-es.org.br/",
+    "consulta": "https://servicos-es.coren-sp.gov.br/consulta-de-profissionais/",
+    "verificacao": "Visto",
+    "obs": "Alternativa: https://consultapublica.cofen.gov.br/coren-es/"
+   },
+   {
+    "nome": "COREN-GO",
+    "ufs": [
+     "GO"
+    ],
+    "estados": "Goiás",
+    "site": "https://www.corengo.org.br/",
+    "consulta": "https://consultapublica.cofen.gov.br/coren-go/",
+    "verificacao": "Visto",
+    "obs": ""
+   },
+   {
+    "nome": "COREN-MA",
+    "ufs": [
+     "MA"
+    ],
+    "estados": "Maranhão",
+    "site": "https://corenma.gov.br/site2/",
+    "consulta": "https://consultapublica.cofen.gov.br/coren-ma/",
+    "verificacao": "Visto",
+    "obs": ""
+   },
+   {
+    "nome": "COREN-MT",
+    "ufs": [
+     "MT"
+    ],
+    "estados": "Mato Grosso",
+    "site": "https://www.coren-mt.gov.br/",
+    "consulta": "https://www.incorpnet.com.br/appincorpnet2_corenmt/incorpnet.dll/controller?pagina=pub_mvcLocalizarCadastro.htm",
+    "verificacao": "Visto",
+    "obs": "Alternativa: https://consultapublica.cofen.gov.br/coren-mt/"
+   },
+   {
+    "nome": "COREN-MS",
+    "ufs": [
+     "MS"
+    ],
+    "estados": "Mato Grosso do Sul",
+    "site": "https://www.corenms.gov.br/",
+    "consulta": "https://consultapublica.cofen.gov.br/coren-ms/",
+    "verificacao": "Visto",
+    "obs": ""
+   },
+   {
+    "nome": "COREN-MG",
+    "ufs": [
+     "MG"
+    ],
+    "estados": "Minas Gerais",
+    "site": "https://www.corenmg.gov.br/",
+    "consulta": "https://consultapublica.cofen.gov.br/coren-mg/",
+    "verificacao": "Visto",
+    "obs": ""
+   },
+   {
+    "nome": "COREN-PA",
+    "ufs": [
+     "PA"
+    ],
+    "estados": "Pará",
+    "site": "https://www.corenpa.org.br/",
+    "consulta": "",
+    "verificacao": "Não verificado",
+    "obs": "Link de consulta não achado"
+   },
+   {
+    "nome": "COREN-PB",
+    "ufs": [
+     "PB"
+    ],
+    "estados": "Paraíba",
+    "site": "https://www.corenpb.gov.br/",
+    "consulta": "",
+    "verificacao": "Não verificado",
+    "obs": "Link de consulta não achado"
+   },
+   {
+    "nome": "COREN-PR",
+    "ufs": [
+     "PR"
+    ],
+    "estados": "Paraná",
+    "site": "https://www.corenpr.gov.br/",
+    "consulta": "https://sig1.corenpr.gov.br/pgs/Consultarinscritos.aspx",
+    "verificacao": "Visto",
+    "obs": "Menu 'Consulta de Inscritos' na home"
+   },
+   {
+    "nome": "COREN-PE",
+    "ufs": [
+     "PE"
+    ],
+    "estados": "Pernambuco",
+    "site": "https://www.coren-pe.gov.br/",
+    "consulta": "https://sigen.cofen.gov.br/profissional/consultar",
+    "verificacao": "Visto",
+    "obs": ""
+   },
+   {
+    "nome": "COREN-PI",
+    "ufs": [
+     "PI"
+    ],
+    "estados": "Piauí",
+    "site": "https://coren-pi.org.br/",
+    "consulta": "https://sigen.cofen.gov.br/profissional/consultar",
+    "verificacao": "Visto",
+    "obs": ""
+   },
+   {
+    "nome": "COREN-RJ",
+    "ufs": [
+     "RJ"
+    ],
+    "estados": "Rio de Janeiro",
+    "site": "https://coren-rj.org.br/",
+    "consulta": "",
+    "verificacao": "Não verificado",
+    "obs": "Portal de serviços citado em busca: https://servicos.coren-rj.org.br/"
+   },
+   {
+    "nome": "COREN-RN",
+    "ufs": [
+     "RN"
+    ],
+    "estados": "Rio Grande do Norte",
+    "site": "https://www.coren.rn.gov.br/",
+    "consulta": "",
+    "verificacao": "Não verificado",
+    "obs": ""
+   },
+   {
+    "nome": "COREN-RS",
+    "ufs": [
+     "RS"
+    ],
+    "estados": "Rio Grande do Sul",
+    "site": "https://www.portalcoren-rs.gov.br/",
+    "consulta": "",
+    "verificacao": "Não verificado",
+    "obs": "Home tem 'Consulta de inscritos'; URL não obtida"
+   },
+   {
+    "nome": "COREN-RO",
+    "ufs": [
+     "RO"
+    ],
+    "estados": "Rondônia",
+    "site": "https://www.coren-ro.org.br/",
+    "consulta": "https://www.coren-ro.org.br/confira-a-lista-de-profissionais-ativos-no-coren-ro/",
+    "verificacao": "Visto",
+    "obs": "Lista, não formulário"
+   },
+   {
+    "nome": "COREN-RR",
+    "ufs": [
+     "RR"
+    ],
+    "estados": "Roraima",
+    "site": "https://www.corenrr.com.br/",
+    "consulta": "",
+    "verificacao": "Não verificado",
+    "obs": ""
+   },
+   {
+    "nome": "COREN-SC",
+    "ufs": [
+     "SC"
+    ],
+    "estados": "Santa Catarina",
+    "site": "https://www.corensc.gov.br/",
+    "consulta": "https://servicos-sc.coren-sp.gov.br/consulta-de-profissionais/",
+    "verificacao": "Visto",
+    "obs": "Linkada em https://www.corensc.gov.br/consulta-de-inscritos-e-autenticidade-de-certidoes/"
+   },
+   {
+    "nome": "COREN-SP",
+    "ufs": [
+     "SP"
+    ],
+    "estados": "São Paulo",
+    "site": "https://portal.coren-sp.gov.br/",
+    "consulta": "https://servicos.coren-sp.gov.br/consulta-de-profissionais/",
+    "verificacao": "Visto",
+    "obs": "Só em resultado de busca; deduzida do padrão de SC"
+   },
+   {
+    "nome": "COREN-SE",
+    "ufs": [
+     "SE"
+    ],
+    "estados": "Sergipe",
+    "site": "https://coren-se.gov.br/",
+    "consulta": "",
+    "verificacao": "Não verificado",
+    "obs": ""
+   },
+   {
+    "nome": "COREN-TO",
+    "ufs": [
+     "TO"
+    ],
+    "estados": "Tocantins",
+    "site": "https://www.corentocantins.org.br/",
+    "consulta": "",
+    "verificacao": "Não verificado",
+    "obs": ""
+   }
+  ],
+  "CREFITO": [
+   {
+    "nome": "CREFITO-1",
+    "ufs": [
+     "PE",
+     "AL"
+    ],
+    "estados": "Pernambuco, Alagoas",
+    "site": "https://www.crefito1.org.br/",
+    "consulta": "",
+    "verificacao": "Não verificado",
+    "obs": ""
+   },
+   {
+    "nome": "CREFITO-2",
+    "ufs": [
+     "RJ"
+    ],
+    "estados": "Rio de Janeiro",
+    "site": "https://crefito2.gov.br/",
+    "consulta": "",
+    "verificacao": "Não verificado",
+    "obs": ""
+   },
+   {
+    "nome": "CREFITO-3",
+    "ufs": [
+     "SP"
+    ],
+    "estados": "São Paulo",
+    "site": "http://www.crefito3.org.br/",
+    "consulta": "https://www.crefito3.org.br/dsn/consultapf/buscas.html",
+    "verificacao": "Aberto",
+    "obs": "Sem captcha/login"
+   },
+   {
+    "nome": "CREFITO-4",
+    "ufs": [
+     "MG"
+    ],
+    "estados": "Minas Gerais",
+    "site": "https://crefito4.gov.br",
+    "consulta": "https://crefito-04.implanta.net.br/servicosonline/Publico/ConsultaInscritos/",
+    "verificacao": "Aberto",
+    "obs": "Limite de 100 resultados"
+   },
+   {
+    "nome": "CREFITO-5",
+    "ufs": [
+     "RS"
+    ],
+    "estados": "Rio Grande do Sul",
+    "site": "https://www.crefito5.org.br/",
+    "consulta": "",
+    "verificacao": "Não verificado",
+    "obs": "ATENÇÃO: crefito5.org.br (sem www) abriu uma loja de escovas; confirmar o domínio correto"
+   },
+   {
+    "nome": "CREFITO-6",
+    "ufs": [
+     "CE"
+    ],
+    "estados": "Ceará",
+    "site": "https://www.crefito6.org.br/",
+    "consulta": "",
+    "verificacao": "Não verificado",
+    "obs": ""
+   },
+   {
+    "nome": "CREFITO-7",
+    "ufs": [
+     "BA"
+    ],
+    "estados": "Bahia",
+    "site": "https://crefito7.gov.br/",
+    "consulta": "",
+    "verificacao": "Não verificado",
+    "obs": ""
+   },
+   {
+    "nome": "CREFITO-8",
+    "ufs": [
+     "PR"
+    ],
+    "estados": "Paraná",
+    "site": "https://www.crefito8.gov.br/",
+    "consulta": "https://crefito-08.implanta.net.br/servicosOnline/Publico/ConsultaInscritos/",
+    "verificacao": "Aberto",
+    "obs": "Limite de 100 resultados"
+   },
+   {
+    "nome": "CREFITO-9",
+    "ufs": [
+     "MT"
+    ],
+    "estados": "Mato Grosso",
+    "site": "https://www.crefito9.org.br",
+    "consulta": "https://crefito-09.implanta.net.br/servicosOnline/Publico/ConsultaInscritos/",
+    "verificacao": "Visto",
+    "obs": ""
+   },
+   {
+    "nome": "CREFITO-10",
+    "ufs": [
+     "SC"
+    ],
+    "estados": "Santa Catarina",
+    "site": "https://crefito10.org.br/portal/",
+    "consulta": "https://crefito-10.implanta.net.br/servicosOnline/Publico/ConsultaInscritos/",
+    "verificacao": "Visto",
+    "obs": ""
+   },
+   {
+    "nome": "CREFITO-11",
+    "ufs": [
+     "DF"
+    ],
+    "estados": "Distrito Federal",
+    "site": "https://crefito11.gov.br/",
+    "consulta": "",
+    "verificacao": "Não verificado",
+    "obs": ""
+   },
+   {
+    "nome": "CREFITO-12",
+    "ufs": [
+     "PA",
+     "TO",
+     "AP"
+    ],
+    "estados": "Pará, Tocantins, Amapá",
+    "site": "https://crefito12.org.br/",
+    "consulta": "https://crefito-12.implanta.net.br/ServicosOnline/Publico/ConsultaInscritos/",
+    "verificacao": "Aberto",
+    "obs": "Link deduzido do padrão implanta.net.br"
+   },
+   {
+    "nome": "CREFITO-13",
+    "ufs": [
+     "MS"
+    ],
+    "estados": "Mato Grosso do Sul",
+    "site": "https://www.crefito13.org.br/",
+    "consulta": "https://crefito-13.implanta.net.br/ServicosOnline/Publico/ConsultaInscritos/",
+    "verificacao": "Aberto",
+    "obs": "Link deduzido do padrão implanta.net.br"
+   },
+   {
+    "nome": "CREFITO-14",
+    "ufs": [
+     "PI"
+    ],
+    "estados": "Piauí",
+    "site": "https://www.crefito14.org.br/",
+    "consulta": "https://crefito-14.implanta.net.br/servicosOnline/Publico/ConsultaInscritos/",
+    "verificacao": "Visto",
+    "obs": ""
+   },
+   {
+    "nome": "CREFITO-15",
+    "ufs": [
+     "ES"
+    ],
+    "estados": "Espírito Santo",
+    "site": "https://www.crefito15.org.br/",
+    "consulta": "https://crefito-15.implanta.net.br/ServicosOnline/Publico/ConsultaInscritos/",
+    "verificacao": "Visto",
+    "obs": ""
+   },
+   {
+    "nome": "CREFITO-16",
+    "ufs": [
+     "MA"
+    ],
+    "estados": "Maranhão",
+    "site": "https://crefito16.gov.br/site/",
+    "consulta": "https://crefito-16.implanta.net.br/servicosOnline/Publico/ConsultaInscritos/",
+    "verificacao": "Visto",
+    "obs": ""
+   },
+   {
+    "nome": "CREFITO-17",
+    "ufs": [
+     "SE"
+    ],
+    "estados": "Sergipe",
+    "site": "https://crefito17.org.br/",
+    "consulta": "",
+    "verificacao": "Não verificado",
+    "obs": "Home só tem consulta de especialista"
+   },
+   {
+    "nome": "CREFITO-18",
+    "ufs": [
+     "RO",
+     "AC"
+    ],
+    "estados": "Rondônia, Acre",
+    "site": "https://crefito18.org.br/",
+    "consulta": "",
+    "verificacao": "Não verificado",
+    "obs": ""
+   },
+   {
+    "nome": "CREFITO-19",
+    "ufs": [
+     "GO"
+    ],
+    "estados": "Goiás",
+    "site": "https://crefito19.org.br/",
+    "consulta": "https://crefito-19.implanta.net.br/ServicosOnline/Publico/ConsultaInscritos/",
+    "verificacao": "Aberto",
+    "obs": ""
+   },
+   {
+    "nome": "CREFITO-20",
+    "ufs": [
+     "AM",
+     "RR"
+    ],
+    "estados": "Amazonas, Roraima",
+    "site": "https://crefito20.org.br/cr20/",
+    "consulta": "https://crefito-20.implanta.net.br/ServicosOnline/Publico/ConsultaInscritos/",
+    "verificacao": "Aberto",
+    "obs": ""
+   },
+   {
+    "nome": "CREFITO-21",
+    "ufs": [
+     "PB"
+    ],
+    "estados": "Paraíba",
+    "site": "https://crefito21.org.br/site/",
+    "consulta": "https://crefito-21.implanta.net.br/ServicosOnline/Publico/ConsultaInscritos/",
+    "verificacao": "Visto",
+    "obs": "Criado em 2025 (portaria citada em busca)"
+   },
+   {
+    "nome": "CREFITO-22",
+    "ufs": [
+     "RN"
+    ],
+    "estados": "Rio Grande do Norte",
+    "site": "",
+    "consulta": "",
+    "verificacao": "Não verificado",
+    "obs": "Em instalação; só notícia do COFFITO (https://www.coffito.gov.br/nsite/?p=41335)"
+   }
+  ],
+  "CRECI": [
+   {
+    "nome": "CRECI-SC (11ª)",
+    "ufs": [
+     "SC"
+    ],
+    "estados": "Santa Catarina",
+    "site": "https://www.creci-sc.gov.br",
+    "consulta": "https://www.crecisc.conselho.net.br/form_pesquisa_cadastro_geral_site.php",
+    "verificacao": "Visto",
+    "obs": "'Consulte seu Corretor'"
+   },
+   {
+    "nome": "CRECI-ES",
+    "ufs": [
+     "ES"
+    ],
+    "estados": "Espírito Santo",
+    "site": "https://crecies.gov.br",
+    "consulta": "https://crecies.gov.br/profissional-regularizado",
+    "verificacao": "Aberto",
+    "obs": "Página só orienta; formulário não visto"
+   },
+   {
+    "nome": "CRECI-SP",
+    "ufs": [
+     "SP"
+    ],
+    "estados": "São Paulo",
+    "site": "https://www.crecisp.gov.br",
+    "consulta": "",
+    "verificacao": "Não verificado",
+    "obs": "Timeout"
+   },
+   {
+    "nome": "CRECI-PB",
+    "ufs": [
+     "PB"
+    ],
+    "estados": "Paraíba",
+    "site": "https://creci-pb.gov.br",
+    "consulta": "",
+    "verificacao": "Não verificado",
+    "obs": "Timeout"
+   },
+   {
+    "nome": "CRECI-AM/RR (18ª)",
+    "ufs": [
+     "AM",
+     "RR"
+    ],
+    "estados": "Amazonas, Roraima",
+    "site": "",
+    "consulta": "",
+    "verificacao": "Não verificado",
+    "obs": ""
+   }
+  ],
+  "CRESS": [
+   {
+    "nome": "CRESS-GO",
+    "ufs": [
+     "GO"
+    ],
+    "estados": "Goiás",
+    "site": "http://www.cressgoias.org.br",
+    "consulta": "",
+    "verificacao": "Não verificado",
+    "obs": "Robots bloqueou"
+   }
+  ],
+  "CRC": [
+   {
+    "nome": "CRC-AC",
+    "ufs": [
+     "AC"
+    ],
+    "estados": "Acre",
+    "site": "",
+    "consulta": "https://crcac.cfc.org.br/spwac/ConsultaCadastral/Principal.aspx",
+    "verificacao": "Aberto",
+    "obs": "Sistema SPW"
+   },
+   {
+    "nome": "CRC-AL",
+    "ufs": [
+     "AL"
+    ],
+    "estados": "Alagoas",
+    "site": "",
+    "consulta": "https://crcal.cfc.org.br/spwal/ConsultaCadastral/Principal.aspx",
+    "verificacao": "Aberto",
+    "obs": "Sistema SPW"
+   },
+   {
+    "nome": "CRC-AM",
+    "ufs": [
+     "AM"
+    ],
+    "estados": "Amazonas",
+    "site": "https://www.crcam.org.br",
+    "consulta": "https://crcam.cfc.org.br/spwAM/ConsultaCadastral/Principal.aspx",
+    "verificacao": "Aberto",
+    "obs": "Sistema SPW"
+   },
+   {
+    "nome": "CRC-AP",
+    "ufs": [
+     "AP"
+    ],
+    "estados": "Amapá",
+    "site": "https://crcap.org.br",
+    "consulta": "https://web.crcap.org.br/spw/ConsultaCadastral/Principal.aspx",
+    "verificacao": "Aberto",
+    "obs": "Sistema SPW"
+   },
+   {
+    "nome": "CRC-BA",
+    "ufs": [
+     "BA"
+    ],
+    "estados": "Bahia",
+    "site": "https://www.crcba.org.br",
+    "consulta": "https://servicos.crcba.org.br/spw/ConsultaCadastral/TelaConsultaPublicaCompleta.aspx",
+    "verificacao": "Aberto",
+    "obs": "Formulário público de busca"
+   },
+   {
+    "nome": "CRC-CE",
+    "ufs": [
+     "CE"
+    ],
+    "estados": "Ceará",
+    "site": "https://www.crc-ce.org.br",
+    "consulta": "https://crcce.cfc.org.br/spwce/consultacadastral/principal.aspx",
+    "verificacao": "Aberto",
+    "obs": "Sistema SPW"
+   },
+   {
+    "nome": "CRC-DF",
+    "ufs": [
+     "DF"
+    ],
+    "estados": "Distrito Federal",
+    "site": "https://crcdf.org.br",
+    "consulta": "https://crcdf.cfc.org.br/spwDF/ConsultaCadastral/Principal.aspx",
+    "verificacao": "Aberto",
+    "obs": "Sistema SPW"
+   },
+   {
+    "nome": "CRC-ES",
+    "ufs": [
+     "ES"
+    ],
+    "estados": "Espírito Santo",
+    "site": "",
+    "consulta": "https://crces.cfc.org.br/spwES/ConsultaCadastral/Principal.aspx",
+    "verificacao": "Aberto",
+    "obs": "Sistema SPW"
+   },
+   {
+    "nome": "CRC-GO",
+    "ufs": [
+     "GO"
+    ],
+    "estados": "Goiás",
+    "site": "https://crcgo.org.br",
+    "consulta": "https://servicos.crcgo.org.br/spw/Consultacadastral/Principal.aspx",
+    "verificacao": "Aberto",
+    "obs": "Sistema SPW"
+   },
+   {
+    "nome": "CRC-MA",
+    "ufs": [
+     "MA"
+    ],
+    "estados": "Maranhão",
+    "site": "",
+    "consulta": "https://servicos.crcma.org.br:444/spwma/",
+    "verificacao": "Visto",
+    "obs": "Raiz do sistema SPW; robots bloqueou"
+   },
+   {
+    "nome": "CRC-MG",
+    "ufs": [
+     "MG"
+    ],
+    "estados": "Minas Gerais",
+    "site": "https://crcmg.org.br",
+    "consulta": "https://aplicativos.crcmg.org.br/SPW/ConsultaCadastral/TelaConsultaPublicaCompleta.aspx",
+    "verificacao": "Visto",
+    "obs": "Menu Serviço ao Cidadão"
+   },
+   {
+    "nome": "CRC-MS",
+    "ufs": [
+     "MS"
+    ],
+    "estados": "Mato Grosso do Sul",
+    "site": "https://crcms.org.br",
+    "consulta": "https://crcms.cfc.org.br/spwms/Consultacadastral/Principal.aspx",
+    "verificacao": "Visto",
+    "obs": "Sistema SPW"
+   },
+   {
+    "nome": "CRC-MT",
+    "ufs": [
+     "MT"
+    ],
+    "estados": "Mato Grosso",
+    "site": "",
+    "consulta": "https://crcmt.cfc.org.br/spwmt/",
+    "verificacao": "Visto",
+    "obs": "Raiz do sistema SPW; deu timeout"
+   },
+   {
+    "nome": "CRC-PA",
+    "ufs": [
+     "PA"
+    ],
+    "estados": "Pará",
+    "site": "https://crcpa.org.br",
+    "consulta": "https://crcpa.cfc.org.br/spwpa/consultacadastral/TelaConsultaPublicaCompleta.aspx",
+    "verificacao": "Visto",
+    "obs": "Sistema SPW"
+   },
+   {
+    "nome": "CRC-PB",
+    "ufs": [
+     "PB"
+    ],
+    "estados": "Paraíba",
+    "site": "",
+    "consulta": "https://crcpb.cfc.org.br/spwPB/ConsultaCadastral/Principal.aspx",
+    "verificacao": "Aberto",
+    "obs": "Sistema SPW"
+   },
+   {
+    "nome": "CRC-PE",
+    "ufs": [
+     "PE"
+    ],
+    "estados": "Pernambuco",
+    "site": "",
+    "consulta": "https://sistemas.crcpe.org.br/spw/ConsultaCadastral/Principal.aspx",
+    "verificacao": "Aberto",
+    "obs": "Sistema SPW"
+   },
+   {
+    "nome": "CRC-PI",
+    "ufs": [
+     "PI"
+    ],
+    "estados": "Piauí",
+    "site": "",
+    "consulta": "https://crcpi.cfc.org.br/spwPI/ConsultaCadastral/Principal.aspx",
+    "verificacao": "Aberto",
+    "obs": "Sistema SPW"
+   },
+   {
+    "nome": "CRC-PR",
+    "ufs": [
+     "PR"
+    ],
+    "estados": "Paraná",
+    "site": "https://www.crcpr.org.br",
+    "consulta": "https://scfweb.crcpr.org.br/spw/ConsultaCadastral/TelaConsultaPublicaCompleta.aspx",
+    "verificacao": "Visto",
+    "obs": "Sistema SPW"
+   },
+   {
+    "nome": "CRC-RJ",
+    "ufs": [
+     "RJ"
+    ],
+    "estados": "Rio de Janeiro",
+    "site": "",
+    "consulta": "https://webserver.crcrj.org.br/spw/",
+    "verificacao": "Visto",
+    "obs": "Raiz do sistema SPW; robots bloqueou"
+   },
+   {
+    "nome": "CRC-RN",
+    "ufs": [
+     "RN"
+    ],
+    "estados": "Rio Grande do Norte",
+    "site": "",
+    "consulta": "https://crcrn.cfc.org.br/spwRN/ConsultaCadastral/Principal.aspx",
+    "verificacao": "Aberto",
+    "obs": "Sistema SPW"
+   },
+   {
+    "nome": "CRC-RO",
+    "ufs": [
+     "RO"
+    ],
+    "estados": "Rondônia",
+    "site": "",
+    "consulta": "https://servicos.crcro.org.br/spwRO/ConsultaCadastral/Principal.aspx",
+    "verificacao": "Aberto",
+    "obs": "Sistema SPW"
+   },
+   {
+    "nome": "CRC-RR",
+    "ufs": [
+     "RR"
+    ],
+    "estados": "Roraima",
+    "site": "https://crcrr.org.br",
+    "consulta": "https://crcrr.cfc.org.br/spwrr/consultacadastral/principal.aspx",
+    "verificacao": "Visto",
+    "obs": "Sistema SPW"
+   },
+   {
+    "nome": "CRC-RS",
+    "ufs": [
+     "RS"
+    ],
+    "estados": "Rio Grande do Sul",
+    "site": "",
+    "consulta": "https://sistema.crcrs.org.br:444/spw/",
+    "verificacao": "Visto",
+    "obs": "Raiz do sistema SPW; robots bloqueou"
+   },
+   {
+    "nome": "CRC-SC",
+    "ufs": [
+     "SC"
+    ],
+    "estados": "Santa Catarina",
+    "site": "",
+    "consulta": "https://cadastro2.crcsc.org.br/spw/ConsultaCadastral/Principal.aspx",
+    "verificacao": "Aberto",
+    "obs": "Sistema SPW"
+   },
+   {
+    "nome": "CRC-SE",
+    "ufs": [
+     "SE"
+    ],
+    "estados": "Sergipe",
+    "site": "https://crcse.org.br",
+    "consulta": "https://servicos.crcse.org.br/spwse/ConsultaCadastral/principal.aspx",
+    "verificacao": "Visto",
+    "obs": "Sistema SPW"
+   },
+   {
+    "nome": "CRC-SP",
+    "ufs": [
+     "SP"
+    ],
+    "estados": "São Paulo",
+    "site": "https://crcsp.org.br",
+    "consulta": "",
+    "verificacao": "Não verificado",
+    "obs": "Consulta pública não encontrada (só área logada)"
+   },
+   {
+    "nome": "CRC-TO",
+    "ufs": [
+     "TO"
+    ],
+    "estados": "Tocantins",
+    "site": "https://crcto.org.br",
+    "consulta": "https://crcto.cfc.org.br/spwto/consultacadastral/Principal.aspx",
+    "verificacao": "Visto",
+    "obs": "Sistema SPW"
+   }
+  ]
+ }
+}
