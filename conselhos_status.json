@@ -1,0 +1,1466 @@
+{
+ "gerado_em": "2026-11-12",
+ "resumo": {
+  "ok": 174,
+  "incerto": 34,
+  "fora": 0
+ },
+ "links": {
+  "http://consultapublica.confea.org.br/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "http://www.crbiodigital.com.br/portal": {
+   "estado": "incerto",
+   "codigo": "dns",
+   "falhas_seguidas": 1,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": ""
+  },
+  "http://www.crefito3.org.br/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "http://www.cressgoias.org.br": {
+   "estado": "incerto",
+   "codigo": "dns",
+   "falhas_seguidas": 1,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": ""
+  },
+  "https://aj.sigeo.jt.jus.br/aj2/internetaberto/consultapublicanomeacoes.jsf": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://ancord.org.br": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://ancord.org.br/certificacao-e-credenciamento/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://aplicativos.crcmg.org.br/SPW/ConsultaCadastral/TelaConsultaPublicaCompleta.aspx": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://app.cfmv.gov.br/paginas/busca": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://atos.cnj.jus.br/atos/detalhar/2310": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://busca-profissionais.cfo.org.br/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://cadastro.cfp.org.br/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://cadastro2.crcsc.org.br/spw/ConsultaCadastral/Principal.aspx": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://cadastur.turismo.gov.br": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://caubr.gov.br": {
+   "estado": "incerto",
+   "codigo": 403,
+   "falhas_seguidas": 1,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": ""
+  },
+  "https://cfa.org.br": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://cfa.org.br/cadastro-nacional/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://cfa.org.br/institucional/conselho-regional/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://cfb.org.br": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://cfbio.com.br/SPW/consultanacional/cadastro_cfbio_simplificado.aspx": {
+   "estado": "incerto",
+   "codigo": "timeout",
+   "falhas_seguidas": 1,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": ""
+  },
+  "https://cfbio.gov.br": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://cfbm.gov.br": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://cfc.org.br": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://cfc.org.br/registro/cnai/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://cfn.org.br": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://cfq.org.br": {
+   "estado": "incerto",
+   "codigo": "conexao",
+   "falhas_seguidas": 1,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": ""
+  },
+  "https://cft.org.br": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://cna.oab.org.br": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://cnn.cfn.org.br/application/index/consulta-nacional": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://cnn.cfn.org.br/application/index/consulta-nacional-tecnicos": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://cofecon.org.br": {
+   "estado": "incerto",
+   "codigo": 403,
+   "falhas_seguidas": 1,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": ""
+  },
+  "https://cofem.org.br": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://cofem.org.br/registro-e-cadastro/museologos-empresas-entidades-e-escritorios-tecnicos-registrados-nos-corems/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://confe.org.br": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://confe.org.br/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://conferp.org.br": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://confirmadv.oab.org.br/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://consultaprofissional.confea.org.br": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://consultapublica.cofen.gov.br/coren-ac/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://consultapublica.cofen.gov.br/coren-al/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://consultapublica.cofen.gov.br/coren-am/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://consultapublica.cofen.gov.br/coren-ap/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://consultapublica.cofen.gov.br/coren-ba/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://consultapublica.cofen.gov.br/coren-ce/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://consultapublica.cofen.gov.br/coren-df/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://consultapublica.cofen.gov.br/coren-go/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://consultapublica.cofen.gov.br/coren-ma/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://consultapublica.cofen.gov.br/coren-mg/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://consultapublica.cofen.gov.br/coren-ms/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://conter.gov.br": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://conter.gov.br/consultageral/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://conter.gov.br/regionais/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://coren-pi.org.br/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://coren-rj.org.br/": {
+   "estado": "incerto",
+   "codigo": "ssl",
+   "falhas_seguidas": 1,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": ""
+  },
+  "https://coren-se.gov.br/": {
+   "estado": "incerto",
+   "codigo": "ssl",
+   "falhas_seguidas": 1,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": ""
+  },
+  "https://corenalagoas.org.br/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://corenma.gov.br/site2/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://corporativo.sinceti.net.br/app/view/sight/externo.php?form=ConsultarCertidaoSimples": {
+   "estado": "incerto",
+   "codigo": 403,
+   "falhas_seguidas": 1,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": ""
+  },
+  "https://corporativo.sitag.org.br/app/view/sight/externo?form=PesquisarProfissionalEmpresa": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://crcac.cfc.org.br/spwac/ConsultaCadastral/Principal.aspx": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://crcal.cfc.org.br/spwal/ConsultaCadastral/Principal.aspx": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://crcam.cfc.org.br/spwAM/ConsultaCadastral/Principal.aspx": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://crcap.org.br": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://crcce.cfc.org.br/spwce/consultacadastral/principal.aspx": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://crcdf.cfc.org.br/spwDF/ConsultaCadastral/Principal.aspx": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://crcdf.org.br": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://crces.cfc.org.br/spwES/ConsultaCadastral/Principal.aspx": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://crcgo.org.br": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://crcmg.org.br": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://crcms.cfc.org.br/spwms/Consultacadastral/Principal.aspx": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://crcms.org.br": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://crcmt.cfc.org.br/spwmt/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://crcpa.cfc.org.br/spwpa/consultacadastral/TelaConsultaPublicaCompleta.aspx": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://crcpa.org.br": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://crcpb.cfc.org.br/spwPB/ConsultaCadastral/Principal.aspx": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://crcpi.cfc.org.br/spwPI/ConsultaCadastral/Principal.aspx": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://crcrn.cfc.org.br/spwRN/ConsultaCadastral/Principal.aspx": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://crcrr.cfc.org.br/spwrr/consultacadastral/principal.aspx": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://crcrr.org.br": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://crcse.org.br": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://crcsp.org.br": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://crcto.cfc.org.br/spwto/consultacadastral/Principal.aspx": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://crcto.org.br": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://creci-pb.gov.br": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://crecies.gov.br": {
+   "estado": "incerto",
+   "codigo": 403,
+   "falhas_seguidas": 1,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": ""
+  },
+  "https://crecies.gov.br/profissional-regularizado": {
+   "estado": "incerto",
+   "codigo": 403,
+   "falhas_seguidas": 1,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": ""
+  },
+  "https://crefito-04.implanta.net.br/servicosonline/Publico/ConsultaInscritos/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://crefito-08.implanta.net.br/servicosOnline/Publico/ConsultaInscritos/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://crefito-09.implanta.net.br/servicosOnline/Publico/ConsultaInscritos/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://crefito-10.implanta.net.br/servicosOnline/Publico/ConsultaInscritos/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://crefito-12.implanta.net.br/ServicosOnline/Publico/ConsultaInscritos/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://crefito-13.implanta.net.br/ServicosOnline/Publico/ConsultaInscritos/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://crefito-14.implanta.net.br/servicosOnline/Publico/ConsultaInscritos/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://crefito-15.implanta.net.br/ServicosOnline/Publico/ConsultaInscritos/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://crefito-16.implanta.net.br/servicosOnline/Publico/ConsultaInscritos/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://crefito-19.implanta.net.br/ServicosOnline/Publico/ConsultaInscritos/": {
+   "estado": "incerto",
+   "codigo": "timeout",
+   "falhas_seguidas": 1,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": ""
+  },
+  "https://crefito-20.implanta.net.br/ServicosOnline/Publico/ConsultaInscritos/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://crefito-21.implanta.net.br/ServicosOnline/Publico/ConsultaInscritos/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://crefito10.org.br/portal/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://crefito11.gov.br/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://crefito12.org.br/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://crefito16.gov.br/site/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://crefito17.org.br/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://crefito18.org.br/": {
+   "estado": "incerto",
+   "codigo": 403,
+   "falhas_seguidas": 1,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": ""
+  },
+  "https://crefito19.org.br/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://crefito2.gov.br/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://crefito20.org.br/cr20/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://crefito21.org.br/site/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://crefito4.gov.br": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://crefito7.gov.br/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://dfe-portal.svrs.rs.gov.br": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://dfe-portal.svrs.rs.gov.br/NFE/CCC": {
+   "estado": "incerto",
+   "codigo": 400,
+   "falhas_seguidas": 1,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": ""
+  },
+  "https://especialistas.coffito.gov.br/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://fonoaudiologia.org.br": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://fonoaudiologia.org.br/buscar-profissionais-por-regiao/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://fonoaudiologia.org.br/conselhos-regionais/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://portal.cfm.org.br": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://portal.cfm.org.br/busca-medicos/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://portal.coren-sp.gov.br/": {
+   "estado": "incerto",
+   "codigo": 403,
+   "falhas_seguidas": 1,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": ""
+  },
+  "https://scfweb.crcpr.org.br/spw/ConsultaCadastral/TelaConsultaPublicaCompleta.aspx": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://servicos-es.coren-sp.gov.br/consulta-de-profissionais/": {
+   "estado": "incerto",
+   "codigo": 403,
+   "falhas_seguidas": 1,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": ""
+  },
+  "https://servicos-sc.coren-sp.gov.br/consulta-de-profissionais/": {
+   "estado": "incerto",
+   "codigo": 403,
+   "falhas_seguidas": 1,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": ""
+  },
+  "https://servicos.coren-sp.gov.br/consulta-de-profissionais/": {
+   "estado": "incerto",
+   "codigo": 403,
+   "falhas_seguidas": 1,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": ""
+  },
+  "https://servicos.crcba.org.br/spw/ConsultaCadastral/TelaConsultaPublicaCompleta.aspx": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://servicos.crcgo.org.br/spw/Consultacadastral/Principal.aspx": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://servicos.crcma.org.br:444/spwma/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://servicos.crcro.org.br/spwRO/ConsultaCadastral/Principal.aspx": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://servicos.crcse.org.br/spwse/ConsultaCadastral/principal.aspx": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://servicos.sinceti.net.br/": {
+   "estado": "incerto",
+   "codigo": 403,
+   "falhas_seguidas": 1,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": ""
+  },
+  "https://servicos.sitag.org.br/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://sig1.corenpr.gov.br/pgs/Consultarinscritos.aspx": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://sigen.cofen.gov.br/profissional/consultar": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://sistema.crcrs.org.br:444/spw/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://sistemas.crcpe.org.br/spw/ConsultaCadastral/Principal.aspx": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://site.cff.org.br": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://site.cff.org.br/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://site.cff.org.br/regionais": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://site.cfp.org.br": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://site.cfp.org.br/cfp/sistema-conselhos/conselhos-pelo-brasil/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://web.crcap.org.br/spw/ConsultaCadastral/Principal.aspx": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://webserver.crcrj.org.br/spw/": {
+   "estado": "incerto",
+   "codigo": 500,
+   "falhas_seguidas": 1,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": ""
+  },
+  "https://website.cfo.org.br": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://website.cfo.org.br/busca-profissionais": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://website.cfo.org.br/consulta-inscritos/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://www.cfess.org.br": {
+   "estado": "incerto",
+   "codigo": 403,
+   "falhas_seguidas": 1,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": ""
+  },
+  "https://www.cfmv.gov.br": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://www.cfmv.gov.br/conselhos-regionais/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://www.cfta.org.br": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://www.cnj.jus.br": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://www.cnj.jus.br/cidadao-pode-escolher-mediadores-e-conciliadores-do-cadastro-nacional-do-cnj/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://www.cofeci.gov.br": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://www.cofeci.gov.br/avaliadores-imoveis": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://www.cofen.gov.br": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://www.cofen.gov.br/contato/conselhos-regionais/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://www.coffito.gov.br/nsite": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://www.confea.org.br": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://www.confef.org.br": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://www.confere.org.br": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://www.confere.org.br/consulta_publica.php": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://www.confere.org.br/consultapublica": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://www.coren-ap.gov.br/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://www.coren-ba.gov.br/": {
+   "estado": "incerto",
+   "codigo": "ssl",
+   "falhas_seguidas": 1,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": ""
+  },
+  "https://www.coren-ce.org.br/": {
+   "estado": "incerto",
+   "codigo": "ssl",
+   "falhas_seguidas": 1,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": ""
+  },
+  "https://www.coren-df.gov.br/site/": {
+   "estado": "incerto",
+   "codigo": "ssl",
+   "falhas_seguidas": 1,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": ""
+  },
+  "https://www.coren-es.org.br/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://www.coren-mt.gov.br/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://www.coren-pe.gov.br/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://www.coren-ro.org.br/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://www.coren-ro.org.br/confira-a-lista-de-profissionais-ativos-no-coren-ro/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://www.coren.rn.gov.br/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://www.corenac.gov.br/": {
+   "estado": "incerto",
+   "codigo": "ssl",
+   "falhas_seguidas": 1,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": ""
+  },
+  "https://www.corenam.gov.br/": {
+   "estado": "incerto",
+   "codigo": 403,
+   "falhas_seguidas": 1,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": ""
+  },
+  "https://www.corengo.org.br/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://www.corenmg.gov.br/": {
+   "estado": "incerto",
+   "codigo": "timeout",
+   "falhas_seguidas": 1,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": ""
+  },
+  "https://www.corenms.gov.br/": {
+   "estado": "incerto",
+   "codigo": "ssl",
+   "falhas_seguidas": 1,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": ""
+  },
+  "https://www.corenpa.org.br/": {
+   "estado": "incerto",
+   "codigo": "ssl",
+   "falhas_seguidas": 1,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": ""
+  },
+  "https://www.corenpb.gov.br/": {
+   "estado": "incerto",
+   "codigo": "ssl",
+   "falhas_seguidas": 1,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": ""
+  },
+  "https://www.corenpr.gov.br/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://www.corenrr.com.br/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://www.corensc.gov.br/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://www.corentocantins.org.br/": {
+   "estado": "incerto",
+   "codigo": "ssl",
+   "falhas_seguidas": 1,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": ""
+  },
+  "https://www.crc-ce.org.br": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://www.crcam.org.br": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://www.crcba.org.br": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://www.crcpr.org.br": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://www.creci-sc.gov.br": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://www.crecisc.conselho.net.br/form_pesquisa_cadastro_geral_site.php": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://www.crecisp.gov.br": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://www.crefito1.org.br/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://www.crefito13.org.br/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://www.crefito14.org.br/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://www.crefito15.org.br/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://www.crefito3.org.br/dsn/consultapf/buscas.html": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://www.crefito5.org.br/": {
+   "estado": "incerto",
+   "codigo": 403,
+   "falhas_seguidas": 1,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": ""
+  },
+  "https://www.crefito6.org.br/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://www.crefito8.gov.br/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://www.crefito9.org.br": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://www.detran.pr.gov.br": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://www.detran.pr.gov.br/despachantes": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://www.gov.br/cvm/pt-br/assuntos/regulados/consultas-por-participante/agentes-autonomos": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://www.gov.br/empresas-e-negocios/pt-br/drei": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://www.gov.br/empresas-e-negocios/pt-br/drei/tradutores-e-leiloeiros": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://www.gov.br/susep/pt-br": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://www.gov.br/susep/pt-br/assuntos/corretor-de-seguros": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://www.incorpnet.com.br/appincorpnet2_corenmt/incorpnet.dll/controller?pagina=pub_mvcLocalizarCadastro.htm": {
+   "estado": "incerto",
+   "codigo": 503,
+   "falhas_seguidas": 1,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": ""
+  },
+  "https://www.oab.org.br": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://www.portalcoren-rs.gov.br/": {
+   "estado": "ok",
+   "codigo": 200,
+   "falhas_seguidas": 0,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": "2026-11-12"
+  },
+  "https://www1.cfc.org.br/sisweb/Registro/ConsultaCNPC": {
+   "estado": "incerto",
+   "codigo": 500,
+   "falhas_seguidas": 1,
+   "verificado_em": "2026-11-12",
+   "ultimo_ok": ""
+  }
+ }
+}
