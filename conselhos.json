@@ -1,6 +1,6 @@
 {
  "meta": {
-  "gerado_em": "2026-11-11",
+  "gerado_em": "2026-11-12",
   "aviso": "Rascunho em teste: links nem todos verificados."
  },
  "grupos_regionais": {
@@ -8,7 +8,9 @@
   "CREFITO": "Conselho Regional de Fisioterapia e Terapia Ocupacional",
   "CRESS": "Conselho Regional de Serviço Social",
   "CRECI": "Conselho Regional de Corretores de Imóveis",
-  "CRC": "Conselho Regional de Contabilidade"
+  "CRC": "Conselho Regional de Contabilidade",
+  "CREA": "Conselho Regional de Engenharia e Agronomia",
+  "CRBM": "Conselho Regional de Biomedicina"
  },
  "profissoes": [
   {
@@ -245,19 +247,19 @@
    "destaque": 0,
    "conselho": "CFBM",
    "regionais_txt": "CRBM, 7",
-   "tipo": "Não achada",
+   "tipo": "Nacional",
    "site": "https://cfbm.gov.br",
-   "principal": "https://cfbm.gov.br",
+   "principal": "https://cfbm-br.implanta.net.br/visaonacional/publico/consulta-publica/index",
    "plano_b": "",
    "captcha": "",
    "verificacao": "Aberto",
-   "obs": "Home lista 7 CRBMs; logo do CRBM 7 aponta para crbm1 (possível erro do site).",
+   "obs": "Consulta nacional do CFBM (aplicação em JavaScript; não foi possível ver captcha).",
    "aliases": [
     "biomédico",
     "CRBM",
     "Biomedicina"
    ],
-   "regional": ""
+   "regional": "CRBM"
   },
   {
    "id": "biologia",
@@ -342,13 +344,13 @@
    "destaque": 13,
    "conselho": "CONFEF",
    "regionais_txt": "CREF, qtd não verificada",
-   "tipo": "Não achada",
+   "tipo": "Nacional",
    "site": "https://www.confef.org.br",
-   "principal": "https://www.confef.org.br",
+   "principal": "https://www.confef.org.br/registro/",
    "plano_b": "",
    "captcha": "",
-   "verificacao": "Não verificado",
-   "obs": "Site bloqueou o robô (robots). Abrir manualmente.",
+   "verificacao": "Visto",
+   "obs": "Pesquisa de Registrados (visto em busca; o site bloqueou o robô).",
    "aliases": [
     "personal trainer",
     "professor de educação física",
@@ -468,13 +470,13 @@
    "destaque": 8,
    "conselho": "COFECON",
    "regionais_txt": "CORECON por UF",
-   "tipo": "Não achada",
-   "site": "https://cofecon.org.br",
-   "principal": "https://cofecon.org.br",
+   "tipo": "Nacional",
+   "site": "https://www.cofecon.org.br",
+   "principal": "https://consultaprofissionais.cofecon.org/",
    "plano_b": "",
    "captcha": "",
-   "verificacao": "Não verificado",
-   "obs": "Site não abriu para o robô.",
+   "verificacao": "Aberto",
+   "obs": "Cadastro Nacional de Economistas.",
    "aliases": [
     "economista",
     "CORECON",
@@ -541,11 +543,11 @@
    "regionais_txt": "CORE por UF",
    "tipo": "Nacional",
    "site": "https://www.confere.org.br",
-   "principal": "https://www.confere.org.br/consultapublica",
-   "plano_b": "https://www.confere.org.br/consulta_publica.php",
+   "principal": "https://consultarep.confere.org.br/",
+   "plano_b": "https://www.confere.org.br/consultapublica",
    "captcha": "",
-   "verificacao": "Visto",
-   "obs": "Lista de regionais: https://www.confere.org.br/enderecos.php (visto).",
+   "verificacao": "Aberto",
+   "obs": "Consulta nacional unificada (ConsultaRep Web).",
    "aliases": [
     "representante comercial",
     "CORE",
@@ -563,13 +565,13 @@
    "destaque": 0,
    "conselho": "CFB",
    "regionais_txt": "CRB, 14 (não oficial)",
-   "tipo": "Não achada",
+   "tipo": "Parcial",
    "site": "https://cfb.org.br",
-   "principal": "https://cfb.org.br",
+   "principal": "https://www.studiosti.com.br/STI-Financeiro/Biblioteconomia/Federal/Telas/Cadastro/Federal/Profissional_Empresa_Central_Listar_TL.aspx",
    "plano_b": "",
    "captcha": "",
-   "verificacao": "Não verificado",
-   "obs": "Site deu timeout.",
+   "verificacao": "Visto",
+   "obs": "Cadastro Nacional de Bibliotecários (CNB), link do rodapé do CFB; não confirmado se é público.",
    "aliases": [
     "bibliotecário",
     "CRB",
@@ -625,7 +627,7 @@
     "CREA",
     "Engenharia, Agronomia, Geologia"
    ],
-   "regional": ""
+   "regional": "CREA"
   },
   {
    "id": "arquitetura-e-urbanismo",
@@ -1686,7 +1688,73 @@
   ],
   "CRECI": [
    {
-    "nome": "CRECI-SC (11ª)",
+    "nome": "CRECI-DF",
+    "ufs": [
+     "DF"
+    ],
+    "estados": "Distrito Federal",
+    "site": "https://app.crecidf.gov.br",
+    "consulta": "https://app.crecidf.gov.br/consultacorretor",
+    "verificacao": "Aberto",
+    "obs": "Link informado por Alexandre (com captcha numérico)"
+   },
+   {
+    "nome": "CRECI-SP",
+    "ufs": [
+     "SP"
+    ],
+    "estados": "São Paulo",
+    "site": "https://www.crecisp.gov.br",
+    "consulta": "https://www.crecisp.gov.br/cidadao/buscaporcorretores",
+    "verificacao": "Aberto",
+    "obs": "Formulário público"
+   },
+   {
+    "nome": "CRECI-MG",
+    "ufs": [
+     "MG"
+    ],
+    "estados": "Minas Gerais",
+    "site": "https://www.crecimg.gov.br",
+    "consulta": "https://crecimg.spiderware.com.br/spw/consultacadastral/TelaConsultaPublicaCompleta.aspx",
+    "verificacao": "Aberto",
+    "obs": ""
+   },
+   {
+    "nome": "CRECI-GO",
+    "ufs": [
+     "GO"
+    ],
+    "estados": "Goiás",
+    "site": "https://crecigo.gov.br",
+    "consulta": "https://www.crecigo.conselho.net.br/form_pesquisa_cadastro_geral_site.php",
+    "verificacao": "Visto",
+    "obs": ""
+   },
+   {
+    "nome": "CRECI-MS",
+    "ufs": [
+     "MS"
+    ],
+    "estados": "Mato Grosso do Sul",
+    "site": "https://www.crecims.gov.br",
+    "consulta": "https://www.crecims.conselho.net.br/form_pesquisa_cadastro_geral_site.php",
+    "verificacao": "Visto",
+    "obs": ""
+   },
+   {
+    "nome": "CRECI-RJ",
+    "ufs": [
+     "RJ"
+    ],
+    "estados": "Rio de Janeiro",
+    "site": "https://www.creci-rj.gov.br",
+    "consulta": "https://www.crecirj.conselho.net.br/form_pesquisa_cadastro_geral_site.php",
+    "verificacao": "Visto",
+    "obs": ""
+   },
+   {
+    "nome": "CRECI-SC",
     "ufs": [
      "SC"
     ],
@@ -1694,7 +1762,7 @@
     "site": "https://www.creci-sc.gov.br",
     "consulta": "https://www.crecisc.conselho.net.br/form_pesquisa_cadastro_geral_site.php",
     "verificacao": "Visto",
-    "obs": "'Consulte seu Corretor'"
+    "obs": ""
    },
    {
     "nome": "CRECI-ES",
@@ -1705,54 +1773,328 @@
     "site": "https://crecies.gov.br",
     "consulta": "https://crecies.gov.br/profissional-regularizado",
     "verificacao": "Aberto",
-    "obs": "Página só orienta; formulário não visto"
+    "obs": "Página só orienta"
    },
    {
-    "nome": "CRECI-SP",
+    "nome": "CRECI-MT",
+    "ufs": [
+     "MT"
+    ],
+    "estados": "Mato Grosso",
+    "site": "https://www.crecimt.gov.br",
+    "consulta": "",
+    "verificacao": "Não verificado",
+    "obs": "Site em versão temporária"
+   },
+   {
+    "nome": "CRECI-PR",
+    "ufs": [
+     "PR"
+    ],
+    "estados": "Paraná",
+    "site": "https://crecipr.gov.br",
+    "consulta": "",
+    "verificacao": "Não verificado",
+    "obs": "Consulta não achada"
+   }
+  ],
+  "CRESS": [
+   {
+    "nome": "CRESS-PA",
+    "ufs": [
+     "PA"
+    ],
+    "estados": "Pará",
+    "site": "https://cress-pa.org.br/",
+    "consulta": "https://cress-pa.implanta.net.br/servicosonline/Publico/ConsultaInscritos",
+    "verificacao": "Aberto",
+    "obs": "Plataforma ServiçosOnline; até 100 resultados"
+   },
+   {
+    "nome": "CRESS-MA",
+    "ufs": [
+     "MA"
+    ],
+    "estados": "Maranhão",
+    "site": "",
+    "consulta": "https://cress-ma.implanta.net.br/servicosonline/Publico/ConsultaInscritos",
+    "verificacao": "Aberto",
+    "obs": "Plataforma ServiçosOnline; até 100 resultados"
+   },
+   {
+    "nome": "CRESS-CE",
+    "ufs": [
+     "CE"
+    ],
+    "estados": "Ceará",
+    "site": "http://cress-ce.org.br/",
+    "consulta": "https://cress-ce.implanta.net.br/servicosonline/Publico/ConsultaInscritos",
+    "verificacao": "Aberto",
+    "obs": "Plataforma ServiçosOnline; até 100 resultados"
+   },
+   {
+    "nome": "CRESS-PE",
+    "ufs": [
+     "PE"
+    ],
+    "estados": "Pernambuco",
+    "site": "",
+    "consulta": "https://cress-pe.implanta.net.br/servicosonline/Publico/ConsultaInscritos",
+    "verificacao": "Aberto",
+    "obs": "Plataforma ServiçosOnline; até 100 resultados"
+   },
+   {
+    "nome": "CRESS-BA",
+    "ufs": [
+     "BA"
+    ],
+    "estados": "Bahia",
+    "site": "",
+    "consulta": "https://cress-ba.implanta.net.br/servicosonline/Publico/ConsultaInscritos",
+    "verificacao": "Aberto",
+    "obs": "Plataforma ServiçosOnline; até 100 resultados"
+   },
+   {
+    "nome": "CRESS-MG",
+    "ufs": [
+     "MG"
+    ],
+    "estados": "Minas Gerais",
+    "site": "https://www.cress-mg.org.br/",
+    "consulta": "https://cress-mg.implanta.net.br/servicosonline/Publico/ConsultaInscritos",
+    "verificacao": "Visto",
+    "obs": "Plataforma ServiçosOnline; até 100 resultados"
+   },
+   {
+    "nome": "CRESS-RJ",
+    "ufs": [
+     "RJ"
+    ],
+    "estados": "Rio de Janeiro",
+    "site": "https://www.cressrj.org.br/",
+    "consulta": "https://cress-rj.implanta.net.br/servicosonline/Publico/ConsultaInscritos",
+    "verificacao": "Aberto",
+    "obs": "Plataforma ServiçosOnline; até 100 resultados"
+   },
+   {
+    "nome": "CRESS-DF",
+    "ufs": [
+     "DF"
+    ],
+    "estados": "Distrito Federal",
+    "site": "https://cressdf.org.br/",
+    "consulta": "https://cress-df.implanta.net.br/servicosonline/Publico/ConsultaInscritos",
+    "verificacao": "Aberto",
+    "obs": "Plataforma ServiçosOnline; até 100 resultados"
+   },
+   {
+    "nome": "CRESS-SP",
     "ufs": [
      "SP"
     ],
     "estados": "São Paulo",
-    "site": "https://www.crecisp.gov.br",
-    "consulta": "",
-    "verificacao": "Não verificado",
-    "obs": "Timeout"
+    "site": "https://cress-sp.org.br/",
+    "consulta": "https://cress-sp.implanta.net.br/servicosonline/Publico/ConsultaInscritos",
+    "verificacao": "Aberto",
+    "obs": "Plataforma ServiçosOnline; até 100 resultados"
    },
    {
-    "nome": "CRECI-PB",
+    "nome": "CRESS-RS",
+    "ufs": [
+     "RS"
+    ],
+    "estados": "Rio Grande do Sul",
+    "site": "https://www.cressrs.org.br/",
+    "consulta": "https://cress-rs.implanta.net.br/servicosonline/Publico/ConsultaInscritos",
+    "verificacao": "Aberto",
+    "obs": "Plataforma ServiçosOnline; até 100 resultados"
+   },
+   {
+    "nome": "CRESS-PR",
+    "ufs": [
+     "PR"
+    ],
+    "estados": "Paraná",
+    "site": "https://cresspr.org.br/",
+    "consulta": "https://cress-pr.implanta.net.br/servicosonline/Publico/ConsultaInscritos",
+    "verificacao": "Aberto",
+    "obs": "Plataforma ServiçosOnline; até 100 resultados"
+   },
+   {
+    "nome": "CRESS-SC",
+    "ufs": [
+     "SC"
+    ],
+    "estados": "Santa Catarina",
+    "site": "https://cress-sc.org.br/",
+    "consulta": "https://cress-sc.implanta.net.br/servicosonline/Publico/ConsultaInscritos",
+    "verificacao": "Aberto",
+    "obs": "Plataforma ServiçosOnline; até 100 resultados"
+   },
+   {
+    "nome": "CRESS-PB",
     "ufs": [
      "PB"
     ],
     "estados": "Paraíba",
-    "site": "https://creci-pb.gov.br",
-    "consulta": "",
-    "verificacao": "Não verificado",
-    "obs": "Timeout"
+    "site": "https://cresspb.org.br/",
+    "consulta": "https://cress-pb.implanta.net.br/servicosonline/Publico/ConsultaInscritos",
+    "verificacao": "Aberto",
+    "obs": "Plataforma ServiçosOnline; até 100 resultados"
    },
    {
-    "nome": "CRECI-AM/RR (18ª)",
+    "nome": "CRESS-RN",
     "ufs": [
-     "AM",
-     "RR"
+     "RN"
     ],
-    "estados": "Amazonas, Roraima",
+    "estados": "Rio Grande do Norte",
     "site": "",
-    "consulta": "",
-    "verificacao": "Não verificado",
-    "obs": ""
-   }
-  ],
-  "CRESS": [
+    "consulta": "https://cress-rn.implanta.net.br/servicosonline/Publico/ConsultaInscritos",
+    "verificacao": "Aberto",
+    "obs": "Plataforma ServiçosOnline; até 100 resultados"
+   },
+   {
+    "nome": "CRESS-AM",
+    "ufs": [
+     "AM"
+    ],
+    "estados": "Amazonas",
+    "site": "https://cress-am.org.br/",
+    "consulta": "https://cress-am.implanta.net.br/servicosonline/Publico/ConsultaInscritos",
+    "verificacao": "Aberto",
+    "obs": "Plataforma ServiçosOnline; até 100 resultados"
+   },
+   {
+    "nome": "CRESS-AL",
+    "ufs": [
+     "AL"
+    ],
+    "estados": "Alagoas",
+    "site": "https://cress16.org.br/",
+    "consulta": "https://cress-al.implanta.net.br/servicosonline/Publico/ConsultaInscritos",
+    "verificacao": "Aberto",
+    "obs": "Plataforma ServiçosOnline; até 100 resultados"
+   },
+   {
+    "nome": "CRESS-ES",
+    "ufs": [
+     "ES"
+    ],
+    "estados": "Espírito Santo",
+    "site": "http://www.cress-es.org.br/",
+    "consulta": "https://cress-es.implanta.net.br/servicosonline/Publico/ConsultaInscritos",
+    "verificacao": "Aberto",
+    "obs": "Plataforma ServiçosOnline; até 100 resultados"
+   },
+   {
+    "nome": "CRESS-SE",
+    "ufs": [
+     "SE"
+    ],
+    "estados": "Sergipe",
+    "site": "https://cress-se.org.br/",
+    "consulta": "https://cress-se.implanta.net.br/servicosonline/Publico/ConsultaInscritos",
+    "verificacao": "Aberto",
+    "obs": "Plataforma ServiçosOnline; até 100 resultados"
+   },
    {
     "nome": "CRESS-GO",
     "ufs": [
      "GO"
     ],
     "estados": "Goiás",
-    "site": "http://www.cressgoias.org.br",
-    "consulta": "",
-    "verificacao": "Não verificado",
-    "obs": "Robots bloqueou"
+    "site": "",
+    "consulta": "https://cress-go.implanta.net.br/servicosonline/Publico/ConsultaInscritos",
+    "verificacao": "Aberto",
+    "obs": "Plataforma ServiçosOnline; até 100 resultados"
+   },
+   {
+    "nome": "CRESS-MT",
+    "ufs": [
+     "MT"
+    ],
+    "estados": "Mato Grosso",
+    "site": "https://www.cressmt.org.br/",
+    "consulta": "https://cress-mt.implanta.net.br/servicosonline/Publico/ConsultaInscritos",
+    "verificacao": "Aberto",
+    "obs": "Plataforma ServiçosOnline; até 100 resultados; site do CRESS-MT está suspenso"
+   },
+   {
+    "nome": "CRESS-MS",
+    "ufs": [
+     "MS"
+    ],
+    "estados": "Mato Grosso do Sul",
+    "site": "",
+    "consulta": "https://cress-ms.implanta.net.br/servicosonline/Publico/ConsultaInscritos",
+    "verificacao": "Aberto",
+    "obs": "Plataforma ServiçosOnline; até 100 resultados"
+   },
+   {
+    "nome": "CRESS-PI",
+    "ufs": [
+     "PI"
+    ],
+    "estados": "Piauí",
+    "site": "",
+    "consulta": "https://cress-pi.implanta.net.br/servicosonline/Publico/ConsultaInscritos",
+    "verificacao": "Aberto",
+    "obs": "Plataforma ServiçosOnline; até 100 resultados"
+   },
+   {
+    "nome": "CRESS-RO",
+    "ufs": [
+     "RO"
+    ],
+    "estados": "Rondônia",
+    "site": "https://www.cress-ro.org.br/",
+    "consulta": "https://cress-ro.implanta.net.br/servicosonline/Publico/ConsultaInscritos",
+    "verificacao": "Aberto",
+    "obs": "Plataforma ServiçosOnline; até 100 resultados"
+   },
+   {
+    "nome": "CRESS-AP",
+    "ufs": [
+     "AP"
+    ],
+    "estados": "Amapá",
+    "site": "",
+    "consulta": "https://cress-ap.implanta.net.br/servicosonline/Publico/ConsultaInscritos",
+    "verificacao": "Visto",
+    "obs": "Plataforma ServiçosOnline; até 100 resultados"
+   },
+   {
+    "nome": "CRESS-TO",
+    "ufs": [
+     "TO"
+    ],
+    "estados": "Tocantins",
+    "site": "",
+    "consulta": "https://cress-to.implanta.net.br/servicosonline/Publico/ConsultaInscritos",
+    "verificacao": "Aberto",
+    "obs": "Plataforma ServiçosOnline; até 100 resultados"
+   },
+   {
+    "nome": "CRESS-AC",
+    "ufs": [
+     "AC"
+    ],
+    "estados": "Acre",
+    "site": "",
+    "consulta": "https://cress-ac.implanta.net.br/servicosonline/Publico/ConsultaInscritos",
+    "verificacao": "Aberto",
+    "obs": "Plataforma ServiçosOnline; até 100 resultados"
+   },
+   {
+    "nome": "CRESS-RR",
+    "ufs": [
+     "RR"
+    ],
+    "estados": "Roraima",
+    "site": "https://www.cress-rr.org.br/",
+    "consulta": "https://cress-rr.implanta.net.br/servicosonline/Publico/ConsultaInscritos",
+    "verificacao": "Aberto",
+    "obs": "Plataforma ServiçosOnline; até 100 resultados"
    }
   ],
   "CRC": [
@@ -2052,6 +2394,404 @@
     "consulta": "https://crcto.cfc.org.br/spwto/consultacadastral/Principal.aspx",
     "verificacao": "Visto",
     "obs": "Sistema SPW"
+   }
+  ],
+  "CREA": [
+   {
+    "nome": "CREA-AC",
+    "ufs": [
+     "AC"
+    ],
+    "estados": "Acre",
+    "site": "https://creaac.org.br/",
+    "consulta": "https://crea-ac.sitac.com.br/app/view/sight/externo?form=PesquisarProfissionalEmpresa",
+    "verificacao": "Visto",
+    "obs": "SITAC"
+   },
+   {
+    "nome": "CREA-AL",
+    "ufs": [
+     "AL"
+    ],
+    "estados": "Alagoas",
+    "site": "https://www.crea-al.org.br/",
+    "consulta": "https://crea-al.sitac.com.br/app/view/sight/externo?form=PesquisarProfissionalEmpresa",
+    "verificacao": "Visto",
+    "obs": "SITAC"
+   },
+   {
+    "nome": "CREA-AM",
+    "ufs": [
+     "AM"
+    ],
+    "estados": "Amazonas",
+    "site": "https://www.crea-am.org.br/src/site/",
+    "consulta": "https://crea-am.sitac.com.br/app/view/sight/externo?form=PesquisarProfissionalEmpresa",
+    "verificacao": "Visto",
+    "obs": "SITAC; visto só em busca"
+   },
+   {
+    "nome": "CREA-AP",
+    "ufs": [
+     "AP"
+    ],
+    "estados": "Amapá",
+    "site": "http://www.creaap.org.br/",
+    "consulta": "https://crea-ap.sitac.com.br/app/view/sight/externo.php?form=PesquisarProfissionalEmpresa",
+    "verificacao": "Visto",
+    "obs": "SITAC"
+   },
+   {
+    "nome": "CREA-BA",
+    "ufs": [
+     "BA"
+    ],
+    "estados": "Bahia",
+    "site": "https://www.creaba.org.br/",
+    "consulta": "https://crea-ba.sitac.com.br/app/view/sight/externo.php?form=PesquisarProfissionalEmpresa",
+    "verificacao": "Visto",
+    "obs": "SITAC"
+   },
+   {
+    "nome": "CREA-CE",
+    "ufs": [
+     "CE"
+    ],
+    "estados": "Ceará",
+    "site": "http://www.creace.org.br/",
+    "consulta": "https://consultaprofissional.confea.org.br",
+    "verificacao": "Aberto",
+    "obs": "Sem consulta própria; usa a nacional do CONFEA"
+   },
+   {
+    "nome": "CREA-DF",
+    "ufs": [
+     "DF"
+    ],
+    "estados": "Distrito Federal",
+    "site": "https://www.creadf.org.br/",
+    "consulta": "https://corp.creadf.org.br/pf/publica/consulta",
+    "verificacao": "Visto",
+    "obs": "Pode ter captcha"
+   },
+   {
+    "nome": "CREA-ES",
+    "ufs": [
+     "ES"
+    ],
+    "estados": "Espírito Santo",
+    "site": "https://portal.creaes.org.br/",
+    "consulta": "https://www.creaes.org.br/creaes/SERVI%C3%87OS/ConsultasP%C3%BAblicas.aspx",
+    "verificacao": "Visto",
+    "obs": "Página que reúne as consultas públicas"
+   },
+   {
+    "nome": "CREA-GO",
+    "ufs": [
+     "GO"
+    ],
+    "estados": "Goiás",
+    "site": "https://www.creago.org.br",
+    "consulta": "https://consultaprofissional.confea.org.br",
+    "verificacao": "Visto",
+    "obs": "Sem consulta própria de pessoa física; usa a nacional do CONFEA"
+   },
+   {
+    "nome": "CREA-MA",
+    "ufs": [
+     "MA"
+    ],
+    "estados": "Maranhão",
+    "site": "https://www.creama.org.br/",
+    "consulta": "https://crea-ma.sitac.com.br/app/view/sight/externo.php?form=PesquisarProfissionalEmpresa",
+    "verificacao": "Visto",
+    "obs": "SITAC"
+   },
+   {
+    "nome": "CREA-MG",
+    "ufs": [
+     "MG"
+    ],
+    "estados": "Minas Gerais",
+    "site": "http://www.crea-mg.org.br/",
+    "consulta": "https://crea-mg.sitac.com.br/app/view/sight/externo.php?form=PesquisarProfissionalEmpresa",
+    "verificacao": "Visto",
+    "obs": "SITAC"
+   },
+   {
+    "nome": "CREA-MS",
+    "ufs": [
+     "MS"
+    ],
+    "estados": "Mato Grosso do Sul",
+    "site": "https://www.creams.org.br/",
+    "consulta": "https://ecrea.creams.org.br/ConsultaPublica/ProfissionalSistema",
+    "verificacao": "Visto",
+    "obs": "Exige ao menos um filtro"
+   },
+   {
+    "nome": "CREA-MT",
+    "ufs": [
+     "MT"
+    ],
+    "estados": "Mato Grosso",
+    "site": "https://www.crea-mt.org.br/portal/",
+    "consulta": "https://ecrea.crea-mt.org.br/ConsultaPublica/ProfissionalSistema",
+    "verificacao": "Visto",
+    "obs": ""
+   },
+   {
+    "nome": "CREA-PA",
+    "ufs": [
+     "PA"
+    ],
+    "estados": "Pará",
+    "site": "https://creapa.org.br/",
+    "consulta": "https://crea-pa.sitac.com.br/app/view/sight/externo.php?form=PesquisarProfissionalEmpresa",
+    "verificacao": "Visto",
+    "obs": "SITAC"
+   },
+   {
+    "nome": "CREA-PB",
+    "ufs": [
+     "PB"
+    ],
+    "estados": "Paraíba",
+    "site": "https://creapb.org.br/",
+    "consulta": "https://crea-pb.sitac.com.br/app/view/sight/externo.php?form=PesquisarProfissionalEmpresa",
+    "verificacao": "Visto",
+    "obs": "SITAC"
+   },
+   {
+    "nome": "CREA-PE",
+    "ufs": [
+     "PE"
+    ],
+    "estados": "Pernambuco",
+    "site": "http://www.creape.org.br/",
+    "consulta": "https://crea-pe.sitac.com.br/app/view/sight/externo.php?form=PesquisarProfissionalEmpresa",
+    "verificacao": "Visto",
+    "obs": "SITAC"
+   },
+   {
+    "nome": "CREA-PI",
+    "ufs": [
+     "PI"
+    ],
+    "estados": "Piauí",
+    "site": "https://www.crea-pi.org.br/",
+    "consulta": "https://consultaprofissional.confea.org.br",
+    "verificacao": "Visto",
+    "obs": "Consulta própria exige login gov.br; usa a nacional do CONFEA"
+   },
+   {
+    "nome": "CREA-PR",
+    "ufs": [
+     "PR"
+    ],
+    "estados": "Paraná",
+    "site": "https://www.crea-pr.org.br/ws/",
+    "consulta": "https://www.crea-pr.org.br/portaldeservicos/consultar-empresas-registradas/",
+    "verificacao": "Visto",
+    "obs": "Página de instruções da consulta"
+   },
+   {
+    "nome": "CREA-RJ",
+    "ufs": [
+     "RJ"
+    ],
+    "estados": "Rio de Janeiro",
+    "site": "http://www.crea-rj.org.br/",
+    "consulta": "https://www.crea-rj.org.br/consultapublica/",
+    "verificacao": "Visto",
+    "obs": ""
+   },
+   {
+    "nome": "CREA-RN",
+    "ufs": [
+     "RN"
+    ],
+    "estados": "Rio Grande do Norte",
+    "site": "https://crea-rn.org.br/",
+    "consulta": "https://crea-rn.sitac.com.br/app/view/sight/externo.php?form=PesquisarProfissionalEmpresa",
+    "verificacao": "Visto",
+    "obs": "SITAC"
+   },
+   {
+    "nome": "CREA-RO",
+    "ufs": [
+     "RO"
+    ],
+    "estados": "Rondônia",
+    "site": "http://www.crearo.org.br/",
+    "consulta": "https://consultaprofissional.confea.org.br",
+    "verificacao": "Visto",
+    "obs": "Sem consulta própria achada; usa a nacional do CONFEA"
+   },
+   {
+    "nome": "CREA-RR",
+    "ufs": [
+     "RR"
+    ],
+    "estados": "Roraima",
+    "site": "https://crearr.org.br/",
+    "consulta": "https://consultaprofissional.confea.org.br",
+    "verificacao": "Visto",
+    "obs": "Sem consulta própria achada; usa a nacional do CONFEA"
+   },
+   {
+    "nome": "CREA-RS",
+    "ufs": [
+     "RS"
+    ],
+    "estados": "Rio Grande do Sul",
+    "site": "http://www.crea-rs.org.br/site/",
+    "consulta": "https://consultaprofissional.confea.org.br",
+    "verificacao": "Visto",
+    "obs": "Só empresas no regional; usa a nacional do CONFEA"
+   },
+   {
+    "nome": "CREA-SC",
+    "ufs": [
+     "SC"
+    ],
+    "estados": "Santa Catarina",
+    "site": "https://portal.crea-sc.org.br/",
+    "consulta": "https://consultaprofissional.confea.org.br",
+    "verificacao": "Visto",
+    "obs": "Usa a nacional do CONFEA"
+   },
+   {
+    "nome": "CREA-SE",
+    "ufs": [
+     "SE"
+    ],
+    "estados": "Sergipe",
+    "site": "http://www.crea-se.org.br/",
+    "consulta": "https://crea-se.sitac.com.br//publico/",
+    "verificacao": "Visto",
+    "obs": "Visto só no resumo da busca"
+   },
+   {
+    "nome": "CREA-SP",
+    "ufs": [
+     "SP"
+    ],
+    "estados": "São Paulo",
+    "site": "http://www.creasp.org.br/",
+    "consulta": "https://www.creasp.org.br/servico/consulta-publica-de-registrados/",
+    "verificacao": "Visto",
+    "obs": ""
+   },
+   {
+    "nome": "CREA-TO",
+    "ufs": [
+     "TO"
+    ],
+    "estados": "Tocantins",
+    "site": "http://www.crea-to.org.br/",
+    "consulta": "https://consultaprofissional.confea.org.br",
+    "verificacao": "Visto",
+    "obs": "Sem consulta própria achada; usa a nacional do CONFEA"
+   }
+  ],
+  "CRBM": [
+   {
+    "nome": "CRBM-1",
+    "ufs": [
+     "SP",
+     "MS"
+    ],
+    "estados": "São Paulo, Mato Grosso do Sul",
+    "site": "https://crbm1.gov.br",
+    "consulta": "https://crbm-01.implanta.net.br/ServicosOnline/Publico/ConsultaInscritos/",
+    "verificacao": "Visto",
+    "obs": ""
+   },
+   {
+    "nome": "CRBM-2",
+    "ufs": [
+     "PE",
+     "BA",
+     "CE",
+     "MA",
+     "PB",
+     "PI",
+     "RN",
+     "SE",
+     "AL"
+    ],
+    "estados": "Pernambuco, Bahia, Ceará, Maranhão, Paraíba, Piauí, Rio Grande do Norte, Sergipe, Alagoas",
+    "site": "https://crbm2.gov.br",
+    "consulta": "https://crbm-02.implanta.net.br/servicosOnline/Publico/ConsultaInscritos/",
+    "verificacao": "Visto",
+    "obs": ""
+   },
+   {
+    "nome": "CRBM-3",
+    "ufs": [
+     "GO",
+     "DF",
+     "MG",
+     "MT",
+     "TO"
+    ],
+    "estados": "Goiás, Distrito Federal, Minas Gerais, Mato Grosso, Tocantins",
+    "site": "https://crbm3.gov.br",
+    "consulta": "https://crbm-03.implanta.net.br/servicosonline/Publico/ConsultaInscritos/",
+    "verificacao": "Visto",
+    "obs": ""
+   },
+   {
+    "nome": "CRBM-4",
+    "ufs": [
+     "PA",
+     "AM",
+     "AP",
+     "AC",
+     "RO",
+     "RR"
+    ],
+    "estados": "Pará, Amazonas, Amapá, Acre, Rondônia, Roraima",
+    "site": "https://www.crbm4.org.br",
+    "consulta": "https://crbm-04.implanta.net.br/ServicosOnline/Publico/ConsultaInscritos/",
+    "verificacao": "Visto",
+    "obs": ""
+   },
+   {
+    "nome": "CRBM-5",
+    "ufs": [
+     "RS",
+     "SC"
+    ],
+    "estados": "Rio Grande do Sul, Santa Catarina",
+    "site": "https://crbm5.gov.br",
+    "consulta": "https://crbm-05.implanta.net.br/servicosonline/Publico/ConsultaInscritos/",
+    "verificacao": "Visto",
+    "obs": ""
+   },
+   {
+    "nome": "CRBM-6",
+    "ufs": [
+     "PR"
+    ],
+    "estados": "Paraná",
+    "site": "https://crbm6.gov.br",
+    "consulta": "https://crbm-06.implanta.net.br/ServicosOnline/Publico/ConsultaInscritos/",
+    "verificacao": "Visto",
+    "obs": ""
+   },
+   {
+    "nome": "CRBM-7",
+    "ufs": [
+     "RJ",
+     "ES"
+    ],
+    "estados": "Rio de Janeiro, Espírito Santo",
+    "site": "",
+    "consulta": "",
+    "verificacao": "Não verificado",
+    "obs": "Site do CRBM-7 não confirmado; use a consulta nacional do CFBM"
    }
   ]
  }
