@@ -1,11 +1,13 @@
 {
-  "data_base": "2026-09-18",
-  "alterado_em": "18/09/2026 12:08",
-  "alterado_em_iso": "2026-09-18T12:08:44-03:00",
+  "data_base": "2026-11-11",
+  "alterado_em": "11/11/2026 21:30",
+  "alterado_em_iso": "2026-11-11T21:30:10-03:00",
   "adicionadas": [
-    "PAGALEVE INSTITUICAO DE PAGAMENTO LTDA. (PAGALEVE IP LTDA.)"
+    "ATLAS BRASIL ARQ INSTITUICAO DE PAGAMENTO LTDA (ARQ IP LTDA, ARQ)"
   ],
-  "removidas": [],
+  "removidas": [
+    "CLARO PAY S.A. - INSTITUIÇÃO DE PAGAMENTO (CLARO PAY S.A. IP)"
+  ],
   "total_adicionadas": 1,
-  "total_removidas": 0
+  "total_removidas": 1
 }
