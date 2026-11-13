@@ -1,13 +1,11 @@
 {
-  "data_base": "2026-11-11",
-  "alterado_em": "11/11/2026 21:30",
-  "alterado_em_iso": "2026-11-11T21:30:10-03:00",
+  "data_base": "2026-11-13",
+  "alterado_em": "13/11/2026 15:45",
+  "alterado_em_iso": "2026-11-13T15:45:57-03:00",
   "adicionadas": [
-    "ATLAS BRASIL ARQ INSTITUICAO DE PAGAMENTO LTDA (ARQ IP LTDA, ARQ)"
+    "PAG.AI INSTITUICAO DE PAGAMENTO S.A. (PAG.AÍ IP S.A.)"
   ],
-  "removidas": [
-    "CLARO PAY S.A. - INSTITUIÇÃO DE PAGAMENTO (CLARO PAY S.A. IP)"
-  ],
+  "removidas": [],
   "total_adicionadas": 1,
-  "total_removidas": 1
+  "total_removidas": 0
 }

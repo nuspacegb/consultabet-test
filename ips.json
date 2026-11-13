@@ -1,15 +1,15 @@
 {
   "meta": {
     "fonte": "https://dadosabertos.bcb.gov.br/dataset/dados-cadastrais-de-entidades-autorizadas",
-    "api": "https://olinda.bcb.gov.br/olinda/servico/BcBase/versao/v2/odata/EntidadesSupervisionadas(dataBase=@dataBase)?@dataBase='11/12/2026'&$format=json&$top=5000&$filter=descricaoTipoEntidadeSupervisionada%20eq%20'Institui%C3%A7%C3%A3o%20de%20Pagamento'",
-    "data_base": "2026-11-12",
-    "verificado_em": "12/11/2026 16:07",
-    "verificado_em_iso": "2026-11-12T16:07:52-03:00",
-    "total": 212,
+    "api": "https://olinda.bcb.gov.br/olinda/servico/BcBase/versao/v2/odata/EntidadesSupervisionadas(dataBase=@dataBase)?@dataBase='11/13/2026'&$format=json&$top=5000&$filter=descricaoTipoEntidadeSupervisionada%20eq%20'Institui%C3%A7%C3%A3o%20de%20Pagamento'",
+    "data_base": "2026-11-13",
+    "verificado_em": "13/11/2026 15:45",
+    "verificado_em_iso": "2026-11-13T15:45:57-03:00",
+    "total": 213,
     "por_status": {
       "autorizada": 193,
       "cancelada": 14,
-      "autorizada_sem_atividade": 5
+      "autorizada_sem_atividade": 6
     },
     "escopo": "Apenas Instituições de Pagamento supervisionadas pelo BCB"
   },
@@ -1755,6 +1755,19 @@
       "municipio": "São Paulo",
       "uf": "São Paulo",
       "codigo_bacen": "Z9052261"
+    },
+    {
+      "cnpj": "23.612.423/0001-68",
+      "cnpj_raiz": "23612423",
+      "razao_social": "PAG.AI INSTITUICAO DE PAGAMENTO S.A.",
+      "nomes": "PAG.AÍ IP S.A.",
+      "tipo": "Instituição de Pagamento",
+      "natureza_juridica": "Sociedade Anônima de Capital Fechado",
+      "situacao": "Autorizada sem Atividade",
+      "status": "autorizada_sem_atividade",
+      "municipio": "Eusébio",
+      "uf": "Ceará",
+      "codigo_bacen": "Z8983029"
     },
     {
       "cnpj": "42.563.672/0001-55",
