@@ -1,13 +1,13 @@
 {
   "meta": {
     "fonte": "https://dadosabertos.bcb.gov.br/dataset/dados-cadastrais-de-entidades-autorizadas",
-    "api": "https://olinda.bcb.gov.br/olinda/servico/BcBase/versao/v2/odata/EntidadesSupervisionadas(dataBase=@dataBase)?@dataBase='11/25/2026'&$format=json&$top=5000&$filter=descricaoTipoEntidadeSupervisionada%20eq%20'Institui%C3%A7%C3%A3o%20de%20Pagamento'",
-    "data_base": "2026-11-25",
-    "verificado_em": "25/11/2026 17:39",
-    "verificado_em_iso": "2026-11-25T17:39:19-03:00",
-    "total": 213,
+    "api": "https://olinda.bcb.gov.br/olinda/servico/BcBase/versao/v2/odata/EntidadesSupervisionadas(dataBase=@dataBase)?@dataBase='11/27/2026'&$format=json&$top=5000&$filter=descricaoTipoEntidadeSupervisionada%20eq%20'Institui%C3%A7%C3%A3o%20de%20Pagamento'",
+    "data_base": "2026-11-27",
+    "verificado_em": "27/11/2026 17:18",
+    "verificado_em_iso": "2026-11-27T17:18:30-03:00",
+    "total": 212,
     "por_status": {
-      "autorizada": 194,
+      "autorizada": 193,
       "cancelada": 14,
       "autorizada_sem_atividade": 5
     },
@@ -832,19 +832,6 @@
       "municipio": "Barueri",
       "uf": "São Paulo",
       "codigo_bacen": "Z9403653"
-    },
-    {
-      "cnpj": "11.414.839/0001-92",
-      "cnpj_raiz": "11414839",
-      "razao_social": "EAGLE INSTITUICAO DE PAGAMENTO LTDA.",
-      "nomes": "EAGLE IP LTDA., EAGLE IP",
-      "tipo": "Instituição de Pagamento",
-      "natureza_juridica": "Sociedade Empresária Limitada",
-      "situacao": "Autorizada em Atividade",
-      "status": "autorizada",
-      "municipio": "Porto Alegre",
-      "uf": "Rio Grande do Sul",
-      "codigo_bacen": "Z9166311"
     },
     {
       "cnpj": "21.018.182/0001-06",
