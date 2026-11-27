@@ -1,11 +1,11 @@
 {
-  "data_base": "2026-11-17",
-  "alterado_em": "17/11/2026 17:00",
-  "alterado_em_iso": "2026-11-17T17:00:15-03:00",
-  "adicionadas": [
-    "PAG.AI INSTITUICAO DE PAGAMENTO S.A. (PAG.AÍ IP S.A.)"
+  "data_base": "2026-11-27",
+  "alterado_em": "27/11/2026 17:18",
+  "alterado_em_iso": "2026-11-27T17:18:30-03:00",
+  "adicionadas": [],
+  "removidas": [
+    "EAGLE INSTITUICAO DE PAGAMENTO LTDA. (EAGLE IP LTDA., EAGLE IP)"
   ],
-  "removidas": [],
-  "total_adicionadas": 1,
-  "total_removidas": 0
+  "total_adicionadas": 0,
+  "total_removidas": 1
 }
